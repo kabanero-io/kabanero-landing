@@ -1,0 +1,205 @@
+/******************************************************************************
+ *
+ * Copyright 2019 IBM Corporation and others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ ******************************************************************************/
+
+
+
+#page_title {
+    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
+    font-size: 35px;
+    color: #24243B;
+    letter-spacing: 0;
+}
+
+html, body, main {  
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#toc-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    position: fixed;  /* keep the TOC heading sticky */
+    z-index: 1;
+}
+
+.overview_button {
+    font-size: 12px;
+}
+
+#toc-column ul {
+    padding: 0;
+    margin: 0;
+}
+
+#toc-column li {
+    letter-spacing: 0;
+    line-height: 18px;
+    list-style: none;
+    font-weight: 300;
+    color: #000000;
+    font-size: 18px;
+    word-wrap: break-word;
+    padding: 7px 30px 7px 10px;
+}
+
+.toc-selected {
+    background:#fdf2ea;
+    border-left: 8px solid #C438042B; 
+    font-weight: 500 !important; 
+    color: #666666 !important;
+    margin-right: -30px;
+    padding-right: 60px !important;
+}
+
+#toc-column ul li a[href]:hover, #toc-column ul li div[href]:hover {
+    color: #F4914D;
+}
+
+#toc-container {
+    padding-left: 30px;
+}
+
+#config-content, #feature_content, #command_content, #general-content {
+    padding-right: 0;
+    padding-left: 0;
+    background: #FFFFFF;
+    box-shadow: -2px 2px 9px -1px rgba(63,70,89,0.22);
+}
+
+#feature_title, #common_feature_title, #config-title, #command_title, #general_title { /* for weird reason, the css for config-title is not picked up */
+    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
+    font-size: 35px;
+    letter-spacing: 0;
+}
+
+/* hide scrollbar in chrome, firefox, safari, and IE */
+#feature_content, #command_content, #general-content, #toc-column {
+    overflow: hidden;
+    height: 100%;
+}
+
+#common_feature, #common_feature_content {
+    height: 100%;
+}
+
+#toc-inner {
+    height: 100%;
+    overflow-y: scroll;
+    margin-right: -50px;
+    padding-right: 50px;
+}
+
+#content {
+    max-height:750px;
+    height: 100%;
+    overflow-y: scroll;
+    margin-right: -15px;  /* hide the scroll bar */
+    padding-right: 50px;
+}
+
+@media (max-width: 767.98px) {
+    #toc-title {
+        position: static;
+        width: 100%;
+    }
+
+    #toc-container {
+        padding-top: 0px;
+    }
+
+    #config-content, #feature_content, #command_content {
+        display: none;
+    }
+
+    #breadcrumb_row {
+        background-color: #24243A;
+    }
+
+    #breadcrumb-hamburger {
+        background-color: white;
+        width: 40px;
+        height: 100%; 
+        border: none;
+        margin: 4px 0px 7px 0px;
+        padding: 9px 10px;
+        display: none;
+    }
+
+    #breadcrumb-hamburger:focus {
+        outline: none;
+    }
+    
+    #breadcrumb-hamburger:not(.collapsed) {
+        border: none;
+    }
+    
+    #breadcrumb-hamburger:not(.collapsed) > .sr-only, #breadcrumb-hamburger:not(.collapsed) > .icon-bar {
+        display: none;
+    }
+    
+    #breadcrumb-hamburger:hover .icon-bar {
+        background-color: slategray;
+    }
+    
+    #breadcrumb-hamburger .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+        border: 0;
+    }
+    
+    #breadcrumb-hamburger .icon-bar {
+        background-color: #c8d6fb;
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 1px;
+    }
+
+    #breadcrumb-hamburger .icon-bar+.icon-bar {
+        margin-top: 4px;
+    }   
+
+    .breadcrumb-hamburger-nav {
+        background-color: white;
+        text-align: center;
+    }
+
+    .breadcrumb-hamburger-nav:hover {
+        cursor: pointer;
+    }
+
+    #breadcrumb-hamburger-title {
+        display: none;
+    }
+}
+
+@media (min-width: 768px) {
+    #toc-column, #config-content, #feature_content, #command_content, #general-content {
+        display: block !important;
+    }  
+    
+    .breadcrumb-hamburger-nav {
+        display: none !important; 
+    }
+}
