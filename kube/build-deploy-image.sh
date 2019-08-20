@@ -3,7 +3,7 @@
 # 2. Upload the image to our repository if registry env variables are defined
 set -e
 
-DOCKER_IMAGE_NAME=kabanero-site
+DOCKER_IMAGE_NAME=kabanero-landing
 NAMESPACE=kabanero
 
 CUR_DIR="$(cd $(dirname $0) && pwd)"
