@@ -90,37 +90,14 @@ public final class Constants {
         "}"
     );
 
-    public static final String PROJECT_NAVIGATION_JS = String.join(
-        "",
-        "(function() {",
-            "window.OPENSHIFT_CONSTANTS.PROJECT_NAVIGATION.push({",
-                "label: \"Kabanero\",",
-                "iconClass: \"icon-kabanero-launcher\",",
-                "href: \"" + Constants.LANDING_URL + "\",",
-            "});",
-        "}());"
-    );
-
-     public static final String PROJECT_NAVIGATION_2_JS = String.join(
+    public static final String PROJECT_NAVIGATION_2_JS = String.join(
         "",
         "(function() {",
             "window.OPENSHIFT_CONSTANTS.PROJECT_NAVIGATION.push({",
                 "label: 'Kabanero',",
                 "iconClass: 'icon-kabanero-navigation',",
-                "secondaryNavSections: [{",
-                   "items: [",
-                       "{",
-                         "label: 'Getting Started',",
-                         "href: '" + Constants.LANDING_URL + "'",
-                        "},",
-                       "{",
-                         "label: 'Tekton Dashboard',",
-                         "href: '" + Constants.TEKTON_DASHBOARD_URL + "'",
-                        "}",
-                   "]",
-                "}]",
+                "href: \"" + Constants.LANDING_URL + "\",",
             "});",
         "}());"
-    );   
-
+    );
 }
