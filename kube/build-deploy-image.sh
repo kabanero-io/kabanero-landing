@@ -6,7 +6,7 @@ set -e
 CUR_DIR="$(cd $(dirname $0) && pwd)"
 
 if [ -z "$DOCKER_IMAGE_NAME" ]; then
-    DOCKER_IMAGE_NAME=kabanero-landing
+    DOCKER_IMAGE_NAME=landing
 fi
 
 if [ -z "$NAMESPACE" ]; then
