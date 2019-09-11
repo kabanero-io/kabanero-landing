@@ -21,6 +21,7 @@
 //declare variables
 $color-ibm:#3d70b2;
 $color-ibm-dark:#152935;
+$color-kabanero:#C43804;
 
 html, body{
     height: 100%;
@@ -171,7 +172,7 @@ main {
 }
 
 #header-title-row {
-    background-color: #000000;
+    background-color:$color-kabanero;
     height: 60px;
 }
 

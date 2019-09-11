@@ -22,7 +22,7 @@ package io.kabanero.kubernetes;
 import java.util.Collection;
 import java.util.HashMap;
 
-import io.icpa.website.Constants;
+import io.kabanero.website.Constants;
 import io.kabanero.kubernetes.KabaneroClient;
 
 public class KabaneroTools {

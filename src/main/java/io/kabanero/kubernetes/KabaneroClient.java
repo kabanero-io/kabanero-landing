@@ -1,7 +1,7 @@
 package io.kabanero.kubernetes;
 
-import io.icpa.website.Constants;
-import io.icpa.website.ICPAInstance;
+import io.kabanero.website.Constants;
+import io.kabanero.website.Instance;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
@@ -93,7 +93,7 @@ public class KabaneroClient {
       return client;
   }
   
-  public static ICPAInstance getICPAInstance() throws IOException, ApiException, GeneralSecurityException {
+  public static Instance getInstance() throws IOException, ApiException, GeneralSecurityException {
       ApiClient client = KabaneroClient.getApiClient();
       
       String namespace = "kabanero";
@@ -126,8 +126,8 @@ public class KabaneroClient {
       
       String clusterName = null;
       
-      ICPAInstance icpaInstance = new ICPAInstance(username, instanceName, date, collectionHub, clusterName, activeCollections);
-      return icpaInstance;
+      Instance Instance = new Instance(username, instanceName, date, collectionHub, clusterName, activeCollections);
+      return Instance;
   }
 
   public static void discoverTools(KabaneroTools tools) throws IOException, ApiException, GeneralSecurityException {

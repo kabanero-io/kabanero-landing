@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.icpa.website;
+package io.kabanero.website;
 
 import java.util.Collection;
 
@@ -38,15 +38,15 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<ICPAInstance> getAllInstances() {
-        return ICPAInstances.getInstance().getAllInstances();
+    public Collection<Instance> getAllInstances() {
+        return Instances.getInstance().getAllInstances();
     }
 
     @GET
     @Path("/{instanceName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAInstance(@PathParam("instanceName") String instanceName) {
-        ICPAInstance wantedInstance = ICPAInstances.getInstance().getICPAInstance(instanceName);
+        Instance wantedInstance = Instances.getInstance().getInstance(instanceName);
         if(wantedInstance == null){
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }

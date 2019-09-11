@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.icpa.website;
+package io.kabanero.website;
 
 import java.util.Collection;
 

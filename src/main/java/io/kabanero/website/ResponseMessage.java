@@ -17,7 +17,7 @@
  *
  ******************************************************************************/
 
-package io.icpa.website;
+package io.kabanero.website;
 
 public class ResponseMessage {
 
