@@ -2,37 +2,66 @@
 layout: default
 home: true
 js:
+- instance-common
 - home
 css:
 - home
 - blog
-seo-title: Kabanero
+seo-title: Cloud Pak for Applications
 ---
-<!-- INTRO -->
-<div class="container">
+<!-- Welcome header -->
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md text-center">
-            <div id="intro-content">
-                <img src="/img/kabanero-final.svg" class="img-fluid" id="kabanero-img" alt="boxes">
+        <div class="col-md-6">
+            <!-- Welcome body -->
+            <div id="welcome-body">
+                <div class="row">
+                    <div class="col-md">
+                        <h2>Welcome<span id="username"></span>!</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <p>
+                            You have successfully installed Kabanero! Use this dashboard to view
+                            information about your <a href="/instance">instance</a>.
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <p>Please see <a href="https://www.ibm.com/support/knowledgecenter/SSCSJL/settingup.html">documentation</a> for the next steps in using Kabanero Enterprise in your organization.</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-            <div class="col-md text-center">
-                <h2 id="kabanero-welcome">Welcome to Kabanero!</h2>
+        <!-- Learn More Boxes -->
+        <div class="col-md learn-more-col offset-md-1">
+            <div class="row">
+                <div class="col-md">
+                    <div class="learn-more-box">
+                        <p>Need more information about Kabanero?</p>
+                        <a class="learn-more-link" target="_blank" href="https://kabanero.io">Learn More</a>
+                    </div>
+                </div>
             </div>
-        </div>
-    <div class="row">
-        <div class="col-md d-flex justify-content-center text-center">
-            <p id="visit-text"> Visit 
-                <a target="_blank" href="https://kabanero.io">Kabanero.io</a>
-                to learn more about next steps in managing your collections, and having your team install our developer tools.
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md d-flex justify-content-center">
-            <a id="get-started-link" target="_blank" href="https://kabanero.io">Visit Kabanero.io</a>
+            <!--
+            <div class="row">
+
+                <div class="col-md">
+                    <div class="learn-more-box">
+                        <p>More content goes here</p>
+                        <a class="learn-more-link" href="#">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="learn-more-box">
+                        <p>More content goes here</p>
+                        <a class="learn-more-link" href="#">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            -->
         </div>
     </div>
 </div>

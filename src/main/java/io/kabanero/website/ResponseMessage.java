@@ -1,3 +1,4 @@
+
 /******************************************************************************
  *
  * Copyright 2019 IBM Corporation and others.
@@ -16,46 +17,13 @@
  *
  ******************************************************************************/
 
-//declare variables
-$color-ibm:#3d70b2;
+package io.icpa.website;
 
-/* INTRO */
-.separator {
-    margin: 35px 0 35px 0;
-}
+public class ResponseMessage {
 
-#welcome-body{
-    padding-left: 50px
-}
+    public String msg;
 
-#welcome-body .row:not(:first-child){
-    margin-top: 25px;
-}
-
-.learn-more-box{
-    width: 225px;
-    height: 200px;
-    border: 2px solid;
-}
-
-.learn-more-box > p {
-    padding: 15px 15px 0 15px;
-}
-
-.learn-more-link{
-    width: 222px;
-    position: absolute;
-    padding: 10px 0 0 15px;
-    background-color: #000000;
-    bottom: 0;
-    height: 50px;
-    color: #FFFFFF;
-}
-
-.learn-more-link:hover{
-    color: $color-ibm;
-}
-
-.learn-more-col .row:not(:first-child){
-    margin-top: 75px;
+    public ResponseMessage(String msg){
+        this.msg = msg;
+    }
 }

@@ -1,66 +1,39 @@
-<header>
-
-    <!-- New release notification toast -->
-    <div aria-atomic="true" id="whats-new-toast" class="toast hide-toast-div" data-autohide="false">
-        <strong class="mr-auto toast-text">Check out what's in the latest release of Kabanero</strong>
-        <button type="button" class="ml-2 mb-1 close close-button" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <a class="col-md-5" id="learn-more-modal-button" data-toggle="modal" data-target="#whats-new-modal">Learn More</a>
-    </div>
-
-    <nav class="navbar navbar-expand-md navbar-light bg-custom">
-        <a class="navbar-brand" href="/">
-          <img id="kabanero_nav_img" src="/img/Kabanero_logo_white.png" class="img-fluid" alt="Kabanero Nav image">
-        </a>
-        <button id="nav-toggle-button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon navbar-inverse"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                <a class="nav-link" href="/try-it">Try It</a>
-                </li>
-                <!-- <li class="nav-item">
-                <a class="nav-link" href="/collections">Collections</a>
-                </li> -->
-            </ul>
-            <div class="form-inline my-2 my-lg-0">
-                <a class="float_right_section ml-3" target="_blank" href="{{site.slack_url}}">
-                <img id="header_slack_img" src="/img/slack_Icon.svg" class="img-fluid" alt="slack logo">
-                </a>
-                <a class="float_right_section" target="_blank" href="{{site.stackoverflow_url}}">
-                <img id="header_stackoverflow_img" src="/img/Header_StackO.svg" class="img-fluid" alt="stackoverflow logo">
-                </a>
-                <a class="float_right_section" target="_blank" href="{{site.github_url}}">
-                <img id="header_github_img" src="/img/header_github_icon.svg" class="img-fluid" alt="github logo">
-                </a>
-                <a class="float_right_section" target="_blank" href="{{site.twitter_url}}">
-                <img id="header_twitter_img" src="/img/header_twitter_icon.svg" class="img-fluid" alt="twitter logo">
-                </a>
-            </div>
+<div class="container-fluid">
+    <div id="header-title-row" class="row">
+        <div id="header-title-col" class="col-md">
+            <img class="ibm-logo" src="/img/IBM.png" alt="IBM Logo"/>
+            <img class="cp4a-logo" src="/img/Kabanero_Logo_White_Text.png" alt="Kabanero Logo"/>
         </div>
-    </nav>
-    <!-- What's new Modal -->
-    {% assign whatsNewDoc = site.pages | where: 'name', 'whats-new.md' %}
-    <div class="modal fade" tabindex="-1" id="whats-new-modal" role="dialog"
-        aria-labelledby="{{whatsNewDoc[0].title}}" aria-hidden="true">
-        <div class="modal-dialog whats-new-modal" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 data-version="{{whatsNewDoc[0].version}}" id="modal-title" class="modal-title">{{whatsNewDoc[0].title}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+    </div>
+    <div id="header-row" class="row">
+        <div id="header-col" class="col-md">
+            <header>
+                <nav class="navbar-expand-md navbar-light">
+                    <a class="kabanero-enterprise" href="/">
+                        <img src="/img/Kabanero_Logo_Hero.png" alt="Kabanero Logo"/>
+                    </a>
+                    <button id="nav-toggle-button" 
+                        class="navbar-toggler bg-dark"
+                        type="button" data-toggle="collapse" 
+                        data-target="#navbarNav" 
+                        aria-controls="#navbarNav" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon navbar-inverse"></span>
                     </button>
-                </div>
-                <div class="modal-body">
-                    {{whatsNewDoc[0].content | markdownify}}
-                </div>
-                <div class="modal-footer">
-                    <a class="col-md-5" id="modal-close-button" data-dismiss="modal">Close</a>
-                </div>
-            </div>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}" href="/instance">Instance</a>
+                                <!--<a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}" href="/guides">Guides</a>-->
+                            </li>
+                        </ul>
+                        <a class="info-link {% if page.url == '/' %}hide{% endif %}" href="/" title="Welcome page">
+                            <img src="/img/info-icon.png" alt="info icon"/>
+                        </a>
+                    </div>
+                </nav>
+            </header>
         </div>
     </div>
-</header>
+</div>

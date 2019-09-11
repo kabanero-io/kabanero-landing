@@ -68,8 +68,18 @@ VOLUME /home/jekyll
 WORKDIR /home/jekyll
 
 # kabanero.io gem dependencies
-COPY ./scripts /home/jekyll/scripts
-RUN scripts/build_gem_dependencies.sh
+COPY ./scripts/build_gem_dependencies.sh /app/scripts/build_gem_dependencies.sh
+COPY ./scripts/build_jekyll_maven.sh /app/scripts/build_jekyll_maven.sh
+COPY Gemfile* /app/
+COPY gems /app/gems
+
+WORKDIR /app
+
+RUN bash ./scripts/build_gem_dependencies.sh
+
+COPY . /app
+
+# RUN bash ./scripts/build_jekyll_maven.sh
 
 # kabanero.io custom gems
 COPY ./gems /home/jekyll/gems
