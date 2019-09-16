@@ -19,43 +19,29 @@
 //declare variables
 $color-ibm:#3d70b2;
 
-/* INTRO */
-.separator {
-    margin: 35px 0 35px 0;
+.instance-container {
+    margin-top: 50px
 }
 
-#welcome-body{
-    padding-left: 50px
+#meta-data {
+    padding-left: 50px;
 }
 
-#welcome-body .row:not(:first-child){
-    margin-top: 25px;
+#meta-data .row {
+    margin-top: 15px;
 }
 
-.learn-more-box{
-    width: 225px;
-    height: 200px;
-    border: 2px solid;
+.instance-detail:not(:first-child) {
+    padding-top: 50px;
 }
 
-.learn-more-box > p {
-    padding: 15px 15px 0 15px;
+.collection-hub-input {
+    width: 50%;
+    cursor: pointer;
+    padding: 5px;
 }
 
-.learn-more-link{
-    width: 222px;
-    position: absolute;
-    padding: 10px 0 0 15px;
-    background-color: #000000;
-    bottom: 0;
-    height: 50px;
-    color: #FFFFFF;
-}
-
-.learn-more-link:hover{
-    color: $color-ibm;
-}
-
-.learn-more-col .row:not(:first-child){
-    margin-top: 75px;
+.copy-to-clipboard {
+    margin-left: 10px;
+    cursor: pointer;
 }

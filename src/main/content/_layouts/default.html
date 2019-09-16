@@ -28,20 +28,16 @@ js:
   {% include head.html %}
 
   <body>
-    {% comment %}
     {% include analytics.html %}
 
     {% include header.html %}
-    {% endcomment %}
 
     <main aria-label="Content">
 
       {{ content }}
 
     </main>
-    {% comment %}
     {% include footer.html %}
-    {% endcomment %}
     
     {% include javascript.html %}
 

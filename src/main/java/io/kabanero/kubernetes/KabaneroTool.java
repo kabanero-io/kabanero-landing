@@ -1,3 +1,4 @@
+
 /******************************************************************************
  *
  * Copyright 2019 IBM Corporation and others.
@@ -16,46 +17,33 @@
  *
  ******************************************************************************/
 
-//declare variables
-$color-ibm:#3d70b2;
+package io.kabanero.kubernetes;
 
-/* INTRO */
-.separator {
-    margin: 35px 0 35px 0;
-}
+public class KabaneroTool {
 
-#welcome-body{
-    padding-left: 50px
-}
+    public String label;
+    public String location;
+    
+    public KabaneroTool(String label, String location){
+        this.label = label;
+        this.location = location;
+    }
 
-#welcome-body .row:not(:first-child){
-    margin-top: 25px;
-}
+    public String getLabel() {
+        return label;
+    }
 
-.learn-more-box{
-    width: 225px;
-    height: 200px;
-    border: 2px solid;
-}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-.learn-more-box > p {
-    padding: 15px 15px 0 15px;
-}
+    public String getLocation() {
+        return location;
+    }
 
-.learn-more-link{
-    width: 222px;
-    position: absolute;
-    padding: 10px 0 0 15px;
-    background-color: #000000;
-    bottom: 0;
-    height: 50px;
-    color: #FFFFFF;
-}
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-.learn-more-link:hover{
-    color: $color-ibm;
-}
 
-.learn-more-col .row:not(:first-child){
-    margin-top: 75px;
 }
