@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero.website;
+package io.website;
 
 import java.io.IOException;
 

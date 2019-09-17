@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero.website;
+package io.kabanero;
 
 import java.util.Collection;
 
@@ -30,6 +30,8 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.website.ResponseMessage;
+
 @ApplicationPath("api")
 @Path("/instances")
 @RequestScoped
@@ -38,15 +40,15 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Instance> getAllInstances() {
-        return Instances.getInstance().getAllInstances();
+    public Collection<KabaneroInstance> getAllInstances() {
+        return KabaneroManager.getKabaneroManagerInstance().getAllKabaneroInstances();
     }
 
     @GET
     @Path("/{instanceName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAInstance(@PathParam("instanceName") String instanceName) {
-        Instance wantedInstance = Instances.getInstance().getInstance(instanceName);
+        KabaneroInstance wantedInstance = KabaneroManager.getKabaneroManagerInstance().getKabaneroInstance(instanceName);
         if(wantedInstance == null){
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }

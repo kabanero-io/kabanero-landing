@@ -1,7 +1,11 @@
-package io.kabanero.kubernetes;
+package io.kubernetes;
 
-import io.kabanero.website.Constants;
-import io.kabanero.website.Instance;
+import io.website.Constants;
+import io.kabanero.KabaneroCollection;
+import io.kabanero.KabaneroInstance;
+import io.kabanero.KabaneroTool;
+import io.kabanero.KabaneroToolManager;
+import io.kubernetes.KubeKabanero;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
@@ -41,10 +45,10 @@ public class KabaneroClient {
     String tektonDashboard = KabaneroClient.getTektonDashboardURL(routes);
     System.out.println(tektonDashboard);
 
-    Map<String, Collection> collections = KabaneroClient.listKabaneroCollections(client, namespace);
+    Map<String, KabaneroCollection> collections = KabaneroClient.listKabaneroCollections(client, namespace);
     System.out.println(collections);
     
-    Map<String, Kabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
+    Map<String, KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
     System.out.println(instances);    
   }
   
@@ -93,19 +97,19 @@ public class KabaneroClient {
       return client;
   }
   
-  public static Instance getInstance() throws IOException, ApiException, GeneralSecurityException {
+  public static KabaneroInstance getInstance() throws IOException, ApiException, GeneralSecurityException {
       ApiClient client = KabaneroClient.getApiClient();
       
       String namespace = "kabanero";
       
-      Map<String, Kabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
+      Map<String, KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
       System.out.println(instances);
       if (instances.size() == 0) {
           return null;
       }
       
       // pick first instance - could be multiple
-      Kabanero instance = instances.values().iterator().next();
+      KubeKabanero instance = instances.values().iterator().next();
 
       String username = null;
       String instanceName = instance.getName();
@@ -122,15 +126,15 @@ public class KabaneroClient {
       }
       
       
-      Map<String, Collection> activeCollections = KabaneroClient.listKabaneroCollections(client, namespace);      
+      Map<String, KabaneroCollection> activeCollections = KabaneroClient.listKabaneroCollections(client, namespace);      
       
       String clusterName = null;
       
-      Instance Instance = new Instance(username, instanceName, date, collectionHub, clusterName, activeCollections);
+      KabaneroInstance Instance = new KabaneroInstance(username, instanceName, date, collectionHub, clusterName, activeCollections);
       return Instance;
   }
 
-  public static void discoverTools(KabaneroTools tools) throws IOException, ApiException, GeneralSecurityException {
+  public static void discoverTools(KabaneroToolManager tools) throws IOException, ApiException, GeneralSecurityException {
       ApiClient client = KabaneroClient.getApiClient();
 
       Map<String, Route> routes = null;
@@ -148,13 +152,13 @@ public class KabaneroClient {
       }
   }
 
-  private static Map<String, Collection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {
+  private static Map<String, KabaneroCollection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {
       CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
       String group = "kabanero.io";
       String version = "v1alpha1";      
       String plural = "collections";
 
-      Map<String, Collection> instances = new HashMap<String, Collection>();
+      Map<String, KabaneroCollection> instances = new HashMap<String, KabaneroCollection>();
       
       Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
       Map<String, ?> map = (Map<String, ?>) obj;
@@ -164,20 +168,20 @@ public class KabaneroClient {
           String collectionName = (String) spec.get("name");
           String collectionVersion = (String) spec.get("version");
           
-          Collection collection = new Collection(collectionName, collectionVersion);
-          instances.put(collectionName, collection);
+          KabaneroCollection KabaneroCollection = new KabaneroCollection(collectionName, collectionVersion);
+          instances.put(collectionName, KabaneroCollection);
       }
       
       return instances;
   }
   
-  private static Map<String, Kabanero> listKabaneroInstances(ApiClient apiClient, String namespace) throws ApiException {
+  private static Map<String, KubeKabanero> listKabaneroInstances(ApiClient apiClient, String namespace) throws ApiException {
     CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
     String group = "kabanero.io";
     String version = "v1alpha1";
     String plural = "kabaneros";
 
-    Map<String, Kabanero> instances = new HashMap<String, Kabanero>();
+    Map<String, KubeKabanero> instances = new HashMap<String, KubeKabanero>();
     
     Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
     Map<String, ?> map = (Map<String, ?>) obj;
@@ -187,7 +191,7 @@ public class KabaneroClient {
         String name = (String) metadata.get("name");
         String creationTime = (String) metadata.get("creationTimestamp");
         
-        Kabanero instance = new Kabanero(name, creationTime);
+        KubeKabanero instance = new KubeKabanero(name, creationTime);
         instances.put(name, instance);
         
         Map<String ,?> spec = (Map<String ,?>) item.get("spec");

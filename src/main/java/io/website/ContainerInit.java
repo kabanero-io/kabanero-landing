@@ -16,32 +16,20 @@
  *
  ******************************************************************************/
 
-package io.kabanero.website;
+package io.website;
 
 import java.io.IOException;
+import java.util.Set;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContainerInitializer;
 
-public class StickyRouting implements Filter {
-    public void destroy() {
+public class ContainerInit implements ServletContainerInitializer {
+  public void onStartup(Set<Class<?>> classes, ServletContext ctx) {
+    try {
+      RedirectFilter.init(ctx);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
-    public void init(FilterConfig cfg) {
-    }
-
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
-            throws IOException, ServletException {
-
-        if (req instanceof HttpServletRequest) {
-            ((HttpServletRequest) req).getSession();
-        }
-
-        chain.doFilter(req, resp);
-    }
+  }
 }

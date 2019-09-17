@@ -1,4 +1,3 @@
-
 /******************************************************************************
  *
  * Copyright 2019 IBM Corporation and others.
@@ -17,13 +16,32 @@
  *
  ******************************************************************************/
 
-package io.kabanero.website;
+package io.website;
 
-public class ResponseMessage {
+import java.io.IOException;
 
-    public String msg;
+import javax.servlet.Filter;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
-    public ResponseMessage(String msg){
-        this.msg = msg;
+public class StickyRouting implements Filter {
+    public void destroy() {
+    }
+
+    public void init(FilterConfig cfg) {
+    }
+
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+            throws IOException, ServletException {
+
+        if (req instanceof HttpServletRequest) {
+            ((HttpServletRequest) req).getSession();
+        }
+
+        chain.doFilter(req, resp);
     }
 }

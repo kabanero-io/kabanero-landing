@@ -17,48 +17,49 @@
  *
  ******************************************************************************/
 
-package io.kabanero.kubernetes;
+package io.kabanero;
 
 import java.util.Collection;
 import java.util.HashMap;
 
-import io.kabanero.website.Constants;
-import io.kabanero.kubernetes.KabaneroClient;
+import io.website.Constants;
+import io.kubernetes.KabaneroClient;
 
-public class KabaneroTools {
+// Singleton class to manage the various tools associated with Kabanero
+public class KabaneroToolManager {
 
-    private static KabaneroTools SINGLE_INSTANCE;
+    private static KabaneroToolManager SINGLE_TOOL_MANAGER_INSTANCE;
     private HashMap<String, KabaneroTool> KABANERO_TOOLS = new HashMap<String, KabaneroTool>();
     private long created = System.currentTimeMillis();
 
-    private KabaneroTools() {
+    private KabaneroToolManager() {
     }
 
     private boolean isOld() {
-        return (System.currentTimeMillis() - SINGLE_INSTANCE.created > 1000 * 60 * 5);
+        return (System.currentTimeMillis() - SINGLE_TOOL_MANAGER_INSTANCE.created > 1000 * 60 * 5);
     }
     
-    public static synchronized KabaneroTools getInstance() {
+    public static synchronized KabaneroToolManager getKabaneroToolManagerInstance() {
         // quick hack: isOld will force refresh every so often - we should be watching for changes instead
-        if(SINGLE_INSTANCE == null || SINGLE_INSTANCE.isOld()) {
-            SINGLE_INSTANCE = new KabaneroTools();
+        if(SINGLE_TOOL_MANAGER_INSTANCE == null || SINGLE_TOOL_MANAGER_INSTANCE.isOld()) {
+            SINGLE_TOOL_MANAGER_INSTANCE = new KabaneroToolManager();
             
             try {
-                KabaneroClient.discoverTools(SINGLE_INSTANCE);        
+                KabaneroClient.discoverTools(SINGLE_TOOL_MANAGER_INSTANCE);        
             } catch (Exception e) {
                 e.printStackTrace();
-                KabaneroTools.addDefaultTools(SINGLE_INSTANCE);
+                KabaneroToolManager.addDefaultTools(SINGLE_TOOL_MANAGER_INSTANCE);
             }
         }
 
-        return SINGLE_INSTANCE;
+        return SINGLE_TOOL_MANAGER_INSTANCE;
     }
 
     public void addTool(KabaneroTool tool) {
         KABANERO_TOOLS.put(tool.getLabel(), tool);
     }
         
-    private static void addDefaultTools(KabaneroTools tools) {
+    private static void addDefaultTools(KabaneroToolManager tools) {
         KabaneroTool transformationAdvisor = new KabaneroTool(Constants.TA_DASHBOARD_LABEL, Constants.TA_DASHBOARD_URL);
         tools.addTool(transformationAdvisor);
         

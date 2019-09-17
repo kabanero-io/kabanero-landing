@@ -17,7 +17,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero.kubernetes;
+package io.kabanero;
 
 public class KabaneroTool {
 

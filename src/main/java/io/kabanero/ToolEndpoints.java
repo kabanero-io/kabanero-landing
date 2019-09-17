@@ -16,49 +16,44 @@
  *
  ******************************************************************************/
 
-package io.kabanero.website;
+package io.kabanero;
+
+import java.util.Collection;
 
 import javax.enterprise.context.RequestScoped;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@ApplicationPath("appnav")
-@Path("/")
+import io.kabanero.KabaneroTool;
+import io.kabanero.KabaneroToolManager;
+import io.website.ResponseMessage;
+
+@ApplicationPath("api")
+@Path("/tools")
 @RequestScoped
-public class AppNavEndpoints extends Application {
+public class ToolEndpoints extends Application {
 
     @GET
-    @Path("openshift/featuredApp.js")
-    @Produces({ "application/javascript" })
-    public Response featuredApp() {
-        return Response.ok().entity(Constants.FEATURED_APP_JS).build();
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<KabaneroTool> getAllTools() {
+        return KabaneroToolManager.getKabaneroToolManagerInstance().getAllTools();
     }
 
     @GET
-    @Path("openshift/appLauncher.js")
-    @Produces({ "application/javascript" })
-    public Response appLauncher() {
-        return Response.ok().entity(Constants.APP_LAUNCHER_JS).build();
+    @Path("/{toolName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getATool(@PathParam("toolName") String toolName) {
+        KabaneroTool wantedInstance = KabaneroToolManager.getKabaneroToolManagerInstance().getTool(toolName);
+        if(wantedInstance == null){
+            return Response.status(404).entity(new ResponseMessage(toolName + " not found")).build();
+        }
+        return Response.ok().entity(wantedInstance).build();
     }
-
-    @GET
-    @Path("openshift/projectNavigation.js")
-    @Produces({ "application/javascript" })
-    public Response projectNavigation() {
-        return Response.ok().entity(Constants.PROJECT_NAVIGATION_2_JS).build();
-    }
-
-    @GET
-    @Path("openshift/appNavIcon.css")
-    @Produces({ "text/css" })
-    public Response appNavIcon() {
-        return Response.ok(Constants.APP_NAV_ICON_CSS).build();
-    }
-
 }

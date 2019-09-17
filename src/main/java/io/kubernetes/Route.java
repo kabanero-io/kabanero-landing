@@ -1,4 +1,4 @@
-package io.kabanero.kubernetes;
+package io.kubernetes;
 
 import java.util.List;
 import java.util.Map;

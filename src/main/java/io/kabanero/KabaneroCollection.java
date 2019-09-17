@@ -1,11 +1,11 @@
-package io.kabanero.kubernetes;
+package io.kabanero;
 
-public class Collection {
+public class KabaneroCollection {
 
     private String name;
     private String version;
 
-    public Collection(String name, String version) {
+    public KabaneroCollection(String name, String version) {
        this.name = name;
        this.version = version;
     }

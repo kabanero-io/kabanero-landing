@@ -1,3 +1,4 @@
+
 /******************************************************************************
  *
  * Copyright 2019 IBM Corporation and others.
@@ -16,20 +17,13 @@
  *
  ******************************************************************************/
 
-package io.kabanero.website;
+package io.website;
 
-import java.io.IOException;
-import java.util.Set;
+public class ResponseMessage {
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContainerInitializer;
+    public String msg;
 
-public class ContainerInit implements ServletContainerInitializer {
-  public void onStartup(Set<Class<?>> classes, ServletContext ctx) {
-    try {
-      RedirectFilter.init(ctx);
-    } catch (IOException e) {
-      e.printStackTrace();
+    public ResponseMessage(String msg){
+        this.msg = msg;
     }
-  }
 }

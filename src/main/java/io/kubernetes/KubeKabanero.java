@@ -1,20 +1,21 @@
-package io.kabanero.kubernetes;
+package io.kubernetes;
 
 import java.util.List;
 import java.util.Map;
 
-public class Kabanero {
+// class to organize data returned from the Kubernetes API
+public class KubeKabanero {
 
     private String name;
     private List<Map<String, ?>> repositories;
     private String creationTimestamp;
     
-    public Kabanero(String name, String creationTimestamp) {
+    public KubeKabanero(String name, String creationTimestamp) {
         this.name = name;
         this.creationTimestamp = creationTimestamp;
     }
 
-    void setRepositories(List<Map<String, ?>> repositories) {
+    public void setRepositories(List<Map<String, ?>> repositories) {
         this.repositories = repositories;
     }
 
@@ -32,8 +33,7 @@ public class Kabanero {
 
     @Override
     public String toString() {
-        return "Kabanero [name=" + name + ", repositories=" + repositories + ", creationTimestamp=" + creationTimestamp
-                + "]";
+        return "KubeKabanero [name=" + name + ", repositories=" + repositories + ", creationTimestamp=" + creationTimestamp + "]";
     }
 
 }
