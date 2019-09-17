@@ -26,7 +26,7 @@ import io.kabanero.KabaneroCollection;
 
 public final class Constants {
 
-    // ICPA Instance
+    // Kabanero Instance
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");
     public static final String DEFAULT_INSTANCE_NAME = getEnv("INSTANCE_NAME", "kabanero");
     public static final String DEFAULT_DATE_CREATED = getEnv("DATE_CREATED", "");
@@ -57,10 +57,10 @@ public final class Constants {
         "",
         "(function() {",
             "window.OPENSHIFT_CONSTANTS.SAAS_OFFERINGS = [{",
-                "title: \"Cloud Pak for Apps\",",
-                "icon: \"icon-icpa-feature\",",
-                "url: \"" + Constants.LANDING_URL + "\",",
-                "description: \"Get started with IBM Cloud Pak for Applications.\"",
+                "title: 'Kabanero',",
+                "icon: 'icon-kabanero-feature',",
+                "url: '" + Constants.LANDING_URL + "',",
+                "description: 'Get started with Kabanero.'",
             "}];",
         "}());"
     );
@@ -75,10 +75,10 @@ public final class Constants {
         "",
         "(function() {",
             "window.OPENSHIFT_CONSTANTS.APP_LAUNCHER_NAVIGATION = [{",
-                "title: 'Kabanero Enterprise',",
-                "iconClass: \"icon-icpa-launcher\",",
-                "href: \"" + Constants.LANDING_URL + "\",",
-                "tooltip: \"Get started with IBM Kabanero Enterprise.\"",
+                "title: 'Kabanero',",
+                "iconClass: 'icon-kabanero-launcher',",
+                "href: '" + Constants.LANDING_URL + "',",
+                "tooltip: 'Get started with Kabanero.'",
             "}];",
         "}());"
     );
@@ -91,20 +91,20 @@ public final class Constants {
     */
     public static final String APP_NAV_ICON_CSS = String.join(
         "",
-        ".icon-icpa-launcher {",
+        ".icon-kabanero-launcher {",
             "background-repeat: no-repeat;",
             "background-image: url(" + Constants.LANDING_URL + "/img/favicon/favicon-16x16.png);",
             "height: 16px;",
             "width: 16px;",
         "}",
-        ".icon-icpa-navigation {",
+        ".icon-kabanero-navigation {",
             "background-repeat: no-repeat;",
             "background-image: url(" + Constants.LANDING_URL + "/img/gray-kabanero-logo.png);",
             "margin-right: 13px;",
             "width: 18px;",
             "background-size: contain;",
         "}",
-        ".icon-icpa-feature {",
+        ".icon-kabanero-feature {",
             "display: block;",
             "background-repeat: no-repeat;",
             "background-image: url(" + Constants.LANDING_URL + "/img/Kabanero_logo_white.png);",
@@ -118,9 +118,9 @@ public final class Constants {
         "",
         "(function() {",
             "window.OPENSHIFT_CONSTANTS.PROJECT_NAVIGATION.push({",
-                "label: 'Kabanero Enterprise',",
-                "iconClass: 'icon-icpa-navigation',",
-                "href: \"" + Constants.LANDING_URL + "\",",
+                "label: 'Kabanero',",
+                "iconClass: 'icon-kabanero-navigation',",
+                "href: '" + Constants.LANDING_URL + "',",
             "});",
         "}());"
     );

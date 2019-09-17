@@ -44,6 +44,4 @@ public class KabaneroTool {
     public void setLocation(String location) {
         this.location = location;
     }
-
-
 }

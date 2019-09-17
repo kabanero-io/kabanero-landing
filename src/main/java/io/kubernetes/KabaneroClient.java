@@ -1,3 +1,20 @@
+/******************************************************************************
+ *
+ * Copyright 2019 IBM Corporation and others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ ******************************************************************************/
 package io.kubernetes;
 
 import io.website.Constants;
@@ -33,7 +50,6 @@ import com.squareup.okhttp.ConnectionSpec;
 
 public class KabaneroClient {
    
-    
   public static void main(String[] args) throws IOException, ApiException, GeneralSecurityException {
     ApiClient client = KabaneroClient.getApiClient();
 
@@ -54,125 +70,125 @@ public class KabaneroClient {
   
   // routes from kabanero namespace
   private static String getTektonDashboardURL(Map<String, Route> routes) {
-      Route route = routes.get("tekton-dashboard");
-      if (route == null) {
-          return null;
-      }
-      return "https://" + route.getHost();
+    Route route = routes.get("tekton-dashboard");
+    if (route == null) {
+        return null;
+    }
+    return "https://" + route.getHost();
   }
 
   // routes from ta namespace
   private static String getTransformationAdvisorURL(Map<String, Route> routes) {
-      for (Route route: routes.values()) {
-          if (route.getName().endsWith("ta-rh-ui-route")) {
-              return "https://" + route.getHost();
-          }
-      }
-      return null;
+    for (Route route: routes.values()) {
+        if (route.getName().endsWith("ta-rh-ui-route")) {
+            return "https://" + route.getHost();
+        }
+    }
+    return null;
   }
   
   private static ApiClient getApiClient() throws IOException, GeneralSecurityException {
-      ApiClient client = null;
-      String value = System.getenv("KUBERNETES_SERVICE_HOST");
-      if (value != null) {
-          // running in cluster
-          client = ClientBuilder.cluster().build();
-      } else {
-          // running outside of cluster
-          File kubeConfig = new File(System.getProperty("user.home"), ".kube/config");
-          client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfig))).build();          
-      }
-      
-      SSLContext sc = SSLContext.getInstance("TLSv1.2");
+    ApiClient client = null;
+    String value = System.getenv("KUBERNETES_SERVICE_HOST");
+    if (value != null) {
+        // running in cluster
+        client = ClientBuilder.cluster().build();
+    } else {
+        // running outside of cluster
+        File kubeConfig = new File(System.getProperty("user.home"), ".kube/config");
+        client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfig))).build();          
+    }
+    
+    SSLContext sc = SSLContext.getInstance("TLSv1.2");
 
-      // use the same key manager as kube client
-      sc.init(client.getKeyManagers(), KabaneroClient.getTrustManager(), new SecureRandom());
-      
-      client.getHttpClient().setSslSocketFactory(sc.getSocketFactory());
-      
-      ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS).allEnabledCipherSuites().build();
-      client.getHttpClient().setConnectionSpecs(Collections.singletonList((spec)));
-      
-      Configuration.setDefaultApiClient(client);
-      return client;
+    // use the same key manager as kube client
+    sc.init(client.getKeyManagers(), KabaneroClient.getTrustManager(), new SecureRandom());
+    
+    client.getHttpClient().setSslSocketFactory(sc.getSocketFactory());
+    
+    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS).allEnabledCipherSuites().build();
+    client.getHttpClient().setConnectionSpecs(Collections.singletonList((spec)));
+    
+    Configuration.setDefaultApiClient(client);
+    return client;
   }
   
   public static KabaneroInstance getInstance() throws IOException, ApiException, GeneralSecurityException {
-      ApiClient client = KabaneroClient.getApiClient();
-      
-      String namespace = "kabanero";
-      
-      Map<String, KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
-      System.out.println(instances);
-      if (instances.size() == 0) {
-          return null;
-      }
-      
-      // pick first instance - could be multiple
-      KubeKabanero instance = instances.values().iterator().next();
+    ApiClient client = KabaneroClient.getApiClient();
+    
+    String namespace = "kabanero";
+    
+    Map<String, KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
+    System.out.println(instances);
+    if (instances.size() == 0) {
+        return null;
+    }
+    
+    // pick first instance - could be multiple
+    KubeKabanero instance = instances.values().iterator().next();
 
-      String username = null;
-      String instanceName = instance.getName();
-      String date = instance.getCreationTimestamp();
-      
-      String collectionHub = null;
-      
-      List<Map<String, ?>> repositories = instance.getRepositories();
+    String username = null;
+    String instanceName = instance.getName();
+    String date = instance.getCreationTimestamp();
+    
+    String collectionHub = null;
+    
+    List<Map<String, ?>> repositories = instance.getRepositories();
 
-      if (repositories != null && repositories.size() > 0) {
-          // get first repository - could be muliple
-          Map<String, ?> repository = repositories.get(0);
-          collectionHub = (String) repository.get("url");
-      }
-      
-      
-      Map<String, KabaneroCollection> activeCollections = KabaneroClient.listKabaneroCollections(client, namespace);      
-      
-      String clusterName = null;
-      
-      KabaneroInstance Instance = new KabaneroInstance(username, instanceName, date, collectionHub, clusterName, activeCollections);
-      return Instance;
+    if (repositories != null && repositories.size() > 0) {
+        // get first repository - could be muliple
+        Map<String, ?> repository = repositories.get(0);
+        collectionHub = (String) repository.get("url");
+    }
+    
+    
+    Map<String, KabaneroCollection> activeCollections = KabaneroClient.listKabaneroCollections(client, namespace);      
+    
+    String clusterName = null;
+    
+    KabaneroInstance Instance = new KabaneroInstance(username, instanceName, date, collectionHub, clusterName, activeCollections);
+    return Instance;
   }
 
   public static void discoverTools(KabaneroToolManager tools) throws IOException, ApiException, GeneralSecurityException {
-      ApiClient client = KabaneroClient.getApiClient();
+    ApiClient client = KabaneroClient.getApiClient();
 
-      Map<String, Route> routes = null;
-      
-      routes = KabaneroClient.listRoutes(client, "kabanero");
-      if (routes != null) {
-          String url = KabaneroClient.getTektonDashboardURL(routes);
-          tools.addTool(new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, url));
-      }
-      
-      routes = KabaneroClient.listRoutes(client, "ta");
-      if (routes != null) {
-          String url = KabaneroClient.getTransformationAdvisorURL(routes);
-          tools.addTool(new KabaneroTool(Constants.TA_DASHBOARD_LABEL, url));
-      }
+    Map<String, Route> routes = null;
+    
+    routes = KabaneroClient.listRoutes(client, "kabanero");
+    if (routes != null) {
+        String url = KabaneroClient.getTektonDashboardURL(routes);
+        tools.addTool(new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, url));
+    }
+    
+    routes = KabaneroClient.listRoutes(client, "ta");
+    if (routes != null) {
+        String url = KabaneroClient.getTransformationAdvisorURL(routes);
+        tools.addTool(new KabaneroTool(Constants.TA_DASHBOARD_LABEL, url));
+    }
   }
 
   private static Map<String, KabaneroCollection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {
-      CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
-      String group = "kabanero.io";
-      String version = "v1alpha1";      
-      String plural = "collections";
+    CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
+    String group = "kabanero.io";
+    String version = "v1alpha1";
+    String plural = "collections";
 
-      Map<String, KabaneroCollection> instances = new HashMap<String, KabaneroCollection>();
-      
-      Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-      Map<String, ?> map = (Map<String, ?>) obj;
-      List<Map<String, ?>> items = (List<Map<String, ?>>)map.get("items");
-      for (Map<String ,?> item: items) {                  
-          Map<String ,?> spec = (Map<String ,?>) item.get("spec");
-          String collectionName = (String) spec.get("name");
-          String collectionVersion = (String) spec.get("version");
-          
-          KabaneroCollection KabaneroCollection = new KabaneroCollection(collectionName, collectionVersion);
-          instances.put(collectionName, KabaneroCollection);
-      }
-      
-      return instances;
+    Map<String, KabaneroCollection> instances = new HashMap<String, KabaneroCollection>();
+    
+    Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
+    Map<String, ?> map = (Map<String, ?>) obj;
+    List<Map<String, ?>> items = (List<Map<String, ?>>)map.get("items");
+    for (Map<String ,?> item: items) {                  
+        Map<String ,?> spec = (Map<String ,?>) item.get("spec");
+        String collectionName = (String) spec.get("name");
+        String collectionVersion = (String) spec.get("version");
+        
+        KabaneroCollection KabaneroCollection = new KabaneroCollection(collectionName, collectionVersion);
+        instances.put(collectionName, KabaneroCollection);
+    }
+    
+    return instances;
   }
   
   private static Map<String, KubeKabanero> listKabaneroInstances(ApiClient apiClient, String namespace) throws ApiException {
@@ -208,31 +224,31 @@ public class KabaneroClient {
   }
   
   private static Map<String, Route> listRoutes(ApiClient apiClient, String namespace) throws ApiException {
-      CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
-      String group = "route.openshift.io";
-      String version = "v1";      
-      String plural = "routes";
+    CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
+    String group = "route.openshift.io";
+    String version = "v1";
+    String plural = "routes";
 
-      Map<String, Route> instances = new HashMap<String, Route>();
-      
-      Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-      Map<String, ?> map = (Map<String, ?>) obj;
-      List<Map<String, ?>> items = (List<Map<String, ?>>)map.get("items");
-      for (Map<String ,?> item: items) {            
-          Map<String ,?> metadata = (Map<String ,?>) item.get("metadata");
-          String name = (String) metadata.get("name");
-                    
-          Route route = new Route(name);
-          instances.put(name, route);
-          
-          Map<String ,?> spec = (Map<String ,?>) item.get("status");   
-          if (spec != null) {
-              List<Map<String ,?>> ingress = (List<Map<String ,?>>) spec.get("ingress");          
-              route.setIngress(ingress);
-          }
-      }
-      
-      return instances;
+    Map<String, Route> instances = new HashMap<String, Route>();
+    
+    Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
+    Map<String, ?> map = (Map<String, ?>) obj;
+    List<Map<String, ?>> items = (List<Map<String, ?>>)map.get("items");
+    for (Map<String ,?> item: items) {            
+        Map<String ,?> metadata = (Map<String ,?>) item.get("metadata");
+        String name = (String) metadata.get("name");
+                
+        Route route = new Route(name);
+        instances.put(name, route);
+        
+        Map<String ,?> spec = (Map<String ,?>) item.get("status");   
+        if (spec != null) {
+            List<Map<String ,?>> ingress = (List<Map<String ,?>>) spec.get("ingress");          
+            route.setIngress(ingress);
+        }
+    }
+    
+    return instances;
   }
   
   private static TrustManager[] getTrustManager() {

@@ -21,8 +21,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-	<display-name>kabanero</display-name>
-
     <error-page>
         <error-code>404</error-code>
         <location>/404.html</location>
@@ -30,7 +28,7 @@
 
     <filter>
         <filter-name>StickyRouting</filter-name>
-        <filter-class>io.kabanero.website.StickyRouting</filter-class>
+        <filter-class>io.website.StickyRouting</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>StickyRouting</filter-name>
@@ -38,7 +36,7 @@
     </filter-mapping>
     <filter>
         <filter-name>TLSFilter</filter-name>
-        <filter-class>io.kabanero.website.TLSFilter</filter-class>
+        <filter-class>io.website.TLSFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>TLSFilter</filter-name>

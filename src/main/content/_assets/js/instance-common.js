@@ -17,35 +17,35 @@
  ******************************************************************************/
 
 function fetchAllInstances(){
-    return fetch('/api/instances')
-    .then(function(response) {
-        return response.json();
-    })
-    .catch(error => console.error('Error getting instance names:', error));
+    return fetch("/api/instances")
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error("Error getting instance names:", error));
 }
 
 function fetchAInstance(instance){
     return fetch(`/api/instances/${instance}`)
-    .then(function(response) {
-        return response.json();
-    })
-    .catch(error => console.error(`Error getting instance info for: ${instance}`, error));
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error(`Error getting instance info for: ${instance}`, error));
 }
 
 function fetchAllTools(){
-    return fetch('/api/tools')
-    .then(function(response) {
-        return response.json();
-    })
-    .catch(error => console.error('Error getting tools', error));
+    return fetch("/api/tools")
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error("Error getting tools", error));
 }
 
 function fetchATool(tool){
     return fetch(`/api/tools/${tool}`)
-    .then(function(response) {
-        return response.json();
-    })
-    .catch(error => console.error(`Error getting ${tool} tool`, error));
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error(`Error getting ${tool} tool`, error));
 }
 
 let ToolPane = class {
@@ -61,10 +61,10 @@ let ToolPane = class {
         col.append($("<a/>", {href: this.location, target: "_blank", text: this.location}));
         return row.append(col);
     }
-}
+};
 
-let InstancePane = class{
-    constructor(instanceName, date, collectionHubURL, cluster, collections, tektonDashboardURL) {
+let InstancePane = class {
+    constructor(instanceName, date, collectionHubURL, cluster, collections) {
         this.instanceName = instanceName;
 
         // If Date cannot be parsed, then return it to original non-parsable value, otherwise, use UTC date
@@ -72,7 +72,6 @@ let InstancePane = class{
         this.collectionHubURL = collectionHubURL;
         this.cluster = cluster;
         this.collections = collections;
-        this.tektonDashboardURL = tektonDashboardURL;
     }
 
     get instanceNameHTML(){
@@ -101,7 +100,7 @@ let InstancePane = class{
     createCollectionHubInput(label, url){
         let input = $("<input/>",{type: "text", class: "collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url});
         let img = $("<img />",{id:"copy-img", src: "/img/copy-clipboard.png", alt: "copy collection hub url to clipboard icon", class: "copy-to-clipboard tooltip-copy"})
-                    .tooltip({title: "copied!", trigger: "click"});
+            .tooltip({title: "copied!", trigger: "click"});
         let wrapper = $("<span/>").append(input, img);
 
         return this.createDetailRowHTMLForString(label, wrapper, true);
@@ -137,12 +136,8 @@ let InstancePane = class{
             .append(this.createDetailRowHTMLForString("Date Created", this.date, false))
             .append(this.createCollectionHubInput("Collection Hub", this.collectionHubURL))
             .append(this.createDetailRowHTMLForString("Cluster", this.cluster, false))
-            .append(this.createDetailRowHTMLForString("Tekton Dashboard", 
-                $("<a/>", {href: this.tektonDashboardURL, target: "_blank", text: this.tektonDashboardURL}), true))
-            
-            .append(this.createDetailRowHTMLForCollections("Collections", this.collections, false))
+            .append(this.createDetailRowHTMLForCollections("Collections", this.collections, false));
         topRow.append(innerCol);
         return topRow;
-        
     }
-  }
+};

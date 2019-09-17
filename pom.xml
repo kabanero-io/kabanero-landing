@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.kabanero.website</groupId>
-	<artifactId>kabanero-website</artifactId>
+	<artifactId>kabanero-landinge</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -43,6 +43,11 @@
 			<artifactId>client-java</artifactId>
 			<version>5.0.0</version>
 		</dependency>   
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.28</version>
+		</dependency>
 		<!-- BEGIN: Needed to compile and run unit tests -->
 		<dependency>
 			<groupId>junit</groupId>
