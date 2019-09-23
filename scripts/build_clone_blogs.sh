@@ -1,7 +1,7 @@
 CUR_DIR="$(cd $(dirname $0) && pwd)"
 pushd "$CUR_DIR/../src/main/content"
 
-# Allow user to pass in git url and branch, for example ./build_clone_blogs git@github.ibm.com:ICP4APPs/blogs.git master
+# Allow user to pass in git url and branch, for example ./build_clone_blogs git@github.com:kabanero-io/blogs.git master
 # Also allow the option to not pass in git url and branch, this is useful if the content already exists (Jenkins will have cloned the blogs before this step)
 if [ -n "$1" ] && [ -n "$2" ]; then
 	# For development purposes, lets always delete previously created folders

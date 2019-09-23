@@ -1,75 +1,27 @@
-# Created by laura_cowen@uk.ibm.com, Twitter/GitHub/Docker username: @lauracowen
-# 2017-11-02
-# Updated Oct. 2018 by Kin Ueng
-# Installing and running Jekyll based on: based on https://blog.codeship.com/a-beginners-guide-to-the-dockerfile/
-# NodeJS and NPM sections based on: https://gist.github.com/remarkablemark/aacf14c29b3f01d6900d13137b21db3a
+FROM ruby:latest as builder
 
-# The purpose of this dockerfile is to run your Jekyll website so you don't have to install Jekyll 
-# and all of Jekyll's pre-requisite software.
-# You can view the site in a browser on your local (host) machine (at http://0.0.0.0:4000).
-# You can then modify website source files on your local (host) machine.
-# When you save a changed file, the changes are automatically rebuilt by Jekyll in the container and you can almost immediately
-# see the changes when you refresh your browser.
+# Install Java
+RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz \
+    && tar -xzf /tmp/jdk.tar.gz \
+    && mv jdk* /opt \
+    && rm /tmp/jdk.tar.gz
 
-# To build this image, from the directory that contains this Dockerfile:
-# docker build --tag lauracowen/jekyll .
-#
-# To run a container:
-# docker run --name jekyll -it -d -p 4000:4000 -v <root directory of Jekyll site on host machine>:/home/jekyll lauracowen/jekyll
+# Install Node
+ENV NODE_VERSION 10.15.3
+RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
+    && tar -xf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /opt/ \
+    && rm "node-v$NODE_VERSION-linux-x64.tar.xz"
 
-# Use the official Ruby image as a parent image
-FROM ruby:latest
+# Install Apache Maven
+ENV MAVEN_VERSION 3.6.2
+RUN curl -o /tmp/maven.tar.gz https://ftp.wayne.edu/apache/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.tar.gz \
+    && tar -xzf /tmp/maven.tar.gz \
+    && mv apache-maven-${MAVEN_VERSION} /opt/ \
+    && rm /tmp/maven.tar.gz
 
-# INSTALL NODEJS AND NPM (it's a dependency of something in the Jekyll setup)
+ENV PATH=/opt/jdk8u222-b10/bin:/opt/node-v$NODE_VERSION-linux-x64/bin/:/opt/apache-maven-${MAVEN_VERSION}/bin:$PATH
 
-# replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-
-# update the repository sources list
-# and install dependencies
-RUN apt-get update \
-    && apt-get install -y curl \
-    && apt-get -y autoclean
-
-# nvm environment variables
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 9.0.0
-
-# install nvm
-# https://github.com/creationix/nvm#install-script
-RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
-
-# install node and npm
-RUN source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default
-
-# add node and npm to path so the commands are available
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-
-# confirm installation
-RUN node -v
-RUN npm -v
-
-# INSTALLING AND RUNNING JEKYLL
-
-# create a user and group for Jekyll, set appropriate permissions, install the Jekyll gem
-RUN mkdir -p /home/jekyll \
-    && groupadd -rg 1000 jekyll \
-    && useradd -rg jekyll -u 1000 -d /home/jekyll jekyll \
-    && chown jekyll:jekyll /home/jekyll
-
-# Create a mount point where Docker can access the source files on my local system (host system)
-VOLUME /home/jekyll
-
-#  Set the working directory
-WORKDIR /home/jekyll
-
-# kabanero.io gem dependencies
 COPY ./scripts/build_gem_dependencies.sh /app/scripts/build_gem_dependencies.sh
-COPY ./scripts/build_jekyll_maven.sh /app/scripts/build_jekyll_maven.sh
 COPY Gemfile* /app/
 COPY gems /app/gems
 
@@ -79,19 +31,29 @@ RUN bash ./scripts/build_gem_dependencies.sh
 
 COPY . /app
 
-# RUN bash ./scripts/build_jekyll_maven.sh
+ENV JEKYLL_ENV "production"
+RUN bash ./scripts/build_jekyll_maven.sh
 
-# kabanero.io custom gems
-COPY ./gems /home/jekyll/gems
-RUN pushd gems/ol-asciidoc \
-    && gem build ol-asciidoc.gemspec \
-    && gem install ol-asciidoc-0.0.1.gem \
-    && popd
+# ------------------------------------------------------------------------------------------------
 
-# Serve the site
-ENTRYPOINT ["bash", "./scripts/jekyll_serve_dev.sh"]
+FROM openliberty/open-liberty:javaee8-ubi-min
 
-# Make port 4000 available to the world outside this container
-EXPOSE 4000
+LABEL name="kabanero-landing" \
+      summary="Kabanero landing site" \
+      description="Kabanero landing site"
 
+# Set git.revision label
+ARG GIT_REVISION=0
+LABEL "git.revision"="$GIT_REVISION"
 
+USER root
+# Symlink servers directory for easier mounts.
+RUN ln -s /opt/ol/wlp/usr/servers /servers
+USER 1001
+
+COPY --from=builder /app/target/liberty/wlp/usr/servers /servers
+COPY LICENSE /licenses
+
+# Run the server script and start the defaultServer by default.
+ENTRYPOINT ["/opt/ol/wlp/bin/server", "run"]
+CMD ["defaultServer"]

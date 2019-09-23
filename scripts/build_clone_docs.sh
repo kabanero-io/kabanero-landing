@@ -18,6 +18,6 @@ cd docs
 
 # This is how you clone a repo without autocreating a parent folder with the name of the repo
 # The clone is picky about cloning into a folder that is not empty (src/main/content)
-git clone git@github.com:kabanero-io/docs.git --branch $branch_name .
+git clone https://github.com/kabanero-io/docs.git --branch $branch_name .
 popd
 echo "Done cloning docs repository!"

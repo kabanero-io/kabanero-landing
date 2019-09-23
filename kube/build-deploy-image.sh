@@ -9,17 +9,13 @@ if [ -z "$DOCKER_IMAGE_NAME" ]; then
     DOCKER_IMAGE_NAME=landing
 fi
 
-if [ -z "$NAMESPACE" ]; then
-    NAMESPACE=kabanero
-fi
-
 if [ -z "$DOCKER_IMAGE_TAG" ]; then
     DOCKER_IMAGE_TAG=latest
 fi
 
 cd "$CUR_DIR"/../
 echo "building docker image $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG"
-docker build -t "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" -f "$CUR_DIR"/Dockerfile .
+docker build -t "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" .
 
 # publish to a registry
 if [ -n "$DOCKER_REGISTRY" ] && [ -n "$DOCKER_REGISTRY_USER" ] && [ -n "$DOCKER_REGISTRY_PASSWORD" ]; then

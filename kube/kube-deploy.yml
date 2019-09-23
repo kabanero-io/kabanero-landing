@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: kabanero-site-deployment
+  name: kabanero-landing-deployment
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: kabanero
+        app: kabanero-landing
     spec:
       containers:
-      - name: kabanero
+      - name: kabanero-landing
         image: @DOCKER_REGISTRY@/@NAMESPACE@/@IMAGE_NAME@:@IMAGE_TAG@
         ports:
           - containerPort: 9443
@@ -20,7 +20,7 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: kabanero-service
+  name: kabanero-landing-service
 spec:
   ports:
     - port: 9443
@@ -29,4 +29,4 @@ spec:
       name: https
   type: NodePort
   selector:
-    app: kabanero
+    app: kabanero-landing

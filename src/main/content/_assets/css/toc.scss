@@ -94,7 +94,6 @@
     left: 0;
     padding-bottom: 22px;
     vertical-align: top;
-    background-color: white;
     z-index: 7; /* to override the z-index valued of 4 and 6 for code mirror in interactive guide */
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.21);
 
@@ -106,7 +105,7 @@
         top: 0;
     }
 
-    @media (min-width: 1440px) {
+    @media (min-width: 1000px) {
         float: left;
         left: -400px;
         position: relative;
@@ -123,13 +122,15 @@
 }
 
 #toc-inner {
-    padding-top: 20px;
+    padding: 20px 0 0 20px;
+    position: fixed;
+    top: 215px;
 }
 
 #toc-indicator {
     z-index: 5;
     left: 0;
-    width: 5px;
+    width: 20px;
     height: 30px;
     position: fixed;
     background-color: #f4914d;
@@ -142,12 +143,11 @@
         display: inline-block;
         width: 45px;
         transition: .5s ease-in;
-        padding: 7px 0;
     }
 
     & > img {
         width: 16px;
-        height: 16px;
+        height: 30px;
         margin-right: 5px;
         float: right;
         transform: rotate(-90deg);
@@ -351,6 +351,7 @@
     margin-left: 27px;
     margin-right: 27px;
     margin-bottom: 22px;
+    margin-top: 22px;
 }
 
 #tags-container {
@@ -370,10 +371,11 @@
     color: #f4914d;
 }
 
-@media (max-width: 1169.98px) {
+@media (max-width: 1000px) {
 
     #toc-inner {
         padding-top: 41px; /* This should be the same height as #mobile-toc-accordion-container */
+        background-color: #FFFFFF;
     }
 
     #mobile-toc-accordion-container {
@@ -398,7 +400,7 @@
         overflow-y: auto;
     }
 
-    #breadcrumb-hamburger, #code_column, #breadcrumb_row .showHamburger {
+    #breadcrumb-hamburger, #code-column, #breadcrumb_row .showHamburger {
         display: none;
     }
 
@@ -415,7 +417,7 @@
 
 /* Breakpoint for when the hamburger navbar appears and the navbar links go into the hamburger
    The breadcrumb still exists at this point */
-@media (max-width: 1169.98px) {
+@media (max-width: 1000px) {
 
     #doc_logo {
         display: inline-block;
@@ -512,7 +514,7 @@
     }
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 1000px) {
 
     #breadcrumb-hamburger {
         display: none;
@@ -528,7 +530,7 @@
         float: right;
     }
 
-    #background_container {
+    #background-container {
         background-color: white;
         margin-left: 0;
         margin-right: 0;
@@ -542,16 +544,16 @@
         margin-top: 0;
     }
     
-    #toc-column.inline {
-        display: inline-block;
+    #toc-column.block {
+        display: block;
     }
 
     #toc-inner {
-        width: inherit;
+        width: 15%;
     }
 }
 
-@media (max-width: 1439.98px) {
+@media (max-width: 1000px) {
     #toc-hotspot, 
     #toc-indicator,
     #toc-line {

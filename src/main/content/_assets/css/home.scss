@@ -24,11 +24,11 @@ $color-ibm:#3d70b2;
     margin: 35px 0 35px 0;
 }
 
-#welcome-body{
+#instance-data{
     padding-left: 50px
 }
 
-#welcome-body .row:not(:first-child){
+#instance-data .row:nth-child(2){
     margin-top: 25px;
 }
 

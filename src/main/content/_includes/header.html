@@ -24,7 +24,8 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}" href="/instance">Instance</a>
-                                <!--<a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}" href="/guides">Guides</a>-->
+                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}" href="/docs">Docs</a>
+                                <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}" href="/guides">Guides</a>
                             </li>
                         </ul>
                         <a class="info-link {% if page.url == '/' %}hide{% endif %}" href="/" title="Welcome page">

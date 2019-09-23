@@ -23,42 +23,42 @@ $(document).ready(function() {
 
 function setListeners(){
     // event delegation for dynamic collection hub input copy
-    $(document).on('click', '.collection-hub-input', function(){
+    $(document).on("click", ".collection-hub-input", function(){
         $("#copy-img").tooltip("show");
         copy($(this));
     });
 
-    $(document).on('click', '.copy-to-clipboard', function(){
+    $(document).on("click", ".copy-to-clipboard", function(){
         copy($(this).prev("input"));
     });
 
     function copy(input){
         $(input).select();
-        document.execCommand('copy');
+        document.execCommand("copy");
 
         setTimeout(function(){
             $(".tooltip-copy").tooltip("hide");
-        }, 1000)
+        }, 1000);
     }
 }
 
 // Request to get all instances names
 function loadAllInfo(){
     fetchAllInstances()
-    .then(setInstanceData)
+        .then(setInstanceData);
 
     fetchAllTools()
-    .then(setToolData);
+        .then(setToolData);
 }
 
 // Set details on UI for any given instance
 function setInstanceData(instances){
-    for(instance of instances){
+    for(let instance of instances){
         let instanceName = instance.instanceName;
         let instanceDetails = instance.details || {};
 
         let pane = new InstancePane(instanceName, instanceDetails.dateCreated, instanceDetails.collectionHubURL, 
-                                    instanceDetails.clusterName, instanceDetails.collections, instanceDetails.tektonDashboard);
+            instanceDetails.clusterName, instanceDetails.collections);
 
         $("#instance-data-container").append(pane.instanceHTML);
     }
@@ -67,7 +67,7 @@ function setInstanceData(instances){
 // Set details on UI for any given instance
 function setToolData(tools){
     let hasTools = false;
-    for(tool of tools){
+    for(let tool of tools){
         if(typeof tool.label === "undefined" || tool.label.length === 0 || 
         typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
