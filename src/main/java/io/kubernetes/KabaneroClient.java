@@ -49,24 +49,6 @@ import com.squareup.okhttp.ConnectionSpec;
 
 public class KabaneroClient {
 
-    public static void main(String[] args) throws IOException, ApiException, GeneralSecurityException {
-        ApiClient client = KabaneroClient.getApiClient();
-
-        String namespace = "kabanero";
-
-        Map<String, Route> routes = KabaneroClient.listRoutes(client, namespace);
-        System.out.println(routes);
-
-        String tektonDashboard = KabaneroClient.getTektonDashboardURL(routes);
-        System.out.println(tektonDashboard);
-
-        Map<String, KabaneroCollection> collections = KabaneroClient.listKabaneroCollections(client, namespace);
-        System.out.println(collections);
-
-        Map<String, KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
-        System.out.println(instances);
-    }
-
     // routes from kabanero namespace
     private static String getTektonDashboardURL(Map<String, Route> routes) {
         Route route = routes.get("tekton-dashboard");
