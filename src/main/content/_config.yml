@@ -1,4 +1,4 @@
-title: Kabanero Landing
+title: Kabanero
 email: ajlohr@us.ibm.com
 description: >
   Kabanero delivers new and existing middleware tools to modernize your cloud journey.
@@ -43,6 +43,12 @@ plugins:
   - jekyll-assets
   - ol-asciidoc
   - jekyll-minifier
+  - jekyll-polyglot
 exclude:
   - vendor # TravisCI bundles all gems in the vendor directory on its build servers, which Jekyll will mistakenly read and explode on.
   - docs/templates
+
+languages: ["en", "es", "de", "fr", "it", "ja", "ko","pt-BR", "zh-CN", "zh-TW"]
+default_lang: "en"
+exclude_from_localization: ["javascript", "images", "css"]
+parallel_localization: true
