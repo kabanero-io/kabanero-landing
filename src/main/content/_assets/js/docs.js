@@ -1,7 +1,7 @@
-$(".toc-item").click(function(){
+$('.toc-item').click(function(){
     $(this).toggleClass('open');
-    $(this).find(".plus-minus-icon").attr('src') === '/img/icon_plus.png' ? $(this).find(".plus-minus-icon").attr('src', '/img/icon_minus.png') : $(this).find(".plus-minus-icon").attr('src', '/img/icon_plus.png');
-})
+    $(this).find('.plus-minus-icon').attr('src') === '/img/icon_plus.png' ? $(this).find('.plus-minus-icon').attr('src', '/img/icon_minus.png') : $(this).find('.plus-minus-icon').attr('src', '/img/icon_plus.png');
+});
 
 $('#doc-search').keyup(function(){
     searchDocs();
@@ -13,10 +13,7 @@ function searchDocs(){
     $.each(docTitles, function(index, value){
         if($(value).attr('id') !== 'welcome-doc'){
             let docTitle = $(value).text().toLowerCase();
-            console.log(docTitle);
-            console.log(!$(value).hasClass('active-doc'));
             !docTitle.includes(searchTerm) && !$(value).hasClass('active-doc') ? $(value).hide() : $(value).show();
-            console.log(!docTitle.includes(searchTerm) && !$(value).hasClass('active-doc'));
         }
     });
     hideCategoriesIfEmpty();
