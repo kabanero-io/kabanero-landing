@@ -1,7 +1,7 @@
 ![](src/main/content/img/Kabanero_Logo_Hero.png)
 
 # Introduction
-Landing page for the Kabanero OKD Console. This is a copy (and slimmed down version) of the [Kabanero Landing Repository](https://github.com/kabanero-io/kabanero-landing)
+Landing page for the Kabanero OKD Console.
 
 ## Contributing to the landing page
 
