@@ -54,3 +54,11 @@ $color-ibm:#3d70b2;
 div.tooltip-inner {
     max-width: 50rem;
 }
+
+.coll-table tr td:first-child {
+    width: 8rem;
+}
+
+caption {
+    caption-side: top;
+}

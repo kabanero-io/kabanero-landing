@@ -103,35 +103,27 @@ let InstancePane = class {
         }
 
         let row = $("<div/>", {class: "row"});
-        let col = $("<div/>", {class: "col-md"});
+        let col = $("<div/>", {class: "col col-xl-5"});
         col.append($("<strong/>", {text: `${label}: `}));
-
-        let hubTable = $("<table/>", {class: "table table-striped coll-table"});
-        let tHead = $("<thead/>");
-        let tHeadRow = $("<tr/>");
-
-        tHeadRow.append($("<td/>", {text: "Collection Maturity"}));
-        tHeadRow.append($("<td/>", {text: "Appsody URL"}));
-        tHeadRow.append($("<td/>", {text: "Codewind URL"}));
-        hubTable.append(tHead.append(tHeadRow));
-
-        let tBody = $("<tbody/>");
 
         // Each Collection Hub has categories (Maturities). These categories categorize the collections based on their maturity.
         // For example, collections that meet technical requirements that Kabanero considers ready for production would be in the "stable" maturity.
         // We will show the Collection Hub URL's for each maturity in the collection hub.
-        for(let maturity of collectionHubMaturities){
-            let maturityRow = $("<tr/>");
+        for(let [index, maturity] of collectionHubMaturities.entries()){
+            let maturityTable = $("<table/>", {class: "table table-striped coll-table"}).append($("<caption/>", {text: maturity.name}));
 
-            let maturityName = $("<td/>").append(maturity.name);
-            let appsodyURL = $("<td/>").append(InstancePane.createCollectionHubInput("appsodyURL", maturity.appsodyURL));
-            let codewindURL = $("<td/>").append(InstancePane.createCollectionHubInput("codewindURL", maturity.codewindURL));
+            let appsodyLabel = $("<td/>").append("Appsody URL");
+            let appsodyURL = $("<td/>").append(InstancePane.createCollectionHubInput(`appsodyURL${index}`, maturity.appsodyURL));
+            let appsodyRow = $("<tr/>").append(appsodyLabel, appsodyURL);
 
-            maturityRow.append(maturityName, appsodyURL, codewindURL);
-            tBody.append(maturityRow);
+            let codewindLabel = $("<td/>").append("Codewind URL");
+            let codewindURL = $("<td/>").append(InstancePane.createCollectionHubInput(`codewindURL${index}`, maturity.codewindURL));
+            let codewindRow = $("<tr/>").append(codewindLabel, codewindURL);
+
+            let tBody = $("<tbody/>").append(appsodyRow, codewindRow);
+            maturityTable.append(tBody);
+            col.append(maturityTable);
         }
-        hubTable.append(tBody);
-        col.append(hubTable);
         return row.append(col);
     }
 
