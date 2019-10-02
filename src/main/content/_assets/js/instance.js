@@ -24,12 +24,13 @@ $(document).ready(function() {
 function setListeners(){
     // event delegation for dynamic collection hub input copy
     $(document).on("click", ".collection-hub-input", function(){
-        $("#copy-img").tooltip("show");
+        $(this).siblings(".input-group-append").children(".tooltip-copy").tooltip("show");
         copy($(this));
     });
 
     $(document).on("click", ".copy-to-clipboard", function(){
-        copy($(this).prev("input"));
+        let id = $(this).data("inputIDToCopy");
+        copy($(`#${id}`));
     });
 
     function copy(input){
@@ -57,10 +58,10 @@ function setInstanceData(instances){
         let instanceName = instance.instanceName;
         let instanceDetails = instance.details || {};
 
-        let pane = new InstancePane(instanceName, instanceDetails.dateCreated, instanceDetails.collectionHubURL, 
+        let pane = new InstancePane(instanceName, instanceDetails.dateCreated, instanceDetails.repos, 
             instanceDetails.clusterName, instanceDetails.collections);
 
-        $("#instance-data-container").append(pane.instanceHTML);
+        $("#instance-data-container").append(pane.instanceHTML, "<hr/>");
     }
 }
 

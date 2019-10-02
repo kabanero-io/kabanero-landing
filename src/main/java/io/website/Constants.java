@@ -19,10 +19,11 @@
 
 package io.website;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.kabanero.KabaneroCollection;
+import io.kabanero.KabaneroRepository;
 
 public final class Constants {
 
@@ -30,11 +31,11 @@ public final class Constants {
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");
     public static final String DEFAULT_INSTANCE_NAME = getEnv("INSTANCE_NAME", "kabanero");
     public static final String DEFAULT_DATE_CREATED = getEnv("DATE_CREATED", "");
-    public static final String DEFAULT_COLLECTION_HUB_URL = getEnv("COLLECTION_HUB_URL", "");
+    public static final List<KabaneroRepository> DEFAULT_COLLECTION_HUB_URL = getDefaultRepos();
     public static final String DEFAULT_CLUSTER_NAME = getEnv("CLUSTER_NAME", "");
 
     // Collections env value should be a comma separated list of "collection_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
-    public static final Map<String, KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
+    public static final List<KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
 
     // Kabanero Tools
     public static final String TA_DASHBOARD_LABEL = "Transformation Advisor";
@@ -130,8 +131,8 @@ public final class Constants {
         return envValue == null ? fallback : envValue;
     }
 
-    private static Map<String, KabaneroCollection> collectionStringToCollections(String collections){
-        Map<String, KabaneroCollection> activeCollections = new HashMap<String, KabaneroCollection>();
+    private static List<KabaneroCollection> collectionStringToCollections(String collections){
+        List<KabaneroCollection> activeCollections = new ArrayList<KabaneroCollection>();
         if (collections.trim().isEmpty()) {
             return activeCollections;
         }
@@ -145,9 +146,16 @@ public final class Constants {
             }
 
             KabaneroCollection KabaneroCollection = new KabaneroCollection(collectionNameVersion[0], collectionNameVersion[1]);
-            activeCollections.put(KabaneroCollection.getName(), KabaneroCollection);
+            activeCollections.add(KabaneroCollection);
         }
 
         return activeCollections;
+    }
+
+    private static List<KabaneroRepository> getDefaultRepos() {
+        List<KabaneroRepository> kabRepos = new ArrayList<>();
+        KabaneroRepository repo = new KabaneroRepository("incubator", getEnv("COLLECTION_HUB_URL", ""), true);
+        kabRepos.add(repo);
+        return kabRepos;
     }
 }

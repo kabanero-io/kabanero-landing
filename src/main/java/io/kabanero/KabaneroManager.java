@@ -21,6 +21,7 @@ package io.kabanero;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import io.website.Constants;
 import io.kubernetes.KabaneroClient;
@@ -45,7 +46,11 @@ public class KabaneroManager {
             SINGLE_KABANERO_MANAGER_INSTANCE = new KabaneroManager();
             
             try {
-                SINGLE_KABANERO_MANAGER_INSTANCE.addInstance(KabaneroClient.getInstance());        
+                List<KabaneroInstance> instances = KabaneroClient.getInstances();
+                
+                for(KabaneroInstance kabInst : instances){
+                    SINGLE_KABANERO_MANAGER_INSTANCE.addInstance(kabInst);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 SINGLE_KABANERO_MANAGER_INSTANCE.addInstance(KabaneroManager.createDefaultInstance());
