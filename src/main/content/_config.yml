@@ -12,8 +12,8 @@ slack_invite_url: https://slack-invite-ibm-cloud-tech.mybluemix.net/
 twitter_username: KabaneroIO
 github_username: kabanero-io
 docs_url: /docs
-hero_logo: /img/Kabanero_Logo_Hero.png
-white_text_logo: /img/Kabanero_Logo_White_Text.png
+title_logo: /img/Kabanero_Logo_Hero.png
+header_logo: /img/Kabanero_Logo_White_Text.png
 
 
 asciidoctor:
