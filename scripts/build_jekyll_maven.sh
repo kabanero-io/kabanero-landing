@@ -11,8 +11,8 @@ ruby -v
 ./scripts/build_gem_dependencies.sh
 
 # Guides that are ready to be published to the Code Conjuring site
-# echo "Cloning repositories with name starting with guide or iguide..."
-# ruby ./scripts/build_clone_guides.rb
+echo "Cloning repositories with name starting with guide or iguide..."
+ruby ./scripts/build_clone_guides.rb
 
 # Development environment only actions
 if [ "$JEKYLL_ENV" != "production" ]; then 
