@@ -110,14 +110,14 @@ let InstancePane = class {
         // For example, collections that meet technical requirements that Kabanero considers ready for production would be in the "stable" maturity.
         // We will show the Collection Hub URL's for each maturity in the collection hub.
         for(let [index, maturity] of collectionHubMaturities.entries()){
-            let maturityTable = $("<table/>", {class: "table table-striped coll-table"}).append($("<caption/>", {text: maturity.name}));
+            let maturityTable = $("<table/>", {class: "table coll-table"}).append($("<caption/>", {text: maturity.name}));
 
-            let appsodyLabel = $("<td/>").append("Appsody URL");
-            let appsodyURL = $("<td/>").append(InstancePane.createCollectionHubInput(`appsodyURL${index}`, maturity.appsodyURL));
+            let appsodyLabel = $("<td/>", {class: "align-middle"}).append("Appsody URL");
+            let appsodyURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCollectionHubInput(`appsodyURL${index}`, maturity.appsodyURL));
             let appsodyRow = $("<tr/>").append(appsodyLabel, appsodyURL);
 
-            let codewindLabel = $("<td/>").append("Codewind URL");
-            let codewindURL = $("<td/>").append(InstancePane.createCollectionHubInput(`codewindURL${index}`, maturity.codewindURL));
+            let codewindLabel = $("<td/>", {class: "align-middle"}).append("Codewind URL");
+            let codewindURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCollectionHubInput(`codewindURL${index}`, maturity.codewindURL));
             let codewindRow = $("<tr/>").append(codewindLabel, codewindURL);
 
             let tBody = $("<tbody/>").append(appsodyRow, codewindRow);
@@ -135,7 +135,7 @@ let InstancePane = class {
 
         img.tooltip({title: "copied!", trigger: "click"});
 
-        let wrapper = $("<div/>", {class: "input-group mb-3"});
+        let wrapper = $("<div/>", {class: "input-group"});
 
         let copyImgWrapper = $("<div/>", {class: "input-group-append"});
         copyImgWrapper.append(img);
