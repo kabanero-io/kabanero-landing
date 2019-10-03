@@ -16,11 +16,6 @@
  *
  ******************************************************************************/
 
-$(document).ready(function() {
-    fetchATool("Transformation Advisor")
-        .then(setTA);
-});
-
 function hideAllFeaturedModelsCollapses(element){
     $(".featuredModelsCollapse").collapse("hide");
     $(".featured-model-box").removeClass("selectedStack");
@@ -35,11 +30,4 @@ function hideAllOpenSourcePlatformsCollapses(id){
     $("#open-source-platform-" + id + "-box").addClass("open-source-platform-box-selected");
     $(".open-source-platform-vertical-separator-visible").removeClass("open-source-platform-vertical-separator-visible");
     $("#open-source-platform-" + id + "-separator").addClass("open-source-platform-vertical-separator-visible");
-}
-
-function setTA(ta){
-    if(ta && ta.location){
-        $("#ta-link").attr("href", ta.location);
-        $("#ta-box").show();
-    }
 }

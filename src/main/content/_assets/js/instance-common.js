@@ -103,7 +103,7 @@ let InstancePane = class {
         }
 
         let row = $("<div/>", {class: "row"});
-        let col = $("<div/>", {class: "col col-xl-5"});
+        let col = $("<div/>", {class: "col-md-11"});
         col.append($("<strong/>", {text: `${label}: `}));
 
         // Each Collection Hub has categories (Maturities). These categories categorize the collections based on their maturity.

@@ -67,7 +67,7 @@ function setInstanceData(instances){
 
 // Set details on UI for any given instance
 function setToolData(tools){
-    let hasTools = false;
+    let noTools = true;
     for(let tool of tools){
         if(typeof tool.label === "undefined" || tool.label.length === 0 || 
         typeof tool.location === "undefined" || tool.location.length === 0){
@@ -76,10 +76,10 @@ function setToolData(tools){
 
         let toolPane = new ToolPane(tool.label, tool.location);
         $("#tool-data-container").append(toolPane.toolHTML);
-        hasTools = true;
+        noTools = false;
     }
 
-    if(hasTools){
-        $("#tool-data-container").show();
+    if(noTools){
+        $("#no-tools").show();
     }
 }
