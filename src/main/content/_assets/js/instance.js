@@ -24,12 +24,13 @@ $(document).ready(function() {
 function setListeners(){
     // event delegation for dynamic collection hub input copy
     $(document).on("click", ".collection-hub-input", function(){
-        $("#copy-img").tooltip("show");
+        $(this).siblings(".input-group-append").children(".tooltip-copy").tooltip("show");
         copy($(this));
     });
 
     $(document).on("click", ".copy-to-clipboard", function(){
-        copy($(this).prev("input"));
+        let id = $(this).data("inputIDToCopy");
+        copy($(`#${id}`));
     });
 
     function copy(input){
@@ -57,16 +58,16 @@ function setInstanceData(instances){
         let instanceName = instance.instanceName;
         let instanceDetails = instance.details || {};
 
-        let pane = new InstancePane(instanceName, instanceDetails.dateCreated, instanceDetails.collectionHubURL, 
+        let pane = new InstancePane(instanceName, instanceDetails.dateCreated, instanceDetails.repos, 
             instanceDetails.clusterName, instanceDetails.collections);
 
-        $("#instance-data-container").append(pane.instanceHTML);
+        $("#instance-data-container").append(pane.instanceHTML, "<hr/>");
     }
 }
 
 // Set details on UI for any given instance
 function setToolData(tools){
-    let hasTools = false;
+    let noTools = true;
     for(let tool of tools){
         if(typeof tool.label === "undefined" || tool.label.length === 0 || 
         typeof tool.location === "undefined" || tool.location.length === 0){
@@ -75,10 +76,10 @@ function setToolData(tools){
 
         let toolPane = new ToolPane(tool.label, tool.location);
         $("#tool-data-container").append(toolPane.toolHTML);
-        hasTools = true;
+        noTools = false;
     }
 
-    if(hasTools){
-        $("#tool-data-container").show();
+    if(noTools){
+        $("#no-tools").show();
     }
 }

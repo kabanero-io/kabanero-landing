@@ -19,18 +19,17 @@
 
 package io.kabanero;
 
-import java.util.Map;
+import java.util.List;
 
 import io.kabanero.KabaneroCollection;
 
 public class KabaneroInstance {
-
     public String instanceName;
     public KabaneroInstanceDetails details;
     
-    public KabaneroInstance(String username, String instanceName, String date, String collectionHub, String clusterName, Map<String, KabaneroCollection> collections){
+    public KabaneroInstance(String username, String instanceName, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroCollection> collections){
         this.instanceName = instanceName;
-        this.details = new KabaneroInstanceDetails(username, date, collectionHub, clusterName, collections);
+        this.details = new KabaneroInstanceDetails(username, date, repos, clusterName, collections);
     }
 
     public KabaneroInstanceDetails getDetails() {
@@ -47,5 +46,10 @@ public class KabaneroInstance {
 
     public void setInstanceName(String instanceName) {
         this.instanceName = instanceName;
+    }
+
+    @Override
+    public String toString() {
+        return "KabaneroInstance [details=" + details + ", instanceName=" + instanceName + "]";
     }
 }

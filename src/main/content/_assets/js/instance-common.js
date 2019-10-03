@@ -57,19 +57,19 @@ let ToolPane = class {
     get toolHTML(){
         let row = $("<div/>", {class: "row"});
         let col = $("<div/>", {class: "col-md"});
-        col.append($("<strong/>", {text: `${this.label}: `}))
+        col.append($("<strong/>", {text: `${this.label}: `}));
         col.append($("<a/>", {href: this.location, target: "_blank", text: this.location}));
         return row.append(col);
     }
 };
 
 let InstancePane = class {
-    constructor(instanceName, date, collectionHubURL, cluster, collections) {
+    constructor(instanceName, date, collectionHub, cluster, collections) {
         this.instanceName = instanceName;
 
         // If Date cannot be parsed, then return it to original non-parsable value, otherwise, use UTC date
         this.date = String(new Date(date)) === "Invalid Date" ? date : new Date(date).toUTCString();
-        this.collectionHubURL = collectionHubURL;
+        this.collectionHub = collectionHub;
         this.cluster = cluster;
         this.collections = collections;
     }
@@ -77,11 +77,11 @@ let InstancePane = class {
     get instanceNameHTML(){
         let row = $("<div/>", {class: "row"});
         let col = $("<div/>", {class: "col"});
-        col.append($("<h3/>", {text: this.instanceName}))
+        col.append($("<h3/>", {text: this.instanceName}));
         return row.append(col);
     }
 
-    createDetailRowHTMLForString(label, val, isHTML){
+    static createDetailRowHTMLForString(label, val, isHTML){
         // do not show any values that aren't set
         if(typeof val === "undefined" || val.length === 0){
             return;
@@ -89,43 +89,86 @@ let InstancePane = class {
 
         let row = $("<div/>", {class: "row"});
         let col = $("<div/>", {class: "col-md"});
-        col.append($("<strong/>", {text: `${label}: `}))
+        col.append($("<strong/>", {text: `${label}: `}));
 
         // use html only when we have to, this mitigates xss
-        let span = isHTML ? $("<span/>", {html: val }) : $("<span/>", {text: val })
+        let span = isHTML ? $("<span/>", {html: val }) : $("<span/>", {text: val });
         col.append(span);
         return row.append(col);
     }
 
-    createCollectionHubInput(label, url){
-        let input = $("<input/>",{type: "text", class: "collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url});
-        let img = $("<img />",{id:"copy-img", src: "/img/copy-clipboard.png", alt: "copy collection hub url to clipboard icon", class: "copy-to-clipboard tooltip-copy"})
-            .tooltip({title: "copied!", trigger: "click"});
-        let wrapper = $("<span/>").append(input, img);
+    static createCollectionHubTable(label, collectionHubMaturities){
+        if(typeof collectionHubMaturities === "undefined" || collectionHubMaturities.length === 0){
+            return;
+        }
 
-        return this.createDetailRowHTMLForString(label, wrapper, true);
+        let row = $("<div/>", {class: "row"});
+        let col = $("<div/>", {class: "col-md-11"});
+        col.append($("<strong/>", {text: `${label}: `}));
+
+        // Each Collection Hub has categories (Maturities). These categories categorize the collections based on their maturity.
+        // For example, collections that meet technical requirements that Kabanero considers ready for production would be in the "stable" maturity.
+        // We will show the Collection Hub URL's for each maturity in the collection hub.
+        for(let [index, maturity] of collectionHubMaturities.entries()){
+            let maturityTable = $("<table/>", {class: "table coll-table"}).append($("<caption/>", {text: maturity.name}));
+
+            let appsodyLabel = $("<td/>", {class: "align-middle"}).append("Appsody URL");
+            let appsodyURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCollectionHubInput(`appsodyURL${index}`, maturity.appsodyURL));
+            let appsodyRow = $("<tr/>").append(appsodyLabel, appsodyURL);
+
+            let codewindLabel = $("<td/>", {class: "align-middle"}).append("Codewind URL");
+            let codewindURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCollectionHubInput(`codewindURL${index}`, maturity.codewindURL));
+            let codewindRow = $("<tr/>").append(codewindLabel, codewindURL);
+
+            let tBody = $("<tbody/>").append(appsodyRow, codewindRow);
+            maturityTable.append(tBody);
+            col.append(maturityTable);
+        }
+        return row.append(col);
     }
 
-    createDetailRowHTMLForCollections(label, collObj){
+    static createCollectionHubInput(id, url){
+        // Image is used to let the user know they can click to copy the URL. The inputIDToCopy data attribute will let the click 
+        // event konw which input to copy the URL from (helpful when there's multiple)
+        let img = $("<img />", {src: "/img/copy-clipboard.png", alt: "copy collection hub url to clipboard icon", class: "img img-fluid copy-to-clipboard tooltip-copy"})
+            .data("inputIDToCopy", id);
+
+        img.tooltip({title: "copied!", trigger: "click"});
+
+        let wrapper = $("<div/>", {class: "input-group"});
+
+        let copyImgWrapper = $("<div/>", {class: "input-group-append"});
+        copyImgWrapper.append(img);
+
+        let input = $("<input/>", {id, type: "text", class: "form-control collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url}) 
+            .tooltip({title: url, container: "body", placement: "top"});
+        return wrapper.append(input, copyImgWrapper);
+    }
+
+    static createDetailRowHTMLForCollections(label, collArr){
         // do not show any values that aren't set
-        if(typeof collObj === "undefined" || Object.keys(collObj).length === 0){
+        if(typeof collArr === "undefined" || collArr.length === 0){
             return;
         }
 
         let row = $("<div/>", {class: "row"});
         let col = $("<div/>", {class: "col-md"});
-        col.append($("<strong/>", {text: `${label}: `}))
+        col.append($("<strong/>", {text: `${label}: `}));
 
-        let sortedKeys = Object.keys(collObj).sort();
+        let sortedColls = InstancePane.sortColls(collArr);
 
         let ul = $("<ul/>");
-        sortedKeys.forEach(function(key){
-            ul.append($("<li/>", {text: `${collObj[key].name} - ${collObj[key].version}`}));
-        })
+        for(let collection of sortedColls){
+            ul.append($("<li/>", {text: `${collection.name} - ${collection.version}`}));
+        }
 
         col.append(ul);
 
         return row.append(col);
+    }
+
+    static sortColls(colArry){
+        return colArry.sort((a,b) => a.name.localeCompare(b.name));
     }
     
     get instanceHTML(){
@@ -133,10 +176,10 @@ let InstancePane = class {
         let innerCol = $("<div/>", {class: "col-md"});
         innerCol
             .append(this.instanceNameHTML)
-            .append(this.createDetailRowHTMLForString("Date Created", this.date, false))
-            .append(this.createCollectionHubInput("Collection Hub", this.collectionHubURL))
-            .append(this.createDetailRowHTMLForString("Cluster", this.cluster, false))
-            .append(this.createDetailRowHTMLForCollections("Collections", this.collections, false));
+            .append(InstancePane.createDetailRowHTMLForString("Date Created", this.date, false))
+            .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub))
+            .append(InstancePane.createDetailRowHTMLForString("Cluster", this.cluster, false))
+            .append(InstancePane.createDetailRowHTMLForCollections("Collections", this.collections, false));
         topRow.append(innerCol);
         return topRow;
     }
