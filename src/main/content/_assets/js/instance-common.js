@@ -170,7 +170,7 @@ let InstancePane = class {
 
     static createCLI(id, cliURL) {
         let row = $("<div/>", {class: "row"});
-        let col = $("<div/>", {class: "col-md-7"});
+        let col = $("<div/>", {class: "col-md-11"});
         let copyInput = InstancePane.createCopyInput(id, cliURL).addClass("indent");
         let cliHTML = "Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. " + 
             "For more information about using the CLI see the <a href='/docs/ref/general/kabenero-cli.html'>Kabanero Management CLI documentation</a>";
@@ -188,8 +188,8 @@ let InstancePane = class {
         innerCol
             .append(this.instanceNameHTML)
             .append(InstancePane.createDetailRowHTMLForString("Date Created", this.date, false))
-            .append(InstancePane.createCLI(this.instanceName + "-cli", this.cliURL), false)
             .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub), false)
+            .append(InstancePane.createCLI(this.instanceName + "-cli", this.cliURL), false)
             .append(InstancePane.createDetailRowHTMLForString("Cluster", this.cluster, false))
             .append(InstancePane.createDetailRowHTMLForCollections("Collections", this.collections, false));
         topRow.append(innerCol);
