@@ -56,10 +56,10 @@ function loadAllInfo(){
 function setInstanceData(instances){
     for(let instance of instances){
         let instanceName = instance.instanceName;
-        let instanceDetails = instance.details || {};
+        let details = instance.details || {};
 
-        let pane = new InstancePane(instanceName, instanceDetails.dateCreated, instanceDetails.repos, 
-            instanceDetails.clusterName, instanceDetails.collections);
+        let pane = new InstancePane(instanceName, details.dateCreated, details.repos, details.clusterName, 
+            details.collections, details.cliURL);
 
         $("#instance-data-container").append(pane.instanceHTML, "<hr/>");
     }

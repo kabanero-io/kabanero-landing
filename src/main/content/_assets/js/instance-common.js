@@ -64,7 +64,7 @@ let ToolPane = class {
 };
 
 let InstancePane = class {
-    constructor(instanceName, date, collectionHub, cluster, collections) {
+    constructor(instanceName, date, collectionHub, cluster, collections, cliURL) {
         this.instanceName = instanceName;
 
         // If Date cannot be parsed, then return it to original non-parsable value, otherwise, use UTC date
@@ -72,6 +72,7 @@ let InstancePane = class {
         this.collectionHub = collectionHub;
         this.cluster = cluster;
         this.collections = collections;
+        this.cliURL = cliURL;
     }
 
     get instanceNameHTML(){
@@ -110,14 +111,14 @@ let InstancePane = class {
         // For example, collections that meet technical requirements that Kabanero considers ready for production would be in the "stable" maturity.
         // We will show the Collection Hub URL's for each maturity in the collection hub.
         for(let [index, maturity] of collectionHubMaturities.entries()){
-            let maturityTable = $("<table/>", {class: "table coll-table"}).append($("<caption/>", {text: maturity.name}));
+            let maturityTable = $("<table/>", {class: "table indent coll-table"}).append($("<caption/>", {text: maturity.name}));
 
             let appsodyLabel = $("<td/>", {class: "align-middle"}).append("Appsody URL");
-            let appsodyURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCollectionHubInput(`appsodyURL${index}`, maturity.appsodyURL));
+            let appsodyURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCopyInput(`appsodyURL${index}`, maturity.appsodyURL));
             let appsodyRow = $("<tr/>").append(appsodyLabel, appsodyURL);
 
             let codewindLabel = $("<td/>", {class: "align-middle"}).append("Codewind URL");
-            let codewindURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCollectionHubInput(`codewindURL${index}`, maturity.codewindURL));
+            let codewindURL = $("<td/>", {class: "align-middle"}).append(InstancePane.createCopyInput(`codewindURL${index}`, maturity.codewindURL));
             let codewindRow = $("<tr/>").append(codewindLabel, codewindURL);
 
             let tBody = $("<tbody/>").append(appsodyRow, codewindRow);
@@ -127,10 +128,10 @@ let InstancePane = class {
         return row.append(col);
     }
 
-    static createCollectionHubInput(id, url){
+    static createCopyInput(id, url){
         // Image is used to let the user know they can click to copy the URL. The inputIDToCopy data attribute will let the click 
         // event konw which input to copy the URL from (helpful when there's multiple)
-        let img = $("<img />", {src: "/img/copy-clipboard.png", alt: "copy collection hub url to clipboard icon", class: "img img-fluid copy-to-clipboard tooltip-copy"})
+        let img = $("<img />", {src: "/img/copy-clipboard.png", alt: "copy to clipboard icon", class: "img img-fluid copy-to-clipboard tooltip-copy"})
             .data("inputIDToCopy", id);
 
         img.tooltip({title: "copied!", trigger: "click"});
@@ -141,7 +142,7 @@ let InstancePane = class {
         copyImgWrapper.append(img);
 
         let input = $("<input/>", {id, type: "text", class: "form-control collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url}) 
-            .tooltip({title: url, container: "body", placement: "top"});
+            .tooltip({title: url, container: "body", placement: "top", trigger: "hover"});
         return wrapper.append(input, copyImgWrapper);
     }
 
@@ -167,6 +168,16 @@ let InstancePane = class {
         return row.append(col);
     }
 
+    static createCLI(id, cliURL) {
+        let row = $("<div/>", {class: "row"});
+        let col = $("<div/>", {class: "col-md-7"});
+        let copyInput = InstancePane.createCopyInput(id, cliURL).addClass("indent");
+        let cliHTML = "Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. " + 
+            "For more information about using the CLI see the <a href='/docs/ref/general/kabenero-cli.html'>Kabanero Management CLI documentation</a>";
+        col.append($("<strong/>", {text: "Management CLI"}), $("<p/>", {html: cliHTML, class: "indent"}), copyInput);
+        return row.append(col);
+    }
+
     static sortColls(colArry){
         return colArry.sort((a,b) => a.name.localeCompare(b.name));
     }
@@ -177,7 +188,8 @@ let InstancePane = class {
         innerCol
             .append(this.instanceNameHTML)
             .append(InstancePane.createDetailRowHTMLForString("Date Created", this.date, false))
-            .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub))
+            .append(InstancePane.createCLI(this.instanceName + "-cli", this.cliURL), false)
+            .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub), false)
             .append(InstancePane.createDetailRowHTMLForString("Cluster", this.cluster, false))
             .append(InstancePane.createDetailRowHTMLForCollections("Collections", this.collections, false));
         topRow.append(innerCol);

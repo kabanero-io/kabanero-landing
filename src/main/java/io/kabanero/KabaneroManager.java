@@ -19,12 +19,15 @@
 
 package io.kabanero;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import io.website.Constants;
 import io.kubernetes.KabaneroClient;
+import io.kubernetes.client.ApiException;
 
 // Singleton class to manage the various kabanero instances associated with Kabanero
 public class KabaneroManager {
@@ -66,7 +69,7 @@ public class KabaneroManager {
         
     public static KabaneroInstance createDefaultInstance() {
         KabaneroInstance instance = new KabaneroInstance(Constants.DEFAULT_USER_NAME, Constants.DEFAULT_INSTANCE_NAME, Constants.DEFAULT_DATE_CREATED, 
-        Constants.DEFAULT_COLLECTION_HUB_URL, Constants.DEFAULT_CLUSTER_NAME, Constants.DEFAULT_COLLECTIONS);
+        Constants.DEFAULT_COLLECTION_HUB_URL, Constants.DEFAULT_CLUSTER_NAME, Constants.DEFAULT_COLLECTIONS, Constants.CLI_URL);
         return instance;
     }
     

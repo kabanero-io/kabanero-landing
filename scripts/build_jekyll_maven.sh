@@ -11,25 +11,29 @@ ruby -v
 ./scripts/build_gem_dependencies.sh
 
 # Guides that are ready to be published to the Code Conjuring site
-echo "Cloning repositories with name starting with guide or iguide..."
-ruby ./scripts/build_clone_guides.rb
+if [ "$TRAVIS_EVENT_TYPE" != "pull_request" ]; then 
+    echo "Cloning repositories with name starting with guide or iguide..."
+    ruby ./scripts/build_clone_guides.rb;
+fi
 
 # Development environment only actions
 if [ "$JEKYLL_ENV" != "production" ]; then 
     echo "Not in production environment..."
 
     # Development environments with draft docs/guides
-    if [ "$JEKYLL_DRAFT_GUIDES" == "true" ]; then
+    if [ "$JEKYLL_DRAFT_GUIDES" == "true" ] && [ "$TRAVIS_EVENT_TYPE" != "pull_request" ]; then
         echo "Clone draft guides for test environments..."
         ruby ./scripts/build_clone_guides.rb "draft-guide"    
-
-        #./scripts/build_clone_docs.sh "draft" # Argument is branch name of kabanero-io/docs
+        #./scripts/build_clone_docs.sh "draft" # Argument is a revision of kabanero-io/docs repo
     else
         echo "not cloning draft guides"
     fi
 fi
 
-./scripts/build_clone_docs.sh "master" # Argument is branch name of kabanero-io/docs
+# Only clone docs if they're not already there. Some builds clone the docs prior to this.
+if [ ! -d "${CONTENT_DIR}/docs" ]; then
+    ./scripts/build_clone_docs.sh "${DOCS_GIT_URL}" "${DOCS_GIT_REVISION}" # Argument is the repo and a revision of the docs repo
+fi
 
 # Development environments that enable the draft blogs in the _draft directory.
 if [ "$JEKYLL_DRAFT_BLOGS" == "true" ]; then
@@ -37,14 +41,18 @@ if [ "$JEKYLL_DRAFT_BLOGS" == "true" ]; then
     JEKYLL_BUILD_FLAGS="--drafts"
 fi
 
-echo "Copying guide images to /img/guide"
-mkdir -p "$CONTENT_DIR"/img/guide
-# Check if any published guide images exist first
-for GUIDE in $( ls "$CONTENT_DIR"/guides ); do
-	if [[ -d "$CONTENT_DIR/guides/$GUIDE"/assets ]]; then
-		cp "$CONTENT_DIR/guides/$GUIDE"/assets/* "$CONTENT_DIR"/img/guide/
-	fi
-done
+if [ "$TRAVIS_EVENT_TYPE" != "pull_request" ]; then 
+
+    echo "Copying guide images to /img/guide"
+    mkdir -p "$CONTENT_DIR"/img/guide
+    # Check if any published guide images exist first
+    for GUIDE in $( ls "$CONTENT_DIR"/guides ); do
+        if [[ -d "$CONTENT_DIR/guides/$GUIDE"/assets ]]; then
+            cp "$CONTENT_DIR/guides/$GUIDE"/assets/* "$CONTENT_DIR"/img/guide/
+        fi
+    done
+
+fi
 
 # Build draft and published blogs
 ./scripts/build_clone_blogs.sh
