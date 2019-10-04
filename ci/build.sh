@@ -9,7 +9,7 @@ cd $CUR_DIR/../
 
 GIT_REVISION=$(git rev-parse HEAD)
 
-if [ "$USE_CACHE" = "false" ]; then
+if [ "$DOCKER_USE_CACHE" = "false" ]; then
     echo "Docker cache: off"
     DOCKER_OPTS="--no-cache"
 else
