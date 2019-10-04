@@ -12,11 +12,16 @@ public class KubeKabanero {
     private String name;
     private List<KabaneroRepository> repositories;
     private String creationTimestamp;
+    private String cliURL;
     
     public KubeKabanero(String name, String creationTimestamp) {
         this.name = name;
         this.creationTimestamp = creationTimestamp;
         this.repositories = new ArrayList<>();
+    }
+
+    public List<KabaneroRepository> getRepositories() {
+        return repositories;
     }
 
     public void setRepositories(List<Map<String, ?>> repositories) {        
@@ -34,17 +39,20 @@ public class KubeKabanero {
         return name;
     }
 
-    public List<KabaneroRepository> getRepositories() {
-        return repositories;
-    }
-
     public String getCreationTimestamp() {
         return creationTimestamp;
+    }
+
+    public String getCliURL() {
+        return cliURL;
+    }
+
+    public void setCliURL(String cliURL) {
+        this.cliURL = cliURL;
     }
 
     @Override
     public String toString() {
         return "KubeKabanero [name=" + name + ", repositories=" + repositories + ", creationTimestamp=" + creationTimestamp + "]";
     }
-
 }

@@ -55,19 +55,19 @@ public class KabaneroClient {
     private final static Logger LOGGER = Logger.getLogger(KabaneroClient.class.getName());
 
     // routes from kabanero namespace
-    private static String getTektonDashboardURL(Map<String, Route> routes) {
-        Route route = routes.get("tekton-dashboard");
+    private static String getLabeledRoute(String Label, Map<String, Route> routes) {
+        Route route = routes.get(Label);
         if (route == null) {
             return null;
         }
-        return "https://" + route.getHost();
+        return "https://" + route.getURL();
     }
 
     // routes from ta namespace
     private static String getTransformationAdvisorURL(Map<String, Route> routes) {
         for (Route route : routes.values()) {
             if (route.getName().endsWith("ta-rh-ui-route")) {
-                return "https://" + route.getHost();
+                return "https://" + route.getURL();
             }
         }
         return null;
@@ -118,18 +118,27 @@ public class KabaneroClient {
             String username = null;
             String instanceName = instance.getName();
             String date = instance.getCreationTimestamp();
+            String cliURL = KabaneroClient.getCLI(client, namespace);
 
             List<KabaneroRepository> kabaneroRepositories = instance.getRepositories();
             List<KabaneroCollection> kabaneroCollections = KabaneroClient.listKabaneroCollections(client, namespace);
 
             String clusterName = null;
 
-            KabaneroInstance kabInst = new KabaneroInstance(username, instanceName, date, kabaneroRepositories, clusterName, kabaneroCollections);
+            KabaneroInstance kabInst = new KabaneroInstance(username, instanceName, date, kabaneroRepositories, clusterName, kabaneroCollections, cliURL);
             LOGGER.log(Level.FINE, "Kabanero Instance: {0}: {1}", new Object[]{ kabInst.getInstanceName(), kabInst});
 
             kabaneroInstances.add(kabInst);
         }
         return kabaneroInstances;
+    }
+
+    public static String getCLI(ApiClient client, String namespace) throws ApiException {
+        Map<String, Route> routes = KabaneroClient.listRoutes(client, namespace);
+        if (routes != null) {
+            return KabaneroClient.getLabeledRoute("kabanero-cli", routes);
+        }
+        return null;
     }
 
     public static void discoverTools(KabaneroToolManager tools) throws IOException, ApiException, GeneralSecurityException {
@@ -141,7 +150,7 @@ public class KabaneroClient {
         LOGGER.log(Level.FINE, "'kabanero' namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
 
         if (routes != null) {
-            String url = KabaneroClient.getTektonDashboardURL(routes);
+            String url = KabaneroClient.getLabeledRoute("tekton-dashboard", routes);
             tools.addTool(new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, url));
         }
 
@@ -151,6 +160,14 @@ public class KabaneroClient {
         if (routes != null) {
             String url = KabaneroClient.getTransformationAdvisorURL(routes);
             tools.addTool(new KabaneroTool(Constants.TA_DASHBOARD_LABEL, url));
+        }
+
+        routes = KabaneroClient.listRoutes(client, "kappnav");
+        LOGGER.log(Level.FINE, "'kappnav' namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
+
+        if (routes != null) {
+            String url = KabaneroClient.getLabeledRoute("kappnav-ui-service", routes);
+            tools.addTool(new KabaneroTool(Constants.KAPPNAV_LABEL, url));
         }
     }
 
@@ -214,7 +231,7 @@ public class KabaneroClient {
         String version = "v1";
         String plural = "routes";
 
-        Map<String, Route> instances = new HashMap<String, Route>();
+        Map<String, Route> routes = new HashMap<String, Route>();
 
         Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
         Map<String, ?> map = (Map<String, ?>) obj;
@@ -224,16 +241,13 @@ public class KabaneroClient {
             String name = (String) metadata.get("name");
 
             Route route = new Route(name);
-            instances.put(name, route);
+            routes.put(name, route);
 
-            Map<String, ?> spec = (Map<String, ?>) item.get("status");
-            if (spec != null) {
-                List<Map<String, ?>> ingress = (List<Map<String, ?>>) spec.get("ingress");
-                route.setIngress(ingress);
-            }
+            Map<String, ?> spec = (Map<String, ?>) item.get("spec");
+            route.setSpec(spec);
         }
 
-        return instances;
+        return routes;
     }
 
     private static TrustManager[] getTrustManager() {

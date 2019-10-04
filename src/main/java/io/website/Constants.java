@@ -33,6 +33,7 @@ public final class Constants {
     public static final String DEFAULT_DATE_CREATED = getEnv("DATE_CREATED", "");
     public static final List<KabaneroRepository> DEFAULT_COLLECTION_HUB_URL = getDefaultRepos();
     public static final String DEFAULT_CLUSTER_NAME = getEnv("CLUSTER_NAME", "");
+    public static final String CLI_URL = getEnv("CLI_URL", "");
 
     // Collections env value should be a comma separated list of "collection_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
     public static final List<KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
@@ -43,6 +44,9 @@ public final class Constants {
 
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
     public static final String TEKTON_DASHBOARD_URL = getEnv("TEKTON_DASHBOARD_URL", "");
+
+    public static final String KAPPNAV_LABEL = "kAppNav";
+    public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
 
 
     // OKD

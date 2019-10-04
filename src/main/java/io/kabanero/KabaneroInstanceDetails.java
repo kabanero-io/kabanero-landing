@@ -32,13 +32,15 @@ public class KabaneroInstanceDetails {
     public String tektonDashboardURL;
     public String clusterName;
     public List<KabaneroCollection> collections;
+    public String cliURL;
 
-    public KabaneroInstanceDetails(String username, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroCollection> collections){
+    public KabaneroInstanceDetails(String username, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroCollection> collections, String cliURL){
         this.username = username;
         this.dateCreated = date;
         this.repos = repos;
         this.clusterName = clusterName;
         this.collections = collections;
+        this.cliURL = cliURL;
     }
 
     public String getUsername() {
@@ -89,10 +91,35 @@ public class KabaneroInstanceDetails {
         this.clusterName = clusterName;
     }
 
+    public String getTransformationAdvisorURL() {
+        return transformationAdvisorURL;
+    }
+
+    public void setTransformationAdvisorURL(String transformationAdvisorURL) {
+        this.transformationAdvisorURL = transformationAdvisorURL;
+    }
+
+    public String getTektonDashboardURL() {
+        return tektonDashboardURL;
+    }
+
+    public void setTektonDashboardURL(String tektonDashboardURL) {
+        this.tektonDashboardURL = tektonDashboardURL;
+    }
+
+    public String getCliURL() {
+        return cliURL;
+    }
+
+    public void setCliURL(String cliURL) {
+        this.cliURL = cliURL;
+    }
+
     @Override
     public String toString() {
-        return "KabaneroInstanceDetails [clusterName=" + clusterName + ", collections=" + collections + ", dateCreated="
-                + dateCreated + ", repos=" + repos + ", tektonDashboardURL=" + tektonDashboardURL
-                + ", transformationAdvisorURL=" + transformationAdvisorURL + ", username=" + username + "]";
+        return "KabaneroInstanceDetails [cliURL=" + cliURL + ", clusterName=" + clusterName + ", collections="
+                + collections + ", dateCreated=" + dateCreated + ", repos=" + repos + ", tektonDashboardURL="
+                + tektonDashboardURL + ", transformationAdvisorURL=" + transformationAdvisorURL + ", username="
+                + username + "]";
     }
 }
