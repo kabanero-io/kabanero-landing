@@ -1,5 +1,4 @@
 #!/bin/bash
-
 IMAGE=$1
 
 if [ -z "$IMAGE" ]; then
@@ -23,6 +22,7 @@ IMAGE_TAG="${IMAGE##*:}"
 if [ "$IMAGE" = "$IMAGE_TAG" ]; then
   IMAGE_TAG=latest
 fi
+
 if [ "$IMAGE_TAG" = "latest" ]; then
   IMAGE_OVERRIDE=true
 else
@@ -31,7 +31,6 @@ else
   fi
 fi
 
-if docker pull $IMAGE >/dev/null 2>&1; then
 if [[ ${REGISTRY} == *"artifactory"* ]]; then
     TAG_CHECK=$(curl -su "${DOCKER_REGISTRY_USER}:${DOCKER_REGISTRY_PASSWORD}" "https://${REGISTRY}/artifactory/api/docker/hyc-icap-open-site-images-docker-local/v2/icpa/${IMAGE_NAME}/tags/list" | jq ".tags[] | select(. == \"${IMAGE_TAG}\")")
 elif [[ ${REGISTRY} == *"stg.icr.io"* ]]; then
