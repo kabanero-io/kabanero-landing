@@ -17,10 +17,10 @@
  ******************************************************************************/
 
 function hideAllFeaturedModelsCollapses(element){
-    $(".featuredModelsCollapse").collapse('hide');
-    $(".featured-model-box").removeClass('selectedStack');
-    $(element).collapse('show');
-    $(element).addClass('selectedStack');
+    $(".featuredModelsCollapse").collapse("hide");
+    $(".featured-model-box").removeClass("selectedStack");
+    $(element).collapse("show");
+    $(element).addClass("selectedStack");
 }
 
 function hideAllOpenSourcePlatformsCollapses(id){

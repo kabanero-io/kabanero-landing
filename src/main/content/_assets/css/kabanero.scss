@@ -15,7 +15,7 @@ $color-kabanero:#C43804;
 
 /* BODY */
 body {
-    font-family: 'IBM Plex Sans', Trebuchet MS, Helvetica, Arial;
+    font-family: Trebuchet MS, Helvetica, Arial;
 }
 
 code {
@@ -391,7 +391,13 @@ footer {
         padding-top: 18px;
         overflow: hidden;
         display: inline-block;
-        padding-left: 10%;
+        padding-left: 0.3em;
+    }
+
+    @media (min-width: 767px) {
+        #footer_project_container {
+            margin-left: 3em;
+        }
     }
 
     #footer_project {
@@ -409,8 +415,9 @@ footer {
 
     #footer_round_links_container {
         margin: 23px 0;
-        padding-right: 10%;
+        padding-right: 3em;
         float: right;
+        padding-left: 4em;
     }
 
     .footer_round_btn {
@@ -472,7 +479,7 @@ footer {
 
     @media (min-width: 767px) {
         #footer_bottom_left_section {
-            padding-left: 10%;
+            padding-left: 4.5em;
         }
     
         #footer_bottom_right_section {

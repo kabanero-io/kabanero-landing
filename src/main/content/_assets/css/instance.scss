@@ -43,5 +43,22 @@ $color-ibm:#3d70b2;
 
 .copy-to-clipboard {
     margin-left: 10px;
+    height: 2rem;
     cursor: pointer;
+}
+
+.indent {
+    margin-left: 20px;
+}
+
+div.tooltip-inner {
+    max-width: 50rem;
+}
+
+.coll-table tr td:first-child {
+    width: 8rem;
+}
+
+caption {
+    caption-side: top;
 }

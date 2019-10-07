@@ -1,12 +1,11 @@
 package io.kubernetes;
 
-import java.util.List;
 import java.util.Map;
 
 public class Route {
 
     private String name;
-    private List<Map<String, ?>> ingress;
+    private Map<String, ?> spec;
 
     public Route(String name) {
        this.name = name;
@@ -16,21 +15,22 @@ public class Route {
         return name;
     }
 
-    void setIngress(List<Map<String, ?>> ingress) {
-        this.ingress = ingress;
+    void setSpec(Map<String, ?> spec) {
+        this.spec = spec;
     }
 
-    public String getHost() {
-        if (ingress != null && ingress.size() > 0) {
-            return (String) ingress.get(0).get("host");
-        } else {
-            return null;
+    public String getURL() {
+        String host = (String) spec.get("host");
+        String path = (String) spec.get("path");
+        if(path != null){
+            return host + path;
         }
+        return host;
     }
 
     @Override
     public String toString() {
-        return "Route [name=" + name + ", ingress=" + ingress + "]";
+        return "Route [name=" + name + ", spec=" + spec + "]";
     }
 
 }

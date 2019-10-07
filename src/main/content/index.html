@@ -9,28 +9,28 @@ css:
 - blog
 seo-title: Kabanero
 ---
+{% assign t = site.data[site.active_lang] %}
 <div class="container-fluid">
     <div class="row">
         <div id="instance-data" class="col-md-6">
             <!-- Welcome user -->
             <div class="row">
                 <div class="col-md">
-                    <h2>Welcome<span id="username"></span>!</h2>
+                    <h2>{{t.index.welcome}}<span id="username"></span>!</h2>
                 </div>
             </div>
             <!-- Intro -->
             <div class="row">
                 <div class="col-md">
                     <p>
-                        You have successfully installed Kabanero! Use this dashboard to view
-                        information about your <a href="/instance">instance</a>.
+                        {{t.index.intro}} <a href="/instance">{{t.index.instance}}</a>
                     </p>
                 </div>
             </div>
             <!-- Documentation Link -->
             <div class="row">
                 <div class="col-md">
-                    <p>Please see <a href="{{site.docs_url}}">documentation</a> for the next steps in using Kabanero.</p>
+                    <p>{{t.index.intro-2-please}}<a href="{{site.docs_url}}">{{t.index.doc}}</a> {{t.index.intro-2-next-steps}}</p>
                 </div>
             </div>
         </div>
@@ -39,28 +39,18 @@ seo-title: Kabanero
             <div class="row">
                 <div class="col-md">
                     <div class="learn-more-box">
-                        <p>Need more information about Kabanero?</p>
-                        <a class="learn-more-link" target="_blank" href="https://kabanero.io">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <!--
-            <div class="row">
-
-                <div class="col-md">
-                    <div class="learn-more-box">
-                        <p>More content goes here</p>
-                        <a class="learn-more-link" href="#">Learn More</a>
+                        <p>{{t.index.need-more-info}}</p>
+                        <a class="learn-more-link" target="_blank" href="https://kabanero.io">{{t.index.learn-more}}</a>
                     </div>
                 </div>
                 <div class="col-md">
-                    <div class="learn-more-box">
-                        <p>More content goes here</p>
-                        <a class="learn-more-link" href="#">Learn More</a>
+                    <div id="ta-box" class="learn-more-box hide">
+                        <p>{{t.index.ta}}</p>
+                        <!-- This link href is updated via js on page load -->
+                        <a id="ta-link" class="learn-more-link" target="_blank" href="#">{{t.index.learn-more}}</a>
                     </div>
                 </div>
             </div>
-            -->
         </div>
     </div>
 </div>

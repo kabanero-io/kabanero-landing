@@ -19,7 +19,7 @@
 
 package io.kabanero;
 
-import java.util.Map;
+import java.util.List;
 
 import io.kabanero.KabaneroCollection;
 
@@ -27,18 +27,20 @@ public class KabaneroInstanceDetails {
 
     public String username;
     public String dateCreated;
-    public String collectionHubURL;
+    public List<KabaneroRepository> repos;
     public String transformationAdvisorURL;
     public String tektonDashboardURL;
     public String clusterName;
-    public Map<String, KabaneroCollection> collections;
+    public List<KabaneroCollection> collections;
+    public String cliURL;
 
-    public KabaneroInstanceDetails(String username, String date, String collectionHub,String clusterName, Map<String, KabaneroCollection> collections){
+    public KabaneroInstanceDetails(String username, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroCollection> collections, String cliURL){
         this.username = username;
         this.dateCreated = date;
-        this.collectionHubURL = collectionHub;
+        this.repos = repos;
         this.clusterName = clusterName;
         this.collections = collections;
+        this.cliURL = cliURL;
     }
 
     public String getUsername() {
@@ -57,12 +59,12 @@ public class KabaneroInstanceDetails {
         this.dateCreated = dateCreated;
     }
 
-    public String getCollectionHubURL() {
-        return collectionHubURL;
+    public List<KabaneroRepository> getRepos() {
+        return this.repos;
     }
 
-    public void setCollectionHubURL(String collectionHubURL) {
-        this.collectionHubURL = collectionHubURL;
+    public void setRepos(List<KabaneroRepository> repos) {
+        this.repos = repos;
     }
 
     public String getCluster() {
@@ -73,11 +75,11 @@ public class KabaneroInstanceDetails {
         this.clusterName = cluster;
     }
 
-    public Map<String, KabaneroCollection> getCollections() {
+    public List<KabaneroCollection> getCollections() {
         return collections;
     }
 
-    public void setCollections(Map<String, KabaneroCollection> collections) {
+    public void setCollections(List<KabaneroCollection> collections) {
         this.collections = collections;
     }
 
@@ -87,5 +89,37 @@ public class KabaneroInstanceDetails {
 
     public void setClusterName(String clusterName) {
         this.clusterName = clusterName;
+    }
+
+    public String getTransformationAdvisorURL() {
+        return transformationAdvisorURL;
+    }
+
+    public void setTransformationAdvisorURL(String transformationAdvisorURL) {
+        this.transformationAdvisorURL = transformationAdvisorURL;
+    }
+
+    public String getTektonDashboardURL() {
+        return tektonDashboardURL;
+    }
+
+    public void setTektonDashboardURL(String tektonDashboardURL) {
+        this.tektonDashboardURL = tektonDashboardURL;
+    }
+
+    public String getCliURL() {
+        return cliURL;
+    }
+
+    public void setCliURL(String cliURL) {
+        this.cliURL = cliURL;
+    }
+
+    @Override
+    public String toString() {
+        return "KabaneroInstanceDetails [cliURL=" + cliURL + ", clusterName=" + clusterName + ", collections="
+                + collections + ", dateCreated=" + dateCreated + ", repos=" + repos + ", tektonDashboardURL="
+                + tektonDashboardURL + ", transformationAdvisorURL=" + transformationAdvisorURL + ", username="
+                + username + "]";
     }
 }
