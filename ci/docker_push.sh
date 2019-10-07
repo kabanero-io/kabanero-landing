@@ -50,3 +50,11 @@ if [ ! -z "$TAG_CHECK" ]; then
   if [ "$IMAGE_OVERRIDE" = "true" ]; then
     echo "Updating existing $IMAGE image."
     docker push "$IMAGE"
+  else
+    echo "$IMAGE image already exists."
+    exit 1
+  fi
+else
+  echo "Uploading new $IMAGE image."
+  docker push "$IMAGE"
+fi
