@@ -16,6 +16,10 @@
  *
  ******************************************************************************/
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 #background-container {
     height: 100%;
 }
@@ -32,7 +36,6 @@
 }
 
 #toc-title {
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 14px;
     color: #313653;
     letter-spacing: 0.2px;
@@ -75,7 +78,6 @@ iframe.config-content_frame {
 }
 
 #config-title { /* not picking up from common, has to have entire config-title css here */
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 35px;
     letter-spacing: 0;
     color: #24233C;
@@ -136,7 +138,6 @@ table.subsection {
 th {
     background: #D6D9E4;
     line-height: 26px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 11px;
     color: #24243B;
     padding-left: 14px;
@@ -206,7 +207,6 @@ div.toggle:hover {
     width: 100%;
     background: #FFFFFF;
     box-shadow: 5px -2px 9px -1px rgba(63,70,89,0.37);
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 35px;
     color: #5D6A8E;
     letter-spacing: 0;

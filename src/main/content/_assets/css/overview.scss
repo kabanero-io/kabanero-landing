@@ -9,11 +9,14 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 #overview-content {
     padding: 20px 20px 50px 20px;
     
     #overview-title {
-        font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
         font-size: 35px;
         letter-spacing: 0;
         color: #24243B;

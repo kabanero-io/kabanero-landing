@@ -25,6 +25,7 @@ $color-kabanero:#C43804;
 
 html, body{
     height: 100%;
+    font-family: Helvetica, Trebuchet MS, Arial;
 }
 
 main {
@@ -74,7 +75,6 @@ main {
 
 #ol_nav_title {
     font-size: 24px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     color: #FFFFFF;
     display: inline-block;
     margin: 0 auto;
@@ -168,6 +168,7 @@ main {
 
 #header-col{
     border-bottom: 1px solid;
+    padding-bottom: 5px;
 }
 
 #header-title-row {
@@ -183,11 +184,11 @@ main {
 #header-row {
     margin-top: 50px;
     margin-bottom: 50px;
+    line-height: 1.5;
 }
 
 #header-title {
     color: #000000;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     vertical-align: middle;
     margin-right: 50px;
 }

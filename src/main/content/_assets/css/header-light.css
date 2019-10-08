@@ -16,6 +16,10 @@
  *
  ******************************************************************************/
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 /* Nav bar color corrections for light page */
 .navbar-dark .navbar-nav .nav-link {
     color: #5E6B8D;
@@ -40,7 +44,6 @@
 
 @media (max-width: 991.98px) {
     .navbar-dark .navbar-nav .nav-link, .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:active, #fork_button {
-        font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
         font-size: 35px;
         color: #FFFFFF;
         margin-right: 26px;

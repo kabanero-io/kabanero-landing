@@ -21,5 +21,8 @@ cd docs
 # The clone is picky about cloning into a folder that is not empty (src/main/content)
 git clone "${DOCS_GIT_URL}" --branch "${DOCS_GIT_REVISION}" .
 
+# Landing page doesn't need install doc because kabanero is already installed
+rm "./ref/general/installing-kabanero-foundation.adoc"
+
 popd
 echo "Done cloning docs repository"

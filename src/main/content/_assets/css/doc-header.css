@@ -16,6 +16,10 @@
  *
  ******************************************************************************/
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 .navbar {
     position: absolute;
     margin: auto;
@@ -88,7 +92,6 @@ nav .container-fluid {
     margin: 12px 0 0 5px;
     color: #FFFFFF;
     font-size: 1.8em;
-    font-family: 'Hammersmith One', Arial Narrow, Helvetica, Arial;
     padding: 1rem 0 0 0;
 }
 
@@ -272,7 +275,6 @@ nav .container-fluid {
 
 #breadcrumb_row .selected_javadoc__version {
     color: #f4914d;
-    font-family: 'Hammersmith One', Arial Narrow, Helvetica, Arial;
 }
 
 #breadcrumb_row a.selected_javadoc__version:hover {
@@ -345,7 +347,6 @@ nav .container-fluid {
     }
 
     .navbar-default .navbar-nav > li > a, #reference_dropdown_container > button {
-        font-family: 'Hammersmith One', Arial Narrow, Helvetica, Arial;
         font-size: 35px;
         color: #FFFFFF;
         margin-left: 0px;

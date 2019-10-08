@@ -16,7 +16,11 @@
  -
  *******************************************************************************/
 
- .guide_item {
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
+.guide_item {
     margin-bottom: 0.8em;
     height: 18em;
     padding-top: 0.5em;
@@ -83,14 +87,12 @@
 }
 
 .guide-duration {
-    font-family: BunueloBold, Arial Narrow, Helvetica, Arial;
     font-size: 1em;
     color: #24253A;
     letter-spacing: 0;
 }
 
 .guide_interactive{
-    font-family: BunueloBold, Arial Narrow, Helvetica, Arial;
     font-size: 1em;
     color: #DC6B00;
     letter-spacing: 0;
