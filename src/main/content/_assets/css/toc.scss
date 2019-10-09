@@ -11,9 +11,13 @@
 
  $color-kabanero:#C43804;
  
- /* BREADCRUMB specific to the collapsable table of contents */
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
 
- #breadcrumb_row .breadcrumb {
+/* BREADCRUMB specific to the collapsable table of contents */
+
+#breadcrumb_row .breadcrumb {
     display: block;
     width: calc(100% - 76px); /* If you change this value then update guide.js too */
     float: right;
@@ -311,7 +315,6 @@
 }
 
 #toc_title {
-    font-family: BunueloBold, Arial Narrow, Helvetica, Arial;
     font-size:14px;
     color:#313653;
     margin-left: 27px;
@@ -345,7 +348,6 @@
 }
 
 #tag-title {
-    font-family: BunueloBold, Arial Narrow, Helvetica, Arial;
     font-size:14px;
     color:#313653;
     margin-left: 27px;

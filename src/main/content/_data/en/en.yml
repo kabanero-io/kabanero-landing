@@ -35,14 +35,11 @@ _includes:
 page-not-found:
   err-message: The requested page does not exist.
 
-docs:
+doc:
   page-header: Kabanero Docs
   categories: Categories
   general-reference: General Reference
   contribute: Contribute
-
-general-reference:
-  page-header: Kabanero Docs
   welcome-to-docs: Welcome to Docs
   no-doc-found: No doc found
 

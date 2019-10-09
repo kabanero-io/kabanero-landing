@@ -16,10 +16,11 @@
  *
  ******************************************************************************/
 
-
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
 
 #page_title {
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 35px;
     color: #24243B;
     letter-spacing: 0;
@@ -83,7 +84,6 @@ html, body, main {
 }
 
 #feature_title, #common_feature_title, #config-title, #command_title, #general_title { /* for weird reason, the css for config-title is not picked up */
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 35px;
     letter-spacing: 0;
 }
