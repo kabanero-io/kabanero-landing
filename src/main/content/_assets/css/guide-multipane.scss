@@ -10,11 +10,11 @@
  *******************************************************************************/
  $color-kabanero:#C43804;
 
- body {
-     font-family: Trebuchet MS, Helvetica, Arial;
- }
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
 
- .unscrollable {
+.unscrollable {
     overflow: hidden;
 }
 
@@ -157,7 +157,6 @@
 }
 
 .code_column_title {
-    font-family: Asap;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.86;

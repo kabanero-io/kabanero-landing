@@ -15,6 +15,10 @@
 //declare variables
 $color-kabanero:#C43804;
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 #background-container {
     margin-top: 62px;
 
@@ -131,7 +135,6 @@ $color-kabanero:#C43804;
 }
 
 .kabanero_colored_bar {
-    font-family: 'IBM Plex Sans';
     font-size: 35px;
     color: #FFFFFF;
     background-color: $color-kabanero;
@@ -171,7 +174,6 @@ $color-kabanero:#C43804;
 }
 
 .blog-post-title-link {
-    font-family: 'IBM Plex Sans';
     font-size: 35px;
     color: #292828;
     transition: color .2s;
@@ -292,7 +294,6 @@ $color-kabanero:#C43804;
 }
 
 .blog-post-title-link-condensed {
-    font-family: 'IBM Plex Sans';
     font-size: 25px;
     color: #292828;
     transition: color .2s;
@@ -361,12 +362,10 @@ footer {
 }
 
 .final-post-title{
-    font-family: 'IBM Plex Sans';
     font-size: 35px;
     color: #FFFFFF;
 }
 
 .blog-page-title{
-    font-family: 'Hammersmith One', Arial Narrow, Helvetica, Arial;
     font-size: 35px;
 }

@@ -12,7 +12,11 @@
 //decalre variables
 $color-kabanero:#C43804;
 
- #background-container {
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
+#background-container {
     padding-top: 20px;
     background-size: 100% calc(100% - 280px);
     background-repeat: no-repeat;
@@ -197,7 +201,6 @@ $color-kabanero:#C43804;
     padding: 6px 13px;
     i {
         color: #24253a;
-        font-family: Asap;
         font-style: normal;
     }
     &.icon .icon-note::before {
@@ -250,7 +253,6 @@ $color-kabanero:#C43804;
 }
 
 .blog-title{
-    font-family: 'Hammersmith One', Arial Narrow, Helvetica, Arial;
     font-size:35px;
     padding-left:15px;
     color: black;

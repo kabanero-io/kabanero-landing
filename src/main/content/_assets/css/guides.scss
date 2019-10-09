@@ -21,6 +21,10 @@ $blue-grey-color: #5d6a8e;
     padding-right: 34px;
 }
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 // Overrides
 
 .guide_item {
@@ -214,7 +218,6 @@ $blue-grey-color: #5d6a8e;
 #guides-title {
     margin-top: 0;
     margin-bottom: 14px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 50px;
     color: white;
     letter-spacing: 0;

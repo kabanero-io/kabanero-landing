@@ -27,7 +27,7 @@
 
 body {
     background-color: white;
-    font-family: Asap, 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-family: Helvetica, Trebuchet MS, Arial;
 }
 
 a[target="packageFrame"],
@@ -38,16 +38,7 @@ a[target="classFrame"] {
     line-height:24px;
 }
 
-h1 {
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
-}
-
-h2 {
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
-}
-
 th[scope='col'] {
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 11px; 
 }
 
@@ -65,7 +56,6 @@ th > a {
     border-top: 1px solid #D4D7E3;
     padding: 20px 0px 0px 8px;
 	margin: 20px 10px 5px 0px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 14px;
     color:#313653;
     text-transform: uppercase;
@@ -169,7 +159,6 @@ ul.blockList ul.blockList ul.blockList li.blockList h3 {
 .indexContainer h2,
 .indexContainer h2[title="Packages"] {
     padding: 0 0 0 8px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     text-transform: uppercase;
     font-size: 14px;
     color:#313653;
@@ -198,16 +187,11 @@ ul.blockList ul.blockList ul.blockList li.blockList h3 {
     font-weight: 500;
 }
 
-.overviewSummary tr:nth-child(1):not(.altColor) {
-    font-family:'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
-}
-
 .overviewSummary caption span, .memberSummary caption span, .typeSummary caption span,
 .useSummary caption span, .constantsSummary caption span, .deprecatedSummary caption span,
 .requiresSummary caption span, .packagesSummary caption span, .providesSummary caption span,
 .usesSummary caption span {
     background-color:#D6D9E4;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 35px;
 	height: auto;
 }
@@ -275,10 +259,6 @@ td.colSecond, th.colSecond, td.colLast, th.colConstructorName, th.colLast {
 }
 .rowColor, .rowColor th {
     background-color:#EEEFF3;
-}
-
-div.block {
-    font-family: Asap, 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
 }
 
 .leftTop {
@@ -351,10 +331,6 @@ div.block {
         overflow: auto;
     }    
     
-}
-
-ul.ui-autocomplete {
-    font-family: Asap;
 }
 
 #search {

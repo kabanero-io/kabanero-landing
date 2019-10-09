@@ -16,13 +16,16 @@
  *
  ******************************************************************************/
 
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
 #background-container {
     height: 1500px; /* initial height */
 }
 
 /* table of column styling */
 #toc-title {
-    font-family:'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 14px;
     color: #313653;
     letter-spacing: 0.2px;
@@ -152,7 +155,6 @@ table.subsection {
 th {
     background: #D6D9E4;
     line-height: 26px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 11px;
     color: #24243B;
     padding-left: 14px;

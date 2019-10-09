@@ -9,7 +9,11 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 
- #background-container {
+body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+}
+
+#background-container {
     margin-left: 30px;
     margin-top: 30px;
     height: 1500px; /* initial height */
@@ -131,7 +135,6 @@ table.subsection {
 th {
     background: #D6D9E4;
     line-height: 26px;
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 11px;
     color: #24243B;
     padding-left: 14px;
@@ -188,7 +191,6 @@ tableblock {
     padding: 6px 13px;
     i {
         color: #24243B;
-        font-family: Asap;
         font-style: normal;
     }
     &.icon .icon-note::before {

@@ -16,11 +16,9 @@
   <title>{% if page.seo-title %}{{ page.seo-title | escape }}{% else %}{% if page.title %}{{ page.title | append: ' - ' | append: site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}{% endif %}</title>
   <meta name="description" content="{{ description }}">
 
-  {% if page.layout == "default" or page.layout == "post" or page.layout == "doc" %}
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  {% else %}
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  {% endif %}
+  {% asset thirdparty/bootstrap/bootstrap-4.3.1.min.css %}
+  {% asset thirdparty/bootstrap/bootstrap-grid-4.3.1.min.css %}
+  {% asset thirdparty/bootstrap/bootstrap-reboot-4.3.1.min.css %}
 
   <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
@@ -45,15 +43,4 @@
 
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title | escape }}" href="{{ "/feed.xml" | relative_url }}">
-  <link href="https://fonts.googleapis.com/css?family=Asap:400,500" rel="stylesheet">
-  
-  <link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans" rel="stylesheet">
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="{{site.twitter_username}}" />
-  <meta name="twitter:title" content="{% if page.seo-title %}{{ page.seo-title }}{% else %}{{site.title}}{% endif %}" />
-  <meta name="twitter:description" content="{{ description }}" />
-  <meta name="twitter:image" content="https://kabanero.io/img/Kabanero_Logo_Colored.png" />
-
 </head>

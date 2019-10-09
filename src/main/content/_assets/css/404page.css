@@ -16,6 +16,10 @@
  *
  ******************************************************************************/
 
+ body {
+    font-family: Helvetica, Trebuchet MS, Arial;
+ }
+ 
  #page-container {
     position: relative;
     padding-top: 227px;
@@ -23,7 +27,6 @@
 }
 
 #error-message {
-    font-family: 'IBM Plex Sans', Arial Narrow, Helvetica, Arial;
     font-size: 40px;
     color: black;
     text-align: center;
