@@ -32,7 +32,7 @@ else
 fi
 
 if [[ ${DOCKER_REGISTRY} == *"artifactory"* ]]; then
-    TAG_CHECK=$(curl -su "${DOCKER_REGISTRY_USER}:${DOCKER_REGISTRY_PASSWORD}" "https://${DOCKER_REGISTRY}/artifactory/api/docker/hyc-icap-open-site-images-docker-local/v2/${NAMESPACE}/${IMAGE_NAME}/tags/list" | jq ".tags[] | select(. == \"${IMAGE_TAG}\")")
+    TAG_CHECK=$(curl -su -v "${DOCKER_REGISTRY_USER}:${DOCKER_REGISTRY_PASSWORD}" "https://${DOCKER_REGISTRY}/artifactory/api/docker/hyc-icap-open-site-images-docker-local/v2/${NAMESPACE}/${IMAGE_NAME}/tags/list" | jq ".tags[] | select(. == \"${IMAGE_TAG}\")")
 elif [[ ${DOCKER_REGISTRY} == *"hub.docker.com"* ]]; then
 	TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${DOCKER_REGISTRY_USER}'", "password": "'${DOCKER_REGISTRY_PASSWORD}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
   	TAG_CHECK=$(curl -s -H "Authorization: JWT ${TOKEN}" https://hub.docker.com/v2/repositories/${DOCKER_REGISTRY_USER}/${IMAGE_NAME}/tags/?page_size=10000 | jq -r ".results[] | select(.name  == \"${IMAGE_TAG}\")")
