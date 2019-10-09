@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 IMAGE=$1
 
 if [ -z "$IMAGE" ]; then

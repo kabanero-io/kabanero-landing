@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 DOCKER_IMAGE_NAME=${1:-landing}
 DOCKER_IMAGE_TAG=${2:-latest}
