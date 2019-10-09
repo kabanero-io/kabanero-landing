@@ -50,3 +50,10 @@ languages: ["en", "es", "de", "fr", "it", "ja", "ko","pt-BR", "zh-CN", "zh-TW"]
 default_lang: "en"
 exclude_from_localization: ["javascript", "images", "css"]
 parallel_localization: true
+
+site_custom:
+  index:
+    docs_url: /docs
+  header:
+    title_logo: /img/Kabanero_Logo_Hero.png
+    header_logo: /img/Kabanero_Logo_White_Text.png
