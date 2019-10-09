@@ -31,17 +31,14 @@ else
   fi
 fi
 
-if [[ ${REGISTRY} == *"artifactory"* ]]; then
-    TAG_CHECK=$(curl -su "${DOCKER_REGISTRY_USER}:${DOCKER_REGISTRY_PASSWORD}" "https://${REGISTRY}/artifactory/api/docker/hyc-icap-open-site-images-docker-local/v2/icpa/${IMAGE_NAME}/tags/list" | jq ".tags[] | select(. == \"${IMAGE_TAG}\")")
-elif [[ ${REGISTRY} == *"stg.icr.io"* ]]; then
-    ibmcloud login --apikey "${DOCKER_REGISTRY_PASSWORD}" -a test.cloud.ibm.com -r us-south
-    if [ "$?" -ne 0 ]; then
-        echo "Failed to login to ibmcloud"
-        exit 1
-    fi
-    TAG_CHECK=$(ibmcloud cr image-list --format "{{ if and (eq .Repository \"stg.icr.io/cp/icpa/${IMAGE_NAME}\") (eq .Tag \"${IMAGE_TAG}\") }}{{ .Tag }}{{ end }}")
+
+if [[ ${DOCKER_REGISTRY} == *"artifactory"* ]]; then
+    TAG_CHECK=$(curl -su "${DOCKER_REGISTRY_USER}:${DOCKER_REGISTRY_PASSWORD}" "https://${DOCKER_REGISTRY}/artifactory/api/docker/hyc-icap-open-site-images-docker-local/v2/kabanero/${IMAGE_NAME}/tags/list" | jq ".tags[] | select(. == \"${IMAGE_TAG}\")")
+elif [[ ${DOCKER_REGISTRY} == *"hub.docker.com"* ]]; then
+	TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${DOCKER_REGISTRY_USER}'", "password": "'${DOCKER_REGISTRY_PASSWORD}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
+  	TAG_CHECK=$(curl -s -H "Authorization: JWT ${TOKEN}" https://hub.docker.com/v2/repositories/${DOCKER_REGISTRY_USER}/${IMAGE_NAME}/tags/?page_size=10000 | jq -r ".results[] | select(.name  == \"${IMAGE_TAG}\")")
 else
-    echo "Invalid registry ${REGISTRY}"
+    echo "Invalid registry ${DOCKER_REGISTRY}"
     exit 1
 fi
 
