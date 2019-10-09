@@ -31,7 +31,6 @@ else
   fi
 fi
 
-
 if [[ ${DOCKER_REGISTRY} == *"artifactory"* ]]; then
     TAG_CHECK=$(curl -su "${DOCKER_REGISTRY_USER}:${DOCKER_REGISTRY_PASSWORD}" "https://${DOCKER_REGISTRY}/artifactory/api/docker/hyc-icap-open-site-images-docker-local/v2/kabanero/${IMAGE_NAME}/tags/list" | jq ".tags[] | select(. == \"${IMAGE_TAG}\")")
 elif [[ ${DOCKER_REGISTRY} == *"hub.docker.com"* ]]; then
