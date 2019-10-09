@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div id="header-title-row" class="row">
         <div id="header-title-col" class="col-md">
-            <img class="cp4a-logo" src="{{site.header_logo}}" alt="Kabanero Logo"/>
+            <img class="cp4a-logo" src="{{site.site_custom.header.header_logo}}" alt="Kabanero Logo"/>
         </div>
     </div>
     <div id="header-row" class="row">
@@ -9,7 +9,7 @@
             <header>
                 <nav class="navbar-expand-md navbar-light">
                     <a class="kabanero-enterprise" href="/">
-                        <img src="{{site.title_logo}}" alt="Kabanero Logo" class="img img-fluid"/>
+                        <img src="{{site.site_custom.header.title_logo}}" alt="Kabanero Logo" class="img img-fluid"/>
                     </a>
                     <button id="nav-toggle-button" 
                         class="navbar-toggler bg-dark"
@@ -24,7 +24,7 @@
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}" href="/instance">Instance</a>
-                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}" href="{{site.docs_url}}">Docs</a>
+                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}" href="{{site.site_custom.docs.docs_url}}">Docs</a>
                                 <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}" href="/guides">Guides</a>
                             </li>
                         </ul>
