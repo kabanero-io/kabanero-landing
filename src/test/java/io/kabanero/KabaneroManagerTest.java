@@ -76,7 +76,6 @@ public class KabaneroManagerTest {
         Collection<KabaneroInstance> allInsts = kMan.getAllKabaneroInstances();
 
         assertNotNull("get all instances does not return null", allInsts);
-        // kMan is a singleton so it has all the addInstances from previous tests
         assertEquals("get all instances has correct size ", 2, allInsts.size());
     }
 
