@@ -1,17 +1,16 @@
 package io.kabanero;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
@@ -29,9 +28,14 @@ public class KabaneroManagerTest {
     KabaneroManager kMan;
 
     @Before
-    public void mockKabaneroClient() throws IOException, ApiException, GeneralSecurityException {
+    public void mockKabaneroClient() throws IOException, ApiException, GeneralSecurityException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         PowerMockito.mockStatic(KabaneroClient.class);
         Mockito.when(KabaneroClient.getInstances()).thenReturn(new ArrayList<KabaneroInstance>());
+
+        // reset the KabaneroManager singleton before each test so they do not affect each other.
+        Field instance = KabaneroManager.class.getDeclaredField("SINGLE_KABANERO_MANAGER_INSTANCE");
+        instance.setAccessible(true);
+        instance.set(null, null);
 
         kMan = KabaneroManager.getKabaneroManagerInstance();
     }
@@ -63,11 +67,17 @@ public class KabaneroManagerTest {
     @Test
     public void getAllInstances() {
       
+        String id2 = UUID.randomUUID().toString();
+        kMan.addInstance(createKabInstance(id2));
+
+        String id3 = UUID.randomUUID().toString();
+        kMan.addInstance(createKabInstance(id3));
+
         Collection<KabaneroInstance> allInsts = kMan.getAllKabaneroInstances();
 
         assertNotNull("get all instances does not return null", allInsts);
         // kMan is a singleton so it has all the addInstances from previous tests
-        assertEquals("get all instances has correct size ", 4, allInsts.size());
+        assertEquals("get all instances has correct size ", 2, allInsts.size());
     }
 
     private static KabaneroInstance createKabInstance(String id){
