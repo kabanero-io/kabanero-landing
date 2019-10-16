@@ -107,10 +107,6 @@ public class KabaneroClient {
         List<KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
         LOGGER.log(Level.FINE, "Found {0} Kabanero Instances", instances.size());
 
-        if (instances.size() == 0) {
-            return null;
-        }
-
         List<KabaneroInstance> kabaneroInstances = new ArrayList<>();
 
         for (KubeKabanero instance : instances) {

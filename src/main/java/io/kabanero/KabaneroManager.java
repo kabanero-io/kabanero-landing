@@ -19,18 +19,18 @@
 
 package io.kabanero;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import io.website.Constants;
 import io.kubernetes.KabaneroClient;
-import io.kubernetes.client.ApiException;
 
 // Singleton class to manage the various kabanero instances associated with Kabanero
 public class KabaneroManager {
+    private final static Logger LOGGER = Logger.getLogger(KabaneroManager.class.getName());
 
     private static KabaneroManager SINGLE_KABANERO_MANAGER_INSTANCE;
     private HashMap<String, KabaneroInstance> KABANERO_INSTANCES = new HashMap<String, KabaneroInstance>();
@@ -55,7 +55,7 @@ public class KabaneroManager {
                     SINGLE_KABANERO_MANAGER_INSTANCE.addInstance(kabInst);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.log(Level.WARNING, "Exception while getting Kabanero instances", e);
                 SINGLE_KABANERO_MANAGER_INSTANCE.addInstance(KabaneroManager.createDefaultInstance());
             }
         }
@@ -64,6 +64,7 @@ public class KabaneroManager {
     }
 
     public void addInstance(KabaneroInstance newInstance) {
+        LOGGER.log(Level.FINE, "Adding new instance to manage: {0}", newInstance.getInstanceName());
         KABANERO_INSTANCES.put(newInstance.getInstanceName(), newInstance);
     }
         
@@ -74,11 +75,16 @@ public class KabaneroManager {
     }
     
     public KabaneroInstance getKabaneroInstance(String wantedName){
+        LOGGER.log(Level.FINE, "Looking to get instance: {0}", wantedName);
+
         for (String instanceName : KABANERO_INSTANCES.keySet()){
             if(instanceName.equals(wantedName)){
+                LOGGER.log(Level.FINE, "Found instance: {0}", wantedName);
                 return KABANERO_INSTANCES.get(instanceName);
             }
         }
+        
+        LOGGER.log(Level.FINE, "Instance: {0} was not found in the managed Kabanero instances list.", wantedName);
         return null;
     }
 
