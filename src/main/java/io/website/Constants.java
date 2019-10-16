@@ -45,7 +45,7 @@ public final class Constants {
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
     public static final String TEKTON_DASHBOARD_URL = getEnv("TEKTON_DASHBOARD_URL", "");
 
-    public static final String KAPPNAV_LABEL = "kAppNav";
+    public static final String KAPPNAV_LABEL = "Application Navigator";
     public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
 
 
