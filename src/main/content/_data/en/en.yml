@@ -5,11 +5,12 @@ _includes:
     whats-new-toast-text: Check out what's in the latest release of Kabanero
     learn-more: Learn More
     getting-started: Getting Started
-    resources: Resources
-    close: Close
-    docs: Docs
-    blogs: Blog
+    home-button: Home
+    instance-button: Instance
+    docs-button: Docs
+    guides-button: Guides
     guides: Guides
+    close: Close
   doc_header:
     toggle-navigation: Toggle navigation
     guides: Guides
@@ -63,7 +64,31 @@ index:
   intro-2-next-steps: for the next steps in using Kabanero
   need-more-info: Need more information about Kabanero?
   learn-more: Learn More
-
+  install: Install
+  manage-apps: Manage Applications
+  welcome-kabanero: Welcome to Kabanero
+  welcome-text: An IBM open source project bringing together foundational technologies into a modern microservices-based framework. Kabanero speeds development of applications built for Kubernetes while meeting the technology standards and policies your company defines. Design, develop, deploy, and manage with speed and control!
+  learn-more-kabanero-button: Learn more about Kabanero
+  get-started-title: Let's get started!
+  get-started-button1: View Team Instance
+  get-started-button2: Set Up Dev Tools
+  get-started-button3: Manage Apps
+  devtools:
+    modalTitle: Set up Dev tools
+    firstParagraph: Kabanero provides desktop development tools that work with VS Code and Eclipse IDEs , as well as a command line tool you can use with or without the IDEs.
+    secondParagraph: The development tools are built on top of the Codewind, Appsody, and Kabanero open source projects, which makes it easy to develop apps based on pre-defined application stacks as well as build and test them in a local container environment.
+    steps:
+      install: Install
+      vsCode: If using VS Code IDE
+      vsCodeInstall: Codewind from the VS Code Marketplace
+      eclipse: If using Eclipse IDE
+      eclipseInstall: Codewind from the Eclipse Marketplace
+      cli: Optionally, install the command line tool
+      appsody: Appsody CLI
+    check: You can check out our guide and video on creating your first application.
+    guide: guide
+    video: video
+ 
 instance:
   kab-instances: Kabanero Instances
   tools: Tools

@@ -172,7 +172,7 @@ main {
 }
 
 #header-title-row {
-    background-color:$color-kabanero;
+    background-color: #000000;
     height: 60px;
 }
 
@@ -182,9 +182,12 @@ main {
 }
 
 #header-row {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin: 25px 0 25px 0;
     line-height: 1.5;
+
+    ul {
+        margin-left: 0;
+    }
 }
 
 #header-title {
@@ -304,4 +307,13 @@ main {
 
 .cp4a-logo{
     margin-left: 20px
+}
+
+.vertical-line{
+    width: 0px;
+    height: 25px;
+    float: right;
+    color: #bdbdbd; 
+    border: .5px inset; 
+    margin-left: 10px;
 }
