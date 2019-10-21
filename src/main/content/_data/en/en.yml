@@ -1,5 +1,9 @@
 common:
   instructions: View Instructions
+  appsody: Appsody
+  codewind: Codewind
+  eclipse: Eclipse
+  vscode: VS Code
 _includes:
   header:
     whats-new-toast-text: Check out what's in the latest release of Kabanero
@@ -67,7 +71,7 @@ index:
   install: Install
   manage-apps: Manage Applications
   welcome-kabanero: Welcome to Kabanero
-  welcome-text: An IBM open source project bringing together foundational technologies into a modern microservices-based framework. Kabanero speeds development of applications built for Kubernetes while meeting the technology standards and policies your company defines. Design, develop, deploy, and manage with speed and control!
+  welcome-text: Kabanero is a open source project bringing together foundational technologies into a modern microservices-based framework. Kabanero speeds development of applications built for Kubernetes while meeting the technology standards and policies your company defines. Design, develop, deploy, and manage with speed and control!
   learn-more-kabanero-button: Learn more about Kabanero
   get-started-title: Let's get started!
   get-started-button1: View Team Instance
@@ -85,6 +89,11 @@ index:
       eclipseInstall: Codewind from the Eclipse Marketplace
       cli: Optionally, install the command line tool
       appsody: Appsody CLI
+      appsodyRepoAdd: appsody repo add command
+      collectionHub: Configure Appsody / Codewind to point at your Kabanero Collection Hub. Get your Collection Hub URL from your
+      teamInstance: team instance page.
+      configTemplateSources: Configuring template sources for
+      setCollectionHub: To set your collection hub url, follow the instructions associated with the tool you are using
     check: You can check out our guide and video on creating your first application.
     guide: guide
     video: video

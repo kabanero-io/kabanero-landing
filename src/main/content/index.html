@@ -48,14 +48,13 @@ seo-title: Kabanero
     </div>
 
     <!-- Set up Dev Tools modal -->
-    <div class="modal fade" id="dev-tools-modal" tabindex="-1" role="dialog" aria-labelledby="dev tools setup"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="dev-tools-modal" tabindex="-1" role="dialog" aria-labelledby="dev tools setup" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{t.index.devtools.modalTitle}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
@@ -64,33 +63,61 @@ seo-title: Kabanero
                     <p>{{t.index.devtools.steps.vsCode}}</p>
                     <ul>
                         <li>
-                            {{t.index.devtools.steps.install}}
-                            <a target="_blank"
-                                href="https://marketplace.visualstudio.com/items?itemName=IBM.codewind">{{t.index.devtools.steps.vsCodeInstall}}</a>
+                            {{t.index.devtools.steps.install}} 
+                            <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=IBM.codewind">{{t.index.devtools.steps.vsCodeInstall}}</a>
                         </li>
                     </ul>
 
                     <p>{{t.index.devtools.steps.eclipse}}</p>
                     <ul>
                         <li>
-                            {{t.index.devtools.steps.install}}
-                            <a target="_blank"
-                                href="https://marketplace.eclipse.org/content/codewind">{{t.index.devtools.steps.eclipseInstall}}</a>
+                            {{t.index.devtools.steps.install}} 
+                            <a target="_blank" href="https://marketplace.eclipse.org/content/codewind">{{t.index.devtools.steps.eclipseInstall}}</a>
                         </li>
                     </ul>
 
                     <p>{{t.index.devtools.steps.cli}}</p>
                     <ul>
                         <li>
-                            {{t.index.devtools.steps.install}}
-                            <a target="_blank"
-                                href="https://appsody.dev/docs/getting-started/installation">{{t.index.devtools.steps.appsody}}</a>
+                            {{t.index.devtools.steps.install}} 
+                            <a target="_blank" href="https://appsody.dev/docs/getting-started/installation">{{t.index.devtools.steps.appsody}}</a>
+                        </li>
+                    </ul>
+
+                    <hr/>
+
+                    <p>
+                        {{t.index.devtools.steps.collectionHub}} <a target="_blank" href="/instance">{{t.index.devtools.steps.teamInstance}}</a>
+                    </p>
+                    <p>{{t.index.devtools.steps.setCollectionHub}}:</p>
+                    <p>{{t.common.appsody}}</p>
+                    <ul>
+                        <li>
+                            Use the <a target="_blank" href="https://appsody.dev/docs/using-appsody/cli-commands#appsody-repo-add">{{t.index.devtools.steps.appsodyRepoAdd}}</a>
+                        </li>
+                    </ul>
+                    <p>{{t.common.codewind}}</p>
+                    <ul>
+                        <li>
+                            {{t.common.eclipse}}
+                            <ul>
+                                <li>
+                                    See <a target="_blank" href="https://www.eclipse.org/codewind/mdteclipseusingadifferenttemplate.html">{{t.index.devtools.steps.configTemplateSources}} {{t.common.eclipse}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            {{t.common.vscode}}
+                            <ul>
+                                <li>
+                                    See <a target="_blank" href="https://www.eclipse.org/codewind/mdt-vsc-usingadifferenttemplate.html">{{t.index.devtools.steps.configTemplateSources}} {{t.common.vscode}}</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">{{t._includes.header.close}}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t._includes.header.close}}</button>
                 </div>
             </div>
         </div>
