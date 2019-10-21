@@ -1,8 +1,10 @@
 package io.kabanero;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -17,58 +19,53 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import io.kubernetes.KabaneroClient;
 import io.kubernetes.client.ApiException;
 
-import static org.junit.Assert.*;
-
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(KabaneroClient.class)
 public class KabaneroToolManagerTest {
     KabaneroInstance kabaneroInstance;
-    KabaneroToolManager kManTool;
+    KabaneroToolManager kToolMan;
 
     @Before
     public void mockKabaneroClient() throws IOException, ApiException, GeneralSecurityException {
         PowerMockito.mockStatic(KabaneroClient.class);
-        Mockito.when(KabaneroClient.getInstances()).thenReturn(new ArrayList<KabaneroInstance>());
+       // Mockito.when(KabaneroClient.discoverTools(kToolMan).thenReturn(kToolMan);
 
-        kManTool = KabaneroToolManager.getKabaneroToolManagerInstance();
+        kToolMan = KabaneroToolManager.getKabaneroToolManagerInstance();
     }
 
     @Test
     public void addTool() {
         String id = UUID.randomUUID().toString();
-        kManTool.addTool(createKabeKabaneroTool(id));
+        kToolMan.addTool(createKabeKabaneroTool(id));
 
-        String id2 = UUID.randomUUID().toString();
-        kManTool.addTool(createKabeKabaneroTool(id2));
-
-        assertEquals("2 kabanero tools were added", 2, kManTool.getAllTools().size());
+        assertEquals("2 kabanero tools were added", 1, kToolMan.getAllTools().size());
     }
 
     @Test
-    public void getCorrectTool() {
+    public void getCorrectTools() {
         String id = UUID.randomUUID().toString();
-        kManTool.addTool(createKabeKabaneroTool(id));
+        kToolMan.addTool(createKabeKabaneroTool(id));
 
         String id2 = UUID.randomUUID().toString();
-        kManTool.addTool(createKabeKabaneroTool(id2));
+        kToolMan.addTool(createKabeKabaneroTool(id2));
 
         String id3 = UUID.randomUUID().toString();
-        kManTool.addTool(createKabeKabaneroTool(id3));
+        kToolMan.addTool(createKabeKabaneroTool(id3));
 
-        KabaneroTool kabToolInst = kManTool.getTool("lable" + id2);
+        KabaneroTool kabTool = kToolMan.getTool("lable" + id2);
 
-        assertNotNull("get instance does not return null", kabToolInst);
-        assertEquals("kabToolInst " + id2 + " is retrieved ", "lable" + id2, kabToolInst.getLabel());
-        assertEquals("kabToolInst " + id2 + " is retrieved ", "location" + id2, kabToolInst.getLocation());
+        assertNotNull("get tool does not return null", kabTool);
+        assertEquals("kabTool " + id2 + " is retrieved ", "lable" + id2, kabTool.getLabel());
+        assertEquals("kabTool " + id2 + " is retrieved ", "location" + id2, kabTool.getLocation());
     }
 
     @Test
-    public void getTools() {
-        Collection<KabaneroTool> allTools = kManTool.getAllTools();
+    public void getAllToolsHasCorrectSize() {
+        Collection<KabaneroTool> allTools = kToolMan.getAllTools();
 
-        assertNotNull("get all instances does not return null", allTools);
-        // kManTool is a singleton so it has all the addInstances from previous tests
-        assertEquals("get all instances has correct size ", 5, allTools.size());
+        assertNotNull("get all tools does not return null", allTools);
+        // kToolMan is a singleton so it has all the addInstances from previous tests
+        assertEquals("get all tools has correct size ", 4, allTools.size());
     }
 
     private static KabaneroTool createKabeKabaneroTool(String id) {
