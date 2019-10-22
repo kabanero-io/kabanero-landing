@@ -1,15 +1,20 @@
 common:
   instructions: View Instructions
+  appsody: Appsody
+  codewind: Codewind
+  eclipse: Eclipse
+  vscode: VS Code 
 _includes:
   header:
     whats-new-toast-text: Check out what's in the latest release of Kabanero
     learn-more: Learn More
     getting-started: Getting Started
-    resources: Resources
-    close: Close
-    docs: Docs
-    blogs: Blog
+    home-button: Home
+    instance-button: Instance
+    docs-button: Docs
+    guides-button: Guides
     guides: Guides
+    close: Close
   doc_header:
     toggle-navigation: Toggle navigation
     guides: Guides
@@ -30,10 +35,20 @@ _includes:
   footer:
     open-source: an IBM open source project
     copyright: Copyright IBM Corp. 2019
-
+    privacy-policy: Privacy policy
+    license: License
+    notices: Notices
+    ibm-trademark: IBM Trademark
 
 page-not-found:
   err-message: The requested page does not exist.
+
+blog:
+  header: Blog
+  follow: Follow
+  on-twitter: on Twitter or subscribe to our 
+  stay-hot: Stay hot!
+  rss: RSS feed
 
 doc:
   page-header: Kabanero Docs
@@ -63,7 +78,35 @@ index:
   intro-2-next-steps: for the next steps in using Kabanero
   need-more-info: Need more information about Kabanero?
   learn-more: Learn More
-
+  install: Install
+  manage-apps: Manage Applications
+  welcome-kabanero: Welcome to Kabanero
+  welcome-text: Kabanero is a open source project bringing together foundational technologies into a modern microservices-based framework. Kabanero speeds development of applications built for Kubernetes while meeting the technology standards and policies your company defines. Design, develop, deploy, and manage with speed and control!
+  learn-more-kabanero-button: Learn more about Kabanero
+  get-started-title: Let's get started!
+  get-started-button1: View Team Instance
+  get-started-button2: Set Up Dev Tools
+  get-started-button3: Manage Apps
+  devtools:
+    modalTitle: Set up Dev tools
+    firstParagraph: Kabanero provides desktop development tools that work with VS Code and Eclipse IDEs , as well as a command line tool you can use with or without the IDEs.
+    steps:
+      install: Install
+      vsCode: If using VS Code IDE
+      vsCodeInstall: Codewind from the VS Code Marketplace
+      eclipse: If using Eclipse IDE
+      eclipseInstall: Codewind from the Eclipse Marketplace
+      cli: Optionally, install the command line tool
+      appsody: Appsody CLI
+      appsodyRepoAdd: appsody repo add command
+      collectionHub: Configure Appsody / Codewind to point at your Kabanero Collection Hub. Get your Collection Hub URL from your
+      teamInstance: team instance page.
+      configTemplateSources: Configuring template sources for
+      setCollectionHub: To set your collection hub url, follow the instructions associated with the tool you are using
+    check: You can check out our guide and video on creating your first application.
+    guide: guide
+    video: video
+ 
 instance:
   kab-instances: Kabanero Instances
   tools: Tools

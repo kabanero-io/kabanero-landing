@@ -172,19 +172,19 @@ main {
 }
 
 #header-title-row {
-    background-color:$color-kabanero;
-    height: 60px;
-}
-
-#header-title-col{
-    display: flex;
-    align-items: center;
+    background-color: #000000;
+    height: 3rem;
 }
 
 #header-row {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
     line-height: 1.5;
+
+    ul {
+        margin-left: 0;
+    }
 }
 
 #header-title {
@@ -297,11 +297,7 @@ main {
     display: none;
 }
 
-.ibm-logo{
-    padding-right: 20px;
-    border-right: 2px solid #FFFFFF;
-}
-
-.cp4a-logo{
-    margin-left: 20px
+.right-border {
+    padding-right: 10px;
+    border-right: 1px solid #FFFFFF;
 }

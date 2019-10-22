@@ -1,36 +1,35 @@
+{% assign t = site.data[site.active_lang]._includes.header %}
+
 <div class="container-fluid">
     <div id="header-title-row" class="row">
-        <div id="header-title-col" class="col-md">
-            <img class="cp4a-logo" src="{{site.site_custom.header.header_logo}}" alt="Kabanero Logo"/>
+        <div class="col-md align-self-center">
+            <a href="/" class="right-border">
+                <img src="{{site.site_custom.header.title_logo}}" alt="Logo" />
+            </a>
         </div>
     </div>
     <div id="header-row" class="row">
         <div id="header-col" class="col-md">
             <header>
                 <nav class="navbar-expand-md navbar-light">
-                    <a class="kabanero-enterprise" href="/">
-                        <img src="{{site.site_custom.header.title_logo}}" alt="Kabanero Logo" class="img img-fluid"/>
-                    </a>
-                    <button id="nav-toggle-button" 
-                        class="navbar-toggler bg-dark"
-                        type="button" data-toggle="collapse" 
-                        data-target="#navbarNav" 
-                        aria-controls="#navbarNav" 
-                        aria-expanded="false" 
+                    <button id="nav-toggle-button" class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
+                        data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false"
                         aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon navbar-inverse"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}" href="/instance">Instance</a>
-                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}" href="/docs">Docs</a>
-                                <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}" href="/guides">Guides</a>
+                                <a class="nav-link {% if page.url == '/' %}active-nav{% endif %}"
+                                    href="/">{{t.home-button}}</a>
+                                <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}"
+                                    href="/instance">{{t.instance-button}}</a>
+                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}"
+                                    href="/docs">{{t.docs-button}}</a>
+                                <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}"
+                                    href="/guides">{{t.guides-button}}</a>
                             </li>
                         </ul>
-                        <a class="info-link {% if page.url == '/' %}hide{% endif %}" href="/" title="Welcome page">
-                            <img src="/img/info-icon.png" alt="info icon"/>
-                        </a>
                     </div>
                 </nav>
             </header>
