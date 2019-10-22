@@ -3,7 +3,7 @@ common:
   appsody: Appsody
   codewind: Codewind
   eclipse: Eclipse
-  vscode: VS Code
+  vscode: VS Code 
 _includes:
   header:
     whats-new-toast-text: Check out what's in the latest release of Kabanero
@@ -35,10 +35,20 @@ _includes:
   footer:
     open-source: an IBM open source project
     copyright: Copyright IBM Corp. 2019
-
+    privacy-policy: Privacy policy
+    license: License
+    notices: Notices
+    ibm-trademark: IBM Trademark
 
 page-not-found:
   err-message: The requested page does not exist.
+
+blog:
+  header: Blog
+  follow: Follow
+  on-twitter: on Twitter or subscribe to our 
+  stay-hot: Stay hot!
+  rss: RSS feed
 
 doc:
   page-header: Kabanero Docs
