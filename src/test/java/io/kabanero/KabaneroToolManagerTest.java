@@ -75,7 +75,6 @@ public class KabaneroToolManagerTest {
         Collection<KabaneroTool> allTools = kToolMan.getAllTools();
 
         assertNotNull("get all tools does not return null", allTools);
-        // kToolMan is a singleton so it has all the addInstances from previous tests
         assertEquals("get all tools has correct size ", 2, allTools.size());
     }
 
