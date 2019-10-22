@@ -80,7 +80,6 @@ public class KabaneroToolManagerTest {
     }
 
     private static KabaneroTool createKabeKabaneroTool(String id) {
-        System.out.println(id);
         return new KabaneroTool(id, id);
     }
 
