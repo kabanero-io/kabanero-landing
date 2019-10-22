@@ -80,7 +80,6 @@ index:
   devtools:
     modalTitle: Set up Dev tools
     firstParagraph: Kabanero provides desktop development tools that work with VS Code and Eclipse IDEs , as well as a command line tool you can use with or without the IDEs.
-    secondParagraph: The development tools are built on top of the Codewind, Appsody, and Kabanero open source projects, which makes it easy to develop apps based on pre-defined application stacks as well as build and test them in a local container environment.
     steps:
       install: Install
       vsCode: If using VS Code IDE
