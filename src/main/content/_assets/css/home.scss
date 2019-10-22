@@ -36,6 +36,7 @@ h2 {
     margin-bottom: 30px;
     font-weight: 500;
     font-size: 2rem;
+    min-height: 6rem;
 }
 
 h3 {
@@ -47,8 +48,8 @@ h3 {
 .white-blue-hover {
     color: #000000;
     background-color:white;
-    font-size: 22px;
-    padding: 10px 20px 10px 20px;
+    font-size: 16px;
+    padding: 5px 10px 5px 10px;
     margin-bottom:10px;
 
     cursor: pointer;
@@ -61,9 +62,11 @@ h3 {
 
 #welcome-text {
     max-width: 80em;
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
-#learn-more-cloud-pak-button {
+#learn-more-kabanero-button {
     border: none;
 }
 
@@ -177,3 +180,4 @@ h3 {
 .info-install{
     margin-bottom:5px;
 }
+
