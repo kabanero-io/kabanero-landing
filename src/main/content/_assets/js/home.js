@@ -23,7 +23,6 @@ $(document).ready(function() {
 function setKAppNav(kAppNav){
     if(kAppNav && kAppNav.location){
         $("#manage-apps-link").attr("href", kAppNav.location).removeClass("hidden");
-
     }
     else{
         console.error(`kAppNav does not have a location: ${JSON.stringify(kAppNav)}`);
