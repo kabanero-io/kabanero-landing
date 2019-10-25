@@ -25,7 +25,7 @@ function setKAppNav(kAppNav){
         $("#manage-apps-link").attr("href", kAppNav.location).removeClass("hidden");
     }
     else{
-        console.error(`kAppNav does not have a location: ${JSON.stringify(kAppNav)}`);
+        console.log(`kAppNav is not installed: ${JSON.stringify(kAppNav)}`);
     }
 }
 
