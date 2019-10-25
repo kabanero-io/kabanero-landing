@@ -15,6 +15,19 @@
  * limitations under the License.
  *
  ******************************************************************************/
+$(document).ready(function() {
+    fetchATool("Application Navigator")
+        .then(setKAppNav);
+});
+
+function setKAppNav(kAppNav){
+    if(kAppNav && kAppNav.location){
+        $("#manage-apps-link").attr("href", kAppNav.location).removeClass("hidden");
+    }
+    else{
+        console.log(`kAppNav is not installed: ${JSON.stringify(kAppNav)}`);
+    }
+}
 
 function hideAllFeaturedModelsCollapses(element){
     $(".featuredModelsCollapse").collapse("hide");
