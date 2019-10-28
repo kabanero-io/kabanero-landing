@@ -9,116 +9,117 @@ css:
 seo-title: Kabanero
 ---
 {% assign t = site.data[site.active_lang] %}
-<div class="container-fluid">
-    <div class="row gray-background py-5 px-5">
-        <div class="col-xl-8">
+{% asset thirdparty/carbon/carbon-components.min.css %}
+{% asset thirdparty/carbon/carbon-components.min.js %} 
+
+<div class="bx--grid--full-width">
+    <div class="bx--row gray-background py-5 px-5 ">
+        <div class="bx--col-sm-4 bx--col-md-8 bx--col-lg-8 ">
             <h1>{{t.index.welcome-kabanero}}</h1>
             <h3 id="welcome-text">{{t.index.welcome-text}}</h3>
             <a target="_blank" href="https://kabanero.io">
-                <button role="button" id="learn-more-kabanero-button" class="white-blue-hover">{{t.index.learn-more-kabanero-button}}</button>
+                <button role="button" class="bx--btn bx--btn--tertiary black-text gray-border text-center white-blue-hover">{{t.index.learn-more-kabanero-button}}</button>
             </a>
         </div>
     </div>
-    <!-- Develop New Cloud Native Apps-->
-    <div class="row py-5 px-5">
-        <div class="col-xl-8">
-            <h1>{{t.index.get-started-title}}</h1>
-            <div class="row">
-                <div class="col-xl-3">
-                    <!-- View team instance -->
-                    <a href="/instance" class="get-started-link">
-                        <div class="gray-border text-center white-blue-hover"> {{t.index.get-started-button1}} </div>
-                    </a>
-                </div>
-                <div class="col-xl-3">
-                    <!-- Set up dev tools -->
-                    <div id="dev-tools-modal-button" class="gray-border text-center white-blue-hover"
-                        data-toggle="modal" data-target="#dev-tools-modal">
-                        {{t.index.get-started-button2}}</div>
-                </div>
-                <!-- Link for manage apps -->
-                <div class="col-xl-3">
-                    <a id="manage-apps-link" href="#" class="get-started-link hidden">
-                        <div class="gray-border text-center white-blue-hover"> {{t.index.get-started-button3}} </div>
-                    </a>
-                </div>
-            </div>
+    <div class="bx--row py-5 px-5">
+        <h1>{{t.index.get-started-title}}</h1>
+    </div>
+    <div class="bx--row py-5 px-5">
+        <div class="bx--col-lg-2">
+            <!-- View team instance -->
+            <a href="/instance" class="get-started-link">
+                <button class="text-center bx--btn bx--btn--tertiary gray-text black-text gray-border text-center white-blue-hover"> {{t.index.get-started-button1}} </button>
+            </a>
+        </div>
+        <div class="bx--col-lg-2">
+            <!-- Set up dev tools -->
+            <button id="dev-tools-modal-button" class=" text-center bx--btn bx--btn--tertiary  black-text gray-border text-center white-blue-hover" data-toggle="modal"
+                data-modal-target="#dev-tools-modal">
+                {{t.index.get-started-button2}}</button>
+        </div>
+        <!-- Link for manage apps -->
+        <div class="bx--col-lg-2">
+            <a id="manage-apps-link" href="#" class="get-started-link hidden">
+                <button class="text-center bx--btn bx--btn--tertiary gray-text black-text gray-border text-center">{{t.index.get-started-button3}}</button>
+            </a>
         </div>
     </div>
-
-    <!-- Set up Dev Tools modal -->
-    <div class="modal fade" id="dev-tools-modal" tabindex="-1" role="dialog" aria-labelledby="dev tools setup" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{t.index.devtools.modalTitle}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>{{t.index.devtools.firstParagraph}}</p>
-                    <p>{{t.index.devtools.steps.vsCode}}</p>
-                    <ul>
-                        <li>
-                            {{t.index.devtools.steps.install}} 
-                            <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=IBM.codewind">{{t.index.devtools.steps.vsCodeInstall}}</a>
-                        </li>
-                    </ul>
-
-                    <p>{{t.index.devtools.steps.eclipse}}</p>
-                    <ul>
-                        <li>
-                            {{t.index.devtools.steps.install}} 
-                            <a target="_blank" href="https://marketplace.eclipse.org/content/codewind">{{t.index.devtools.steps.eclipseInstall}}</a>
-                        </li>
-                    </ul>
-
-                    <p>{{t.index.devtools.steps.cli}}</p>
-                    <ul>
-                        <li>
-                            {{t.index.devtools.steps.install}} 
-                            <a target="_blank" href="https://appsody.dev/docs/getting-started/installation">{{t.index.devtools.steps.appsody}}</a>
-                        </li>
-                    </ul>
-
-                    <hr/>
-
-                    <p>
-                        {{t.index.devtools.steps.collectionHub}} <a target="_blank" href="/instance">{{t.index.devtools.steps.teamInstance}}</a>
-                    </p>
-                    <p>{{t.index.devtools.steps.setCollectionHub}}:</p>
-                    <p>{{t.common.codewind}}</p>
-                    <ul>
-                        <li>
-                            {{t.common.eclipse}}
-                            <ul>
-                                <li>
-                                    See <a target="_blank" href="https://www.eclipse.org/codewind/mdteclipseusingadifferenttemplate.html">{{t.index.devtools.steps.configTemplateSources}} {{t.common.eclipse}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            {{t.common.vscode}}
-                            <ul>
-                                <li>
-                                    See <a target="_blank" href="https://www.eclipse.org/codewind/mdt-vsc-usingadifferenttemplate.html">{{t.index.devtools.steps.configTemplateSources}} {{t.common.vscode}}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p>{{t.common.appsody}}</p>
-                    <ul>
-                        <li>
-                            Use the <a target="_blank" href="https://appsody.dev/docs/using-appsody/cli-commands#appsody-repo-add">{{t.index.devtools.steps.appsodyRepoAdd}}</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{t._includes.header.close}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
+
+<div data-modal id="dev-tools-modal" class="bx--modal bx--modal" role="dialog"  aria-labelledby="modal-dev-tools-modal-label" aria-describedby="modal-dev-tools-modal-heading" tabindex="-1">
+        <div class="bx--modal-container">
+          <div class="bx--modal-header">
+            <p class="bx--modal-header__heading bx--type-beta" id="dev-tools-modal-heading">{{t.index.devtools.modalTitle}}</p>
+            <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal" >
+              <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--modal-close__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M12 4.7L11.3 4 8 7.3 4.7 4 4 4.7 7.3 8 4 11.3 4.7 12 8 8.7 11.3 12 12 11.3 8.7 8z"></path></svg>
+            </button>
+          </div>
+      
+          <!-- Note: Modals with content that scrolls, at any viewport, requires `tabindex="0"` on the `bx--modal-content` element -->
+          <div class="bx--modal-content">
+                <p>{{t.index.devtools.firstParagraph}}</p>
+                <p>{{t.index.devtools.steps.vsCode}}</p>
+                <ul>
+                    <li>
+                        {{t.index.devtools.steps.install}} 
+                        <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=IBM.codewind">{{t.index.devtools.steps.vsCodeInstall}}</a>
+                    </li>
+                </ul>
+
+                <p>{{t.index.devtools.steps.eclipse}}</p>
+                <ul>
+                    <li>
+                        {{t.index.devtools.steps.install}} 
+                        <a target="_blank" href="https://marketplace.eclipse.org/content/codewind">{{t.index.devtools.steps.eclipseInstall}}</a>
+                    </li>
+                </ul>
+
+                <p>{{t.index.devtools.steps.cli}}</p>
+                <ul>
+                    <li>
+                        {{t.index.devtools.steps.install}} 
+                        <a target="_blank" href="https://appsody.dev/docs/getting-started/installation">{{t.index.devtools.steps.appsody}}</a>
+                    </li>
+                </ul>
+
+                <hr/>
+
+                <p>
+                    {{t.index.devtools.steps.collectionHub}} <a target="_blank" href="/instance">{{t.index.devtools.steps.teamInstance}}</a>
+                </p>
+                <p>{{t.index.devtools.steps.setCollectionHub}}:</p>
+                <p>{{t.common.codewind}}</p>
+                <ul>
+                    <li>
+                        {{t.common.eclipse}}
+                        <ul>
+                            <li>
+                                See <a target="_blank" href="https://www.eclipse.org/codewind/mdteclipseusingadifferenttemplate.html">{{t.index.devtools.steps.configTemplateSources}} {{t.common.eclipse}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        {{t.common.vscode}}
+                        <ul>
+                            <li>
+                                See <a target="_blank" href="https://www.eclipse.org/codewind/mdt-vsc-usingadifferenttemplate.html">{{t.index.devtools.steps.configTemplateSources}} {{t.common.vscode}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>{{t.common.appsody}}</p>
+                <ul>
+                    <li>
+                        Use the <a target="_blank" href="https://appsody.dev/docs/using-appsody/cli-commands#appsody-repo-add">{{t.index.devtools.steps.appsodyRepoAdd}}</a>
+                    </li>
+                </ul>
+          </div>
+      
+          <div class="bx--modal-footer">
+            <button class="bx--btn bx--btn--secondary" type="button" data-modal-close>{{t._includes.header.close}}</button>
+          </div>
+        </div>
+      </div>
+
+
