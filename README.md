@@ -3,6 +3,8 @@
 # Introduction
 Landing page for the Kabanero OKD Console.
 
+![](src/main/content/img/kabanero-landing-screenshot.png)
+
 ## Contributing to the landing page
 
 Please [view our contribution guidelines](https://github.com/kabanero-io/kabanero-landing/blob/master/CONTRIBUTING.md) for the Kabanero.io landing page.
