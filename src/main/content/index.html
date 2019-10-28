@@ -4,8 +4,10 @@ home: true
 js:
 - instance-common
 - home
+- thirdparty/carbon/carbon-components.min
 css:
 - home
+- thirdparty/carbon/carbon-components.min
 seo-title: Kabanero
 ---
 {% assign t = site.data[site.active_lang] %}
@@ -13,19 +15,19 @@ seo-title: Kabanero
 {% asset thirdparty/carbon/carbon-components.min.js %} 
 
 <div class="bx--grid--full-width">
-    <div class="bx--row gray-background py-5 px-5 ">
+    <div class="bx--row gray-background pix-adjust">
         <div class="bx--col-sm-4 bx--col-md-8 bx--col-lg-8 ">
             <h1>{{t.index.welcome-kabanero}}</h1>
             <h3 id="welcome-text">{{t.index.welcome-text}}</h3>
             <a target="_blank" href="https://kabanero.io">
-                <button role="button" class="bx--btn bx--btn--tertiary gray-border text-center white-blue-hover">{{t.index.learn-more-kabanero-button}}</button>
+                <button role="button" id="learn-more-kabanero-button" class="bx--btn bx--btn--tertiary gray-border text-center white-blue-hover">{{t.index.learn-more-kabanero-button}}</button>
             </a>
         </div>
     </div>
-    <div class="bx--row py-5 px-5">
+    <div class="bx--row pix-adjust">
         <h1>{{t.index.get-started-title}}</h1>
     </div>
-    <div class="bx--row py-5 px-5">
+    <div class="bx--row pix-adjust">
         <div class="bx--col-lg-2">
             <!-- View team instance -->
             <a href="/instance" class="get-started-link">
