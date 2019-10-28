@@ -46,8 +46,8 @@ h3 {
 }
 
 .white-blue-hover {
-    color: #000000;
-    background-color:white;
+    color: #000000 !important;
+    background-color:white !important;
     font-size: 16px;
     padding: 5px 10px 5px 10px;
     margin-bottom:10px;
@@ -55,8 +55,8 @@ h3 {
     cursor: pointer;
 
     &:hover {
-        background-color: $color-ibm;
-        color: #FFFFFF;
+        background-color: $color-ibm !important;
+        color: #FFFFFF !important;
     }
 }
 
@@ -64,10 +64,11 @@ h3 {
     max-width: 80em;
     font-weight: 500;
     font-size: 1.2rem;
+    margin-bottom: 20px;
 }
 
 #learn-more-kabanero-button {
-    border: none;
+    border: none !important;
 }
 
 .separator {
@@ -122,9 +123,17 @@ h3 {
     background-color: #e3e3e3;
 }
 
-.gray-border {
-    border: 2px solid #cbcbcb;
+.pix-adjust{
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+    padding-bottom: 3rem !important;
+    padding-top: 3rem !important;
 }
+
+.gray-border {
+    border: 2px solid #cbcbcb !important;
+}
+
 
 .gray-button {
     background-color: #d8d8d8;
@@ -183,4 +192,14 @@ h3 {
 
 .hidden{
     visibility: hidden;
+}
+
+#dev-tools-modal p {
+    margin-bottom: 1rem;
+}
+
+#dev-tools-modal ul {
+    list-style: inherit;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
 }
