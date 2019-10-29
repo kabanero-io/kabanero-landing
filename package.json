@@ -1,0 +1,23 @@
+{
+  "name": "kabanero-landing",
+  "version": "1.0.0",
+  "description": "![](src/main/content/img/Kabanero_Logo_Hero.png)",
+  "main": "index.js",
+  "dependencies": {
+    "carbon-components": "^10.7.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alohr51/kabanero-landing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alohr51/kabanero-landing/issues"
+  },
+  "homepage": "https://github.com/alohr51/kabanero-landing#readme"
+}
