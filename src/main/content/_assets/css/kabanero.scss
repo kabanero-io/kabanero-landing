@@ -616,12 +616,16 @@ footer {
     position: relative;
 }
 
-#intro-content{
+#intro-content {
     margin-top: 30px;
-  }
+}
   
-  @media (max-width: 991.98px){
+@media (max-width: 991.98px){
     #intro-content {
-         margin-top: 75px;
+        margin-top: 75px;
     }
-  }
+}
+
+/* Overwrite Carbon Design */
+
+$interactive-01: $color-kabanero;
