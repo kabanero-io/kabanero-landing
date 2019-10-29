@@ -123,17 +123,14 @@ h3 {
     background-color: #e3e3e3;
 }
 
-.pix-adjust{
-    padding-left: 3rem !important;
-    padding-right: 3rem !important;
-    padding-bottom: 3rem !important;
-    padding-top: 3rem !important;
-}
-
 .gray-border {
     border: 2px solid #cbcbcb !important;
 }
 
+.row-adjust{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
 
 .gray-button {
     background-color: #d8d8d8;
@@ -202,4 +199,9 @@ h3 {
     list-style: inherit;
     margin-bottom: 1rem;
     margin-left: 2rem;
+}
+
+.text-center{
+    text-align: center !important;
+    padding-left: 40px !important;
 }
