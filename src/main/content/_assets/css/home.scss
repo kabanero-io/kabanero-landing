@@ -15,6 +15,8 @@
  * limitations under the License.
  *
  ******************************************************************************/
+@import 
+"../../../../../node_modules/carbon-components/scss/globals/scss/spacing";
 
 //declare variables
 $color-ibm:#3d70b2;
@@ -45,30 +47,11 @@ h3 {
     font-size: 1.5rem;
 }
 
-.white-blue-hover {
-    color: #000000 !important;
-    background-color:white !important;
-    font-size: 16px;
-    padding: 5px 10px 5px 10px;
-    margin-bottom:10px;
-
-    cursor: pointer;
-
-    &:hover {
-        background-color: $color-ibm !important;
-        color: #FFFFFF !important;
-    }
-}
-
 #welcome-text {
     max-width: 80em;
     font-weight: 500;
     font-size: 1.2rem;
     margin-bottom: 20px;
-}
-
-#learn-more-kabanero-button {
-    border: none !important;
 }
 
 .separator {
@@ -121,23 +104,6 @@ h3 {
 
 .gray-background {
     background-color: #e3e3e3;
-}
-
-.gray-border {
-    border: 2px solid #cbcbcb !important;
-}
-
-.row-adjust{
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.gray-button {
-    background-color: #d8d8d8;
-    border: none;
-    font-size: 22px;
-    padding: 10px 20px 10px 20px;
-    min-width: 10rem;
 }
 
 .get-started-link {
@@ -201,7 +167,12 @@ h3 {
     margin-left: 2rem;
 }
 
-.text-center{
+.text-center {
     text-align: center !important;
     padding-left: 40px !important;
+}
+
+.bx--row {
+    margin-top: $spacing-05;
+    margin-bottom: $spacing-05;
 }
