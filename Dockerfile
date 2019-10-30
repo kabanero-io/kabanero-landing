@@ -35,7 +35,6 @@ RUN bash ./scripts/build_gem_dependencies.sh
 COPY . /app
 
 ENV JEKYLL_ENV "production"
-ENV PAT a75a8a76fb79bdd9dc7f6f264866a7dcfb7fb920
 
 RUN npm install && bash ./scripts/build_jekyll_maven.sh
 
