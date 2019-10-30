@@ -1,23 +1,16 @@
 {
   "name": "kabanero-landing",
-  "version": "1.0.0",
-  "description": "![](src/main/content/img/Kabanero_Logo_Hero.png)",
-  "main": "index.js",
+  "description": "Kabanero instance manager built for the Red Hat OKD console",
   "dependencies": {
-    "carbon-components": "^10.7.2"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "carbon-components": "^10.7.3"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alohr51/kabanero-landing.git"
+    "url": "git+https://github.com/kabanero-io/kabanero-landing.git"
   },
-  "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/alohr51/kabanero-landing/issues"
+    "url": "https://github.com/kabanero-io/kabanero-landing/issues"
   },
-  "homepage": "https://github.com/alohr51/kabanero-landing#readme"
+  "homepage": "https://github.com/kabanero-io/kabanero-landing#readme"
 }

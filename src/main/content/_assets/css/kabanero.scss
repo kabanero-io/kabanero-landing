@@ -373,6 +373,7 @@ footer {
     color: #FFFFFF;
     background-color: #292828;
     border-top: 6px solid $color-kabanero;
+    margin-top: 1rem;
 }
 
 #footer_top_container {
@@ -692,7 +693,9 @@ $kab-theme: (
 @import "../../../../../node_modules/carbon-components/scss/globals/scss/vendor/@carbon/themes/scss/themes.scss";
 $carbon--theme: $kab-theme;
 
+$feature-flags: (grid-columns-16: true);
+
 @import
 "../../../../../node_modules/carbon-components/scss/globals/grid/grid",
 "../../../../../node_modules/carbon-components/scss/components/button/button",
-"../../../../../node_modules/carbon-components/scss/components/modal/modal"
+"../../../../../node_modules/carbon-components/scss/components/modal/modal";
