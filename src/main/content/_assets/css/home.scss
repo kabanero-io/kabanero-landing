@@ -178,35 +178,42 @@ h3 {
     }
 }
 
-#carrot-icon{
-    img{
+#carrot-icon {
+    img {
         cursor: pointer;
     }
-    img.chevron-up{
+
+    img.chevron-up {
         content: url("/img/chevron--up.svg");
     }
-    img.chevron-up:hover{
+
+    img.chevron-up:hover {
         transform: translateY(-2px)
     }
-    img.chevron-down{
+
+    img.chevron-down {
         content: url("/img/chevron--down.svg");
     }
-    img.chevron-down:hover{
+
+    img.chevron-down:hover {
         transform: translateY(2px)
     }
 }
 
-.show-less{    
-    h3{
+.show-less {
+    h3 {
         display: none !important;
     }
-    button{
+
+    button {
         display: none !important;
     }
-    #welcome-header{
+
+    #welcome-header {
         margin-bottom: 40px;
     }
-    .learn-more-open{
+
+    .learn-more-open {
         display: inherit;
     }
 }

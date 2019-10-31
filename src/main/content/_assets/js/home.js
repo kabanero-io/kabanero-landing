@@ -47,10 +47,8 @@ function hideAllOpenSourcePlatformsCollapses(id){
     $("#open-source-platform-" + id + "-separator").addClass("open-source-platform-vertical-separator-visible");
 }
 
-function checkLocalStoragePageSettigns(){
-    if(localStorage.getItem('shortenedVersion') === 'true')
-    {   
-        console.log(localStorage.getItem('shortenedVersion'))
+function checkLocalStoragePageSettigns() {
+    if (localStorage.getItem('shortenedVersion') === 'true') {
         $('.collapsible-row').addClass('show-less');
         $('#carrot-icon img').removeClass().attr('class', 'chevron-down');
     }
@@ -60,10 +58,10 @@ function showLess() {
     $('#carrot-icon img').click(function () {
         $('.collapsible-row').toggleClass('show-less');
         $(this).toggleClass('chevron-up chevron-down');
-        if($('.collapsible-row').hasClass('show-less')){
+        if ($('.collapsible-row').hasClass('show-less')) {
             localStorage.setItem('shortenedVersion', true);
         }
-        else{
+        else {
             localStorage.setItem('shortenedVersion', false);
         }
     })
