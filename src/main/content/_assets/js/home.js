@@ -18,7 +18,7 @@
 $(document).ready(function() {
     fetchATool("Application Navigator")
         .then(setKAppNav);
-    showLess();
+    togglePageView();
     checkLocalStoragePageSettigns();
 });
 
@@ -54,7 +54,7 @@ function checkLocalStoragePageSettigns() {
     }
 }
 
-function showLess() {
+function togglePageView() {
     $('#carrot-icon img').click(function () {
         $('.collapsible-row').toggleClass('show-less');
         $(this).toggleClass('chevron-up chevron-down');
