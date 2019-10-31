@@ -36,7 +36,7 @@ COPY . /app
 
 ENV JEKYLL_ENV "production"
 
-RUN npm install && bash ./scripts/build_jekyll_maven.sh
+RUN bash ./scripts/build_jekyll_maven.sh
 
 # ------------------------------------------------------------------------------------------------
 
