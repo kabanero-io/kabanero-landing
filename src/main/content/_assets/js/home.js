@@ -49,7 +49,7 @@ function hideAllOpenSourcePlatformsCollapses(id){
 
 function setPageView() {
     if (localStorage.getItem('shortenedVersion') === 'true' || !localStorage.getItem('shortenedVersion')) {
-        showHideElements();
+        toggleElements();
         $('#carrot-icon img').removeClass().attr('class', 'chevron-up');
     }
 }
@@ -59,11 +59,11 @@ function togglePageView() {
         $(this).toggleClass('chevron-up chevron-down');
         let isShortenedVersion = $('#carrot-icon img').hasClass('chevron-up');
         localStorage.setItem('shortenedVersion', isShortenedVersion);
-        showHideElements();
+        toggleElements();
     })
 }
 
-function showHideElements(){
+function toggleElements(){
     $('#welcome-text').toggleClass('hidden');
     $('#learn-more-kabanero-button').toggleClass('hidden');
     $('.learn-more-open').toggleClass('hidden');
