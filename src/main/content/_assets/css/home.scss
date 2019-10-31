@@ -154,7 +154,8 @@ h3 {
 }
 
 .hidden{
-    visibility: hidden;
+    display: none !important;
+    visibility: hidden !important;
 }
 
 #dev-tools-modal p {
@@ -170,6 +171,43 @@ h3 {
 .text-center {
     text-align: center !important;
     padding-left: 40px !important;
+}
+
+@media (max-width: 66rem) {
+.centered-carrot {
+    text-align: center;
+    }
+}
+
+#carrot-icon {
+    float: right;
+    padding-top: 30px;
+    padding-right: 30px;
+
+    img {
+        cursor: pointer;
+    }
+
+    img.chevron-up {
+        content: url("/img/chevron--up.svg");
+    }
+
+    img.chevron-up:hover {
+        transform: translateY(-2px)
+    }
+
+    img.chevron-down {
+        content: url("/img/chevron--down.svg");
+    }
+
+    img.chevron-down:hover {
+        transform: translateY(2px)
+    }
+}
+
+.learn-more-open{
+    color: #000000;
+    text-decoration: underline;
 }
 
 .bx--row {

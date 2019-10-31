@@ -8,6 +8,8 @@ TARGET_DIR="target"
 echo "Ruby version:"
 ruby -v
 
+npm install
+
 ./scripts/build_gem_dependencies.sh
 
 # Guides that are ready to be published to the Code Conjuring site
