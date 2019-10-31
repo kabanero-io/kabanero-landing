@@ -154,7 +154,8 @@ h3 {
 }
 
 .hidden{
-    visibility: hidden;
+    display: none !important;
+    visibility: hidden !important;
 }
 
 #dev-tools-modal p {
@@ -179,6 +180,9 @@ h3 {
 }
 
 #carrot-icon {
+    float: right;
+    padding-top: 5px;
+
     img {
         cursor: pointer;
     }
@@ -200,29 +204,11 @@ h3 {
     }
 }
 
-.show-less {
-    h3 {
-        display: none !important;
-    }
-
-    button {
-        display: none !important;
-    }
-
-    #welcome-header {
-        margin-bottom: 40px;
-    }
-
-    .learn-more-open {
-        display: inherit;
-    }
-}
-
 .learn-more-open{
     color: #000000;
     text-decoration: underline;
-    display: none;
 }
+
 .bx--row {
     margin-top: $spacing-05;
     margin-bottom: $spacing-05;

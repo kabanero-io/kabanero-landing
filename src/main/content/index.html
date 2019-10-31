@@ -12,26 +12,22 @@ seo-title: Kabanero
 {% assign t = site.data[site.active_lang] %}
 
 <div class="gray-background">
+    <div id="carrot-icon">
+        <img class="chevron-down" src="/img/chevron--down.svg" alt="Less Info">
+    </div>
     <div class="bx--grid bx--grid--full-width">
         <div class="bx--row">
             <div class="bx--col">
-                <div class="bx--row collapsible-row">
+                <div class="bx--row">
                     <div class="bx--col-sm-4 bx--col-md-8 bx--col-lg-8 ">
                         <h1 id="welcome-header">{{t.index.welcome-kabanero}}</h1>
-                        <h3 id="welcome-text">{{t.index.welcome-text}}</h3>
+                        <h3 id="welcome-text" class="hidden">{{t.index.welcome-text}}</h3>
                         <a target="_blank" href="https://kabanero.io">
-                            <button class="bx--btn bx--btn--primary"
+                            <button id="learn-more-kabanero-button" class="bx--btn bx--btn--primary hidden"
                                 type="button">{{t.index.learn-more-kabanero-button}}</button>
                             <p class="learn-more-open">{{t.index.learn-more}}</p>
                         </a>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="bx--row">
-            <div class="bx--offset-lg-8 bx--col-lg-8 centered-carrot">
-                <div id="carrot-icon">
-                    <img class="chevron-up" src="/img/chevron--up.svg" alt="Less Info">
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ $(document).ready(function() {
     fetchATool("Application Navigator")
         .then(setKAppNav);
     togglePageView();
-    checkLocalStoragePageSettigns();
+    setPageView();
 });
 
 function setKAppNav(kAppNav){
@@ -47,22 +47,24 @@ function hideAllOpenSourcePlatformsCollapses(id){
     $("#open-source-platform-" + id + "-separator").addClass("open-source-platform-vertical-separator-visible");
 }
 
-function checkLocalStoragePageSettigns() {
-    if (localStorage.getItem('shortenedVersion') === 'true') {
-        $('.collapsible-row').addClass('show-less');
-        $('#carrot-icon img').removeClass().attr('class', 'chevron-down');
+function setPageView() {
+    if (localStorage.getItem('shortenedVersion') === 'true' || !localStorage.getItem('shortenedVersion')) {
+        showHideElements();
+        $('#carrot-icon img').removeClass().attr('class', 'chevron-up');
     }
 }
 
 function togglePageView() {
     $('#carrot-icon img').click(function () {
-        $('.collapsible-row').toggleClass('show-less');
         $(this).toggleClass('chevron-up chevron-down');
-        if ($('.collapsible-row').hasClass('show-less')) {
-            localStorage.setItem('shortenedVersion', true);
-        }
-        else {
-            localStorage.setItem('shortenedVersion', false);
-        }
+        let isShortenedVersion = $('#carrot-icon img').hasClass('chevron-up');
+        localStorage.setItem('shortenedVersion', isShortenedVersion);
+        showHideElements();
     })
+}
+
+function showHideElements(){
+    $('#welcome-text').toggleClass('hidden');
+    $('#learn-more-kabanero-button').toggleClass('hidden');
+    $('.learn-more-open').toggleClass('hidden');
 }
