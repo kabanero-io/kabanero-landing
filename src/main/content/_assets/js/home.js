@@ -18,6 +18,8 @@
 $(document).ready(function() {
     fetchATool("Application Navigator")
         .then(setKAppNav);
+    showLess();
+    checkLocalStoragePageSettigns();
 });
 
 function setKAppNav(kAppNav){
@@ -43,4 +45,26 @@ function hideAllOpenSourcePlatformsCollapses(id){
     $("#open-source-platform-" + id + "-box").addClass("open-source-platform-box-selected");
     $(".open-source-platform-vertical-separator-visible").removeClass("open-source-platform-vertical-separator-visible");
     $("#open-source-platform-" + id + "-separator").addClass("open-source-platform-vertical-separator-visible");
+}
+
+function checkLocalStoragePageSettigns(){
+    if(localStorage.getItem('shortenedVersion') === 'true')
+    {   
+        console.log(localStorage.getItem('shortenedVersion'))
+        $('.collapsible-row').addClass('show-less');
+        $('#carrot-icon img').removeClass().attr('class', 'chevron-down');
+    }
+}
+
+function showLess() {
+    $('#carrot-icon img').click(function () {
+        $('.collapsible-row').toggleClass('show-less');
+        $(this).toggleClass('chevron-up chevron-down');
+        if($('.collapsible-row').hasClass('show-less')){
+            localStorage.setItem('shortenedVersion', true);
+        }
+        else{
+            localStorage.setItem('shortenedVersion', false);
+        }
+    })
 }

@@ -205,3 +205,48 @@ h3 {
     text-align: center !important;
     padding-left: 40px !important;
 }
+
+@media (max-width: 66rem) {
+.centered-carrot {
+    text-align: center;
+    }
+}
+
+#carrot-icon{
+    img{
+        cursor: pointer;
+    }
+    img.chevron-up{
+        content: url("/img/chevron--up.svg");
+    }
+    img.chevron-up:hover{
+        transform: translateY(-2px)
+    }
+    img.chevron-down{
+        content: url("/img/chevron--down.svg");
+    }
+    img.chevron-down:hover{
+        transform: translateY(2px)
+    }
+}
+
+.show-less{    
+    h3{
+        display: none !important;
+    }
+    button{
+        display: none !important;
+    }
+    #welcome-header{
+        margin-bottom: 40px;
+    }
+    .learn-more-open{
+        display: inherit;
+    }
+}
+
+.learn-more-open{
+    color: #000000;
+    text-decoration: underline;
+    display: none;
+}

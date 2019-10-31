@@ -16,15 +16,23 @@ seo-title: Kabanero
     <div class="bx--grid bx--grid--full-width">
         <div class="bx--row">
             <div class="bx--col">
-                <div class="bx--row row-adjust">
+                <div class="bx--row row-adjust collapsible-row">
                     <div class="bx--col-sm-4 bx--col-md-8 bx--col-lg-8 ">
-                        <h1>{{t.index.welcome-kabanero}}</h1>
+                        <h1 id="welcome-header">{{t.index.welcome-kabanero}}</h1>
                         <h3 id="welcome-text">{{t.index.welcome-text}}</h3>
                         <a target="_blank" href="https://kabanero.io">
                             <button role="button" id="learn-more-kabanero-button"
                                 class="bx--btn bx--btn--tertiary gray-border text-center white-blue-hover">{{t.index.learn-more-kabanero-button}}</button>
+                            <p class="learn-more-open">{{t.index.learn-more}}</p>
                         </a>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="bx--row">
+            <div class="bx--offset-lg-6 bx--col-lg-6 centered-carrot"> 
+                <div id="carrot-icon">
+                    <img class="chevron-up" src="/img/chevron--up.svg" alt="Less Info">
                 </div>
             </div>
         </div>
