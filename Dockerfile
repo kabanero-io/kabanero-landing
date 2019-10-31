@@ -1,4 +1,4 @@
-FROM ruby:latest as builder
+FROM ruby:2.6.5 as builder
 
 # Install Java
 RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz \
@@ -21,6 +21,9 @@ RUN curl -o /tmp/maven.tar.gz https://ftp.wayne.edu/apache/maven/maven-3/3.6.2/b
 
 ENV PATH=/opt/jdk8u222-b10/bin:/opt/node-v$NODE_VERSION-linux-x64/bin/:/opt/apache-maven-${MAVEN_VERSION}/bin:$PATH
 
+# Set UTF-8 Locale
+ENV LANG C.UTF-8
+
 COPY ./scripts/build_gem_dependencies.sh /app/scripts/build_gem_dependencies.sh
 COPY Gemfile* /app/
 COPY gems /app/gems
@@ -32,7 +35,8 @@ RUN bash ./scripts/build_gem_dependencies.sh
 COPY . /app
 
 ENV JEKYLL_ENV "production"
-RUN bash ./scripts/build_jekyll_maven.sh
+
+RUN npm install && bash ./scripts/build_jekyll_maven.sh
 
 # ------------------------------------------------------------------------------------------------
 

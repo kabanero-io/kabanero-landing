@@ -1,0 +1,16 @@
+{
+  "name": "kabanero-landing",
+  "description": "Kabanero instance manager built for the Red Hat OKD console",
+  "dependencies": {
+    "carbon-components": "^10.7.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kabanero-io/kabanero-landing.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/kabanero-io/kabanero-landing/issues"
+  },
+  "homepage": "https://github.com/kabanero-io/kabanero-landing#readme"
+}
