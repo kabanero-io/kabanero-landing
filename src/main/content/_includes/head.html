@@ -16,9 +16,7 @@
   <title>{% if page.seo-title %}{{ page.seo-title | escape }}{% else %}{% if page.title %}{{ page.title | append: ' - ' | append: site.title | escape }}{% else %}{{ site.title | escape }}{% endif %}{% endif %}</title>
   <meta name="description" content="{{ description }}">
 
-  {% asset thirdparty/bootstrap/bootstrap-4.3.1.min.css %}
-  {% asset thirdparty/bootstrap/bootstrap-grid-4.3.1.min.css %}
-  {% asset thirdparty/bootstrap/bootstrap-reboot-4.3.1.min.css %}
+ 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">

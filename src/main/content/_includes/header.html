@@ -1,38 +1,78 @@
 {% assign t = site.data[site.active_lang]._includes.header %}
-
-<div class="container-fluid">
-    <div id="header-title-row" class="row">
-        <div class="col-md align-self-center">
-            <a href="/">
-                <img src="{{site.site_custom.header.title_logo}}" alt="Logo" />
-            </a>
-        </div>
-    </div>
-    <div id="header-row" class="row">
-        <div id="header-col" class="col-md">
-            <header>
-                <nav class="navbar-expand-md navbar-light">
-                    <button id="nav-toggle-button" class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
-                        data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon navbar-inverse"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link {% if page.url == '/' %}active-nav{% endif %}"
-                                    href="/">{{t.home-button}}</a>
-                                <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}"
-                                    href="/instance">{{t.instance-button}}</a>
-                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}"
-                                    href="/docs">{{t.docs-button}}</a>
-                                <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}"
-                                    href="/guides">{{t.guides-button}}</a>
-                            </li>
-                        </ul>
+    <div class="header-background">
+            <div class="bx--grid bx--grid--full-width">
+                    <div id="header-title-row" class="bx--row">
+                            <div class="bx--offset-lg-0 bx--col-lg-16 align-header-image">
+                                    <a href="/">
+                                        <img src="{{site.site_custom.header.title_logo}}" alt="Logo" />
+                                    </a>
+                                </div>
                     </div>
-                </nav>
-            </header>
-        </div>
+            </div>
+</div>
+
+
+<div id="header-link-container" >
+    <div class="bx--grid bx--grid--full-width">
+        <div id="header-row" class="bx--row">
+                <div class="bx--offset-lg-0 bx--col-lg-16 bx--no-gutter--left">
+                        <header>
+                                <nav class="navbar-expand-md navbar-light">
+                                    <!-- <button id="nav-toggle-button" class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
+                                        data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon navbar-inverse"></span>
+                                    </button> -->
+                                    <button class="bx--header__menu-trigger bx--header__action header-navigation-menu-button" aria-label="Open menu" title="Open menu"
+                                    data-navigation-menu-panel-label-expand="Open menu" data-navigation-menu-panel-label-collapse="Close menu"
+                                    data-navigation-menu-target="#navigation-menu-bvjxymx0kzt">
+                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="bx--navigation-menu-panel-expand-icon" width="20" height="20" viewBox="0 0 20 20"><path d="M2 14.8H18V16H2zM2 11.2H18V12.399999999999999H2zM2 7.6H18V8.799999999999999H2zM2 4H18V5.2H2z"></path></svg>
+                                  </button>
+
+
+                                    <div class="collapse navbar-collapse" id="navbarNav">
+                                        <ul class="navbar-nav">
+                                            <li class="">
+                                                <a class="nav-link {% if page.url == '/' %}active-nav{% endif %}"
+                                                    href="/">{{t.home-button}}</a>
+                                                <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}"
+                                                    href="/instance">{{t.instance-button}}</a>
+                                                <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}"
+                                                    href="/docs">{{t.docs-button}}</a>
+                                                <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}"
+                                                    href="/guides">{{t.guides-button}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </header>
+                </div>
+
+        </div> 
     </div>
 </div>
+
+
+<!-- <header>
+        <nav class="navbar-expand-md navbar-light">
+            <button id="nav-toggle-button" class="navbar-toggler bg-dark" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon navbar-inverse"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if page.url == '/' %}active-nav{% endif %}"
+                            href="/">{{t.home-button}}</a>
+                        <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}"
+                            href="/instance">{{t.instance-button}}</a>
+                        <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}"
+                            href="/docs">{{t.docs-button}}</a>
+                        <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}"
+                            href="/guides">{{t.guides-button}}</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header> -->
