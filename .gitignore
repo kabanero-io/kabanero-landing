@@ -11,3 +11,4 @@ src/main/content/javadocs/*/stylesheet.css
 .jekyll-cache
 /bin/
 /build/
+node_modules
