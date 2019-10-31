@@ -17,4 +17,7 @@ RUN npm install eslint --save-dev
 
 RUN curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
 
+# Set UTF-8 Locale
+ENV LANG C.UTF-8
+
 COPY . .
