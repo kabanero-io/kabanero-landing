@@ -20,7 +20,6 @@ $(document).ready(function () {
         .then(setKAppNav);
     togglePageView();
     setPageView();
-    toggleHeaderNav();
 });
 
 function setKAppNav(kAppNav) {
@@ -68,10 +67,4 @@ function toggleElements() {
     $('#welcome-text').toggleClass('hidden');
     $('#learn-more-kabanero-button').toggleClass('hidden');
     $('.learn-more-open').toggleClass('hidden');
-}
-
-function toggleHeaderNav() {
-    $('#header-nav-bar-icon').click(function () {
-        $('#navbarNav').toggleClass('collapse-navbar');
-    })
 }
