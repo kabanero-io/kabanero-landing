@@ -216,7 +216,9 @@ main {
 
 @media (max-width: 767.98px) {
     #navbarNav .navbar-nav {
-        display: none;
+        margin-top: 15px;
+        max-width: 100%;
+        margin-left: 0;
     }
 
     #header_round_links_container {
@@ -253,6 +255,10 @@ main {
     .kabanero-enterprise > img {
         margin: 0 10px 10px 0;
         vertical-align: top;
+    }
+
+    .collapse-navbar{
+        display: none;
     }
 }
 
@@ -296,7 +302,8 @@ main {
 
 
 @media (min-width: 767.98px) {
-    #header-nav-bar-dropdown {
+    #header-nav-bar-icon {
         display: none;
     }
-}
+} 
+
