@@ -38,7 +38,7 @@ function loadWhatsNewModal(){
 }
 
 function toggleHeaderNav() {
-    $('#header-nav-bar-icon').click(function () {
+    $('#header-nav-bar-button').click(function () {
         $('#navbarNav').toggleClass('collapse-navbar');
     })
 }
