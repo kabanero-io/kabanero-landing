@@ -22,7 +22,7 @@ body {
 
 .guide_item {
     margin-bottom: 0.8em;
-    height: 18em;
+    min-height: 18em;
     padding-top: 0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;

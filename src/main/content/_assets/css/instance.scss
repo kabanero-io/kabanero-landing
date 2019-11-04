@@ -27,7 +27,7 @@ $color-ibm:#3d70b2;
     padding-left: 50px;
 }
 
-#meta-data .row {
+#meta-data .row:not(:first-child) {
     margin-top: 15px;
 }
 
