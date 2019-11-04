@@ -37,6 +37,12 @@ function loadWhatsNewModal(){
     });
 }
 
+function toggleHeaderNav() {
+    $('#header-nav-bar-button').click(function () {
+        $('#navbarNav').toggleClass('collapse-navbar');
+    })
+}
+
 // prevent scrolling when navbar dropdown is opened
 $(document).ready(function(){
     $('.navbar-toggler').click(function(){
@@ -47,6 +53,8 @@ $(document).ready(function(){
             $('body').css('overflow', 'auto');
         }
     });    
+    
+    toggleHeaderNav();
 
     //loadWhatsNewModal();
 });
