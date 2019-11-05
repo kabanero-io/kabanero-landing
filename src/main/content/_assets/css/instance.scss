@@ -15,6 +15,8 @@
  * limitations under the License.
  *
  ******************************************************************************/
+ @import 
+ "../../../../../node_modules/carbon-components/scss/globals/scss/spacing";
 
 //declare variables
 $color-ibm:#3d70b2;
@@ -62,3 +64,8 @@ div.tooltip-inner {
 caption {
     caption-side: top;
 }
+
+@import
+"../../../../../node_modules/carbon-components/scss/globals/grid/grid",
+"../../../../../node_modules/carbon-components/scss/components/button/button",
+"../../../../../node_modules/carbon-components/scss/components/modal/modal"; 
