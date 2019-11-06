@@ -2,6 +2,7 @@
 $(document).ready(function () {
     handleSideNavScroll();
     setNavLocation($(document).scrollTop());
+    toggleSideNavExpand();
 });
 
 function handleSideNavScroll() {
@@ -22,7 +23,7 @@ function setNavLocation(height) {
 }
 
 function toggleSideNavExpand() {
-    $(".bx--side-nav__icon").click(function () {
+    $('#side-bar-nav-expand-icon').click(function () {
         $('.bx--side-nav').toggleClass('bx--side-nav--expanded');
     });
 }
