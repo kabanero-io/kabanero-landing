@@ -1,7 +1,9 @@
 ---
 css: 
 - header
+- side-bar
 js:
+- side-bar
 - header
 ---
 <!-----------------------------------------------------------------------------
@@ -30,11 +32,13 @@ js:
   <body>
 
     {% include header.html %}
-
+    
     <main aria-label="Content">
+      
+      {% include side-bar.html %}
 
-      {{ content }}
-
+      {{ content }} 
+        
     </main>
     {% include footer.html %}
     

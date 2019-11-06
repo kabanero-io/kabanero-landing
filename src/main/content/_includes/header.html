@@ -4,50 +4,10 @@
         <div id="header-title-row" class="bx--row">
             <div class="bx--offset-lg-0 bx--col-lg-16 align-header-image">
                 <a href="/">
-                    <img src="{{site.site_custom.header.title_logo}}" alt="Logo" />
+                    <img id="kabanero-header-image" src="{{site.site_custom.header.title_logo}}" alt="Logo" />
                 </a>
             </div>
         </div>
     </div>
 </div>
-
-
-<div id="header-link-container">
-    <div class="bx--grid bx--grid--full-width">
-        <div id="header-row" class="bx--row">
-            <div class="bx--offset-lg-0 bx--col-lg-16">
-                <header>
-                    <nav>
-                        <div id="header-nav-bar-icon">
-                            <button id="header-nav-bar-button" class="bx--header__menu-trigger bx--header__action header-navigation-menu-button">
-                                <svg focusable="false" preserveAspectRatio="xMidYMid meet"
-                                    style="will-change: transform;" xmlns="http://www.w3.org/2000/svg"
-                                    aria-hidden="true" class="bx--navigation-menu-panel-expand-icon" width="20"
-                                    height="20" viewBox="0 0 20 20">
-                                    <path
-                                        d="M2 14.8H18V16H2zM2 11.2H18V12.399999999999999H2zM2 7.6H18V8.799999999999999H2zM2 4H18V5.2H2z">
-                                    </path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="collapse-navbar" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="">
-                                    <a class="nav-link {% if page.url == '/' %}active-nav{% endif %}"
-                                        href="/">{{t.home-button}}</a>
-                                    <a class="nav-link {% if page.url contains '/instance' %}active-nav{% endif %}"
-                                        href="/instance">{{t.instance-button}}</a>
-                                    <a class="nav-link {% if page.url contains '/docs' %}active-nav{% endif %}"
-                                        href="/docs">{{t.docs-button}}</a>
-                                    <a class="nav-link {% if page.url contains '/guides' %}active-nav{% endif %}"
-                                        href="/guides">{{t.guides-button}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </header>
-            </div>
-
-        </div>
-    </div>
 </div>

@@ -311,3 +311,13 @@ main {
     margin-top: $spacing-05;
     margin-bottom: $spacing-05;
 }
+
+#kabanero-header-image{
+    margin-left: $spacing-06;
+}
+
+@media (max-width: 767.98px) {
+    #kabanero-header-image {
+        margin-left: 3rem;
+    }
+}
