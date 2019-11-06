@@ -142,25 +142,19 @@ public class KabaneroClient {
 
         Map<String, Route> routes = null;
 
-        routes = KabaneroClient.listRoutes(client, "kabanero");
-        LOGGER.log(Level.FINE, "'kabanero' namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
-
+        routes = KabaneroClient.listRoutes(client, "tekton-pipelines");
         if (routes != null) {
             String url = KabaneroClient.getLabeledRoute("tekton-dashboard", routes);
             tools.addTool(new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, url));
         }
 
         routes = KabaneroClient.listRoutes(client, "ta");
-        LOGGER.log(Level.FINE, "'ta' namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
-
         if (routes != null) {
             String url = KabaneroClient.getTransformationAdvisorURL(routes);
             tools.addTool(new KabaneroTool(Constants.TA_DASHBOARD_LABEL, url));
         }
 
         routes = KabaneroClient.listRoutes(client, "kappnav");
-        LOGGER.log(Level.FINE, "'kappnav' namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
-
         if (routes != null) {
             String url = KabaneroClient.getLabeledRoute("kappnav-ui-service", routes);
             tools.addTool(new KabaneroTool(Constants.KAPPNAV_LABEL, url));
@@ -243,6 +237,7 @@ public class KabaneroClient {
             route.setSpec(spec);
         }
 
+        LOGGER.log(Level.FINE, namespace + " namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
         return routes;
     }
 
