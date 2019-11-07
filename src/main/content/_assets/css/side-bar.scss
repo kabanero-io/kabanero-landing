@@ -1,0 +1,108 @@
+@import "../../../../../node_modules/carbon-components/scss/components/ui-shell/_side-nav.scss";
+
+main {
+    margin-left: 3rem;
+    margin-top: -1rem;
+}
+
+.bx--side-nav {
+    height: 100%;
+    background-color: #282828;
+    width: 3.2rem;
+    position: absolute;
+
+    &:hover {
+        width: 3.2rem !important;
+
+        .bx--side-nav__header {
+            height: 3rem !important;
+        }
+    }
+}
+
+.bx--side-nav__toggle {
+    margin-top: 1rem;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.bx--side-nav__header {
+    background-color: #000000;
+    border: none !important;
+    height: 3rem !important;
+
+    button {
+        cursor: auto !important;
+        border: none;
+
+        &:hover {
+            background-color: #000000;
+        }
+    }
+}
+
+.bx--side-nav__items {
+    padding-top: unset;
+    margin-left: unset;
+
+    img {
+        max-width: inherit;
+    }
+}
+
+.bx--side-nav__item .bx--side-nav--expande {
+    height: 3rem !important;
+}
+
+.bx--side-nav__link-text {
+    color: #ffffff !important;
+}
+
+.bx--side-nav__footer {
+    background-color: #282828;
+}
+
+a.bx--side-nav__link--current {
+    background-color: #3d3d3d !important;
+    border-top: solid 1px;
+    border-bottom: solid 1px;
+}
+
+
+.bx--side-nav__link {
+    min-height: 3rem !important;
+
+    &:hover {
+        background-color: #3d3d3d !important;
+    }
+}
+
+.bx--side-nav--expanded {
+    width: 16rem !important;
+
+    &:hover {
+        width: 16rem !important;
+    }
+}
+
+.bx--side-nav__icon>svg {
+    fill: #ffffff;
+}
+
+.bx--side-nav__icon:not(.bx--side-nav__submenu-chevron) {
+    margin-right: 1rem;
+}
+
+.scroll {
+    position: fixed;
+
+    .bx--side-nav__header {
+        display: none;
+    }
+
+    .bx--side-nav {
+        height: auto;
+    }
+}
