@@ -194,17 +194,6 @@ let InstancePane = class {
           <p>${this.date}</p>
         </div>
       </li>`;
-        // let topRow = $("<div/>", {class: "row"});
-        // let innerCol = $("<div/>", {class: "col-md"});
-        // innerCol
-        //     .append(this.instanceNameHTML)
-        //     .append(InstancePane.createDetailRowHTMLForString("Date Created", this.date, false))
-        //     .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub), false)
-        //     .append(InstancePane.createCLI(this.instanceName + "-cli", this.cliURL), false)
-        //     .append(InstancePane.createDetailRowHTMLForString("Cluster", this.cluster, false))
-        //     .append(InstancePane.createDetailRowHTMLForCollections("Collections", this.collections, false));
-        // topRow.append(innerCol);
-        // return topRow;
     }
 };
 

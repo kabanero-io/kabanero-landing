@@ -61,15 +61,7 @@ function setInstanceData(instances){
         let pane = new InstancePane(instanceName, details.dateCreated, details.repos, details.clusterName, 
             details.collections, details.cliURL);
 
-        
-        
         $("#instance-accordion").append(pane.instanceHTML);
-        let pane2 = new InstancePane(`${instanceName}2`, details.dateCreated, details.repos, details.clusterName, 
-            details.collections, `222222222${details.cliURL}`);
-        let pane3 = new InstancePane(`${instanceName}3`, details.dateCreated, details.repos, details.clusterName, 
-        details.collections, `333333333${details.cliURL}`);
-        $("#instance-accordion").append(pane2.instanceHTML);
-        $("#instance-accordion").append(pane3.instanceHTML);
     }
     $(".loading-row").hide();
     $(".accordion-title:first").click();
