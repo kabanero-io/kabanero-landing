@@ -103,6 +103,26 @@ caption {
     height: 2rem;
 }
 
+#collections-button{
+    position: relative;
+    top:2rem;
+}
+
+#pipelines-button{
+    position:relative;
+    top:11rem;
+}
+
+#git-orgs-button{
+    position: relative;
+    top:9.5rem;
+}
+
+#manage-apps-button{
+    position:relative;
+    top:11rem;
+}
+
 @import
 "../../../../../node_modules/carbon-components/scss/globals/grid/grid",
 "../../../../../node_modules/carbon-components/scss/components/button/button",

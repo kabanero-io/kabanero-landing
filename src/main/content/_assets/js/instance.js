@@ -83,7 +83,12 @@ function setToolData(tools){
         typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
         }
-
+        if(tool.label === "Application Navigator"){
+            $("#appnav-link").attr("href", tool.location);
+            $("#manage-apps-button").attr("disabled", false);
+            $("#manage-apps-button-text").html('Manage Applications');
+        }
+        //set kappnav url to manage applications link
         let toolPane = new ToolPane(tool.label, tool.location);
         $("#tool-data-container").append(toolPane.toolHTML);
         noTools = false;
@@ -102,6 +107,7 @@ function updateInstanceView(element){
     if($(element).attr('aria-expanded') === 'false'){
         let paneId = $(element).attr('aria-controls');
         let instancePane = $(`#${paneId}`);
+        let appHubName = $(instancePane).data('hubname');
         let appsodyURL = $(instancePane).data('appsodyurl');
         let codewindURL = $(instancePane).data('codewindurl');
         let numberOfCollections = $(instancePane).data('collections');
@@ -121,6 +127,11 @@ function updateInstanceView(element){
             <div class="bx--col">
                 <div class="bx--row">
                     <div class="bx--col">
+                        <p><span class='gray-text'>Application Hub: </span>${appHubName}</p>
+                    </div>
+                </div>
+                <div class="bx--row">
+                    <div class="bx--col">
                         <p><span class='gray-text'>Appsody URL: </span>${appsodyURL}</p>
                     </div>
                 </div>
@@ -128,12 +139,7 @@ function updateInstanceView(element){
                     <div class="bx--col">
                         <p><span class='gray-text'>Codewind URL: </span>${codewindURL}</p>
                     </div>
-                </div>
-                <div class="bx--row">
-                    <div class="bx--col">
-                        <p><span class='gray-text'>Client URL: </span>${clientURL}</p>
-                    </div>
-                </div>                
+                </div>      
             </div>
           </div>`);
     }
