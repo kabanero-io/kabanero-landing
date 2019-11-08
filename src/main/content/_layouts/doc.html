@@ -1,11 +1,13 @@
 ---
 css: 
 - header
+- side-bar
 - docs
 - asciidoctor-default
 
 js:
 - header
+- side-bar
 - docs
 ---
 <!-----------------------------------------------------------------------------
@@ -38,6 +40,7 @@ js:
   <body>
 
     {% include header.html %}
+    {% include side-bar.html %}
     <main aria-label="Content">
         <div class="container-fluid" id="doc-container">
             <div class="row">
