@@ -65,6 +65,12 @@ let ToolPane = class {
 
 let InstancePane = class {
     constructor(instanceName, date, collectionHub, cluster, collections, cliURL) {
+        console.log(instanceName);
+        console.log(String(new Date(date)) === "Invalid Date" ? date : new Date(date).toUTCString());
+        console.log(collectionHub);
+        console.log(cluster);
+        console.log(collections);
+        console.log(cliURL);
         this.instanceName = instanceName;
 
         // If Date cannot be parsed, then return it to original non-parsable value, otherwise, use UTC date
@@ -181,19 +187,31 @@ let InstancePane = class {
     static sortColls(colArry){
         return colArry.sort((a,b) => a.name.localeCompare(b.name));
     }
+
+
     
     get instanceHTML(){
-        let topRow = $("<div/>", {class: "row"});
-        let innerCol = $("<div/>", {class: "col-md"});
-        innerCol
-            .append(this.instanceNameHTML)
-            .append(InstancePane.createDetailRowHTMLForString("Date Created", this.date, false))
-            .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub), false)
-            .append(InstancePane.createCLI(this.instanceName + "-cli", this.cliURL), false)
-            .append(InstancePane.createDetailRowHTMLForString("Cluster", this.cluster, false))
-            .append(InstancePane.createDetailRowHTMLForCollections("Collections", this.collections, false));
-        topRow.append(innerCol);
-        return topRow;
+        return `<li data-accordion-item class="bx--accordion__item">
+        <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane${this.instanceName}" onclick=updateInstanceView(this)>
+          <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+          <div class="bx--accordion__title">${this.instanceName}</div>
+        </button>
+        <div id="pane${this.instanceName}" class="bx--accordion__content" data-appsodyURL=${this.collectionHub[0].appsodyURL} data-codewindURL=${this.collectionHub[0].codewindURL} data-collections=${this.collections.length} data-cliURL=${this.cliURL}>
+          <p class="gray-text">Date created</p>
+          <p>${this.date}</p>
+        </div>
+      </li>`;
+        // let topRow = $("<div/>", {class: "row"});
+        // let innerCol = $("<div/>", {class: "col-md"});
+        // innerCol
+        //     .append(this.instanceNameHTML)
+        //     .append(InstancePane.createDetailRowHTMLForString("Date Created", this.date, false))
+        //     .append(InstancePane.createCollectionHubTable("Collection Hub", this.collectionHub), false)
+        //     .append(InstancePane.createCLI(this.instanceName + "-cli", this.cliURL), false)
+        //     .append(InstancePane.createDetailRowHTMLForString("Cluster", this.cluster, false))
+        //     .append(InstancePane.createDetailRowHTMLForCollections("Collections", this.collections, false));
+        // topRow.append(innerCol);
+        // return topRow;
     }
 };
 

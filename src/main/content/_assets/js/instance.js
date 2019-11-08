@@ -61,8 +61,18 @@ function setInstanceData(instances){
         let pane = new InstancePane(instanceName, details.dateCreated, details.repos, details.clusterName, 
             details.collections, details.cliURL);
 
-        $("#instance-data-container").append(pane.instanceHTML, "<hr/>");
+        
+        
+        $("#instance-accordion").append(pane.instanceHTML);
+        let pane2 = new InstancePane(`${instanceName}2`, details.dateCreated, details.repos, details.clusterName, 
+            details.collections, `222222222${details.cliURL}`);
+        let pane3 = new InstancePane(`${instanceName}3`, details.dateCreated, details.repos, details.clusterName, 
+        details.collections, `333333333${details.cliURL}`);
+        $("#instance-accordion").append(pane2.instanceHTML);
+        $("#instance-accordion").append(pane3.instanceHTML);
     }
+    $(".loading-row").hide();
+    $(".accordion-title:first").click();
 }
 
 // Set details on UI for any given instance
@@ -82,4 +92,50 @@ function setToolData(tools){
     if(noTools){
         $("#no-tools").show();
     }
+}
+
+function updateInstanceView(element){
+    $(".bx--accordion__heading").attr('aria-expanded', false);
+    $(".bx--accordion__heading").parent().removeClass('bx--accordion__item--active');
+
+
+    if($(element).attr('aria-expanded') === 'false'){
+        let paneId = $(element).attr('aria-controls');
+        let instancePane = $(`#${paneId}`);
+        let appsodyURL = $(instancePane).data('appsodyurl');
+        let codewindURL = $(instancePane).data('codewindurl');
+        let numberOfCollections = $(instancePane).data('collections');
+        let clientURL = $(instancePane).data('cliurl');
+        $("#collections-card").html(`
+        <div class="bx--row instance-number-row">
+            <div class="bx--col">
+              <h2>${numberOfCollections}</h2>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <h4>Collections</h4>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <p><span class='gray-text'>Appsody URL: </span>${appsodyURL}</p>
+                    </div>
+                </div>
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <p><span class='gray-text'>Codewind URL: </span>${codewindURL}</p>
+                    </div>
+                </div>
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <p><span class='gray-text'>Client URL: </span>${clientURL}</p>
+                    </div>
+                </div>                
+            </div>
+          </div>`);
+    }
+    
 }

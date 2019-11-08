@@ -8,7 +8,7 @@ js:
 css:
 - home
 - instance
-- thirdparty/carbon/carbon-components.min
+
 seo-title: Kabanero
 permalink: /instance/
 ---
@@ -17,62 +17,113 @@ permalink: /instance/
 <div class="bx--grid bx--grid--full-width">
   <div class="bx--row">
     <div class="bx--col-sm-1 bx--col-lg-3">
-        <ul data-accordion class="bx--accordion">
-            <li data-accordion-item class="bx--accordion__item">
-              <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane1">
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
-                <div class="bx--accordion__title">Section 1 title</div>
+        <ul data-accordion class="bx--accordion" id="instance-accordion">
+            <li data-accordion-item class="bx--accordion__item loading-row">
+              <button class="bx--accordion__heading" aria-expanded="false" aria-controls="paneTest">
+                <div class="bx--accordion__title">
+                  <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                    <div class="bx--inline-loading__animation">
+                      <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                          <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                          <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                        </svg>
+                      </div>
+                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+                    </div>
+                  </div>
+                </div>
               </button>
-              <div id="pane1" class="bx--accordion__content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              </div>
-            </li>
-            <li data-accordion-item class="bx--accordion__item">
-              <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane2">
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
-                <div class="bx--accordion__title">Section 2 title</div>
-              </button>
-              <div id="pane2" class="bx--accordion__content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              </div>
-            </li>
-            <li data-accordion-item class="bx--accordion__item">
-              <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane3">
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
-                <div class="bx--accordion__title">Section 3 title</div>
-              </button>
-              <div id="pane3" class="bx--accordion__content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              </div>
-            </li>
-            <li data-accordion-item class="bx--accordion__item">
-              <button class="bx--accordion__heading" aria-expanded="false" aria-controls="pane4">
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
-                <div class="bx--accordion__title">Section 4 title</div>
-              </button>
-              <div id="pane4" class="bx--accordion__content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              </div>
             </li>
         </ul>
     </div>
-  </div>
-</div>
-
-
-<div id="meta-data" class="container-fluid">
-    <!-- Meta Data is dynamically generated -->
-    <div class="row">
-        <div id="instance-data-container" class="col-md">
-            <h2>{{t.instance.kab-instances}}</h2>
+    <div class="bx--col-sm-1 bx--col-lg-3">
+      <div class="bx--row instance-card">
+        <div class="bx--col" id="collections-card">
+          <div class="bx--row loading-row">
+            <div class="bx--col">
+              <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                <div class="bx--inline-loading__animation">
+                  <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                    <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                      <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                      <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                    </svg>
+                  </div>
+                  <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                  <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="tool-data-container" class="col-md">
-            <h2>{{t.instance.tools}}</h2>
-            <p id="no-tools" class="hide">{{t.instance.no-tools}}</p>
-        </div>
+      </div>
     </div>
+    <div class="bx--col-sm-1 bx--col-lg-3">
+      <div class="bx--row instance-card">
+        <div class="bx--col" id="piplines-card">
+          <div class="bx--row instance-number-row">
+            <div class="bx--col">
+              <h2>0</h2>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <h4>Pipelines</h4>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <p>Click Manage Pipelines to set up your pipelines</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bx--col-sm-1 bx--col-lg-3">
+      <div class="bx--row instance-card">
+        <div class="bx--col" id="git-orgs-card">
+          <div class="bx--row instance-number-row">
+            <div class="bx--col">
+              <h2>0</h2>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <h4>Git Organizations</h4>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <p>You don't have an org for your development team to use for their projects. Create one and add your team members.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bx--row">
+    <div class="bx--col-sm-1 bx--offset-sm-1 bx--col-lg-3 bx--offset-lg-3">
+      <div class="bx--row instance-card">
+        <div class="bx--col" id="applications-card">
+          <div class="bx--row instance-number-row">
+            <div class="bx--col">
+              <h2>0</h2>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <h4>Applications</h4>
+            </div>
+          </div>
+          <div class="bx--row">
+            <div class="bx--col">
+              <p>Deploy your application to begin managing them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

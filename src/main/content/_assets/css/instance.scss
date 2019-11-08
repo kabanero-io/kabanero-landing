@@ -17,14 +17,23 @@
  ******************************************************************************/
  @import 
  "../../../../../node_modules/carbon-components/scss/globals/scss/spacing";
-
+ @import
+ "../../../../../node_modules/carbon-components/src/components/accordion/accordion";
 //declare variables
 $color-ibm:#3d70b2;
+
+body{
+    background-color:#f3f3f3;
+}
 
 .instance-container {
     margin-top: 50px
 }
 
+#instance-accordion{
+    width:95%;
+    margin-top:1rem;
+}
 #meta-data {
     padding-left: 50px;
 }
@@ -65,7 +74,37 @@ caption {
     caption-side: top;
 }
 
+.bx--accordion__item{
+    background-color:#FFFFFF;
+}
+
+#loading-accordion{
+    &:hover{
+        background-color: #f3f3f3;
+    }
+}
+
+.instance-card{
+    background-color:#FFFFFF;
+    height:25rem;
+    min-height:18rem;
+    width:105%;
+
+    p{
+        font-size:.875rem;
+    }
+}
+
+.gray-text{
+    color:#838383;
+}
+
+.instance-number-row{
+    height: 2rem;
+}
+
 @import
 "../../../../../node_modules/carbon-components/scss/globals/grid/grid",
 "../../../../../node_modules/carbon-components/scss/components/button/button",
-"../../../../../node_modules/carbon-components/scss/components/modal/modal"; 
+"../../../../../node_modules/carbon-components/scss/components/modal/modal",
+"../../../../../node_modules/carbon-components/scss/components/loading/loading"; 
