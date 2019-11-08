@@ -16,7 +16,7 @@ permalink: /instance/
 <!-- Welcome header -->
 <div class="bx--grid bx--grid--full-width">
   <div class="bx--row">
-    <div class="bx--col-sm-1 bx--col-lg-3">
+    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4">
         <ul data-accordion class="bx--accordion" id="instance-accordion">
             <li data-accordion-item class="bx--accordion__item loading-row">
               <button class="bx--accordion__heading" aria-expanded="false" aria-controls="paneTest">
@@ -38,7 +38,7 @@ permalink: /instance/
             </li>
         </ul>
     </div>
-    <div class="bx--col-sm-1 bx--col-lg-3">
+    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4">
       <div class="bx--row instance-card">
         <div class="bx--col" id="collections-card">
           <div class="bx--row loading-row">
@@ -60,7 +60,7 @@ permalink: /instance/
         </div>
       </div>
     </div>
-    <div class="bx--col-sm-1 bx--col-lg-3">
+    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4">
       <div class="bx--row instance-card">
         <div class="bx--col" id="piplines-card">
           <div class="bx--row instance-number-row">
@@ -70,20 +70,22 @@ permalink: /instance/
           </div>
           <div class="bx--row">
             <div class="bx--col">
-              <h4>Pipelines</h4>
+              <h4>{{t.instance.pipelines}}</h4>
             </div>
           </div>
           <div class="bx--row">
             <div class="bx--col">
-              <p>No pipelines configured.</p>
+              <p>{{t.instance.no-pipelines}}</p>
             </div>
           </div>
           <div class="bx--row">
             <div class="bx--col-sm-2 bx--col-lg-8">
               <a id="pipelines-link" target="_blank">
                 <button class="bx--btn bx--btn--secondary" id="pipelines-button" type="button" disabled>
-                  <span id="pipelines-button-text">Not Configured</span>
-                  <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M9 7L9 3 7 3 7 7 3 7 3 9 7 9 7 13 9 13 9 9 13 9 13 7z"></path></svg>
+                  <span id="pipelines-button-text">{{t.instance.not-configured}}</span>
+                  <div class="arrow-container">
+                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                  </div>
                 </button>
               </a>
             </div>
@@ -91,7 +93,7 @@ permalink: /instance/
         </div>
       </div>
     </div>
-    <div class="bx--col-sm-1 bx--col-lg-3">
+    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4">
       <div class="bx--row instance-card">
         <div class="bx--col" id="git-orgs-card">
           <div class="bx--row instance-number-row">
@@ -101,20 +103,22 @@ permalink: /instance/
           </div>
           <div class="bx--row">
             <div class="bx--col">
-              <h4>Git Organizations</h4>
+              <h4>{{t.instance.git-orgs}}</h4>
             </div>
           </div>
           <div class="bx--row">
             <div class="bx--col">
-              <p>You don't have an org for your development team to use for their projects. Create one and add your team members.</p>
+              <p>{{t.instance.no-orgs}}</p>
             </div>
           </div>
           <div class="bx--row">
             <div class="bx--col-sm-2 bx--col-lg-8">
               <a id="git-orgs-link" target="_blank">
                 <button class="bx--btn bx--btn--secondary" id="git-orgs-button" type="button" disabled>
-                  <span id="git-orgs-button-text">Not Configured</span>
-                  <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M9 7L9 3 7 3 7 7 3 7 3 9 7 9 7 13 9 13 9 9 13 9 13 7z"></path></svg>
+                  <span id="git-orgs-button-text">{{t.instance.not-configured}}</span>
+                  <div class="arrow-container">
+                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                  </div>
                 </button>
               </a>
             </div>
@@ -124,7 +128,7 @@ permalink: /instance/
     </div>
   </div>
   <div class="bx--row">
-    <div class="bx--col-sm-1 bx--offset-sm-1 bx--col-lg-3 bx--offset-lg-3">
+    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4 bx--offset-xlg-4">
       <div class="bx--row instance-card">
         <div class="bx--col" id="applications-card">
           <div class="bx--row instance-number-row">
@@ -134,20 +138,22 @@ permalink: /instance/
           </div>
           <div class="bx--row">
             <div class="bx--col">
-              <h4>Applications</h4>
+              <h4>{{t.instance.apps}}</h4>
             </div>
           </div>
           <div class="bx--row">
             <div class="bx--col">
-              <p>Deploy your application to begin managing them.</p>
+              <p>{{t.instance.no-apps}}</p>
             </div>
           </div>
           <div class="bx--row">
             <div class="bx--col-sm-2 bx--col-lg-8">
               <a id="appnav-link" target="_blank">
                 <button class="bx--btn bx--btn--secondary" id="manage-apps-button" type="button" disabled>
-                  <span id="manage-apps-button-text">Not Configured</span>
-                  <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M9 7L9 3 7 3 7 7 3 7 3 9 7 9 7 13 9 13 9 9 13 9 13 7z"></path></svg>
+                  <span id="manage-apps-button-text">{{t.instance.not-configured}}</span>
+                  <div class="arrow-container">
+                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                  </div>
                 </button>
               </a>
             </div>

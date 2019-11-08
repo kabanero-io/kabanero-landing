@@ -16,8 +16,8 @@
  *
  ******************************************************************************/
  @import 
- "../../../../../node_modules/carbon-components/scss/globals/scss/spacing";
- @import
+ "kabanero.scss",
+ "../../../../../node_modules/carbon-components/scss/globals/scss/spacing",
  "../../../../../node_modules/carbon-components/src/components/accordion/accordion";
 //declare variables
 $color-ibm:#3d70b2;
@@ -121,6 +121,19 @@ caption {
 #manage-apps-button{
     position:relative;
     top:11rem;
+}
+
+.arrow-container{
+    position:relative;
+    left:3em;
+}
+
+button > .arrow-container > svg{
+    fill:#FFFFFF
+}
+
+button:disabled > .arrow-container > svg{
+    fill:#939393
 }
 
 @import

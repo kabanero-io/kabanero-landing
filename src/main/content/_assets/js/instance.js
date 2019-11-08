@@ -127,17 +127,41 @@ function updateInstanceView(element){
             <div class="bx--col">
                 <div class="bx--row">
                     <div class="bx--col">
+                        
                         <p><span class='gray-text'>Application Hub: </span>${appHubName}</p>
                     </div>
                 </div>
                 <div class="bx--row">
                     <div class="bx--col">
-                        <p><span class='gray-text'>Appsody URL: </span>${appsodyURL}</p>
+                    <div class="input-group">
+                    <p class="gray-text">Appsody URL: </p>
+                    <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${appsodyURL} data-original-title="" title="">
+                    <div class="input-group-append">
+                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
+                    </div>
+                </div>
                     </div>
                 </div>
                 <div class="bx--row">
                     <div class="bx--col">
-                        <p><span class='gray-text'>Codewind URL: </span>${codewindURL}</p>
+                        <div class="input-group">
+                        <p class="gray-text">Codewind URL: </p>
+                            <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${codewindURL} data-original-title="" title="">
+                            <div class="input-group-append">
+                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <p>Managment CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. For more informaiton about using the CLI see the <a href="/docs/ref/general/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
+                        <div class="input-group">
+                            <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${clientURL} data-original-title="" title="">
+                            <div class="input-group-append">
+                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
+                            </div>
+                        </div>
                     </div>
                 </div>      
             </div>
