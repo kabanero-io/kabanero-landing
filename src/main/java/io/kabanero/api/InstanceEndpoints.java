@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero;
+package io.kabanero.api;
 
 import java.util.Collection;
 
@@ -30,6 +30,8 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.kabanero.instance.KabaneroInstance;
+import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
 @ApplicationPath("api")

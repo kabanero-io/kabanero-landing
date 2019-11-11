@@ -17,7 +17,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero;
+package io.kabanero.instance;
 
 import java.util.Collection;
 import java.util.HashMap;

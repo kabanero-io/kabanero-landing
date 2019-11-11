@@ -17,11 +17,9 @@
  *
  ******************************************************************************/
 
-package io.kabanero;
+package io.kabanero.instance;
 
 import java.util.List;
-
-import io.kabanero.KabaneroCollection;
 
 public class KabaneroInstanceDetails {
 

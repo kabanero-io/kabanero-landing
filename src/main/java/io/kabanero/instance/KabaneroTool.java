@@ -17,7 +17,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero;
+package io.kabanero.instance;
 
 public class KabaneroTool {
 

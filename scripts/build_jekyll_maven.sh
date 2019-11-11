@@ -9,6 +9,9 @@ echo "Ruby version:"
 ruby -v
 
 npm install
+# Move carbon icons so jekyll will include them
+CARBON_ICONS_DIR="$CONTENT_DIR/img/carbon-icons/"
+mkdir $CARBON_ICONS_DIR && mv ./node_modules/carbon-icons/dist/carbon-icons.svg ./node_modules/carbon-icons/dist/svg/* "$CONTENT_DIR/img/carbon-icons/"
 
 ./scripts/build_gem_dependencies.sh
 

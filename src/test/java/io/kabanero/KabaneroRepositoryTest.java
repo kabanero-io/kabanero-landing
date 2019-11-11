@@ -16,6 +16,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import io.kabanero.instance.KabaneroCollection;
+import io.kabanero.instance.KabaneroInstance;
+import io.kabanero.instance.KabaneroManager;
+import io.kabanero.instance.KabaneroRepository;
 import io.kubernetes.KabaneroClient;
 import io.kubernetes.client.ApiException;
 

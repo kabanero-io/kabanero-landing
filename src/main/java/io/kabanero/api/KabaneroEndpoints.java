@@ -16,44 +16,30 @@
  *
  ******************************************************************************/
 
-package io.kabanero;
-
-import java.util.Collection;
+package io.kabanero.api;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import io.kabanero.KabaneroTool;
-import io.kabanero.KabaneroToolManager;
-import io.website.ResponseMessage;
+import io.kabanero.KabaneroInstallation;
 
+/*
+    Endpoints related to the Kabanero installation as a whole
+*/
 @ApplicationPath("api")
-@Path("/tools")
+@Path("/kabanero")
 @RequestScoped
-public class ToolEndpoints extends Application {
+public class KabaneroEndpoints extends Application {
 
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<KabaneroTool> getAllTools() {
-        return KabaneroToolManager.getKabaneroToolManagerInstance().getAllTools();
-    }
-
-    @GET
-    @Path("/{toolName}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getATool(@PathParam("toolName") String toolName) {
-        KabaneroTool wantedInstance = KabaneroToolManager.getKabaneroToolManagerInstance().getTool(toolName);
-        if(wantedInstance == null){
-            return Response.status(404).entity(new ResponseMessage(toolName + " not found")).build();
-        }
-        return Response.ok().entity(wantedInstance).build();
+    public KabaneroInstallation getInstallDetails() {
+        return new KabaneroInstallation();
     }
 }

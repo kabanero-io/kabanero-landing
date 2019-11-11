@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import io.kabanero.KabaneroRepository;
+import io.kabanero.instance.KabaneroRepository;
 
 // class to organize data returned from the Kubernetes API
 public class KubeKabanero {
