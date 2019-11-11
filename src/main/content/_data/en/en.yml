@@ -108,6 +108,7 @@ index:
     video: video
  
 instance:
+  instances: Instances
   kab-instances: Kabanero Instances
   tools: Tools
   no-tools: No Tools Available

@@ -77,7 +77,7 @@ function setErrorHTML(){
       <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
       <div class="bx--accordion__title">No instance found</div>
     </button>
-    <div id="paneError" class="bx--accordion__content" data-hubName="No collections" data-appsodyURL="none" data-codewindURL="none" data-collections="0" data-cliURL="none">
+    <div id="paneError" class="bx--accordion__content" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="0" data-cliURL="n/a">
     </div>
   </li>`); 
   $("#instance-accordion").append(errorHTML);
