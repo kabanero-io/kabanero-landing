@@ -19,6 +19,7 @@
 function fetchAllInstances(){
     return fetch("/api/instances")
         .then(function(response) {
+            console.log(response.json());
             return response.json();
         })
         .catch(error => console.error("Error getting instance names:", error));
@@ -180,8 +181,6 @@ let InstancePane = class {
     static sortColls(colArry){
         return colArry.sort((a,b) => a.name.localeCompare(b.name));
     }
-
-
     
     get instanceHTML(){
         return `<li data-accordion-item class="bx--accordion__item">

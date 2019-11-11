@@ -54,6 +54,12 @@ function loadAllInfo(){
 
 // Set details on UI for any given instance
 function setInstanceData(instances){
+    console.log(`setting instance data`);
+    console.log(instances);
+    if(instances === undefined || instances.length === 0){
+        setErrorHTML();
+        return;
+    }
     for(let instance of instances){
         let instanceName = instance.instanceName;
         let details = instance.details || {};
@@ -65,6 +71,20 @@ function setInstanceData(instances){
     }
     $(".loading-row").hide();
     $(".accordion-title:first").click();
+}
+
+function setErrorHTML(){
+    let errorHTML = $(`<li data-accordion-item class="bx--accordion__item">
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError" onclick=updateInstanceView(this)>
+      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+      <div class="bx--accordion__title">No instance found</div>
+    </button>
+    <div id="paneError" class="bx--accordion__content" data-hubName="No collections" data-appsodyURL="none" data-codewindURL="none" data-collections="0" data-cliURL="none">
+    </div>
+  </li>`); 
+  $("#instance-accordion").append(errorHTML);
+  $(".loading-row").hide();
+  $(".accordion-title:first").click();
 }
 
 // Set details on UI for any given instance
