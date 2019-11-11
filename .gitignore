@@ -12,4 +12,3 @@ src/main/content/javadocs/*/stylesheet.css
 /bin/
 /build/
 node_modules
-.vscode/settings.json
