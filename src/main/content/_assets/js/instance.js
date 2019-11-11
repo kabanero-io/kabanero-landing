@@ -54,8 +54,6 @@ function loadAllInfo(){
 
 // Set details on UI for any given instance
 function setInstanceData(instances){
-    console.log(`setting instance data`);
-    console.log(instances);
     if(instances === undefined || instances.length === 0){
         setErrorHTML();
         return;
