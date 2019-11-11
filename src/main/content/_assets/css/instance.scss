@@ -18,7 +18,11 @@
  @import 
  "kabanero.scss",
  "../../../../../node_modules/carbon-components/scss/globals/scss/spacing",
- "../../../../../node_modules/carbon-components/src/components/accordion/accordion";
+ "../../../../../node_modules/carbon-components/src/components/accordion/accordion",
+ "../../../../../node_modules/carbon-components/scss/globals/grid/grid",
+"../../../../../node_modules/carbon-components/scss/components/button/button",
+"../../../../../node_modules/carbon-components/scss/components/modal/modal",
+"../../../../../node_modules/carbon-components/scss/components/loading/loading"; 
 //declare variables
 $color-ibm:#3d70b2;
 
@@ -139,9 +143,3 @@ button > .arrow-container > svg{
 button:disabled > .arrow-container > svg{
     fill:#939393
 }
-
-@import
-"../../../../../node_modules/carbon-components/scss/globals/grid/grid",
-"../../../../../node_modules/carbon-components/scss/components/button/button",
-"../../../../../node_modules/carbon-components/scss/components/modal/modal",
-"../../../../../node_modules/carbon-components/scss/components/loading/loading"; 
