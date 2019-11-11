@@ -17,43 +17,43 @@
  ******************************************************************************/
 
 function loadWhatsNewModal(){
-    let currentVersion = String($('#modal-title').data('version'));
+    let currentVersion = String($("#modal-title").data("version"));
     
-    if (localStorage.didOpenWhatsNew === 'false') {
-        $('.toast').toast('show');
+    if (localStorage.didOpenWhatsNew === "false") {
+        $(".toast").toast("show");
     }
-    else if (currentVersion !== localStorage.getItem('whatsNewVersion')){
-        localStorage.setItem('whatsNewVersion', currentVersion);
-        localStorage.setItem('didOpenWhatsNew', false);
-        $('.toast').toast('show');
+    else if (currentVersion !== localStorage.getItem("whatsNewVersion")){
+        localStorage.setItem("whatsNewVersion", currentVersion);
+        localStorage.setItem("didOpenWhatsNew", false);
+        $(".toast").toast("show");
     }
     
-    $('#whats-new-modal').on('hidden.bs.modal', function () {
-        localStorage.setItem('didOpenWhatsNew', true);
+    $("#whats-new-modal").on("hidden.bs.modal", function () {
+        localStorage.setItem("didOpenWhatsNew", true);
     });
     
-    $('#whats-new-toast').on('hidden.bs.toast', function () {
-        localStorage.setItem('didOpenWhatsNew', true);
+    $("#whats-new-toast").on("hidden.bs.toast", function () {
+        localStorage.setItem("didOpenWhatsNew", true);
     });
 }
 
 function toggleHeaderNav() {
-    $('#header-nav-bar-button').click(function () {
-        $('#navbarNav').toggleClass('collapse-navbar');
-    })
+    $("#header-nav-bar-button").click(function () {
+        $("#navbarNav").toggleClass("collapse-navbar");
+    });
 }
 
 // prevent scrolling when navbar dropdown is opened
 $(document).ready(function(){
-    $('.navbar-toggler').click(function(){
+    $(".navbar-toggler").click(function(){
 
-        if ($('.navbar-toggler').hasClass('collapsed')) {
-            $('body').css('overflow', 'hidden');
+        if ($(".navbar-toggler").hasClass("collapsed")) {
+            $("body").css("overflow", "hidden");
         } else {
-            $('body').css('overflow', 'auto');
+            $("body").css("overflow", "auto");
         }
-    });    
-    
+    });
+
     toggleHeaderNav();
 
     //loadWhatsNewModal();

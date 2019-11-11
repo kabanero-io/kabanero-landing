@@ -15,12 +15,11 @@
  * limitations under the License.
  *
  ******************************************************************************/
-@import 
-"../../../../../node_modules/carbon-components/scss/globals/scss/spacing";
-
-//declare variables
-$color-ibm:#3d70b2;
-$color-ibm-dark:#152935;
+@import "kabanero.scss",
+"../../../../../node_modules/carbon-components/scss/components/tile/tile",
+"../../../../../node_modules/carbon-components/scss/components/button/button",
+"../../../../../node_modules/carbon-components/scss/components/modal/modal",
+"../../../../../node_modules/carbon-components/scss/components/tooltip/tooltip";
 
 /* INTRO */
 
@@ -87,7 +86,7 @@ h3 {
 }
 
 .learn-more-link:hover{
-    color: $color-ibm;
+    color: $interactive-01;
 }
 
 .learn-more-col .row:not(:first-child){
@@ -154,7 +153,11 @@ h3 {
     margin-bottom:5px;
 }
 
-.hidden{
+.hide {
+    display: none;
+}
+
+.hidden {
     display: none !important;
     visibility: hidden !important;
 }

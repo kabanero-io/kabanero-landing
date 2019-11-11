@@ -54,6 +54,7 @@ exclude_from_localization: ["javascript", "images", "css"]
 parallel_localization: true
 
 site_custom:
+  product_name: Kabanero
   index:
     docs_url: /docs
   header:

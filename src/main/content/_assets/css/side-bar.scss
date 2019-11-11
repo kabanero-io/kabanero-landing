@@ -5,6 +5,10 @@ main {
     margin-top: -1rem;
 }
 
+.bx--side-nav__item > a {
+    color: #C43804 !important;
+}
+
 .bx--side-nav {
     height: 100%;
     background-color: #282828;
@@ -105,4 +109,30 @@ a.bx--side-nav__link--current {
     .bx--side-nav {
         height: auto;
     }
+}
+
+.copy-icons {
+    width: 1.2em;
+    height: 1.2em;
+    margin-left: $spacing-04;
+    outline: none !important;
+    #install-info-copy {
+        cursor: pointer;
+    }
+}
+
+.bx--side-nav__toggle > div {
+    float:left;
+}
+
+a.bx--side-nav__link[aria-current='page']::before, a.bx--side-nav__link--current::before{
+    background-color: #C43804 !important;
+}
+
+a.bx--side-nav__link:focus {
+    outline: #C43804 !important;
+}
+
+.modal-copy{
+    max-width: 3em;
 }

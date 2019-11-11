@@ -15,7 +15,7 @@
  - limitations under the License.
  -
  ------------------------------------------------------------------------------>
-{% assign t = site.data[site.active_lang]._includes.footer %}
+{% assign t = site.data[site.active_lang] %}
 
 <footer>
     <div id="footer_kabanero_background">
@@ -28,7 +28,7 @@
                                 <img id="footer-kabanero-image" src="/img/Kabanero_full_logo-white.svg"
                                     alt="Kabanero logo">
                             </div>
-                            <p id="footer_project">{{t.open-source}}</p>
+                            <p id="footer_project">{{t._includes.footer.open-source}}</p>
                         </div>
                         <div id="footer_round_links_container">
                             <a id="footer_twitter_link" class="footer_round_btn" href="{{site.twitter_url}}"
@@ -52,20 +52,22 @@
             <div class="bx--row">
                 <div class="bx--col">
                     <div id="footer_bottom_left_section">
-                        <p id="footer_copyright">&copy; {{t.copyright}}</p>
+                        <p id="footer_copyright">&copy; {{t._includes.footer.copyright}}</p>
                         <p class="vertical_bar">|</p>
                         <a id="footer_privacy_policy_link" href="https://www.ibm.com/privacy/" target="_blank"
-                            rel="noopener" class="left_footer_link">{{t.privacy-policy}}</a>
+                            rel="noopener" class="left_footer_link">{{t._includes.footer.privacy-policy}}</a>
                         <p class="vertical_bar">|</p>
                         <a id="footer_license_link" href="{{site.github_url}}/kabanero-landing/blob/master/LICENSE"
-                            target="_blank" rel="noopener" class="left_footer_link">{{t.license}}</a>
+                            target="_blank" rel="noopener" class="left_footer_link">{{t._includes.footer.license}}</a>
                         <p class="vertical_bar">|</p>
                         <a id="footer_notice_link" href="{{site.github_url}}/kabanero-landing/blob/master/NOTICE.md"
-                            target="_blank" rel="noopener" class="left_footer_link">{{t.notices}}</a>
+                            target="_blank" rel="noopener" class="left_footer_link">{{t._includes.footer.notices}}</a>
                         <p class="vertical_bar">|</p>
-                        <a id="footer_notice_link"
-                            href="{{site.github_url}}/kabanero-landing/blob/master/IBM-Trademark-Policy.md"
-                            target="_blank" rel="noopener" class="left_footer_link">{{t.ibm-trademark}}</a>
+                        <a id="footer_trademark_link" href="{{site.github_url}}/kabanero-landing/blob/master/IBM-Trademark-Policy.md"
+                            target="_blank" rel="noopener" class="left_footer_link">{{t._includes.footer.ibm-trademark}}</a>
+                        <div class= "footer_version">
+                            <a id="footer-version" target="_blank" rel="noopener" class="left_footer_link"></a>
+                        </div>
                     </div>
                 </div>
             </div>

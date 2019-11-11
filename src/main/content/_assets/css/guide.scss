@@ -8,13 +8,14 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
- $color-kabanero:#C43804;
+$color-kabanero:#C43804;
+@import "kabanero.scss";
 
- body {
+body {
     font-family: Helvetica, Trebuchet MS, Arial;
 }
 
- #background-container, #end_of_guide_background {
+#background-container, #end_of_guide_background {
     background-color: rgb(241, 244, 254);
 }
 

@@ -16,14 +16,10 @@
  *
  ******************************************************************************/
  @import 
- "../../../../../node_modules/carbon-components/scss/globals/scss/spacing",
- "../../../../../node_modules/carbon-components/scss/components/ui-shell/_header.scss",
- "../../../../../node_modules/carbon-components/scss/components/dropdown/_dropdown.scss";
+ "../../../../../node_modules/carbon-components/scss/globals/scss/spacing";
 /* NAVIGATION BAR */
 
 //declare variables
-$color-ibm:#3d70b2;
-$color-ibm-dark:#152935;
 $color-kabanero:#C43804;
 
 html, body{
@@ -51,10 +47,6 @@ main {
     color: #000000;
     float: left;
     padding: 0 !important;
-}
-
-.bg-custom {
-    background-color: $color-ibm-dark;
 }
 
 #kabanero_nav_img{

@@ -22,10 +22,13 @@ package io.website;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.kabanero.KabaneroCollection;
-import io.kabanero.KabaneroRepository;
+import io.kabanero.instance.KabaneroCollection;
+import io.kabanero.instance.KabaneroRepository;
 
 public final class Constants {
+
+    // Kabanero
+    public static final String PRODUCT_VERSION = getEnv("PRODUCT_VERSION", "2.0.0.1");
 
     // Kabanero Instance
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");

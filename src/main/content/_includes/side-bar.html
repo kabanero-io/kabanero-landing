@@ -1,36 +1,18 @@
   
-{% assign t = site.data[site.active_lang]._includes.header %}
+{% assign t = site.data[site.active_lang] %}
 
 <aside class="bx--side-nav" data-side-nav>
     <nav class="bx--side-nav__navigation" role="navigation" aria-label="Side navigation">
-        <!-- 
-            Copyright IBM Corp. 2016, 2018
-          
-            This source code is licensed under the Apache-2.0 license found in the
-            LICENSE file in the root directory of this source tree.
-          -->
         <header class="bx--side-nav__header">
+            <!--
             <a>
                 <button class="bx--header__menu-trigger bx--header__action" aria-label="Open menu" title="Open menu"
                     data-navigation-menu-panel-label-expand="Open menu"
                     data-navigation-menu-panel-label-collapse="Close menu"
                     data-navigation-menu-target="#navigation-menu-bvjxymx0kzt">
-                    <!-- <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
-                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                        class="bx--navigation-menu-panel-collapse-icon" width="20" height="20" viewBox="0 0 32 32">
-                        <path
-                            d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z">
-                        </path>
-                    </svg>
-                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
-                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
-                        class="bx--navigation-menu-panel-expand-icon" width="20" height="20" viewBox="0 0 20 20">
-                        <path
-                            d="M2 14.8H18V16H2zM2 11.2H18V12.399999999999999H2zM2 7.6H18V8.799999999999999H2zM2 4H18V5.2H2z">
-                        </path>
-                    </svg> -->
                 </button>
             </a>
+            -->
         </header>
 
         <ul class="bx--side-nav__items">
@@ -40,7 +22,7 @@
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
                         <img src="/img/nav-home.svg"></img>
                     </div>
-                    <span class="bx--side-nav__link-text">{{t.home-button}}</span>
+                    <span class="bx--side-nav__link-text">{{t._includes.header.home-button}}</span>
                 </a>
             </li>
 
@@ -48,22 +30,23 @@
                 <a class="bx--side-nav__link {% if page.url contains '/instance' %}bx--side-nav__link--current{% endif %}"
                     href="/instance" aria-current="{% if page.url contains '/instance' %}page{% endif %}">
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
-                        <img src="/img/integration-icon.svg"></img>
-
+                        <svg class="icon">
+                            <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--integration"></use>
+                        </svg>
                     </div>
-                    <span class="bx--side-nav__link-text">{{t.instance-button}}</span>
+                    <span class="bx--side-nav__link-text">{{t._includes.header.instance-button}}</span>
                 </a>
             </li>
-
 
             <li class="bx--side-nav__item {% if page.url contains '/docs' %}bx--side-nav__item--active{% endif %}">
                 <a class="bx--side-nav__link {% if page.url contains '/docs' %}bx--side-nav__link--current{% endif %}"
                     href="/docs" aria-current="{% if page.url contains '/docs' %}page{% endif %}">
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
-                        <img src="/img/document-icon.svg"></img>
-
+                        <svg class="icon">
+                            <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--document"></use>
+                        </svg>
                     </div>
-                    <span class="bx--side-nav__link-text">{{t.docs-button}}</span>
+                    <span class="bx--side-nav__link-text">{{t._includes.header.docs-button}}</span>
                 </a>
             </li>
 
@@ -73,13 +56,13 @@
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
                         <img src="/img/report-icon.svg"></img>
                     </div>
-                    <span class="bx--side-nav__link-text">{{t.guides-button}}</span>
+                    <span class="bx--side-nav__link-text">{{t._includes.header.guides-button}}</span>
                 </a>
             </li>
 
             <li>
                 <button class="bx--side-nav__toggle" role="button" title="Close the side navigation menu">
-                    <div id="side-bar-nav-expand-icon" class="bx--side-nav__icon">
+                    <div class="bx--side-nav__icon">
                         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                             class="bx--side-nav__icon--collapse bx--side-nav-collapse-icon" width="20" height="20"
