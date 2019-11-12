@@ -28,7 +28,7 @@ import io.kabanero.instance.KabaneroRepository;
 public final class Constants {
 
     // Kabanero
-    public static final String PRODUCT_VERSION = getEnv("PRODUCT_VERSION", "2.0.0.1");
+    public static final String PRODUCT_VERSION = getEnv("PRODUCT_VERSION", "");
 
     // Kabanero Instance
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");
