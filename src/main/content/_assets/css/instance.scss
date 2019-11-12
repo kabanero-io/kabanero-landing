@@ -22,7 +22,8 @@
  "../../../../../node_modules/carbon-components/scss/globals/grid/grid",
 "../../../../../node_modules/carbon-components/scss/components/button/button",
 "../../../../../node_modules/carbon-components/scss/components/modal/modal",
-"../../../../../node_modules/carbon-components/scss/components/loading/loading"; 
+"../../../../../node_modules/carbon-components/scss/components/loading/loading",
+"../../../../../node_modules/carbon-components/scss/components/tile/tile"; 
 //declare variables
 $color-ibm:#3d70b2;
 
@@ -36,7 +37,7 @@ body{
 
 #instance-accordion{
     width:95%;
-    margin-top:1rem;
+    margin-bottom:30px;
 }
 main {
     padding-top: 2rem;
@@ -96,8 +97,8 @@ caption {
     background-color:#FFFFFF;
     height:25rem;
     min-height:18rem;
-    width:105%;
-
+    width:104.5%;
+    margin:0;
     p{
         font-size:.875rem;
     }
@@ -142,4 +143,14 @@ button > .arrow-container > svg{
 
 button:disabled > .arrow-container > svg{
     fill:#939393
+}
+
+.bx--tile {
+    background-color: #FFFFFF;
+    margin-bottom: 2px;
+    padding: 0;
+}
+
+.bx--tile-container{
+    margin-bottom:3px;
 }
