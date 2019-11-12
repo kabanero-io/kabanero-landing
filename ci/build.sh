@@ -8,6 +8,7 @@ CUR_DIR="$(cd $(dirname $0) && pwd)"
 cd $CUR_DIR/../
 
 GIT_REVISION=$(git rev-parse HEAD)
+PRODUCT_VERSION=$(git describe --tags)
 
 if [ "$DOCKER_USE_CACHE" = "false" ]; then
     echo "Docker cache: off"
@@ -16,4 +17,4 @@ else
     echo "Docker cache: on"
 fi
 
-docker build $DOCKER_OPTS --pull --build-arg GIT_REVISION=$GIT_REVISION -t "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" .
+docker build $DOCKER_OPTS --pull --build-arg GIT_REVISION="$GIT_REVISION" --build-arg PRODUCT_VERSION="$PRODUCT_VERSION" -t "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" .

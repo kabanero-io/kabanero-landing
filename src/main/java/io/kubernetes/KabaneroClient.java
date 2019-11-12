@@ -18,11 +18,11 @@
 package io.kubernetes;
 
 import io.website.Constants;
-import io.kabanero.KabaneroCollection;
-import io.kabanero.KabaneroInstance;
-import io.kabanero.KabaneroRepository;
-import io.kabanero.KabaneroTool;
-import io.kabanero.KabaneroToolManager;
+import io.kabanero.instance.KabaneroCollection;
+import io.kabanero.instance.KabaneroInstance;
+import io.kabanero.instance.KabaneroRepository;
+import io.kabanero.instance.KabaneroTool;
+import io.kabanero.instance.KabaneroToolManager;
 import io.kubernetes.KubeKabanero;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;

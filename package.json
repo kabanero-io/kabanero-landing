@@ -2,6 +2,7 @@
   "name": "kabanero-landing",
   "description": "Kabanero instance manager built for the Red Hat OKD console",
   "dependencies": {
+    "@ibm/plex": "^3.0.0",
     "carbon-components": "^10.7.3"
   },
   "repository": {

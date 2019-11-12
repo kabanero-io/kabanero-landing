@@ -50,6 +50,11 @@ LABEL name="kabanero-landing" \
 ARG GIT_REVISION=0
 LABEL "git.revision"="$GIT_REVISION"
 
+# Set product version label and env
+ARG PRODUCT_VERSION=0
+LABEL "product.version"="$PRODUCT_VERSION"
+ENV PRODUCT_VERSION="$PRODUCT_VERSION"
+
 USER root
 # Symlink servers directory for easier mounts.
 RUN ln -s /opt/ol/wlp/usr/servers /servers
