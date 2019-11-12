@@ -144,7 +144,7 @@ function updateInstanceView(element){
                 <div class="bx--row">
                     <div class="bx--col">
                     <div class="input-group">
-                    <p class="gray-text">Appsody URL: </p>
+                    <p class="gray-text" id="appsody-url-text">Appsody URL: </p>
                     <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${appsodyURL} data-original-title="" title="">
                     <div class="input-group-append">
                         <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
@@ -155,7 +155,7 @@ function updateInstanceView(element){
                 <div class="bx--row">
                     <div class="bx--col">
                         <div class="input-group">
-                        <p class="gray-text">Codewind URL: </p>
+                        <p class="gray-text collections-url" id="codewind-url-text">Codewind URL: </p>
                             <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${codewindURL} data-original-title="" title="">
                             <div class="input-group-append">
                                 <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
