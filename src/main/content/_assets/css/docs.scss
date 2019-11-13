@@ -120,3 +120,13 @@ body{
         color:#fbae61;
     }
 }
+
+// Something in the carbon grid is overriding our asciidoctor 
+// list bullets with "list-style-type: none" undoing that here
+ul {
+    list-style-type: disc;
+}
+
+ul ul {
+    list-style-type: circle;
+}
