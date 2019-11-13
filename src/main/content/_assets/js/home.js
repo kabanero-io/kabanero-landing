@@ -24,7 +24,7 @@ $(document).ready(function () {
 
 function setKAppNav(kAppNav) {
     if (kAppNav && kAppNav.location) {
-        $("#manage-apps-link").attr("href", kAppNav.location).removeClass("hidden");
+        $("#manage-apps-link").attr("href", kAppNav.location).show();
     }
     else {
         console.log(`kAppNav is not installed: ${JSON.stringify(kAppNav)}`);
@@ -48,23 +48,23 @@ function hideAllOpenSourcePlatformsCollapses(id) {
 }
 
 function setPageView() {
-    if (localStorage.getItem('shortenedVersion') === 'true' || !localStorage.getItem('shortenedVersion')) {
+    if (localStorage.getItem("shortenedVersion") === "true" || !localStorage.getItem("shortenedVersion")) {
         toggleElements();
-        $('#carrot-icon img').removeClass().attr('class', 'chevron-up');
+        $("#carrot-icon img").removeClass().attr("class", "chevron-up");
     }
 }
 
 function togglePageView() {
-    $('#carrot-icon img').click(function () {
-        $(this).toggleClass('chevron-up chevron-down');
-        let isShortenedVersion = $('#carrot-icon img').hasClass('chevron-up');
-        localStorage.setItem('shortenedVersion', isShortenedVersion);
+    $("#carrot-icon img").click(function () {
+        $(this).toggleClass("chevron-up chevron-down");
+        let isShortenedVersion = $("#carrot-icon img").hasClass("chevron-up");
+        localStorage.setItem("shortenedVersion", isShortenedVersion);
         toggleElements();
-    })
+    });
 }
 
 function toggleElements() {
-    $('#welcome-text').toggleClass('hidden');
-    $('#learn-more-kabanero-button').toggleClass('hidden');
-    $('.learn-more-open').toggleClass('hidden');
+    $("#welcome-text").toggleClass("hidden");
+    $("#learn-more-kabanero-button").toggleClass("hidden");
+    $(".learn-more-open").toggleClass("hidden");
 }
