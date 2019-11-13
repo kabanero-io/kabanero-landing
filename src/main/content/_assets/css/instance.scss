@@ -15,11 +15,9 @@
  * limitations under the License.
  *
  ******************************************************************************/
- @import 
- "kabanero.scss",
- "../../../../../node_modules/carbon-components/scss/globals/scss/spacing",
- "../../../../../node_modules/carbon-components/src/components/accordion/accordion",
- "../../../../../node_modules/carbon-components/scss/globals/grid/grid",
+@import 
+"kabanero.scss",
+"../../../../../node_modules/carbon-components/src/components/accordion/accordion",
 "../../../../../node_modules/carbon-components/scss/components/button/button",
 "../../../../../node_modules/carbon-components/scss/components/modal/modal",
 "../../../../../node_modules/carbon-components/scss/components/loading/loading",
@@ -28,7 +26,7 @@
 $color-ibm:#3d70b2;
 
 body{
-    background-color:#f3f3f3;
+    background-color:$ui-background;
 }
 
 .instance-container {
@@ -84,18 +82,18 @@ caption {
 }
 
 .bx--accordion__item{
-    background-color:#FFFFFF;
+    background-color:$ui-01;
 }
 
 #loading-accordion{
     &:hover{
-        background-color: #f3f3f3;
+        background-color: $ui-background;
     }
 }
 
 .instance-card{
-    background-color:#FFFFFF;
-    height:25rem;
+    background-color:$ui-01;
+    height:26rem;
     min-height:18rem;
     width:104.5%;
     margin:0;
@@ -105,7 +103,7 @@ caption {
 }
 
 .gray-text{
-    color:#838383;
+    color:$ui-04;
 }
 
 .instance-number-row{
@@ -138,15 +136,15 @@ caption {
 }
 
 button > .arrow-container > svg{
-    fill:#FFFFFF
+    fill:$ui-01
 }
 
 button:disabled > .arrow-container > svg{
-    fill:#939393
+    fill:$ui-04
 }
 
 .bx--tile {
-    background-color: #FFFFFF;
+    background-color: $ui-01;
     margin-bottom: 2px;
     padding: 0;
 }

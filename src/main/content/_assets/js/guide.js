@@ -89,7 +89,7 @@ $(document).ready(function() {
         $('#copy-to-clipboard').stop().fadeIn();
     });
 
-    $('#copy-to-clipboard').click(function(event) {
+    $('.copy-to-clipboard').click(function(event) {
         event.preventDefault();
         // Target was assigned while hovering over the element to copy.
         copy_element_to_clipboard(target, function(){
