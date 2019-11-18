@@ -1,16 +1,28 @@
 // Note: other side-bar functionality is brought in via carbon-components.min.js
 $(document).ready(function(){
-    handleSideNavScroll();
-    setNavLocation();
+    handleSideNav();
     loadProductVersion();
 });
 
-function handleSideNavScroll() {
+function handleSideNav() {
+    setNavLocation();
+
     $(window).scroll(function () {
         var $height = $(window).scrollTop();
         setNavLocation($height);
     });
 }
+
+
+// If the side nav is expanded, any click not on the expanded side bar 
+// would close the side bar for useability improvements
+$(document).on("click", function (e) {
+    let $sideNav = $("aside.bx--side-nav");
+
+    if ($sideNav.hasClass("bx--side-nav--expanded") && $(e.target).parents("aside.bx--side-nav").length === 0) {
+        $sideNav.removeClass("bx--side-nav--expanded");
+    }
+});
 
 function setNavLocation() {
     let height = $(document).scrollTop();

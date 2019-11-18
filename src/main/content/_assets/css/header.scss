@@ -167,7 +167,8 @@ main {
 
 #header-title-row {
     height: 3rem;
-    margin-top: 0 !important;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .header-background{
@@ -285,7 +286,8 @@ main {
 }
 
 .align-header-image{
-    margin-top: $spacing-05;
+    display: flex;
+    align-items: center;
 }
 
 .header-navigation-menu-button{

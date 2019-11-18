@@ -17,4 +17,10 @@ else
     echo "Docker cache: on"
 fi
 
-docker build $DOCKER_OPTS --pull --build-arg GIT_REVISION="$GIT_REVISION" --build-arg PRODUCT_VERSION="$PRODUCT_VERSION" -t "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" .
+docker build $DOCKER_OPTS --pull \
+--build-arg GIT_REVISION="$GIT_REVISION" \
+--build-arg PRODUCT_VERSION="$PRODUCT_VERSION" \
+--build-arg DOCS_GIT_URL="$DOCS_GIT_URL" \
+--build-arg DOCS_GIT_REVISION="$DOCS_GIT_REVISION" \
+-t "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" \
+.

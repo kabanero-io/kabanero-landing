@@ -34,7 +34,12 @@ RUN bash ./scripts/build_gem_dependencies.sh
 
 COPY . /app
 
+ARG DOCS_GIT_URL
+ARG DOCS_GIT_REVISION
+
 ENV JEKYLL_ENV "production"
+ENV DOCS_GIT_URL $DOCS_GIT_URL
+ENV DOCS_GIT_REVISION $DOCS_GIT_REVISION
 
 RUN bash ./scripts/build_jekyll_maven.sh
 
