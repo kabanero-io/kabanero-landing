@@ -15,14 +15,28 @@
  * limitations under the License.
  *
  ******************************************************************************/
-
+@import 
+"kabanero.scss",
+"../../../../../node_modules/carbon-components/src/components/accordion/accordion",
+"../../../../../node_modules/carbon-components/scss/components/button/button",
+"../../../../../node_modules/carbon-components/scss/components/modal/modal",
+"../../../../../node_modules/carbon-components/scss/components/loading/loading",
+"../../../../../node_modules/carbon-components/scss/components/tile/tile"; 
 //declare variables
 $color-ibm:#3d70b2;
+
+body{
+    background-color:$ui-background;
+}
 
 .instance-container {
     margin-top: 50px
 }
 
+#instance-accordion{
+    width:95%;
+    margin-bottom:30px;
+}
 main {
     padding-top: 2rem;
 }
@@ -65,4 +79,88 @@ div.tooltip-inner {
 
 caption {
     caption-side: top;
+}
+
+.bx--accordion__item{
+    background-color:$ui-01;
+}
+
+#loading-accordion{
+    &:hover{
+        background-color: $ui-background;
+    }
+}
+
+.instance-card{
+    background-color:$ui-01;
+    height:26rem;
+    min-height:18rem;
+    width:104.5%;
+    margin:0;
+    p{
+        font-size:.875rem;
+    }
+}
+
+.gray-text{
+    color:$ui-04;
+}
+
+.instance-number-row{
+    height: 2rem;
+}
+
+#collections-button{
+    position: relative;
+    top:2rem;
+}
+
+#pipelines-button{
+    position:relative;
+    top:11rem;
+}
+
+#git-orgs-button{
+    position: relative;
+    top:9.5rem;
+}
+
+#manage-apps-button{
+    position:relative;
+    top:11rem;
+}
+
+.arrow-container{
+    position:relative;
+    left:3em;
+}
+
+button > .arrow-container > svg{
+    fill:$ui-01
+}
+
+button:disabled > .arrow-container > svg{
+    fill:$ui-04
+}
+
+.bx--tile {
+    background-color: $ui-01;
+    margin-bottom: 2px;
+    padding: 0;
+}
+
+.bx--tile-container{
+    margin-bottom:3px;
+}
+
+#appsody-url-text{
+    position:relative;
+    top:6px;
+    right:1px;
+}
+
+#codewind-url-text{
+    position: relative;
+    top:7px;
+    right:1px;
 }

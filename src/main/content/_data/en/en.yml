@@ -108,6 +108,15 @@ index:
     video: video
  
 instance:
+  instances: Instances
   kab-instances: Kabanero Instances
   tools: Tools
   no-tools: No Tools Available
+  pipelines: Pipelines
+  no-pipelines: No pipelines configured.
+  not-configured: Not Configured
+  git-orgs: Git Organizations
+  no-orgs: You don't have an org for your development team to use for their projects. Create one and add your team members.
+  apps: Applications
+  no-apps: Deploy your application to begin managing them.
+  app-hub: Application Hub
