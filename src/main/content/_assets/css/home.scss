@@ -53,6 +53,14 @@ h3 {
     margin-bottom: 20px;
 }
 
+.white-text{
+    color:$ui-01;
+}
+
+.limit-text-width {
+    max-width: 30em;
+}
+
 .separator {
     margin: 35px 0 35px 0;
 }
@@ -217,4 +225,24 @@ h3 {
 .bx--row {
     margin-top: $spacing-05;
     margin-bottom: $spacing-05;
+}
+
+.gradient-background {
+    position: relative;
+    background-image: linear-gradient(232deg, #171717 57%, #2F2F2F 72%, #565656 98%);
+    background-size: 100% 40em;
+    background-repeat: no-repeat;
+    height: 40em;
+}
+
+.large-pictograms {
+    max-height: 30em;
+    max-width: 100%;
+    height: auto;
+}
+
+@media only screen and (max-width:1056px) {
+    .hide-on-small{
+        display:none;
+    }
 }

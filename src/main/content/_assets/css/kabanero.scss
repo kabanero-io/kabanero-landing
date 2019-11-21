@@ -676,3 +676,32 @@ $carbon--theme: $carbon--theme--g10;
 "../../../../../node_modules/carbon-components/scss/globals/scss/colors",
 '../../../../../node_modules/@ibm/plex/scss/ibm-plex.scss',
 "../../../../../node_modules/carbon-components/scss/globals/grid/grid";
+
+// Helpers used throughout app
+.padding-top-layout-05 {
+    padding-top: $layout-05;
+}
+
+.margin-top-layout-03 {
+    margin-top: $layout-03;
+}
+
+.margin-top-layout-05 {
+    margin-top: $layout-05;
+}
+
+.margin-top-spacing-05 {
+    margin-top: $spacing-05;
+}
+
+.margin-top-layout-06 {
+    margin-top: $layout-06;
+}
+
+.margin-top-spacing-08 {
+    margin-top: $spacing-08;
+}
+
+.margin-top-spacing-09 {
+    margin-top: $spacing-09;
+}
