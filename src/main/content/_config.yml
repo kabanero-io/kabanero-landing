@@ -57,6 +57,7 @@ site_custom:
   product_name: Kabanero
   index:
     docs_url: /docs
+    learn-more-url: https://www.kabanero.io
   header:
     title_logo: /img/Kabanero_white_title_text.svg
     header_logo: /img/Kabanero_Logo_White_Text.png

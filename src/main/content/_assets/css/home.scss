@@ -227,6 +227,11 @@ h3 {
     margin-bottom: $spacing-05;
 }
 
+.section-title-text {
+    color: $text-02;
+    @include carbon--type-style('productive-heading-05');
+}
+
 .gradient-background {
     position: relative;
     background-image: linear-gradient(232deg, #171717 57%, #2F2F2F 72%, #565656 98%);
