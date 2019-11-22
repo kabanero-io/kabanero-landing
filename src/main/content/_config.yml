@@ -53,7 +53,7 @@ default_lang: "en"
 exclude_from_localization: ["javascript", "images", "css"]
 parallel_localization: true
 
-site_custom:
+site-custom:
   product_name: Kabanero
   index:
     docs_url: /docs
