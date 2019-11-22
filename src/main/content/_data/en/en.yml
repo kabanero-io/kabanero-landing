@@ -84,6 +84,7 @@ index:
   welcome-text: Kabanero is a open source project bringing together foundational technologies into a modern microservices-based framework. Kabanero speeds development of applications built for Kubernetes while meeting the technology standards and policies your company defines. Design, develop, deploy, and manage with speed and control!
   learn-more-kabanero-button: Learn more about Kabanero
   get-started-title: Let's get started!
+  get-started-text: Kabanero helps your team build cloud-native microservices and applications.
   get-started-button1: View Team Instance
   get-started-button2: Set Up Dev Tools
   get-started-button3: Manage Apps

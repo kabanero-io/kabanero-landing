@@ -651,23 +651,33 @@ footer {
     }
 }
 
-/* Overwrite Carbon Design */
 
 // Carbon Configuration to use 16 cols and g10 theme
 $feature-flags: (grid-columns-16: true);
-$brand-01:#C43804;
-$brand-03:#C43804;
-$focus: #C43804;
-$ibm-color__blue-60: #C43804;
-$interactive-01: #C43804;
-$interactive-03: #C43804;
-$interactive-04: #C43804;
-$active-primary: #a02d04;
-$active-tertiary: #a02d04;
-$hover-primary: #a02d04;
-$hover-tertiary: #a02d04;
+
 @import "../../../../../node_modules/carbon-components/scss/globals/scss/vendor/@carbon/themes/scss/themes";
-$carbon--theme: $carbon--theme--g10;
+
+/// Overrides to the imported color theme
+/// @type Map
+/// @access public
+/// @group @carbon/themes
+$carbon--theme--kabanero: (
+    brand-01:#C43804,
+    brand-03:#C43804,
+    focus: #C43804,
+    ibm-color__blue-60: #C43804,
+    interactive-01: #C43804,
+    interactive-03: #C43804,
+    interactive-04: #C43804,
+    active-primary: #a02d04,
+    active-tertiary: #a02d04,
+    hover-primary: #a02d04,
+    hover-tertiary: #a02d04
+) !default;
+
+//Maps in Sass are immutable. Map-merge creates a new map by taking two maps as arguments and merging their contents. In the newly created map, any keys that occur in both argument maps will have the value from the second argument.
+//In the line below, we use map $carbon--theme--g10 imported from the carbon themes as the first argument and use the second argument map $carbon--theme--kabanero to overwrite any keys where we wish to substitute custom color.
+$carbon--theme: map-merge($carbon--theme--g10, $carbon--theme--kabanero);
 @include carbon--theme();
 
 @import
@@ -676,3 +686,32 @@ $carbon--theme: $carbon--theme--g10;
 "../../../../../node_modules/carbon-components/scss/globals/scss/colors",
 '../../../../../node_modules/@ibm/plex/scss/ibm-plex.scss',
 "../../../../../node_modules/carbon-components/scss/globals/grid/grid";
+
+// Helpers used throughout app
+.padding-top-layout-05 {
+    padding-top: $layout-05;
+}
+
+.margin-top-layout-03 {
+    margin-top: $layout-03;
+}
+
+.margin-top-layout-05 {
+    margin-top: $layout-05;
+}
+
+.margin-top-spacing-05 {
+    margin-top: $spacing-05;
+}
+
+.margin-top-layout-06 {
+    margin-top: $layout-06;
+}
+
+.margin-top-spacing-08 {
+    margin-top: $spacing-08;
+}
+
+.margin-top-spacing-09 {
+    margin-top: $spacing-09;
+}

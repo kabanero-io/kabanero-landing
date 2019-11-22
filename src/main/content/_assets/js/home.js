@@ -64,7 +64,6 @@ function togglePageView() {
 }
 
 function toggleElements() {
-    $("#welcome-text").toggleClass("hidden");
     $("#learn-more-kabanero-button").toggleClass("hidden");
     $(".learn-more-open").toggleClass("hidden");
 }
