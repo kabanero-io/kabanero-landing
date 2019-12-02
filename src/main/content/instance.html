@@ -4,7 +4,6 @@ home: true
 js:
 - instance-common
 - instance
-- thirdparty/carbon/carbon-components.min
 css:
 - home
 - instance
@@ -14,162 +13,238 @@ permalink: /instance/
 {% assign t = site.data[site.active_lang] %}
 <!-- Welcome header -->
 <div class="bx--grid bx--grid--full-width">
-  <div class="bx--row">
-    <div class="bx--col">
-      <h1>{{t.instance.instances}}</h1>
+    <div class="bx--row">
+        <div class="bx--col">
+            <h1>{{t.instance.instances}}</h1>
+        </div>
     </div>
-  </div>
-  <div class="bx--row">
-    <div class="bx--col-sm-4 bx--col-md-8 bx--col-xlg-4">
-        <ul data-accordion class="bx--accordion" id="instance-accordion">
-            <li data-accordion-item class="bx--accordion__item loading-row">
-              <button class="bx--accordion__heading" aria-expanded="false" aria-controls="paneTest">
-                <div class="bx--accordion__title">
-                  <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                    <div class="bx--inline-loading__animation">
-                      <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                          <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                          <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                        </svg>
-                      </div>
-                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+
+    <div class="bx--row">
+        <div class="bx--col-xlg-4">
+            <ul data-accordion class="bx--accordion" id="instance-accordion">
+                <li data-accordion-item class="bx--accordion__item loading-row">
+                <button class="bx--accordion__heading" aria-expanded="false" aria-controls="paneTest">
+                    <div class="bx--accordion__title">
+                    <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                        <div class="bx--inline-loading__animation">
+                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                            <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                            </svg>
+                        </div>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </button>
-            </li>
-        </ul>
-    </div>
-    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4 bx--tile-container">
-      <div class="bx--tile">
-        <div class="bx--row instance-card">
-          <div class="bx--col" id="collections-card">
-            <div class="bx--row loading-row">
-              <div class="bx--col">
+                    </div>
+                </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Instance Card -->
+        <div class="bx--col-xlg-4 white-background">
+            <div id="instance-details-card" class="bx--tile">
+
+                <!-- loader -->
                 <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                  <div class="bx--inline-loading__animation">
-                    <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                      <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                        <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                        <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                      </svg>
+                    <div class="bx--inline-loading__animation">
+                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                        </svg>
+                        </div>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
                     </div>
-                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4 bx--tile-container">
-      <div class="bx--tile">
-        <div class="bx--row instance-card">
-          <div class="bx--col" id="piplines-card">
-            <div class="bx--row instance-number-row">
-              <div class="bx--col">
-                <h2>0</h2>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <h4>{{t.instance.pipelines}}</h4>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <p>{{t.instance.no-pipelines}}</p>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col-sm-2 bx--col-lg-8">
-                <a id="pipelines-link" target="_blank">
-                  <button class="bx--btn bx--btn--secondary" id="pipelines-button" type="button" disabled>
-                    <span id="pipelines-button-text">{{t.instance.not-configured}}</span>
-                    <div class="arrow-container">
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+
+                <div class="bx--row instance-number-row">
+                    <div class="bx--col">
+                        <h2>Instance</h2>
                     </div>
-                  </button>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4 bx--tile-container">
-      <div class="bx--tile">
-        <div class="bx--row instance-card">
-          <div class="bx--col" id="git-orgs-card">
-            <div class="bx--row instance-number-row">
-              <div class="bx--col">
-                <h2>0</h2>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <h4>{{t.instance.git-orgs}}</h4>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <p>{{t.instance.no-orgs}}</p>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col-sm-2 bx--col-lg-8">
-                <a id="git-orgs-link" target="_blank">
-                  <button class="bx--btn bx--btn--secondary" id="git-orgs-button" type="button" disabled>
-                    <span id="git-orgs-button-text">{{t.instance.not-configured}}</span>
-                    <div class="arrow-container">
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                </div>
+                
+                <!-- instance details -->
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <div class="bx--row">
+                            <div class="bx--col">
+                                <p>
+                                    <span class="gray-text">Application Hub:</span>
+                                    <span id="apphub-name"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bx--row">
+                            <div class="bx--col">
+                            <div class="input-group">
+                            <p class="gray-text" id="appsody-url-text">Appsody URL: </p>
+                            <input id="appsody-url" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
+                            <div class="input-group-append">
+                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                        <div class="bx--row">
+                            <div class="bx--col">
+                                <div class="input-group">
+                                <p class="gray-text collections-url" id="codewind-url-text">Codewind URL: </p>
+                                    <input id="codewind-url" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${codewindURL} data-original-title="" title="">
+                                    <div class="input-group-append">
+                                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bx--row">
+                            <div class="bx--col">
+                                <p>Managment CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. For more informaiton about using the CLI see the <a href="/docs/ref/general/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
+                                <div class="input-group">
+                                    <input id="management-cli" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${clientURL} data-original-title="" title="">
+                                    <div class="input-group-append">
+                                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>      
                     </div>
-                  </button>
-                </a>
-              </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    <div class="bx--col-sm-4 bx--col-md-4 bx--col-xlg-4 bx--offset-xlg-4 bx--tile-container">
-      <div class="bx--tile">
-        <div class="bx--row instance-card">
-          <div class="bx--col" id="applications-card">
-            <div class="bx--row instance-number-row">
-              <div class="bx--col">
-                <h2>0</h2>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <h4>{{t.instance.apps}}</h4>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col">
-                <p>{{t.instance.no-apps}}</p>
-              </div>
-            </div>
-            <div class="bx--row">
-              <div class="bx--col-sm-2 bx--col-lg-8">
-                <a id="appnav-link" target="_blank">
-                  <button class="bx--btn bx--btn--secondary" id="manage-apps-button" type="button" disabled>
-                    <span id="manage-apps-button-text">{{t.instance.not-configured}}</span>
-                    <div class="arrow-container">
-                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+
+        <!-- Collections Card -->
+        <div class="bx--col-xlg-4 white-background">
+            <div id="collection-details-card" class="bx--tile">
+        
+                <!-- loader -->
+                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                    <div class="bx--inline-loading__animation">
+                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                        </svg>
+                        </div>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
                     </div>
-                  </button>
-                </a>
-              </div>
+                </div>
+
+                <!-- collection details -->
+                <div class="bx--row instance-number-row">
+                    <div class="bx--col">
+                        <h2 id="num-collections"></h2>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <h4>Collections</h4>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                    <div id="collection-list" class="bx--col">
+                        
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+        <!-- Pipelines Card -->
+        <div class="bx--col-xlg-4 white-background">
+            <div id="pipelines-details-card" class="bx--tile">
+        
+                <!-- loader -->
+                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                    <div class="bx--inline-loading__animation">
+                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                        </svg>
+                        </div>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+                    </div>
+                </div>
+
+                <!-- pipeline details -->
+                <div class="bx--row instance-number-row">
+                    <div class="bx--col">
+                        <h4>Pipelines</h4>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <p>Manage your pipelines</p>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                        <div class="bx--col-sm-2 bx--col-lg-8">
+                            <a id="pipeline-link" target="_blank">
+                                <button class="bx--btn bx--btn--secondary tile-instance-button" id="pipeline-button" type="button" disabled>
+                                    <span id="pipeline-button-text">{{t.instance.not-configured}}</span>
+                                    <div class="arrow-container">
+                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                    </div>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <!-- Applications Card -->
+        <div class="bx--offset-xlg-4 bx--col-xlg-4 white-background">
+            <div id="application-details-card" class="bx--tile">
+
+                <!-- loader -->
+                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                    <div class="bx--inline-loading__animation">
+                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                        </svg>
+                        </div>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+                    </div>
+                </div>
+
+                <!-- collection details -->
+                <div class="bx--row instance-number-row">
+                    <div class="bx--col">
+                        <h2>{{t.instance.apps}}</h2>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                        <div class="bx--col">
+                            <p>Manage your applications using Application Navigator</p>
+                        </div>
+                    </div>
+
+                <div class="bx--row">
+                    <div class="bx--col-sm-2 bx--col-lg-8">
+                        <a id="appnav-link" target="_blank">
+                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="manage-apps-button" type="button" disabled>
+                                <span id="manage-apps-button-text">{{t.instance.not-configured}}</span>
+                                <div class="arrow-container">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                </div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

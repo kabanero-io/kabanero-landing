@@ -110,6 +110,7 @@ index:
  
 instance:
   instances: Instances
+  instance-details: Instance details
   kab-instances: Kabanero Instances
   tools: Tools
   no-tools: No Tools Available

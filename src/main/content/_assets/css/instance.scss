@@ -115,19 +115,9 @@ caption {
     top:2rem;
 }
 
-#pipelines-button{
-    position:relative;
-    top:11rem;
-}
-
-#git-orgs-button{
-    position: relative;
-    top:9.5rem;
-}
-
-#manage-apps-button{
-    position:relative;
-    top:11rem;
+.tile-instance-button{
+    position: absolute;
+    bottom: 1rem;
 }
 
 .arrow-container{
@@ -143,14 +133,9 @@ button:disabled > .arrow-container > svg{
     fill:$ui-04
 }
 
-.bx--tile {
-    background-color: $ui-01;
-    margin-bottom: 2px;
-    padding: 0;
-}
-
-.bx--tile-container{
-    margin-bottom:3px;
+.bx--tile{
+    min-height:35rem;
+    margin-bottom: 1rem;
 }
 
 #appsody-url-text{
@@ -163,4 +148,8 @@ button:disabled > .arrow-container > svg{
     position: relative;
     top:7px;
     right:1px;
+}
+
+#collection-list li {
+    margin-top: 1em;
 }

@@ -72,6 +72,13 @@ let InstancePane = class {
         this.cluster = cluster;
         this.collections = collections;
         this.cliURL = cliURL;
+        this.stringCollections = this.collections.reduce((acc, coll, index) => {
+            let pair = `${coll.name} - ${coll.version}`;
+            if(index !== this.collections.length -1){
+                pair += ",";
+            }
+            return acc + pair;
+        }, "");
     }
 
     get instanceNameHTML(){
@@ -130,8 +137,7 @@ let InstancePane = class {
     static createCopyInput(id, url){
         // Image is used to let the user know they can click to copy the URL. The inputIDToCopy data attribute will let the click 
         // event konw which input to copy the URL from (helpful when there's multiple)
-        let img = $("<img />", {src: "/img/copy-clipboard.png", alt: "copy to clipboard icon", class: "img img-fluid copy-to-clipboard tooltip-copy"})
-            .data("inputIDToCopy", id);
+        let img = $("<img />", {src: "/img/copy-clipboard.png", alt: "copy to clipboard icon", class: "img img-fluid copy-to-clipboard tooltip-copy"}).data("inputIDToCopy", id);
 
         img.tooltip({title: "copied!", trigger: "click"});
 
@@ -187,7 +193,7 @@ let InstancePane = class {
           <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
           <div class="bx--accordion__title">${this.instanceName}</div>
         </button>
-        <div id="pane${this.instanceName}" class="bx--accordion__content" data-hubName=${this.collectionHub[0].name} data-appsodyURL=${this.collectionHub[0].appsodyURL} data-codewindURL=${this.collectionHub[0].codewindURL} data-collections=${this.collections.length} data-cliURL=${this.cliURL}>
+        <div id="pane${this.instanceName}" class="bx--accordion__content" data-hubName="${this.collectionHub[0].name}" data-appsodyURL="${this.collectionHub[0].appsodyURL}" data-codewindURL="${this.collectionHub[0].codewindURL}" data-collections="${this.stringCollections}" data-cliURL="${this.cliURL}">
           <p class="gray-text">Date created</p>
           <p>${this.date}</p>
         </div>

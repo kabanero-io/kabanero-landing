@@ -54,42 +54,40 @@ function loadAllInfo(){
 
 // Set details on UI for any given instance
 function setInstanceData(instances){
-    if(typeof instances === 'undefined' || areInstancesEmpty(instances)){
+    if(typeof instances === "undefined" || areInstancesEmpty(instances)){
         setErrorHTML();
         return;
     }
     for(let instance of instances){
         let instanceName = instance.instanceName;
         let details = instance.details || {};
-
         let pane = new InstancePane(instanceName, details.dateCreated, details.repos, details.clusterName, 
             details.collections, details.cliURL);
 
         $("#instance-accordion").append(pane.instanceHTML);
     }
+
     $(".loading-row").hide();
     $(".accordion-title:first").click();
 }
 
 function areInstancesEmpty(instances){
-    if(instances.length === 0 || (instances[0].details.cliURL === "" && instances[0].details.dateCreated === "")){
-        return true;
-    }
-    return false;
+    return typeof instances === "undefined" || instances.length === 0;
 }
 
 function setErrorHTML(){
     let errorHTML = $(
-    `<li data-accordion-item class="bx--accordion__item">
-        <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError" onclick=updateInstanceView(this)>
-            <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
-            </svg>
-            <div class="bx--accordion__title">No instance found</div>
-        </button>
-        <div id="paneError" class="bx--accordion__content" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="0" data-cliURL="n/a">
-        </div>
-    </li>`); 
+        `<li data-accordion-item class="bx--accordion__item">
+            <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError" onclick=updateInstanceView(this)>
+                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+                </svg>
+                <div class="bx--accordion__title">No instance found</div>
+            </button>
+            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
+            </div>
+        </li>`
+    );
     $("#instance-accordion").append(errorHTML);
     $(".loading-row").hide();
     $(".accordion-title:first").click();
@@ -98,16 +96,33 @@ function setErrorHTML(){
 // Set details on UI for any given instance
 function setToolData(tools){
     let noTools = true;
+
+    if(typeof tools === "undefined"){
+        $("#application-details-card .bx--inline-loading").hide();
+        $("#pipelines-details-card .bx--inline-loading").hide();
+        $("#no-tools").show();
+        return;
+    }
+
     for(let tool of tools){
+
         if(typeof tool.label === "undefined" || tool.label.length === 0 || 
         typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
         }
+
         if(tool.label === "Application Navigator"){
             $("#appnav-link").attr("href", tool.location);
             $("#manage-apps-button").attr("disabled", false);
-            $("#manage-apps-button-text").html('Manage Applications');
+            $("#manage-apps-button-text").html("Manage Applications");
         }
+
+        if(tool.label === "Tekton"){
+            $("#pipeline-link").attr("href", tool.location);
+            $("#pipeline-button").attr("disabled", false);
+            $("#pipeline-button-text").text("Manage Pipelines");
+        }
+
         //set kappnav url to manage applications link
         let toolPane = new ToolPane(tool.label, tool.location);
         $("#tool-data-container").append(toolPane.toolHTML);
@@ -117,78 +132,52 @@ function setToolData(tools){
     if(noTools){
         $("#no-tools").show();
     }
+
+    $("#application-details-card .bx--inline-loading").hide();
+    $("#pipelines-details-card .bx--inline-loading").hide();
 }
 
 function updateInstanceView(element){
     //close any open accordion headings
-    $(".bx--accordion__heading").attr('aria-expanded', false);
-    $(".bx--accordion__heading").parent().removeClass('bx--accordion__item--active');
+    $(".bx--accordion__heading").attr("aria-expanded", false);
+    $(".bx--accordion__heading").parent().removeClass("bx--accordion__item--active");
 
-    //return if clicked element is already open and the collections card doesn't need to be updated
-    if($(element).attr('aria-expanded') === 'true'){
+    //return if clicked element is already open and the collections card doesn"t need to be updated
+    if($(element).attr("aria-expanded") === "true"){
         return;
     }
 
     //update the collections card
-    let paneId = $(element).attr('aria-controls');
+    let paneId = $(element).attr("aria-controls");
     let instancePane = $(`#${paneId}`);
-    let appHubName = $(instancePane).data('hubname');
-    let appsodyURL = $(instancePane).data('appsodyurl');
-    let codewindURL = $(instancePane).data('codewindurl');
-    let numberOfCollections = $(instancePane).data('collections');
-    let clientURL = $(instancePane).data('cliurl');
-    $("#collections-card").html(`
-    <div class="bx--row instance-number-row">
-        <div class="bx--col">
-            <h2>${numberOfCollections}</h2>
-        </div>
-        </div>
-        <div class="bx--row">
-        <div class="bx--col">
-            <h4>Collections</h4>
-        </div>
-        </div>
-        <div class="bx--row">
-        <div class="bx--col">
-            <div class="bx--row">
-                <div class="bx--col">
-                    
-                    <p><span class='gray-text'>Application Hub: </span>${appHubName}</p>
-                </div>
-            </div>
-            <div class="bx--row">
-                <div class="bx--col">
-                <div class="input-group">
-                <p class="gray-text" id="appsody-url-text">Appsody URL: </p>
-                <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${appsodyURL} data-original-title="" title="">
-                <div class="input-group-append">
-                    <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
-                </div>
-            </div>
-                </div>
-            </div>
-            <div class="bx--row">
-                <div class="bx--col">
-                    <div class="input-group">
-                    <p class="gray-text collections-url" id="codewind-url-text">Codewind URL: </p>
-                        <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${codewindURL} data-original-title="" title="">
-                        <div class="input-group-append">
-                            <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bx--row">
-                <div class="bx--col">
-                    <p>Managment CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. For more informaiton about using the CLI see the <a href="/docs/ref/general/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
-                    <div class="input-group">
-                        <input id="appsodyURL0" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${clientURL} data-original-title="" title="">
-                        <div class="input-group-append">
-                            <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
-                        </div>
-                    </div>
-                </div>
-            </div>      
-        </div>
-    </div>`);
+    let appHubName = $(instancePane).data("hubname");
+    let appsodyURL = $(instancePane).data("appsodyurl");
+    let codewindURL = $(instancePane).data("codewindurl");
+    let cliURL = $(instancePane).data("cliurl");
+    let collections = $(instancePane).data("collections").split(",");
+    let numberOfCollections = collections[0] === "" ? 0 : collections.length;
+
+    // Instance Details
+    $("#instance-details-card #apphub-name").text(appHubName);
+
+    $("#instance-details-card #appsody-url").val(appsodyURL).attr("data-original-title", appsodyURL).attr("title", appsodyURL);
+    $("#instance-details-card #appsody-url").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", appsodyURL).attr("title", appsodyURL);
+
+    $("#instance-details-card #codewind-url").val(codewindURL).attr("data-original-title", codewindURL).attr("title", codewindURL);
+    $("#instance-details-card #codewind-url").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", codewindURL).attr("title", codewindURL);
+
+    $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL).attr("title", cliURL);
+    $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", cliURL).attr("title", cliURL);
+
+    // Collections Card
+    $("#collection-details-card #num-collections").text(numberOfCollections);
+    let liColls = collections.reduce((acc, coll) => {
+        return `${acc}<li>${coll}</li>`;
+    },"");
+
+    $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
+
+    // hide tile loaders
+    $("#instance-details-card .bx--inline-loading").hide();
+    $("#collection-details-card  .bx--inline-loading").hide();
 }
