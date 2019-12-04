@@ -58,7 +58,6 @@ function setInstanceNames(instances){
         setErrorHTML();
         return;
     }
-    console.log(instances);
     for(let instance of instances){
         let details = instance.details || {};
         let dateCreated = details.dateCreated;
@@ -148,8 +147,6 @@ function setToolData(tools){
 }
 
 function handleInstanceSelection(element){
-    console.log("handling instance selection");
-    console.log(element);
     //return if clicked element is already open and the collections card doesn"t need to be updated
     if($(element).attr("aria-expanded") === "true"){
         return;
@@ -158,13 +155,10 @@ function handleInstanceSelection(element){
     $(".bx--accordion__heading").attr("aria-expanded", false);
     $(".bx--accordion__heading").parent().removeClass("bx--accordion__item--active");
     let selectedInstanceName = $(element).find(".bx--accordion__title").text().trim();
-    console.log(selectedInstanceName);
     fetchAnInstance(selectedInstanceName).then(updateInstanceView);
 }
 
 function updateInstanceView(instanceJSON){
-    console.log("updating instance view");
-    console.log(instanceJSON);
     //update the collections card
     let details = instanceJSON.details;
     let appHubName = details.repos[0].name;
@@ -190,12 +184,8 @@ function updateInstanceView(instanceJSON){
     $("#collection-details-card #num-collections").text(numberOfCollections);
     let liColls = "";
     $(collections).each(function(){
-        console.log(liColls);
-        console.log("appending VVV");
-        console.log(this.name);
         liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
     });
-    console.log(liColls);
 
     $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
 
