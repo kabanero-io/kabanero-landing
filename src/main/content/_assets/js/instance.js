@@ -95,7 +95,6 @@ function setErrorHTML(){
 
 // Set details on UI for any given instance
 function setToolData(tools){
-    console.log(tools);
     let noTools = true;
 
     if(typeof tools === "undefined"){
