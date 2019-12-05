@@ -23,14 +23,30 @@ $(document).ready(function() {
 
 function setListeners(){
     // event delegation for dynamic collection hub input copy
-    $(document).on("click", ".collection-hub-input", function(){
-        $(this).siblings(".input-group-append").children(".tooltip-copy").tooltip("show");
-        copy($(this));
+    $(document).on("mouseover", ".collection-hub-input", function(){
+        $(this).attr("data-original-title", $(this).attr("data-original-title"));
+        $(this).tooltip("show");
+        //copy($(this));
+    });
+
+    $(document).on("mouseout", ".collection-hub-input", function(){
+        $(this).tooltip("hide");
+    });
+
+    $(document).on("mouseover", ".copy-to-clipboard", function(){
+        $(this).attr("data-original-title", $(this).attr("data-copy-text"));
+        $(this).tooltip("show");
+        //copy($(this));
+    });
+
+    $(document).on("mouseout", ".copy-to-clipboard", function(){
+        $(this).tooltip("hide");
     });
 
     $(document).on("click", ".copy-to-clipboard", function(){
-        $(this).tooltip("show");
         copy($(this).parent().siblings(".collection-hub-input"));
+        $(this).attr("data-original-title", "Copied!");
+        $(this).tooltip("show");
     });
 
     function copy(input){
@@ -171,14 +187,14 @@ function updateInstanceView(instanceJSON){
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
 
-    $("#instance-details-card #appsody-url").val(appsodyURL).attr("data-original-title", appsodyURL).attr("title", appsodyURL);
-    $("#instance-details-card #appsody-url").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", "Copied!");
+    $("#instance-details-card #appsody-url").val(appsodyURL).attr("data-original-title", appsodyURL)
+    $("#instance-details-card #appsody-url").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Appsody URL");
 
-    $("#instance-details-card #codewind-url").val(codewindURL).attr("data-original-title", codewindURL).attr("title", codewindURL);
-    $("#instance-details-card #codewind-url").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", "Copied!");
+    $("#instance-details-card #codewind-url").val(codewindURL).attr("data-original-title", codewindURL)
+    $("#instance-details-card #codewind-url").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Codewind URL");
 
-    $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL).attr("title", cliURL);
-    $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", "Copied!");
+    $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL)
+    $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Management CLI URL");
 
     // Collections Card
     $("#collection-details-card #num-collections").text(numberOfCollections);
