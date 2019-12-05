@@ -146,8 +146,8 @@ let InstancePane = class {
         let copyImgWrapper = $("<div/>", {class: "input-group-append"});
         copyImgWrapper.append(img);
 
-        let input = $("<input/>", {id, type: "text", class: "form-control collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: "Copied!"}) 
-            .tooltip({title: "Copied!", container: "body", placement: "top", trigger: "hover"});
+        let input = $("<input/>", {id, type: "text", class: "form-control collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url}) 
+            .tooltip({title: url, container: "body", placement: "top", trigger: "hover"});
         return wrapper.append(input, copyImgWrapper);
     }
 
