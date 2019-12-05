@@ -54,6 +54,7 @@ function loadAllInfo(){
 
 // Set details on UI for any given instance
 function setInstanceData(instances){
+    console.log(instances);
     if(typeof instances === "undefined" || areInstancesEmpty(instances)){
         setErrorHTML();
         return;
@@ -95,6 +96,7 @@ function setErrorHTML(){
 
 // Set details on UI for any given instance
 function setToolData(tools){
+    console.log(tools);
     let noTools = true;
 
     if(typeof tools === "undefined"){

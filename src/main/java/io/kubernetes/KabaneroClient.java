@@ -159,6 +159,11 @@ public class KabaneroClient {
             String url = KabaneroClient.getLabeledRoute("kappnav-ui-service", routes);
             tools.addTool(new KabaneroTool(Constants.KAPPNAV_LABEL, url));
         }
+
+        routes = KabaneroClient.listRoutes(client, "che");
+        System.out.println("!!!!!!!!");
+        System.out.println(routes.toString());
+        System.out.println("!!!!!!!!");
     }
 
     private static List<KabaneroCollection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {
