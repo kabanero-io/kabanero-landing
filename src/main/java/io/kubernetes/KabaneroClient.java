@@ -160,10 +160,13 @@ public class KabaneroClient {
             tools.addTool(new KabaneroTool(Constants.KAPPNAV_LABEL, url));
         }
 
-        routes = KabaneroClient.listRoutes(client, "che");
-        System.out.println("!!!!!!!!");
-        System.out.println(routes.toString());
-        System.out.println("!!!!!!!!");
+        routes = KabaneroClient.listRoutes(client, "kabanero");
+        if (routes != null) {
+            String url = KabaneroClient.getLabeledRoute("che", routes);
+            //che only supports http right now so change the url to http from https
+            String httpURL = url.replace("https", "http");
+            tools.addTool(new KabaneroTool(Constants.CHE_LABEL, httpURL));
+        }
     }
 
     private static List<KabaneroCollection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {

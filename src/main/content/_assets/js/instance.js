@@ -54,7 +54,6 @@ function loadAllInfo(){
 
 // Set details on UI for any given instance
 function setInstanceData(instances){
-    console.log(instances);
     if(typeof instances === "undefined" || areInstancesEmpty(instances)){
         setErrorHTML();
         return;
@@ -123,6 +122,12 @@ function setToolData(tools){
             $("#pipeline-link").attr("href", tool.location);
             $("#pipeline-button").attr("disabled", false);
             $("#pipeline-button-text").text("Manage Pipelines");
+        }
+
+        if(tool.label === "Eclipse Che"){
+            $("#che-link").attr("href", tool.location);
+            $("#che-button").attr("disabled", false);
+            $("#che-button-text").text("Go to Eclipse Che");
         }
 
         //set kappnav url to manage applications link
