@@ -12,7 +12,6 @@ function handleSideNav() {
         let $sideNav = $("aside.bx--side-nav");
         
         if ($sideNav.hasClass("bx--side-nav--expanded") && $(e.target).parents("aside.bx--side-nav").length === 0) {
-            console.log("closing");
             $sideNav.removeClass("bx--side-nav--expanded");
         }
     });

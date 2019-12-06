@@ -24,7 +24,7 @@ function fetchAllInstances(){
         .catch(error => console.error("Error getting instance names:", error));
 }
 
-function fetchAInstance(instance){
+function fetchAnInstance(instance){
     return fetch(`/api/instances/${instance}`)
         .then(function(response) {
             return response.json();

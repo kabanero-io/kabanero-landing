@@ -23,14 +23,30 @@ $(document).ready(function() {
 
 function setListeners(){
     // event delegation for dynamic collection hub input copy
-    $(document).on("click", ".collection-hub-input", function(){
-        $(this).siblings(".input-group-append").children(".tooltip-copy").tooltip("show");
-        copy($(this));
+    $(document).on("mouseover", ".collection-hub-input", function(){
+        $(this).attr("data-original-title", $(this).attr("data-original-title"));
+        $(this).tooltip("show");
+        //copy($(this));
+    });
+
+    $(document).on("mouseout", ".collection-hub-input", function(){
+        $(this).tooltip("hide");
+    });
+
+    $(document).on("mouseover", ".copy-to-clipboard", function(){
+        $(this).attr("data-original-title", $(this).attr("data-copy-text"));
+        $(this).tooltip("show");
+        //copy($(this));
+    });
+
+    $(document).on("mouseout", ".copy-to-clipboard", function(){
+        $(this).tooltip("hide");
     });
 
     $(document).on("click", ".copy-to-clipboard", function(){
-        let id = $(this).data("inputIDToCopy");
-        copy($(`#${id}`));
+        copy($(this).parent().siblings(".collection-hub-input"));
+        $(this).attr("data-original-title", "Copied!");
+        $(this).tooltip("show");
     });
 
     function copy(input){
@@ -46,29 +62,30 @@ function setListeners(){
 // Request to get all instances names
 function loadAllInfo(){
     fetchAllInstances()
-        .then(setInstanceData);
+        .then(setInstanceNames);
 
     fetchAllTools()
         .then(setToolData);
 }
 
 // Set details on UI for any given instance
-function setInstanceData(instances){
+function setInstanceNames(instances){
     if(typeof instances === "undefined" || areInstancesEmpty(instances)){
         setErrorHTML();
         return;
     }
     for(let instance of instances){
-        let instanceName = instance.instanceName;
         let details = instance.details || {};
-        let pane = new InstancePane(instanceName, details.dateCreated, details.repos, details.clusterName, 
-            details.collections, details.cliURL);
-
-        $("#instance-accordion").append(pane.instanceHTML);
+        let dateCreated = details.dateCreated;
+       
+        let instanceRowToAppend = $("#blank-row").clone().attr('id', '');
+        $(instanceRowToAppend).find(".bx--accordion__title").html(instance.instanceName);
+        $(instanceRowToAppend).find(".creation-date").html(dateCreated);
+        $("#instance-accordion").append(instanceRowToAppend);
     }
 
     $(".loading-row").hide();
-    $(".accordion-title:first").click();
+    handleInstanceSelection($(".accordion-title:visible:first"));
 }
 
 function areInstancesEmpty(instances){
@@ -76,21 +93,29 @@ function areInstancesEmpty(instances){
 }
 
 function setErrorHTML(){
-    let errorHTML = $(
-        `<li data-accordion-item class="bx--accordion__item">
-            <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError" onclick=updateInstanceView(this)>
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
-                </svg>
-                <div class="bx--accordion__title">No instance found</div>
-            </button>
-            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
-            </div>
-        </li>`
-    );
-    $("#instance-accordion").append(errorHTML);
     $(".loading-row").hide();
-    $(".accordion-title:first").click();
+    $("#instance-error-row").show();
+    updateInstanceView(getInstanceErrorJSON());
+    $(".bx--inline-loading").hide();
+}
+
+function getInstanceErrorJSON(){
+    return {
+        details:{
+            cliURL: "n/a",
+            collections: [],
+            dateCreated: "n/a",
+            repos: [
+                {
+                    appsodyURL: "n/a",
+                    codewindURL: "n/a",
+                    name: "n/a"
+                }
+            ],
+
+        },
+        instanceName: "No instance found"
+    };
 }
 
 // Set details on UI for any given instance
@@ -137,43 +162,46 @@ function setToolData(tools){
     $("#pipelines-details-card .bx--inline-loading").hide();
 }
 
-function updateInstanceView(element){
-    //close any open accordion headings
-    $(".bx--accordion__heading").attr("aria-expanded", false);
-    $(".bx--accordion__heading").parent().removeClass("bx--accordion__item--active");
-
+function handleInstanceSelection(element){
     //return if clicked element is already open and the collections card doesn"t need to be updated
     if($(element).attr("aria-expanded") === "true"){
         return;
     }
+    //close any open accordion headings
+    $(".bx--accordion__heading").attr("aria-expanded", false);
+    $(".bx--accordion__heading").parent().removeClass("bx--accordion__item--active");
+    let selectedInstanceName = $(element).find(".bx--accordion__title").text().trim();
+    fetchAnInstance(selectedInstanceName).then(updateInstanceView);
+}
 
+function updateInstanceView(instanceJSON){
     //update the collections card
-    let paneId = $(element).attr("aria-controls");
-    let instancePane = $(`#${paneId}`);
-    let appHubName = $(instancePane).data("hubname");
-    let appsodyURL = $(instancePane).data("appsodyurl");
-    let codewindURL = $(instancePane).data("codewindurl");
-    let cliURL = $(instancePane).data("cliurl");
-    let collections = $(instancePane).data("collections").split(",");
-    let numberOfCollections = collections[0] === "" ? 0 : collections.length;
+    let details = instanceJSON.details;
+    let appHubName = details.repos[0].name;
+    let appsodyURL = details.repos[0].appsodyURL
+    let codewindURL = details.repos[0].codewindURL;
+    let cliURL = details.cliURL;
+    let collections = details.collections;
+    let numberOfCollections = details.collections.length;
 
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
 
-    $("#instance-details-card #appsody-url").val(appsodyURL).attr("data-original-title", appsodyURL).attr("title", appsodyURL);
-    $("#instance-details-card #appsody-url").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", appsodyURL).attr("title", appsodyURL);
+    $("#instance-details-card #appsody-url").val(appsodyURL).attr("data-original-title", appsodyURL)
+    $("#instance-details-card #appsody-url").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Appsody URL");
 
-    $("#instance-details-card #codewind-url").val(codewindURL).attr("data-original-title", codewindURL).attr("title", codewindURL);
-    $("#instance-details-card #codewind-url").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", codewindURL).attr("title", codewindURL);
+    $("#instance-details-card #codewind-url").val(codewindURL).attr("data-original-title", codewindURL)
+    $("#instance-details-card #codewind-url").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Codewind URL");
 
-    $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL).attr("title", cliURL);
-    $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-original-title", cliURL).attr("title", cliURL);
+    $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL)
+    $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Management CLI URL");
 
     // Collections Card
     $("#collection-details-card #num-collections").text(numberOfCollections);
-    let liColls = collections.reduce((acc, coll) => {
-        return `${acc}<li>${coll}</li>`;
-    },"");
+    let liColls = "";
+    $(collections).each(function(){
+        liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
+    });
 
     $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
 
