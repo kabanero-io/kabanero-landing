@@ -17,9 +17,9 @@ public class DiscoveryTools {
         try {
 
             InputStream inputStream = DiscoveryTools.class.getClassLoader().getResourceAsStream("tools.json");
-            String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            String fileContent = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
-            Object obj = new JsonParser().parse(result);
+            Object obj = new JsonParser().parse(fileContent);
             JsonArray toolsList = (JsonArray) obj;
 
             Map<String, Map> map = new HashMap<>();
