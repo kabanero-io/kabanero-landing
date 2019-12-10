@@ -17,12 +17,12 @@
  ******************************************************************************/
 package io.kubernetes;
 
-import io.website.Constants;
 import io.kabanero.instance.KabaneroCollection;
 import io.kabanero.instance.KabaneroInstance;
 import io.kabanero.instance.KabaneroRepository;
 import io.kabanero.instance.KabaneroTool;
 import io.kabanero.instance.KabaneroToolManager;
+import io.kabanero.instance.DiscoveryTools;
 import io.kubernetes.KubeKabanero;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
@@ -65,6 +65,7 @@ public class KabaneroClient {
 
     // routes from ta namespace
     private static String getTransformationAdvisorURL(Map<String, Route> routes) {
+        LOGGER.log(Level.WARNING, "hit me");
         for (Route route : routes.values()) {
             if (route.getName().endsWith("ta-rh-ui-route")) {
                 return "https://" + route.getURL();
@@ -140,24 +141,23 @@ public class KabaneroClient {
     public static void discoverTools(KabaneroToolManager tools) throws IOException, ApiException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
 
+        Map<String, ?> toolsList = new DiscoveryTools().getDiscoveryTools();
+
         Map<String, Route> routes = null;
 
-        routes = KabaneroClient.listRoutes(client, "tekton-pipelines");
-        if (routes != null) {
-            String url = KabaneroClient.getLabeledRoute("tekton-dashboard", routes);
-            tools.addTool(new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, url));
-        }
+        for (Map.Entry<String, ?> entry : toolsList.entrySet()) {
+            Map<String, ?> map = (Map<String, ?>) entry.getValue();
 
-        routes = KabaneroClient.listRoutes(client, "ta");
-        if (routes != null) {
-            String url = KabaneroClient.getTransformationAdvisorURL(routes);
-            tools.addTool(new KabaneroTool(Constants.TA_DASHBOARD_LABEL, url));
-        }
+            String toolName = (String) map.get("toolName");
+            String namespace = (String) map.get("namespace");
+            String route = (String) map.get("route");
 
-        routes = KabaneroClient.listRoutes(client, "kappnav");
-        if (routes != null) {
-            String url = KabaneroClient.getLabeledRoute("kappnav-ui-service", routes);
-            tools.addTool(new KabaneroTool(Constants.KAPPNAV_LABEL, url));
+            routes = KabaneroClient.listRoutes(client, namespace);
+
+            if (routes != null) {
+                String url = (namespace == "ta") ? KabaneroClient.getTransformationAdvisorURL(routes) : KabaneroClient.getLabeledRoute(route, routes);
+                tools.addTool(new KabaneroTool(toolName, url));
+            }
         }
     }
 
