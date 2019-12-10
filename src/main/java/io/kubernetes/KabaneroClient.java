@@ -65,7 +65,6 @@ public class KabaneroClient {
 
     // routes from ta namespace
     private static String getTransformationAdvisorURL(Map<String, Route> routes) {
-        LOGGER.log(Level.WARNING, "hit me");
         for (Route route : routes.values()) {
             if (route.getName().endsWith("ta-rh-ui-route")) {
                 return "https://" + route.getURL();
