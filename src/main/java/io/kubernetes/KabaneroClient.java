@@ -22,7 +22,6 @@ import io.kabanero.instance.KabaneroInstance;
 import io.kabanero.instance.KabaneroRepository;
 import io.kabanero.instance.KabaneroTool;
 import io.kabanero.instance.KabaneroToolManager;
-import io.kabanero.instance.DiscoveryTools;
 import io.kubernetes.KubeKabanero;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
@@ -34,6 +33,8 @@ import io.kubernetes.client.util.KubeConfig;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
@@ -49,7 +50,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import com.google.gson.*;
 import com.squareup.okhttp.ConnectionSpec;
+
+import org.apache.commons.io.IOUtils;
 
 public class KabaneroClient {
     private final static Logger LOGGER = Logger.getLogger(KabaneroClient.class.getName());
@@ -140,16 +144,22 @@ public class KabaneroClient {
     public static void discoverTools(KabaneroToolManager tools) throws IOException, ApiException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
 
-        Map<String, ?> toolsList = new DiscoveryTools().getDiscoveryTools();
+        InputStream inputStream = KabaneroClient.class.getClassLoader().getResourceAsStream("tools.json");
+        String fileContent = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+
+        Object obj = new JsonParser().parse(fileContent);
+        JsonArray toolsList = (JsonArray) obj;
 
         Map<String, Route> routes = null;
 
-        for (Map.Entry<String, ?> entry : toolsList.entrySet()) {
-            Map<String, ?> map = (Map<String, ?>) entry.getValue();
+        for (JsonElement toolsObjects : toolsList) {
 
-            String toolName = (String) map.get("toolName");
-            String namespace = (String) map.get("namespace");
-            String route = (String) map.get("route");
+            JsonObject toolObject = (JsonObject) toolsObjects;
+            JsonObject tool = (JsonObject) toolObject.get("tool");
+
+            String toolName = tool.get("toolName").getAsString();
+            String namespace = tool.get("namespace").getAsString();
+            String route = tool.get("route").getAsString();
 
             routes = KabaneroClient.listRoutes(client, namespace);
 
