@@ -1,6 +1,6 @@
 ---
-name: Feature Request for the Kabanero.io website
-about: Request a new feature for the Kabanero.io website
+name: Feature Request for the Kabanero.io console application
+about: Request a new feature for the Kabanero.io console application
 title: ''
 labels: ''
 assignees: ''

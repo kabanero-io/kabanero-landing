@@ -24,7 +24,7 @@ function fetchAllInstances(){
         .catch(error => console.error("Error getting instance names:", error));
 }
 
-function fetchAInstance(instance){
+function fetchAnInstance(instance){
     return fetch(`/api/instances/${instance}`)
         .then(function(response) {
             return response.json();
@@ -178,7 +178,7 @@ let InstancePane = class {
         let col = $("<div/>", {class: "col-md-11"});
         let copyInput = InstancePane.createCopyInput(id, cliURL).addClass("indent");
         let cliHTML = "Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. " + 
-            "For more information about using the CLI see the <a href='/docs/ref/general/kabanero-cli.html'>Kabanero Management CLI documentation</a>.";
+            "For more information about using the CLI see the <a href='/docs/ref/general/reference/kabanero-cli.html'>Kabanero Management CLI documentation</a>.";
         col.append($("<strong/>", {text: "Management CLI"}), $("<p/>", {html: cliHTML, class: "indent"}), copyInput);
         return row.append(col);
     }
