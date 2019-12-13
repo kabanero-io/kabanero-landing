@@ -19,7 +19,7 @@ function handleSideNav() {
 }
 
 function loadProductVersion(){
-    fetch("/api/kabanero")
+    fetch("/api/install/version")
         .then(function(response) {
             return response.json();
         })
