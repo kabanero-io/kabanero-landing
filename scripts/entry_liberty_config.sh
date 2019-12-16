@@ -1,15 +1,22 @@
 #!/bin/bash
-# This script exists to configure the liberty server.xml before starting up the server
+# This script exists to configure the liberty server before starting it up
 
 DEFAULT_CONFIG_DROPIN_PATH='/opt/ol/wlp/usr/servers/defaultServer/configDropins/defaults/'
 
 # Handle the social login feature if the GitHub OAuth credentials exist
-if [[ -z "${GITHUB_OAUTH_CLIENT_ID}" ]]; then
-    echo "Social Login OAuth is configured"
-    mv
-fi
-env
-#echo "${server.config.dir}/configDropins/"
-# Start the liberty server
 
-/opt/ol/wlp/bin/server run defaultServer
+if [ -f /etc/consoleoauthid ] && [ -f /etc/consoleoauthsecret ]; then
+    echo "Social Login is configured"
+    SOCIAL_LOGIN_CONFIG_FILE="/opt/ol/wlp/etc/social_login.xml"
+
+    oauthid=$(cat /etc/consoleoauthid)
+    oauthsecret=$(cat /etc/consoleoauthsecret)
+
+    sed -i -e "s/{{GITHUB_CLIENT_ID}}/$oauthid/g" $SOCIAL_LOGIN_CONFIG_FILE
+    sed -i -e "s/{{GITHUB_CLIENT_SECRET}}/$oauthsecret/g" $SOCIAL_LOGIN_CONFIG_FILE
+
+    mv $SOCIAL_LOGIN_CONFIG_FILE $DEFAULT_CONFIG_DROPIN_PATH
+fi
+cat /opt/ol/wlp/usr/servers/defaultServer/server.xml
+# Start the liberty server
+exec /opt/ol/wlp/bin/server run "$@"
