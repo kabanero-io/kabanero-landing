@@ -1,23 +1,17 @@
 [
     {
-        "tool": {
-            "toolName": "Tekton",
-            "namespace": "tekton-pipelines",
-            "route": "tekton-dashboard"
-        }
+        "toolName": "Tekton",
+        "namespace": "tekton-pipelines",
+        "route": "tekton-dashboard"
     },
     {
-        "tool": {
-            "toolName": "Application Navigator",
-            "namespace": "kappnav",
-            "route": "kappnav-ui-service"
-        }
+        "toolName": "Application Navigator",
+        "namespace": "kappnav",
+        "route": "kappnav-ui-service"
     },
     {
-        "tool": {
-            "toolName": "Transformation Advisor",
-            "namespace": "ta",
-            "route": ""
-        }
+        "toolName": "Transformation Advisor",
+        "namespace": "ta",
+        "route": ""
     }
 ]

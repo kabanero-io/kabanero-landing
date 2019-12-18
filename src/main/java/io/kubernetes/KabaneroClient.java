@@ -41,6 +41,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -50,7 +51,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import com.google.gson.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.squareup.okhttp.ConnectionSpec;
 
 import org.apache.commons.io.IOUtils;
@@ -125,8 +128,9 @@ public class KabaneroClient {
 
             String clusterName = null;
 
-            KabaneroInstance kabInst = new KabaneroInstance(username, instanceName, date, kabaneroRepositories, clusterName, kabaneroCollections, cliURL);
-            LOGGER.log(Level.FINE, "Kabanero Instance: {0}: {1}", new Object[]{ kabInst.getInstanceName(), kabInst});
+            KabaneroInstance kabInst = new KabaneroInstance(username, instanceName, date, kabaneroRepositories,
+                    clusterName, kabaneroCollections, cliURL);
+            LOGGER.log(Level.FINE, "Kabanero Instance: {0}: {1}", new Object[] { kabInst.getInstanceName(), kabInst });
 
             kabaneroInstances.add(kabInst);
         }
@@ -145,28 +149,29 @@ public class KabaneroClient {
         ApiClient client = KabaneroClient.getApiClient();
 
         InputStream inputStream = KabaneroClient.class.getClassLoader().getResourceAsStream("tools.json");
-        String fileContent = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
-        Object obj = new JsonParser().parse(fileContent);
-        JsonArray toolsList = (JsonArray) obj;
+        try {
+            JSONArray toolsList = new JSONArray(IOUtils.toString(inputStream, StandardCharsets.UTF_8));
 
-        Map<String, Route> routes = null;
+            Map<String, Route> routes = null;
 
-        for (JsonElement toolsObjects : toolsList) {
+            Iterator<Object> iterator = toolsList.iterator();
+            while (iterator.hasNext()) {
+                JSONObject tool = (JSONObject) iterator.next();
+                
+                String toolName = tool.get("toolName").toString();
+                String namespace = tool.get("namespace").toString();
+                String route = tool.get("route").toString();
 
-            JsonObject toolObject = (JsonObject) toolsObjects;
-            JsonObject tool = (JsonObject) toolObject.get("tool");
+                routes = KabaneroClient.listRoutes(client, namespace);
 
-            String toolName = tool.get("toolName").getAsString();
-            String namespace = tool.get("namespace").getAsString();
-            String route = tool.get("route").getAsString();
-
-            routes = KabaneroClient.listRoutes(client, namespace);
-
-            if (routes != null) {
-                String url = (namespace == "ta") ? KabaneroClient.getTransformationAdvisorURL(routes) : KabaneroClient.getLabeledRoute(route, routes);
-                tools.addTool(new KabaneroTool(toolName, url));
+                if (routes != null) {
+                    String url = (namespace == "ta") ? KabaneroClient.getTransformationAdvisorURL(routes) : KabaneroClient.getLabeledRoute(route, routes); 
+                    tools.addTool(new KabaneroTool(toolName, url));
+                }
             }
+        } finally {
+            inputStream.close();
         }
     }
 
