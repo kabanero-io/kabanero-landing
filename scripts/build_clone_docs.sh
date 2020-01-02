@@ -22,7 +22,7 @@ cd docs
 git clone "${DOCS_GIT_URL}" --branch "${DOCS_GIT_REVISION}" .
 
 # Landing page doesn't need install doc because kabanero is already installed
-rm "./ref/general/installing-kabanero-foundation.adoc"
+rm "./ref/general/installation/installing-kabanero-foundation.adoc"
 
 popd
 echo "Done cloning docs repository"
