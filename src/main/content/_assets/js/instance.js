@@ -135,7 +135,6 @@ function setToolData(tools){
         typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
         }
-
         if(tool.label === "Application Navigator"){
             $("#appnav-link").attr("href", tool.location);
             $("#manage-apps-button").attr("disabled", false);
