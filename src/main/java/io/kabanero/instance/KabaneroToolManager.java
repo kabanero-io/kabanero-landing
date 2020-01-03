@@ -60,11 +60,11 @@ public class KabaneroToolManager {
     }
         
     private static void addDefaultTools(KabaneroToolManager tools) {
-        KabaneroTool transformationAdvisor = new KabaneroTool(Constants.TA_DASHBOARD_LABEL, Constants.TA_DASHBOARD_URL);
-        tools.addTool(transformationAdvisor);
-        
         KabaneroTool tekton = new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, Constants.TEKTON_DASHBOARD_URL);
         tools.addTool(tekton);
+
+        KabaneroTool applicationNavigator = new KabaneroTool(Constants.KAPPNAV_LABEL, Constants.KAPPNAV_URL);
+        tools.addTool(applicationNavigator);
     }
     
     public KabaneroTool getTool(String wantedName){

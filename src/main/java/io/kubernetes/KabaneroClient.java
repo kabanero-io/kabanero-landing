@@ -70,16 +70,6 @@ public class KabaneroClient {
         return "https://" + route.getURL();
     }
 
-    // routes from ta namespace
-    private static String getTransformationAdvisorURL(Map<String, Route> routes) {
-        for (Route route : routes.values()) {
-            if (route.getName().endsWith("ta-rh-ui-route")) {
-                return "https://" + route.getURL();
-            }
-        }
-        return null;
-    }
-
     private static ApiClient getApiClient() throws IOException, GeneralSecurityException {
         ApiClient client = null;
         String value = System.getenv("KUBERNETES_SERVICE_HOST");
@@ -166,7 +156,7 @@ public class KabaneroClient {
                 routes = KabaneroClient.listRoutes(client, namespace);
 
                 if (routes != null) {
-                    String url = (namespace == "ta") ? KabaneroClient.getTransformationAdvisorURL(routes) : KabaneroClient.getLabeledRoute(route, routes); 
+                    String url = KabaneroClient.getLabeledRoute(route, routes); 
                     tools.addTool(new KabaneroTool(toolName, url));
                 }
             }
