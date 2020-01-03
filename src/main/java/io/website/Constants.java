@@ -51,6 +51,9 @@ public final class Constants {
     public static final String KAPPNAV_LABEL = "Application Navigator";
     public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
 
+    public static final String CHE_LABEL = "Eclipse Che";
+    public static final String CHE_URL = getEnv("CHE_URL", "");
+
 
     // OKD
     public static final String LANDING_URL = getEnv("LANDING_URL", "https://kabanero.io");
