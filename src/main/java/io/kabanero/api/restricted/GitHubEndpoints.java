@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero.api;
+package io.kabanero.api.restricted;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
 
 @ApplicationPath("api")
-@Path("/git")
+@Path("/auth/git")
 @RequestScoped
 public class GitHubEndpoints extends Application {
 
@@ -50,5 +50,5 @@ public class GitHubEndpoints extends Application {
         client.setOAuth2Token(token);
         return new UserService(client).getUser();
     }
-    
+
 }

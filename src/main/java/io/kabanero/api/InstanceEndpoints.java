@@ -35,7 +35,7 @@ import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
 @ApplicationPath("api")
-@Path("/instances")
+@Path("/kabanero")
 @RequestScoped
 public class InstanceEndpoints extends Application {
 

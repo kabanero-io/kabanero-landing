@@ -1,0 +1,74 @@
+---
+layout: default
+home: true
+js:
+- instance-common
+- collections
+css:
+- home
+- instance
+- collections
+seo-title: Kabanero Collections
+permalink: /instance/collections/
+---
+{% assign t = site.data[site.active_lang] %}
+<!-- Welcome header -->
+<div class="bx--grid bx--grid--full-width">
+    <div class="bx--row">
+        <div class="bx--col">
+            <h1>{{t.instance.instances}}</h1>
+        </div>
+    </div>
+
+    <div class="bx--row">
+        <div class="bx--col-xlg-4">
+            <ul data-accordion class="bx--accordion" id="instance-accordion"></ul>
+        </div>
+
+        <!-- Collections table -->
+        <div class="bx--col-xlg white-background">
+            {% include table-loader.html %}
+
+            <table id="collection-table" class="bx--data-table hide">
+                <thead>
+                    <tr>
+                        <th>
+                            <span class="bx--table-header-label">Collection</span>
+                        </th>
+                        <th>
+                            <span class="bx--table-header-label">Version</span>
+                        </th>
+                        <th>
+                            <span class="bx--table-header-label">Status</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="collection-table-body"></tbody>
+            </table>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<!-- templates -->
+<li id="error-li-template" data-accordion-item class="bx--accordion__item hide">
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError">
+        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+        </svg>
+        <div class="bx--accordion__title">No instance found</div>
+    </button>
+    <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
+    </div>
+</li>
+
+<li id="instance-li-template" data-accordion-item class="bx--accordion__item hide">
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane${this.instanceName}">
+      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+      <div class="bx--accordion__title"></div>
+    </button>
+    <div class="bx--accordion__content">
+      <p class="gray-text">Date created</p>
+      <p class="creation-date"></p>
+    </div>
+</li>

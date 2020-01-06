@@ -54,8 +54,8 @@
     <security-constraint id="GitHubSecurityConstraint">
         <web-resource-collection id="GitHubWebResourceCollection1">
             <web-resource-name>Protected with ** role</web-resource-name>
-            <url-pattern>/api/kabanero/*</url-pattern>
-            <url-pattern>/api/git/*</url-pattern>
+            <url-pattern>/api/auth/*</url-pattern>
+            <url-pattern>/instance/collections</url-pattern>
         </web-resource-collection>
         <auth-constraint id="GitHubAuthConstraint">
             <role-name>**</role-name>

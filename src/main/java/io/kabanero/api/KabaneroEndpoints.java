@@ -27,6 +27,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
 import io.kabanero.KabaneroInstallation;
+import io.kabanero.OAuthDetails;
 
 /*
     Endpoints related to the Kabanero installation as a whole
@@ -41,5 +42,12 @@ public class KabaneroEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public KabaneroInstallation getInstallDetails() {
         return new KabaneroInstallation();
+    }
+
+    @GET
+    @Path("/oauth")
+    @Produces(MediaType.APPLICATION_JSON)
+    public OAuthDetails getOAuthDetails() {
+        return new OAuthDetails();
     }
 }

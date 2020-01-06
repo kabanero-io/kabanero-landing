@@ -1,4 +1,4 @@
-<!--
+
 /******************************************************************************
  *
  * Copyright 2019 IBM Corporation and others.
@@ -16,26 +16,26 @@
  * limitations under the License.
  *
  ******************************************************************************/
--->
+package io.kabanero;
 
-<server>
-    <featureManager>
-        <feature>jaxrs-2.1</feature>
-        <feature>jsonp-1.1</feature>
-        <feature>cdi-2.0</feature>
-        <feature>transportSecurity-1.0</feature>
-    </featureManager>
-    
-    <keyStore id="defaultKeyStore" password="changeit" />
-    <ssl id="defaultSSLConfig" trustDefaultCerts="true" sslProtocol="TLSv1.2"/>
+import io.website.Constants;
 
-    <httpendpoint />
+/*
+    Information about the Kabanero OAuth instance.
+*/
+public class OAuthDetails {
 
-    <cdi12 enableImplicitBeanArchives="false"/>
-    
-    <webApplication location="kabanero.war" contextRoot="/"/>
+    public boolean isConfigured;
 
-    <!-- Enable the following to enable trace 
-    <logging traceSpecification="io.kabanero.website.*=all"></logging>
-    -->
-</server>
+    public OAuthDetails() {
+        this.isConfigured = isConfigured();
+     }
+
+    private boolean isConfigured() {
+        return Constants.USER_API != null &&
+            Constants.AUTHORIZATION_ENDPOINT != null &&
+            Constants.TOKEN_ENDPOINT != null &&
+            Constants.WEBSITE != null;
+    }
+
+}

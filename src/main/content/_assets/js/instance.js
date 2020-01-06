@@ -18,7 +18,14 @@
 
 $(document).ready(function() {
     loadAllInfo();
-    setListeners();    
+    setListeners();
+
+    $("#instance-accordion li").on("click", e => {
+        e.stopPropagation();
+        let newName = handleInstanceSelection(e.target);
+        fetchAnInstance(newName)
+            .then(updateInstanceView);
+    });
 });
 
 function setListeners(){
@@ -62,60 +69,15 @@ function setListeners(){
 // Request to get all instances names
 function loadAllInfo(){
     fetchAllInstances()
-        .then(setInstanceNames);
+        .then(setInstanceSelections)
+        .then(fetchAnInstance)
+        .then(updateInstanceView);
 
     fetchAllTools()
         .then(setToolData);
-}
 
-// Set details on UI for any given instance
-function setInstanceNames(instances){
-    if(typeof instances === "undefined" || areInstancesEmpty(instances)){
-        setErrorHTML();
-        return;
-    }
-    for(let instance of instances){
-        let details = instance.details || {};
-        let dateCreated = details.dateCreated;
-       
-        let instanceRowToAppend = $("#blank-row").clone().attr('id', '');
-        $(instanceRowToAppend).find(".bx--accordion__title").html(instance.instanceName);
-        $(instanceRowToAppend).find(".creation-date").html(dateCreated);
-        $("#instance-accordion").append(instanceRowToAppend);
-    }
-
-    $(".loading-row").hide();
-    handleInstanceSelection($(".accordion-title:visible:first"));
-}
-
-function areInstancesEmpty(instances){
-    return typeof instances === "undefined" || instances.length === 0;
-}
-
-function setErrorHTML(){
-    $(".loading-row").hide();
-    $("#instance-error-row").show();
-    updateInstanceView(getInstanceErrorJSON());
-    $(".bx--inline-loading").hide();
-}
-
-function getInstanceErrorJSON(){
-    return {
-        details:{
-            cliURL: "n/a",
-            collections: [],
-            dateCreated: "n/a",
-            repos: [
-                {
-                    appsodyURL: "n/a",
-                    codewindURL: "n/a",
-                    name: "n/a"
-                }
-            ],
-
-        },
-        instanceName: "No instance found"
-    };
+    fetchOAuthDetails()
+        .then(setOAuth);
 }
 
 // Set details on UI for any given instance
@@ -162,27 +124,22 @@ function setToolData(tools){
     $("#pipelines-details-card .bx--inline-loading").hide();
 }
 
-function handleInstanceSelection(element){
-    //return if clicked element is already open and the collections card doesn"t need to be updated
-    if($(element).attr("aria-expanded") === "true"){
+function updateInstanceView(instanceJSON){
+    if(typeof instanceJSON === "undefined"){
         return;
     }
-    //close any open accordion headings
-    $(".bx--accordion__heading").attr("aria-expanded", false);
-    $(".bx--accordion__heading").parent().removeClass("bx--accordion__item--active");
-    let selectedInstanceName = $(element).find(".bx--accordion__title").text().trim();
-    fetchAnInstance(selectedInstanceName).then(updateInstanceView);
+
+    //update the various cards
+    setInstanceCard(instanceJSON);
+    setCollectionCard(instanceJSON);
 }
 
-function updateInstanceView(instanceJSON){
-    //update the collections card
+function setInstanceCard(instanceJSON){
     let details = instanceJSON.details;
     let appHubName = details.repos[0].name;
-    let appsodyURL = details.repos[0].appsodyURL
+    let appsodyURL = details.repos[0].appsodyURL;
     let codewindURL = details.repos[0].codewindURL;
     let cliURL = details.cliURL;
-    let collections = details.collections;
-    let numberOfCollections = details.collections.length;
 
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
@@ -196,8 +153,18 @@ function updateInstanceView(instanceJSON){
     $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL)
     $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Management CLI URL");
 
+    // hide card loader
+    $("#instance-details-card .bx--inline-loading").hide();
+}
+
+function setCollectionCard(instanceJSON){
+    let details = instanceJSON.details;
+    let collections = details.collections;
+    let numberOfCollections = details.collections.length;
+    
     // Collections Card
     $("#collection-details-card #num-collections").text(numberOfCollections);
+
     let liColls = "";
     $(collections).each(function(){
         liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
@@ -205,7 +172,14 @@ function updateInstanceView(instanceJSON){
 
     $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
 
-    // hide tile loaders
-    $("#instance-details-card .bx--inline-loading").hide();
     $("#collection-details-card  .bx--inline-loading").hide();
+}
+
+// Sets up the UI in regards to OAuth data
+function setOAuth(oauthJSON){
+    if(oauthJSON && oauthJSON.isConfigured){
+        let selectedInstance = $("#selected-instance-name").text().trim();
+        $("#collections-oauth-msg").text("Manage Collections");
+        $("#collections-link").attr("href", `/instance/collections?name=${selectedInstance}`);
+    }
 }

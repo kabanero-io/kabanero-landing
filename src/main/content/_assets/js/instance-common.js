@@ -16,20 +16,32 @@
  *
  ******************************************************************************/
 
-function fetchAllInstances(){
-    return fetch("/api/instances")
+function fetchAllInstances(){    
+    return fetch("/api/kabanero")
         .then(function(response) {
             return response.json();
         })
         .catch(error => console.error("Error getting instance names:", error));
 }
 
-function fetchAnInstance(instance){
-    return fetch(`/api/instances/${instance}`)
+function fetchAnInstance(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+
+    return fetch(`/api/kabanero/${instanceName}`)
         .then(function(response) {
             return response.json();
         })
-        .catch(error => console.error(`Error getting instance info for: ${instance}`, error));
+        .catch(error => console.error(`Error getting instance info for: ${instanceName}`, error));
+}
+
+function fetchOAuthDetails(){
+    return fetch("/api/install/oauth")
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error("Error getting oauth info", error));
 }
 
 function fetchAllTools(){
@@ -72,6 +84,7 @@ let InstancePane = class {
         this.cluster = cluster;
         this.collections = collections;
         this.cliURL = cliURL;
+        // Take the collections array of objects and turn it into a nice human readable string
         this.stringCollections = this.collections.reduce((acc, coll, index) => {
             let pair = `${coll.name} - ${coll.version}`;
             if(index !== this.collections.length -1){
@@ -201,3 +214,51 @@ let InstancePane = class {
     }
 };
 
+// Set each instance name in the accordion selection and returns the instance name to be loaded
+function setInstanceSelections(instances){
+    if(typeof instances === "undefined"|| instances.length === 0){
+        $("#instance-accordion #error-li").show();
+
+        $(".bx--inline-loading").hide();
+        console.error("No Kabanero instances were returned");
+        return;
+    }
+
+    for(let instance of instances){
+        let details = instance.details || {};
+        let dateCreated = details.dateCreated;
+       
+        let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hide");
+        $(row).find(".bx--accordion__title").text(instance.instanceName);
+        $(row).find(".creation-date").text(dateCreated);
+        $("#instance-accordion").append(row);
+    }
+
+    // Remove the error li from the carbon accordion. Carbon needs at least 1 li element there on load or it throws an error...
+    $("#instance-accordion #error-li").remove();
+
+    // Expand (select) the first instance
+    let $firstInstance = $("#instance-accordion li").first();
+    $firstInstance.addClass("bx--accordion__item--active").attr("selected-instance", "");
+    return $firstInstance.find(".bx--accordion__title").text().trim();
+}
+
+// Change the accordion when a new instance is clicked and return the new selected instance name
+function handleInstanceSelection(elem){
+    // children of the li can be clicked, we need to make sure the li is the one with focus here
+    elem = elem.closest("li");
+    
+    // If the user selects the instance that is already selected, do nothing
+    if($(elem).attr("selected-instance")){
+        return;
+    }
+
+    // close the previous selection
+    $("#instance-accordion li[selected-instance]").removeAttr("selected-instance");
+    $("#instance-accordion li.bx--accordion__item--active").removeClass("bx--accordion__item--active");
+
+    // open the next selection
+    $(elem).attr("selected-instance", "");
+    $(elem).addClass("bx--accordion__item--active");
+    return $(elem).find(".bx--accordion__title").text().trim();
+}

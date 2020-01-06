@@ -22,42 +22,14 @@ permalink: /instance/
     <div class="bx--row">
         <div class="bx--col-xlg-4">
             <ul data-accordion class="bx--accordion" id="instance-accordion">
-                <li data-accordion-item class="bx--accordion__item loading-row">
-                <button class="bx--accordion__heading" aria-expanded="false" aria-controls="paneTest">
-                    <div class="bx--accordion__title">
-                    <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                        <div class="bx--inline-loading__animation">
-                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                            <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                            </svg>
-                        </div>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
-                        </div>
-                    </div>
-                    </div>
-                </button>
-                </li>
-                <li data-accordion-item class="bx--accordion__item" id="instance-error-row" style="display:none;">
-                    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError" onclick=handleInstanceSelection(this)>
+                <li id="error-li" data-accordion-item class="bx--accordion__item hide">
+                    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError">
                         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                             <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
                         </svg>
                         <div class="bx--accordion__title">No instance found</div>
                     </button>
                     <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
-                    </div>
-                </li>
-                <li data-accordion-item class="bx--accordion__item" id="blank-row">
-                    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane${this.instanceName}" onclick=handleInstanceSelection(this)>
-                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
-                      <div class="bx--accordion__title"></div>
-                    </button>
-                    <div class="bx--accordion__content">
-                      <p class="gray-text">Date created</p>
-                      <p class="creation-date"></p>
                     </div>
                 </li>
             </ul>
@@ -68,18 +40,7 @@ permalink: /instance/
             <div id="instance-details-card" class="bx--tile">
 
                 <!-- loader -->
-                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                    <div class="bx--inline-loading__animation">
-                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                        </svg>
-                        </div>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
-                    </div>
-                </div>
+                {% include loader.html %}
 
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
@@ -141,18 +102,7 @@ permalink: /instance/
             <div id="collection-details-card" class="bx--tile">
         
                 <!-- loader -->
-                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                    <div class="bx--inline-loading__animation">
-                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                        </svg>
-                        </div>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
-                    </div>
-                </div>
+                {% include loader.html %}
 
                 <!-- collection details -->
                 <div class="bx--row instance-number-row">
@@ -168,8 +118,20 @@ permalink: /instance/
                 </div>
 
                 <div class="bx--row">
-                    <div id="collection-list" class="bx--col">
-                        
+                    <div id="collection-list" class="bx--col"></div>
+                </div>
+
+                <!-- Collections bottom button -->
+                <div class="bx--row">
+                    <div class="bx--col-sm-2 bx--col-lg-8">
+                        <a id="collections-link" href="docs/ref/general/configure-oauth.html">
+                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="collections-btn" type="button">
+                                <span id="collections-oauth-msg">{{t.instance.oauth.configure}}</span>
+                                <div class="arrow-container">
+                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                </div>
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -180,18 +142,7 @@ permalink: /instance/
             <div id="pipelines-details-card" class="bx--tile">
         
                 <!-- loader -->
-                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                    <div class="bx--inline-loading__animation">
-                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                        </svg>
-                        </div>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
-                    </div>
-                </div>
+                {% include loader.html %}
 
                 <!-- pipeline details -->
                 <div class="bx--row instance-number-row">
@@ -207,17 +158,17 @@ permalink: /instance/
                 </div>
 
                 <div class="bx--row">
-                        <div class="bx--col-sm-2 bx--col-lg-8">
-                            <a id="pipeline-link" target="_blank">
-                                <button class="bx--btn bx--btn--secondary tile-instance-button" id="pipeline-button" type="button" disabled>
-                                    <span id="pipeline-button-text">{{t.instance.not-configured}}</span>
-                                    <div class="arrow-container">
-                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
-                                    </div>
-                                </button>
-                            </a>
-                        </div>
+                    <div class="bx--col-sm-2 bx--col-lg-8">
+                        <a id="pipeline-link" target="_blank">
+                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="pipeline-button" type="button" disabled>
+                                <span id="pipeline-button-text">{{t.instance.not-configured}}</span>
+                                <div class="arrow-container">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                </div>
+                            </button>
+                        </a>
                     </div>
+                </div>
             </div>
         </div>
 
@@ -226,20 +177,9 @@ permalink: /instance/
             <div id="application-details-card" class="bx--tile">
 
                 <!-- loader -->
-                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
-                    <div class="bx--inline-loading__animation">
-                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
-                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
-                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
-                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
-                        </svg>
-                        </div>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
-                    </div>
-                </div>
+                {% include loader.html %}
 
-                <!-- collection details -->
+                <!-- Application Navigator card details -->
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
                         <h2>{{t.instance.apps}}</h2>
@@ -247,10 +187,10 @@ permalink: /instance/
                 </div>
 
                 <div class="bx--row">
-                        <div class="bx--col">
-                            <p>Manage your applications using Application Navigator</p>
-                        </div>
+                    <div class="bx--col">
+                        <p>Manage your applications using Application Navigator</p>
                     </div>
+                </div>
 
                 <div class="bx--row">
                     <div class="bx--col-sm-2 bx--col-lg-8">
@@ -268,3 +208,16 @@ permalink: /instance/
         </div>
     </div>
 </div>
+
+<!-- Templates -->
+
+<li id="instance-li-template" data-accordion-item class="bx--accordion__item hide">
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane${this.instanceName}">
+      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
+      <div class="bx--accordion__title"></div>
+    </button>
+    <div class="bx--accordion__content">
+      <p class="gray-text">Date created</p>
+      <p class="creation-date"></p>
+    </div>
+</li>
