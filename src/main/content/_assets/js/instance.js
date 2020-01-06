@@ -97,7 +97,6 @@ function setToolData(tools){
         typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
         }
-
         if(tool.label === "Application Navigator"){
             $("#appnav-link").attr("href", tool.location);
             $("#manage-apps-button").attr("disabled", false);
@@ -108,6 +107,12 @@ function setToolData(tools){
             $("#pipeline-link").attr("href", tool.location);
             $("#pipeline-button").attr("disabled", false);
             $("#pipeline-button-text").text("Manage Pipelines");
+        }
+
+        if(tool.label === "Eclipse Che"){
+            $("#che-link").attr("href", tool.location);
+            $("#che-button").attr("disabled", false);
+            $("#che-button-text").text("Go to Eclipse Che");
         }
 
         //set kappnav url to manage applications link

@@ -1,13 +1,13 @@
 ![](src/main/content/img/Kabanero_Logo_Hero.png)
 
 # Introduction
-Landing page for the Kabanero OKD Console.
+Console Application for Kabanero
 
-![](src/main/content/img/kabanero-landing-screenshot.png)
+![](src/main/content/img/kabanero-landing-screenshot-0_4_0.png)
 
 ## Contributing to the landing page
 
-Please [view our contribution guidelines](https://github.com/kabanero-io/kabanero-landing/blob/master/CONTRIBUTING.md) for the Kabanero.io landing page.
+Please [view our contribution guidelines](https://github.com/kabanero-io/kabanero-landing/blob/master/CONTRIBUTING.md) for the Kabanero.io console.
 
 ## Community
 - [Kabanero on Twitter](https://twitter.com/Kabaneroio)

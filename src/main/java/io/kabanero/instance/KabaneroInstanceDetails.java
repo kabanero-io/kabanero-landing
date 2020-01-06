@@ -26,7 +26,6 @@ public class KabaneroInstanceDetails {
     public String username;
     public String dateCreated;
     public List<KabaneroRepository> repos;
-    public String transformationAdvisorURL;
     public String tektonDashboardURL;
     public String clusterName;
     public List<KabaneroCollection> collections;
@@ -89,14 +88,6 @@ public class KabaneroInstanceDetails {
         this.clusterName = clusterName;
     }
 
-    public String getTransformationAdvisorURL() {
-        return transformationAdvisorURL;
-    }
-
-    public void setTransformationAdvisorURL(String transformationAdvisorURL) {
-        this.transformationAdvisorURL = transformationAdvisorURL;
-    }
-
     public String getTektonDashboardURL() {
         return tektonDashboardURL;
     }
@@ -117,7 +108,6 @@ public class KabaneroInstanceDetails {
     public String toString() {
         return "KabaneroInstanceDetails [cliURL=" + cliURL + ", clusterName=" + clusterName + ", collections="
                 + collections + ", dateCreated=" + dateCreated + ", repos=" + repos + ", tektonDashboardURL="
-                + tektonDashboardURL + ", transformationAdvisorURL=" + transformationAdvisorURL + ", username="
-                + username + "]";
+                + tektonDashboardURL + ", username=" + username + "]";
     }
 }

@@ -74,7 +74,7 @@ permalink: /instance/
                             <div class="bx--col">
                                 <div class="input-group">
                                 <p class="gray-text collections-url" id="codewind-url-text">Codewind URL: </p>
-                                    <input id="codewind-url" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${codewindURL} data-original-title="" title="">
+                                    <input id="codewind-url" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
                                     <div class="input-group-append">
                                         <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
                                     </div>
@@ -85,7 +85,7 @@ permalink: /instance/
                             <div class="bx--col">
                                 <p>Managment CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. For more informaiton about using the CLI see the <a href="/docs/ref/general/reference/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
                                 <div class="input-group">
-                                    <input id="management-cli" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" value=${clientURL} data-original-title="" title="">
+                                    <input id="management-cli" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
                                     <div class="input-group-append">
                                         <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
                                     </div>
@@ -147,7 +147,7 @@ permalink: /instance/
                 <!-- pipeline details -->
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
-                        <h4>Pipelines</h4>
+                        <h2>Pipelines</h2>
                     </div>
                 </div>
 
@@ -197,6 +197,53 @@ permalink: /instance/
                         <a id="appnav-link" target="_blank">
                             <button class="bx--btn bx--btn--secondary tile-instance-button" id="manage-apps-button" type="button" disabled>
                                 <span id="manage-apps-button-text">{{t.instance.not-configured}}</span>
+                                <div class="arrow-container">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                </div>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bx--col-xlg-4 white-background">
+            <div id="pipelines-details-card" class="bx--tile">
+        
+                <!-- loader -->
+                <div data-inline-loading class="bx--inline-loading" role="alert" aria-live="assertive">
+                    <div class="bx--inline-loading__animation">
+                        <div data-inline-loading-spinner class="bx--loading bx--loading--small">
+                        <svg class="bx--loading__svg" viewBox="-75 -75 150 150">
+                            <circle class="bx--loading__background" cx="0" cy="0" r="26.8125" />
+                            <circle class="bx--loading__stroke" cx="0" cy="0" r="26.8125"/>
+                        </svg>
+                        </div>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading__checkmark-container" hidden="" data-inline-loading-finished="" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8,1C4.1,1,1,4.1,1,8c0,3.9,3.1,7,7,7s7-3.1,7-7C15,4.1,11.9,1,8,1z M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z"></path><path d="M7,11L4.3,8.3l0.9-0.8L7,9.3l4-3.9l0.9,0.8L7,11z" data-icon-path="inner-path" opacity="0"></path></svg>
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--inline-loading--error" hidden="" data-inline-loading-error="" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true"><path d="M2,16H2A14,14,0,1,0,16,2,14,14,0,0,0,2,16Zm23.15,7.75L8.25,6.85a12,12,0,0,1,16.9,16.9ZM8.24,25.16A12,12,0,0,1,6.84,8.27L23.73,25.16a12,12,0,0,1-15.49,0Z"></path></svg>
+                    </div>
+                </div>
+
+                <!-- pipeline details -->
+                <div class="bx--row instance-number-row">
+                    <div class="bx--col">
+                        <h2>Eclipse Che</h2>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                    <div class="bx--col">
+                        <p>
+                            Eclipse Che makes Kubernetes development accessible for developer teams, providing one-click developer workspaces and eliminating local environment configuration for your entire team.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bx--row">
+                    <div class="bx--col-sm-2 bx--col-lg-8">
+                        <a id="che-link" target="_blank">
+                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="che-button" type="button" disabled>
+                                <span id="che-button-text">{{t.instance.not-configured}}</span>
                                 <div class="arrow-container">
                                 <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
                                 </div>

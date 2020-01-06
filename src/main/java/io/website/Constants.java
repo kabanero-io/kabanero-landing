@@ -48,14 +48,14 @@ public final class Constants {
     public static final List<KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
 
     // Kabanero Tools
-    public static final String TA_DASHBOARD_LABEL = "Transformation Advisor";
-    public static final String TA_DASHBOARD_URL = getEnv("TA_DASHBOARD_URL", "");
-
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
     public static final String TEKTON_DASHBOARD_URL = getEnv("TEKTON_DASHBOARD_URL", "");
 
     public static final String KAPPNAV_LABEL = "Application Navigator";
     public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
+
+    public static final String CHE_LABEL = "Eclipse Che";
+    public static final String CHE_URL = getEnv("CHE_URL", "");
 
 
     // OKD

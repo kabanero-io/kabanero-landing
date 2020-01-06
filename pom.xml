@@ -59,9 +59,14 @@
 			<version>1.0.35</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.mylyn.github</groupId>
-			<artifactId>org.eclipse.egit.github.core</artifactId>
-			<version>2.1.5</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20190722</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
 		</dependency>
 		<!-- BEGIN: Needed to compile and run unit tests -->
 		<dependency>
