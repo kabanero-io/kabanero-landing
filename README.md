@@ -3,7 +3,7 @@
 # Introduction
 Landing page for the Kabanero OKD Console.
 
-![](src/main/content/img/kabanero-landing-screenshot.png)
+![](src/main/content/img/kabanero-landing-screenshot-0_4_0.png)
 
 ## Contributing to the landing page
 
