@@ -81,7 +81,7 @@ public class CollectionsEndpoints extends Application {
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
-        CloseableHttpClient client = createTrustAllHttpClientBuilder();
+        CloseableHttpClient client = createHttpClient();
 
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
 
@@ -133,7 +133,7 @@ public class CollectionsEndpoints extends Application {
      */
     private String getJWTFromLogin(String user, String token, String instanceName)
             throws ClientProtocolException, IOException {
-        CloseableHttpClient client = createTrustAllHttpClientBuilder();
+        CloseableHttpClient client = createHttpClient();
         // TODO protect against null client
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -179,9 +179,8 @@ public class CollectionsEndpoints extends Application {
         return CLI_URL;
     }
 
-    private static CloseableHttpClient createTrustAllHttpClientBuilder(){
+    private static CloseableHttpClient createHttpClient(){
         try {
-
             TrustStrategy trustAllStrategy = new TrustStrategy(){
 				@Override
 				public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -201,5 +200,4 @@ public class CollectionsEndpoints extends Application {
             return null;
         }
       }
-    
 }
