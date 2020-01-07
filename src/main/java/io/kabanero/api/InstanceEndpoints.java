@@ -35,7 +35,7 @@ import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
 @ApplicationPath("api")
-@Path("/instances")
+@Path("/kabanero")
 @RequestScoped
 public class InstanceEndpoints extends Application {
 
@@ -50,10 +50,13 @@ public class InstanceEndpoints extends Application {
     @Path("/{instanceName}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAInstance(@PathParam("instanceName") String instanceName) {
-        KabaneroInstance wantedInstance = KabaneroManager.getKabaneroManagerInstance().getKabaneroInstance(instanceName);
-        if(wantedInstance == null){
+        KabaneroInstance wantedInstance = KabaneroManager.getKabaneroManagerInstance()
+                .getKabaneroInstance(instanceName);
+        if (wantedInstance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
         return Response.ok().entity(wantedInstance).build();
     }
+
+
 }

@@ -38,6 +38,12 @@ public final class Constants {
     public static final String DEFAULT_CLUSTER_NAME = getEnv("CLUSTER_NAME", "");
     public static final String CLI_URL = getEnv("CLI_URL", "");
 
+    //OAuth
+    public static final String USER_API =  getEnv("USER_API", null);
+    public static final String AUTHORIZATION_ENDPOINT =  getEnv("AUTHORIZATION_ENDPOINT", null);
+    public static final String TOKEN_ENDPOINT =  getEnv("TOKEN_ENDPOINT", null);
+    public static final String WEBSITE = getEnv("WEBSITE", null);
+
     // Collections env value should be a comma separated list of "collection_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
     public static final List<KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
 

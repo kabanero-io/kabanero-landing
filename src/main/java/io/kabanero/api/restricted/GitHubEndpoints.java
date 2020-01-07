@@ -16,7 +16,9 @@
  *
  ******************************************************************************/
 
-package io.kabanero.api;
+package io.kabanero.api.restricted;
+
+import java.io.IOException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -26,28 +28,27 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
-import io.kabanero.KabaneroInstallation;
-import io.kabanero.OAuthDetails;
+import com.ibm.websphere.security.social.UserProfile;
+import com.ibm.websphere.security.social.UserProfileManager;
 
-/*
-    Endpoints related to the Kabanero installation as a whole
-*/
+import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.UserService;
+
 @ApplicationPath("api")
-@Path("/install")
+@Path("/auth/git")
 @RequestScoped
-public class KabaneroEndpoints extends Application {
+public class GitHubEndpoints extends Application {
 
     @GET
-    @Path("/version")
+    @Path("/user")
     @Produces(MediaType.APPLICATION_JSON)
-    public KabaneroInstallation getInstallDetails() {
-        return new KabaneroInstallation();
+    public User getUserInfo() throws IOException {
+        UserProfile userProfile = UserProfileManager.getUserProfile();
+        String token = userProfile.getAccessToken();
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token(token);
+        return new UserService(client).getUser();
     }
 
-    @GET
-    @Path("/oauth")
-    @Produces(MediaType.APPLICATION_JSON)
-    public OAuthDetails getOAuthDetails() {
-        return new OAuthDetails();
-    }
 }

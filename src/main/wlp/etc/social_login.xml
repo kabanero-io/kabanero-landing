@@ -1,0 +1,17 @@
+<server>
+    <featureManager>
+        <feature>socialLogin-1.0</feature>
+        <feature>appSecurity-2.0</feature>
+    </featureManager>
+
+    <!-- The client id and secret will be subsituted in by the entry_liberty_config.sh script when a container is run -->
+    <githubLogin 
+    userApi="{{USER_API}}" 
+    userNameAttribute="login" 
+    clientId="{{GITHUB_CLIENT_ID}}" 
+    clientSecret="{{GITHUB_CLIENT_SECRET}}" 
+    tokenEndpoint="{{TOKEN_ENDPOINT}}" 
+    authorizationEndpoint="{{AUTHORIZATION_ENDPOINT}}" 
+    scope="repo admin:org user"
+    />
+</server>

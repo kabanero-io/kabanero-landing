@@ -122,3 +122,5 @@ instance:
   apps: Applications
   no-apps: Deploy your application to begin managing them.
   app-hub: Application Hub
+  oauth:
+    configure: Configure OAuth
