@@ -70,7 +70,7 @@ If you would like to setup GitHub OAuth for local development follow these steps
    1. `.env`, and copy the below env vars into it. Change the values if you want to point to a different GitHub server.
       * 
          ```
-         USER_API=https://api.github.com/user/
+         USER_API=https://api.github.com/user
          TOKEN_ENDPOINT=https://github.com/login/oauth/access_token
          AUTHORIZATION_ENDPOINT=https://github.com/login/oauth/authorize
          WEBSITE=https://github.com
