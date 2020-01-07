@@ -61,7 +61,7 @@ function handleInitialCLIAuth(instanceName){
 
             // Login via cli and retry if 401 is returned on initial call
             if(response.status === 401){
-                loginViaCLI(instanceName)
+                return loginViaCLI(instanceName)
                     .then(() => {
                         return handleInitialCLIAuth(instanceName); 
                     });

@@ -52,7 +52,7 @@ To start, an OAuth GitHub app will need to be created in the same GitHub organiz
 
 1. Add two key value pairs to the secret. Note: the key names must be exact.
    * key: `clientID` and the value is your client ID from GitHub.
-   * key: `clientSecret` and the vlue is your client secret from GitHub.
+   * key: `clientSecret` and the value is your client secret from GitHub.
 
 1. Restart (delete) the kabanero landing pod.
 

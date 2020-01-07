@@ -90,6 +90,14 @@ public class CollectionsEndpoints extends Application {
         CloseableHttpResponse response = client.execute(httpGet);
 
         try {
+
+            // Check if CLI server returns a bad code (like 401) which will tell our frontend to trigger a login
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode != 200){
+                LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
+                return Response.status(statusCode).build();
+            }
+
             HttpEntity entity2 = response.getEntity();
             String body = EntityUtils.toString(entity2);
 
