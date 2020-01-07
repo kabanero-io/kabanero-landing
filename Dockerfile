@@ -1,10 +1,13 @@
 FROM ruby:2.6.5 as builder
 
 # Install Java
-RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz \
-    && tar -xzf /tmp/jdk.tar.gz \
-    && mv jdk* /opt \
+RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09_openj9-0.17.0/OpenJDK8U-jdk_x64_linux_openj9_8u232b09_openj9-0.17.0.tar.gz \
+    && mkdir -p /opt/java/openjdk \
+    && tar -xzf /tmp/jdk.tar.gz --strip-components=1 -C /opt/java/openjdk \
+    && chown -R root:root /opt/java \
     && rm /tmp/jdk.tar.gz
+    
+ENV JAVA_HOME /opt/java/openjdk
 
 # Install Node
 ENV NODE_VERSION 10.15.3
@@ -19,7 +22,7 @@ RUN curl -o /tmp/maven.tar.gz https://archive.apache.org/dist/maven/maven-3/${MA
     && mv apache-maven-${MAVEN_VERSION} /opt/ \
     && rm /tmp/maven.tar.gz
 
-ENV PATH=/opt/jdk8u222-b10/bin:/opt/node-v$NODE_VERSION-linux-x64/bin/:/opt/apache-maven-${MAVEN_VERSION}/bin:$PATH
+ENV PATH=/opt/java/openjdk/bin:/opt/node-v$NODE_VERSION-linux-x64/bin/:/opt/apache-maven-${MAVEN_VERSION}/bin:$PATH
 
 # Set UTF-8 Locale
 ENV LANG C.UTF-8
@@ -45,11 +48,11 @@ RUN bash ./scripts/build_jekyll_maven.sh
 
 # ------------------------------------------------------------------------------------------------
 
-FROM openliberty/open-liberty:javaee8-ubi-min
+FROM openliberty/open-liberty:kernel-java8-openj9-ubi
 
-LABEL name="kabanero-landing" \
-      summary="Kabanero landing site" \
-      description="Kabanero landing site"
+LABEL name="kabanero-console" \
+      summary="Kabanero Console" \
+      description="Kabanero Console"
 
 # Set git.revision label
 ARG GIT_REVISION=0
@@ -67,7 +70,9 @@ USER 1001
 
 COPY --from=builder /app/target/liberty/wlp/usr/servers /servers
 COPY LICENSE /licenses
+COPY scripts/entry_liberty_config.sh /scripts/
+COPY src/main/wlp/etc/social_login.xml /opt/ol/wlp/etc/
 
 # Run the server script and start the defaultServer by default.
-ENTRYPOINT ["/opt/ol/wlp/bin/server", "run"]
+ENTRYPOINT ["/scripts/entry_liberty_config.sh"]
 CMD ["defaultServer"]

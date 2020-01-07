@@ -50,4 +50,16 @@
             <http-only>true</http-only>
         </cookie-config>
     </session-config>
+
+    <security-constraint id="GitHubSecurityConstraint">
+        <web-resource-collection id="GitHubWebResourceCollection1">
+            <web-resource-name>Protected with ** role</web-resource-name>
+            <url-pattern>/api/auth/*</url-pattern>
+            <url-pattern>/instance/collections</url-pattern>
+        </web-resource-collection>
+        <auth-constraint id="GitHubAuthConstraint">
+            <role-name>**</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 </web-app>
