@@ -2,6 +2,7 @@
 /.apt_generated/
 /target/
 /.settings/
+/.vscode/
 .project
 .classpath
 .DS_Store
