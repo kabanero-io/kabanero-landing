@@ -65,8 +65,8 @@ If you would like to setup GitHub OAuth for local development follow these steps
 1. Fork and clone this repository.
 1. Create an `oauth` directory in the root of this repository.
 1. Create 3 files **inside the oauth directory:**
-   1. `consoleOAuthId` and place your GitHub OAuth ID in it and save.
-   1. `consoleOAuthSecret` and place your GitHub OAuth secret in it and save.
+   1. `clientID` and place your GitHub OAuth ID in it and save.
+   1. `clientSecret` and place your GitHub OAuth secret in it and save.
    1. `.env`, and copy the below env vars into it. Change the values if you want to point to a different GitHub server.
       * 
          ```
