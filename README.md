@@ -40,7 +40,7 @@ To manage your collections via this console you must configure OAuth to your Git
 To start, an OAuth GitHub app will need to be created in the same GitHub organization that your collection hub is in (your forked collection repo)
    * If the OAuth GitHub app and the Collections repository **need** to be in different GitHub orgs, then the OAuth GitHub app can request access to data in the org with the collections. For more infomrmation see the GitHub doc - [OAuth App Access and Restrictions](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-oauth-app-access-restrictions)
 
-1. In your GitHub organization, create an OAuth Application in **Settings -> OAuth Apps**
+1. In your GitHub organization, create an OAuth Application in **Settings -> Developer settings -> OAuth Apps**
    * The application name can be anything, a suggestion is: `kabanero console`.
    * Homepage URL can be anything for now since the application doesn't exist yet, you can come back and fill this in
    * Authorization callback URL is `https://<YOUR_HOST_IP_PORT>/ibm/api/social-login/redirect/githubLogin`
