@@ -40,7 +40,7 @@ To manage your collections via this console you must configure OAuth to your Git
 To start, an OAuth GitHub app will need to be created in the same GitHub organization that your collection hub is in (your forked collection repo)
    * If the OAuth GitHub app and the Collections repository **need** to be in different GitHub orgs, then the OAuth GitHub app can request access to data in the org with the collections. For more infomrmation see the GitHub doc - [OAuth App Access and Restrictions](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-oauth-app-access-restrictions)
 
-1. In your GitHub organization, create an OAuth Application in **Settings -> OAuth Apps**
+1. In your GitHub organization, create an OAuth Application in **Settings -> Developer settings -> OAuth Apps**
    * The application name can be anything, a suggestion is: `kabanero console`.
    * Homepage URL can be anything for now since the application doesn't exist yet, you can come back and fill this in
    * Authorization callback URL is `https://<YOUR_HOST_IP_PORT>/ibm/api/social-login/redirect/githubLogin`
@@ -65,12 +65,12 @@ If you would like to setup GitHub OAuth for local development follow these steps
 1. Fork and clone this repository.
 1. Create an `oauth` directory in the root of this repository.
 1. Create 3 files **inside the oauth directory:**
-   1. `consoleOAuthId` and place your GitHub OAuth ID in it and save.
-   1. `consoleOAuthSecret` and place your GitHub OAuth secret in it and save.
+   1. `clientID` and place your GitHub OAuth ID in it and save.
+   1. `clientSecret` and place your GitHub OAuth secret in it and save.
    1. `.env`, and copy the below env vars into it. Change the values if you want to point to a different GitHub server.
       * 
          ```
-         USER_API=https://api.github.com/user/
+         USER_API=https://api.github.com/user
          TOKEN_ENDPOINT=https://github.com/login/oauth/access_token
          AUTHORIZATION_ENDPOINT=https://github.com/login/oauth/authorize
          WEBSITE=https://github.com
