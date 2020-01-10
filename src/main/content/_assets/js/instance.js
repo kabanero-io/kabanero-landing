@@ -113,6 +113,7 @@ function setToolData(tools){
             $("#che-link").attr("href", tool.location);
             $("#che-button").attr("disabled", false);
             $("#che-button-text").text("Go to Eclipse Che");
+            $("#che-tile").show();
         }
 
         //set kappnav url to manage applications link
