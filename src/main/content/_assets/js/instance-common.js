@@ -19,7 +19,9 @@
 function fetchAllInstances(){    
     return fetch("/api/kabanero")
         .then(function(response) {
-            return response.json();
+            console.log("Getting all instances");
+            console.log(response);
+            return response;
         })
         .catch(error => console.error("Error getting instance names:", error));
 }
@@ -31,6 +33,7 @@ function fetchAnInstance(instanceName){
 
     return fetch(`/api/kabanero/${instanceName}`)
         .then(function(response) {
+            console.log(`Fetching instance ${instanceName}`);
             return response.json();
         })
         .catch(error => console.error(`Error getting instance info for: ${instanceName}`, error));

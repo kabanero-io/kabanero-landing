@@ -19,6 +19,7 @@
 package io.kabanero.api.restricted;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -66,6 +67,10 @@ import io.kabanero.instance.KabaneroInstance;
 import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
+import io.kabanero.v1alpha1.client.apis.CollectionApi;
+import io.kabanero.v1alpha1.models.Kabanero;
+import io.kubernetes.client.ApiException;
+
 @ApplicationPath("api")
 @Path("/auth/kabanero/{instanceName}/collections")
 @RequestScoped
@@ -80,10 +85,11 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
+    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
+            throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
-        String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
 
         HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
@@ -91,9 +97,10 @@ public class CollectionsEndpoints extends Application {
 
         try {
 
-            // Check if CLI server returns a bad code (like 401) which will tell our frontend to trigger a login
+            // Check if CLI server returns a bad code (like 401) which will tell our
+            // frontend to trigger a login
             int statusCode = response.getStatusLine().getStatusCode();
-            if(statusCode != 200){
+            if (statusCode != 200) {
                 LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
                 return Response.status(statusCode).build();
             }
@@ -116,7 +123,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@Context HttpServletRequest httpServletRequest) throws ClientProtocolException, IOException {
+    public Response login(@Context HttpServletRequest httpServletRequest) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         String user = httpServletRequest.getUserPrincipal().getName();
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
@@ -140,7 +147,7 @@ public class CollectionsEndpoints extends Application {
      * @return a JWT associated with the logged in GitHub user
      */
     private String getJWTFromLogin(String user, String token, String instanceName)
-            throws ClientProtocolException, IOException {
+            throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
         // TODO protect against null client
 
@@ -180,10 +187,10 @@ public class CollectionsEndpoints extends Application {
         }
     }
 
-    private String setCLIURL(String instanceName) {
-        KabaneroInstance wantedInstance = KabaneroManager.getKabaneroManagerInstance()
+    private String setCLIURL(String instanceName) throws IOException, ApiException, GeneralSecurityException {
+        Kabanero wantedInstance = KabaneroManager.getKabaneroManagerInstance()
                 .getKabaneroInstance(instanceName);
-        CLI_URL = wantedInstance.getDetails().getCliURL();
+        CLI_URL = wantedInstance.getStatus().getCli().getHostnames().get(0);
         return CLI_URL;
     }
 
