@@ -91,9 +91,14 @@ public class CollectionsEndpoints extends Application {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+        System.out.println("!!!!!!cliServerURL   " + cliServerURL + "   !!!!!!!");
+        System.out.println("!!!!!!jwt   " + jwt + "  !!!!!!!");
 
         HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
+        System.out.println("!!!!!!1111111   " + httpGet.toString() + "  !!!!!!!");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
+        System.out.println("!!!!!!2222222   " + httpGet.toString() + "  !!!!!!!");
+        System.out.println("!!!!!!AUTH  " + HttpHeaders.AUTHORIZATION + " !!!!!!!");
         CloseableHttpResponse response = client.execute(httpGet);
         System.out.println("Trying to get collections list");
         try {
