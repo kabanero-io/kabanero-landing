@@ -3,7 +3,8 @@ $(document).ready(function() {
         .then(setInstanceSelections)
         .then(handleInitialCLIAuth)
         .then(getCollectionData)
-        .then(updateCollectionView);
+        .then(getCliVersion)
+        .then(updateCliVersion);
     //TODO then select/fetch current instance from url param for the dropdown
 
     $("#instance-accordion li").on("click", e => {
@@ -20,37 +21,37 @@ function getCollectionData(instanceName){
     if(typeof instanceName === "undefined"){
         return;
     }
-
-    let collectionJSON = null;
-    let cliVersion = null;
-
     return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
         .then(function(response) {
             return response.json();
         })
-        .then(function(data) {
-            collectionJSON = data;
-            return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
-            .then(function(response) {
-                return response.json();
-            })
-            .catch(error => console.error("Error getting CLI Version", error));
+        .then(function(data){
+            return updateCollectionView(data);
         })
-        .then(function(data) {
-            cliVersion = data;
-            return $.extend(collectionJSON, cliVersion)
+        .then(() =>{
+            return instanceName;
         })
         .catch(error => console.error("Error getting collections", error));
+}
+
+function getCliVersion(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+    return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
+        .then(function(response) {
+            return response.json()
+        })
+        .catch(error => console.error("Error getting CLI Version", error));
 }
 
 function updateCollectionView(collectionJSON){
     if(typeof collectionJSON === "undefined"){
         return;
     }
-    
-    let collections = collectionJSON["kabanero collections"];
-    let cliVersion = collectionJSON["image"].split(":")[1];
   
+    let collections = collectionJSON["kabanero collections"];
+
     collections.forEach(coll => {
         $("#collection-table-body").append(createCollRow(coll));
     });
@@ -58,8 +59,6 @@ function updateCollectionView(collectionJSON){
     // hide loader table and show this one
     $(".table-loader").hide();
     $("#collection-table").show();
-    $(".cli-version").append(cliVersion);
-    $("#table-header-cli-version").show();
 
     function createCollRow(coll){
         let row = $("<tr>");
@@ -70,16 +69,15 @@ function updateCollectionView(collectionJSON){
     }
 }
 
-function getCliVersion(instanceName){
-    if(typeof instanceName === "undefined"){
+function updateCliVersion(cliVersion){
+    if(typeof cliVersion === "undefined"){
         return;
     }
 
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
-        .then(function(response) {
-            return response.json();
-        })
-        .catch(error => console.error("Error getting CLI Version", error));
+    let version = cliVersion["image"].split(":")[1];
+
+    $("#cli-version").append(version);
+    $("#table-header-cli-version").show();
 }
 
 function getURLParam(key){
