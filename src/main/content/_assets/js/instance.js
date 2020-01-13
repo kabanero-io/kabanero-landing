@@ -71,7 +71,9 @@ function loadAllInfo(){
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(fetchAnInstance)
-        .then(updateInstanceView);
+        .then(updateInstanceView)
+        .then(fetchCollectionData)
+        .then(setCollectionCard);
 
     fetchAllTools()
         .then(setToolData);
@@ -79,9 +81,7 @@ function loadAllInfo(){
     fetchOAuthDetails()
         .then(setOAuth);
 
-    handleInitialCLIAuth("kabanero")
-        .then(fetchCollectionData)
-        .then(setCollectionCard);
+    
 }
 
 // Set details on UI for any given instance
@@ -137,19 +137,21 @@ function updateInstanceView(instanceJSON){
     if(typeof instanceJSON === "undefined"){
         return;
     }
-
     //update the various cards
     setInstanceCard(instanceJSON);
+    console.log("About to return updateInstanceView");
+    console.log(instanceJSON);
     //setCollectionCard(instanceJSON);
+    return instanceJSON.metadata.name;
 }
 
 function setInstanceCard(instanceJSON){
+    console.log("SETTING INSTANCE CARD");
     console.log(instanceJSON);
-    let details = instanceJSON[0];
-    let appHubName = details.metadata.name;
-    let appsodyURL = details.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
-    let codewindURL = details.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
-    let cliURL = details.status.cli.hostnames[0];
+    let appHubName = instanceJSON.spec.collections.repositories[0].name;
+    let appsodyURL = instanceJSON.spec.collections.repositories[0].url;
+    let codewindURL = instanceJSON.spec.collections.repositories[0].url;
+    let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
@@ -168,17 +170,18 @@ function setInstanceCard(instanceJSON){
 }
 
 function setCollectionCard(instanceJSON){
+    console.log("COLLECTIONS!!!");
     console.log(instanceJSON);
-    let details = instanceJSON.details;
-    let collections = details.collections;
-    let numberOfCollections = details.collections.length;
+    //let details = instanceJSON.details;
+    let collections = instanceJSON.items;
+    let numberOfCollections = instanceJSON.items.length;
     
     // Collections Card
     $("#collection-details-card #num-collections").text(numberOfCollections);
 
     let liColls = "";
     $(collections).each(function(){
-        liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
+        liColls = liColls.concat(`<li>${this.spec.name} : ${this.spec.version}</li>`);
     });
 
     $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);

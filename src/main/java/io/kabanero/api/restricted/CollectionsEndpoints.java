@@ -68,8 +68,11 @@ import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
 import io.kabanero.v1alpha1.client.apis.CollectionApi;
+import io.kabanero.v1alpha1.models.CollectionList;
 import io.kabanero.v1alpha1.models.Kabanero;
 import io.kubernetes.client.ApiException;
+import io.kubernetes.KabaneroClient;
+
 
 @ApplicationPath("api")
 @Path("/auth/kabanero/{instanceName}/collections")
@@ -85,47 +88,46 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
+    public CollectionList listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
             throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
-        System.out.println("Entering list collections endpoint");
-        CloseableHttpClient client = createHttpClient();
+        System.out.println("!!!Listing collections from kube api!!!!");
+        CollectionList collections = KabaneroClient.getCollections();
+        System.out.println(collections.toString());
+        return collections;
+        // CloseableHttpClient client = createHttpClient();
 
-        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
-        System.out.println("!!!!!!cliServerURL   " + cliServerURL + "   !!!!!!!");
-        System.out.println("!!!!!!jwt   " + jwt + "  !!!!!!!");
+        // String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
 
-        HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
-        System.out.println("!!!!!!1111111   " + httpGet.toString() + "  !!!!!!!");
-        httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
-        System.out.println("!!!!!!2222222   " + httpGet.toString() + "  !!!!!!!");
-        System.out.println("!!!!!!AUTH  " + HttpHeaders.AUTHORIZATION + " !!!!!!!");
-        CloseableHttpResponse response = client.execute(httpGet);
-        System.out.println("Trying to get collections list");
-        try {
+        // HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
+        // httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
+        // System.out.println("Trying to get collections list");
+        // CloseableHttpResponse response = client.execute(httpGet);
 
-            // Check if CLI server returns a bad code (like 401) which will tell our
-            // frontend to trigger a login
-            int statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode != 200) {
-                LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
-                return Response.status(statusCode).build();
-            }
+        // try {
 
-            HttpEntity entity2 = response.getEntity();
-            String body = EntityUtils.toString(entity2);
+        //     // Check if CLI server returns a bad code (like 401) which will tell our
+        //     // frontend to trigger a login
+        //     int statusCode = response.getStatusLine().getStatusCode();
+        //     if (statusCode != 200) {
+        //         LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
+        //         return Response.status(statusCode).build();
+        //     }
 
-            JSONObject collectionsJSON = new JSONObject(body);
-            System.out.println("Got collections!");
-            System.out.println(collectionsJSON.toString());
-            EntityUtils.consume(entity2);
-            return Response.ok().entity(String.valueOf(collectionsJSON)).build();
-        } catch (JSONException e) {
-            LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
-            System.err.println("Failed parsing Collections JSON: " + e.toString());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        } finally {
-            response.close();
-        }
+        //     HttpEntity entity2 = response.getEntity();
+        //     String body = EntityUtils.toString(entity2);
+
+        //     JSONObject collectionsJSON = new JSONObject(body);
+        //     System.out.println("Got collections!");
+        //     System.out.println(collectionsJSON.toString());
+        //     EntityUtils.consume(entity2);
+        //     return Response.ok().entity(String.valueOf(collectionsJSON)).build();
+        // } catch (JSONException e) {
+        //     LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
+        //     System.err.println("Failed parsing Collections JSON: " + e.toString());
+        //     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        // } finally {
+        //     response.close();
+        // }
     }
 
     @GET
@@ -196,8 +198,7 @@ public class CollectionsEndpoints extends Application {
     }
 
     private String setCLIURL(String instanceName) throws IOException, ApiException, GeneralSecurityException {
-        Kabanero wantedInstance = KabaneroManager.getKabaneroManagerInstance()
-                .getKabaneroInstance(instanceName);
+        Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
         CLI_URL = wantedInstance.getStatus().getCli().getHostnames().get(0);
         return CLI_URL;
     }

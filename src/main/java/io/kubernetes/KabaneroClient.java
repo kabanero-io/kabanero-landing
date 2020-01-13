@@ -59,6 +59,7 @@ import com.squareup.okhttp.ConnectionSpec;
 import org.apache.commons.io.IOUtils;
 
 import io.kabanero.v1alpha1.client.apis.KabaneroApi;
+import io.kabanero.v1alpha1.client.apis.CollectionApi;
 import io.kabanero.v1alpha1.models.Collection;
 import io.kabanero.v1alpha1.models.CollectionList;
 import io.kabanero.v1alpha1.models.CollectionStatus;
@@ -107,21 +108,52 @@ public class KabaneroClient {
 
     public static KabaneroList getInstances() throws IOException, ApiException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
-
         String namespace = "kabanero";
-
         try{
             KabaneroApi api = new KabaneroApi(client);
-			KabaneroList kabaneros = api.listKabaneros(namespace, null, null, null);
-			List<Kabanero> kabaneroList = kabaneros.getItems();
+            KabaneroList kabaneros = api.listKabaneros(namespace, null, null, null);
+            List<Kabanero> kabaneroList = kabaneros.getItems();
+
 			if (kabaneroList.size() > 0) {
-                System.out.println("Getting instances from api");
+                System.out.println("!!!Got instances data from api!!!");
                 System.out.println(kabaneros.toString());
                 return kabaneros;
-			}
+            }
         }catch (Exception e) {
 			e.printStackTrace();
 		}
+        return null;
+    }
+
+    public static Kabanero getAnInstance(String instanceName) throws IOException, ApiException, GeneralSecurityException {
+        ApiClient client = KabaneroClient.getApiClient();
+        String namespace = "kabanero";
+        try{
+            KabaneroApi api = new KabaneroApi(client);
+            return api.getKabanero(namespace, instanceName);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static CollectionList getCollections() throws IOException, GeneralSecurityException {
+        System.out.println("!!!!Called getCollections!!!!!!");
+        ApiClient client = KabaneroClient.getApiClient();
+
+        String namespace = "kabanero";
+        try{
+            CollectionApi api = new CollectionApi(client);
+            CollectionList collections = api.listCollections(namespace, null, null, null);
+            List<Collection> collectionList = collections.getItems();
+            if(collectionList.size() > 0){
+                System.out.println("!!!Got collections data from api!!!");
+                System.out.println(collections.toString());
+                return collections;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 

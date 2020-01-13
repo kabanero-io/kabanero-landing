@@ -21,6 +21,7 @@ package io.kabanero.api;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collection;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -35,7 +36,9 @@ import javax.ws.rs.core.Response;
 import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 import io.kabanero.v1alpha1.models.Kabanero;
+import io.kabanero.v1alpha1.models.KabaneroList;
 import io.kubernetes.client.ApiException;
+import io.kubernetes.KabaneroClient;
 
 @ApplicationPath("api")
 @Path("/kabanero")
@@ -45,13 +48,15 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<Kabanero> getAllInstances() throws IOException, ApiException, GeneralSecurityException {
-        Collection<Kabanero> kabaneros = KabaneroManager.getKabaneroManagerInstance().getAllKabaneroInstances();
-        System.out.println("About to return kabaneros from api");
-        System.out.println(kabaneros.toString());
+    public KabaneroList getAllInstances() throws IOException, ApiException, GeneralSecurityException {
+        KabaneroList kabaneros = KabaneroClient.getInstances();
+        List<Kabanero> kabaneroList = kabaneros.getItems();
+        System.out.println("!!!!!here is kabanerolist!!!!!");
+        System.out.println("!!!!kabanerolist size: " + Integer.toString(kabaneroList.size()));
+        System.out.println(kabaneroList.toString());
         System.out.println("Is kabaneros empty?");
-        System.out.println(kabaneros.isEmpty());
-        if (kabaneros.isEmpty()){
+        System.out.println(kabaneroList.size() == 0);
+        if (kabaneroList.size() == 0){
             return null;
         }
         return kabaneros;
@@ -62,11 +67,15 @@ public class InstanceEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAInstance(@PathParam("instanceName") String instanceName)
             throws IOException, ApiException, GeneralSecurityException {
-        Kabanero wantedInstance = KabaneroManager.getKabaneroManagerInstance()
-                .getKabaneroInstance(instanceName);
+        System.out.println("!!!Getting a spcific instance: " + instanceName + " !!!!!!!!!!!!");
+        Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
         if (wantedInstance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
+        System.out.println("!!!!Got one!!!!!!");
+        System.out.println("!!!!Testing collections data!!!!!");
+        System.out.println(wantedInstance.getSpec().getCollections().toString());
+        
         return Response.ok().entity(wantedInstance).build();
     }
 

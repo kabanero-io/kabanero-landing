@@ -27,11 +27,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import io.website.Constants;
-import io.kubernetes.KabaneroClient;
-import io.kubernetes.client.ApiException;
+import io.kabanero.v1alpha1.models.CollectionList;
 import io.kabanero.v1alpha1.models.Kabanero;
 import io.kabanero.v1alpha1.models.KabaneroList;
+import io.kubernetes.KabaneroClient;
+import io.kubernetes.client.ApiException;
 
 // Singleton class to manage the various kabanero instances associated with Kabanero
 public class KabaneroManager {
@@ -39,6 +39,7 @@ public class KabaneroManager {
 
     private static KabaneroManager SINGLE_KABANERO_MANAGER_INSTANCE;
     private HashMap<String, Kabanero> KABANERO_INSTANCES = new HashMap<String, Kabanero>();
+    private HashMap<String, io.kabanero.v1alpha1.models.Collection> KABANERO_COLLECTIONS = new HashMap<String, io.kabanero.v1alpha1.models.Collection>();
     private long created = System.currentTimeMillis();
 
     private KabaneroManager() {
@@ -56,7 +57,14 @@ public class KabaneroManager {
 
             try {
                 KabaneroList kabaneros = KabaneroClient.getInstances();
+                CollectionList collections = KabaneroClient.getCollections();
                 List<Kabanero> instancesList = kabaneros.getItems();
+                List<io.kabanero.v1alpha1.models.Collection> collectionList = collections.getItems();
+                for(io.kabanero.v1alpha1.models.Collection coll : collectionList){
+                    System.out.println(coll.toString());
+                }
+                Kabanero firstInstance = instancesList.get(0);
+                System.out.println(firstInstance.getSpec().getCollections().toString());
                 for (Kabanero kabInst : instancesList) {
                     System.out.println("Kabanero Manager adding an instance");
                     System.out.println(kabInst.toString());
@@ -75,6 +83,11 @@ public class KabaneroManager {
         LOGGER.log(Level.FINE, "Adding new instance to manage: {0}", newInstance.getMetadata().getName());
         System.out.println("Adding new instance to manage: " + newInstance.getMetadata().getName());
         KABANERO_INSTANCES.put(newInstance.getMetadata().getName(), newInstance);
+    }
+
+    public void addCollection(io.kabanero.v1alpha1.models.Collection newCollection){
+        String nameVersionString = newCollection.getSpec().getName() + " : " + newCollection.getSpec().getVersion();
+        KABANERO_COLLECTIONS.put(nameVersionString, newCollection);
     }
 
     public static Kabanero createDefaultInstance() throws IOException, ApiException, GeneralSecurityException {
