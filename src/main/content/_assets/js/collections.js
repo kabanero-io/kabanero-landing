@@ -2,9 +2,7 @@ $(document).ready(function() {
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(handleInitialCLIAuth)
-        .then(getCollectionData)
-        .then(getCliVersion)
-        .then(updateCliVersion);
+        .then(handleCollectionsRequests)
     //TODO then select/fetch current instance from url param for the dropdown
 
     $("#instance-accordion li").on("click", e => {
@@ -17,6 +15,11 @@ $(document).ready(function() {
     });
 });
 
+function handleCollectionsRequests(instanceName){
+    getCollectionData(instanceName);
+    getCliVersion(instanceName);
+}
+
 function getCollectionData(instanceName){
     if(typeof instanceName === "undefined"){
         return;
@@ -28,9 +31,6 @@ function getCollectionData(instanceName){
         .then(function(data){
             return updateCollectionView(data);
         })
-        .then(() =>{
-            return instanceName;
-        })
         .catch(error => console.error("Error getting collections", error));
 }
 
@@ -39,8 +39,11 @@ function getCliVersion(instanceName){
         return;
     }
     return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
-        .then(function(response) {
+        .then(function(response){
             return response.json()
+        })
+        .then(function(data){
+            return setCLIVersion(data);
         })
         .catch(error => console.error("Error getting CLI Version", error));
 }
@@ -69,7 +72,7 @@ function updateCollectionView(collectionJSON){
     }
 }
 
-function updateCliVersion(cliVersion){
+function setCLIVersion(cliVersion){
     if(typeof cliVersion === "undefined"){
         return;
     }
