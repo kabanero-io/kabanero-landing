@@ -17,12 +17,8 @@
  ******************************************************************************/
 package io.kubernetes;
 
-import io.kabanero.instance.KabaneroCollection;
-import io.kabanero.instance.KabaneroInstance;
-import io.kabanero.instance.KabaneroRepository;
 import io.kabanero.instance.KabaneroTool;
 import io.kabanero.instance.KabaneroToolManager;
-import io.kubernetes.KubeKabanero;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
@@ -207,60 +203,6 @@ public class KabaneroClient {
         } finally {
             inputStream.close();
         }
-    }
-
-    private static List<KabaneroCollection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {
-        CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
-        String group = "kabanero.io";
-        String version = "v1alpha1";
-        String plural = "collections";
-
-        List<KabaneroCollection> collections = new ArrayList<KabaneroCollection>();
-
-        Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-        Map<String, ?> map = (Map<String, ?>) obj;
-        List<Map<String, ?>> items = (List<Map<String, ?>>) map.get("items");
-
-        for (Map<String, ?> item : items) {
-            Map<String, ?> spec = (Map<String, ?>) item.get("spec");
-            String collectionName = (String) spec.get("name");
-            String collectionVersion = (String) spec.get("version");
-
-            KabaneroCollection kabaneroCollection = new KabaneroCollection(collectionName, collectionVersion);
-            collections.add(kabaneroCollection);
-        }
-        return collections;
-    }
-
-    private static List<KubeKabanero> listKabaneroInstances(ApiClient apiClient, String namespace) throws ApiException {
-        CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
-        String group = "kabanero.io";
-        String version = "v1alpha1";
-        String plural = "kabaneros";
-
-        List<KubeKabanero> instances = new ArrayList<KubeKabanero>();
-
-        Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-        Map<String, ?> map = (Map<String, ?>) obj;
-        List<Map<String, ?>> items = (List<Map<String, ?>>) map.get("items");
-        for (Map<String, ?> item : items) {
-            Map<String, ?> metadata = (Map<String, ?>) item.get("metadata");
-            String name = (String) metadata.get("name");
-            String creationTime = (String) metadata.get("creationTimestamp");
-
-            KubeKabanero instance = new KubeKabanero(name, creationTime);
-
-            Map<String, ?> spec = (Map<String, ?>) item.get("spec");
-            if (spec != null) {
-                Map<String, ?> collections = (Map<String, ?>) spec.get("collections");
-                if (collections != null) {
-                    List<Map<String, ?>> repositories = (List<Map<String, ?>>) collections.get("repositories");
-                    instance.setRepositories(repositories);
-                }
-            }
-            instances.add(instance);
-        }
-        return instances;
     }
 
     private static Map<String, Route> listRoutes(ApiClient apiClient, String namespace) throws ApiException {

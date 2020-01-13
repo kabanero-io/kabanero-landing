@@ -63,8 +63,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import io.kabanero.instance.KabaneroInstance;
-import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
 import io.kabanero.v1alpha1.client.apis.CollectionApi;
@@ -94,40 +92,6 @@ public class CollectionsEndpoints extends Application {
         CollectionList collections = KabaneroClient.getCollections();
         System.out.println(collections.toString());
         return collections;
-        // CloseableHttpClient client = createHttpClient();
-
-        // String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
-
-        // HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
-        // httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
-        // System.out.println("Trying to get collections list");
-        // CloseableHttpResponse response = client.execute(httpGet);
-
-        // try {
-
-        //     // Check if CLI server returns a bad code (like 401) which will tell our
-        //     // frontend to trigger a login
-        //     int statusCode = response.getStatusLine().getStatusCode();
-        //     if (statusCode != 200) {
-        //         LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
-        //         return Response.status(statusCode).build();
-        //     }
-
-        //     HttpEntity entity2 = response.getEntity();
-        //     String body = EntityUtils.toString(entity2);
-
-        //     JSONObject collectionsJSON = new JSONObject(body);
-        //     System.out.println("Got collections!");
-        //     System.out.println(collectionsJSON.toString());
-        //     EntityUtils.consume(entity2);
-        //     return Response.ok().entity(String.valueOf(collectionsJSON)).build();
-        // } catch (JSONException e) {
-        //     LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
-        //     System.err.println("Failed parsing Collections JSON: " + e.toString());
-        //     return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        // } finally {
-        //     response.close();
-        // }
     }
 
     @GET

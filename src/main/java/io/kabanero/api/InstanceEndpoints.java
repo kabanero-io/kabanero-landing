@@ -33,7 +33,6 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 import io.kabanero.v1alpha1.models.Kabanero;
 import io.kabanero.v1alpha1.models.KabaneroList;
