@@ -21,9 +21,24 @@ function getCollectionData(instanceName){
         return;
     }
 
+    let collectionJSON = null;
+    let cliVersion = null;
+
     return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
         .then(function(response) {
             return response.json();
+        })
+        .then(function(data) {
+            collectionJSON = data;
+            return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
+            .then(function(response) {
+                return response.json();
+            })
+            .catch(error => console.error("Error getting CLI Version", error));
+        })
+        .then(function(data) {
+            cliVersion = data;
+            return $.extend(collectionJSON, cliVersion)
         })
         .catch(error => console.error("Error getting collections", error));
 }
@@ -34,6 +49,10 @@ function updateCollectionView(collectionJSON){
     }
     
     let collections = collectionJSON["kabanero collections"];
+    let cliVersion = collectionJSON["image"].split(":")[1];
+    console.log(collections)
+    console.log(cliVersion)
+  
     collections.forEach(coll => {
         $("#collection-table-body").append(createCollRow(coll));
     });
@@ -41,6 +60,8 @@ function updateCollectionView(collectionJSON){
     // hide loader table and show this one
     $(".table-loader").hide();
     $("#collection-table").show();
+    $(".cli-version").append(cliVersion);
+    $("#table-header-cli-version").show();
 
     function createCollRow(coll){
         let row = $("<tr>");
@@ -49,6 +70,18 @@ function updateCollectionView(collectionJSON){
         let status = $("<td>").text(coll.status);
         return row.append([name, version, status]);
     }
+}
+
+function getCliVersion(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+
+    return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
+        .then(function(response) {
+            return response.json();
+        })
+        .catch(error => console.error("Error getting CLI Version", error));
 }
 
 function getURLParam(key){
