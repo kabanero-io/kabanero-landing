@@ -45,14 +45,16 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllInstances() throws IOException, ApiException, GeneralSecurityException {
+    public Collection<Kabanero> getAllInstances() throws IOException, ApiException, GeneralSecurityException {
         Collection<Kabanero> kabaneros = KabaneroManager.getKabaneroManagerInstance().getAllKabaneroInstances();
         System.out.println("About to return kabaneros from api");
         System.out.println(kabaneros.toString());
+        System.out.println("Is kabaneros empty?");
+        System.out.println(kabaneros.isEmpty());
         if (kabaneros.isEmpty()){
-            return Response.status(404).entity(new ResponseMessage("Instances not found")).build();
+            return null;
         }
-        return Response.ok().entity(kabaneros).build();
+        return kabaneros;
     }
 
     @GET

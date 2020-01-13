@@ -78,6 +78,10 @@ function loadAllInfo(){
 
     fetchOAuthDetails()
         .then(setOAuth);
+
+    handleInitialCLIAuth("kabanero")
+        .then(fetchCollectionData)
+        .then(setCollectionCard);
 }
 
 // Set details on UI for any given instance
@@ -136,15 +140,16 @@ function updateInstanceView(instanceJSON){
 
     //update the various cards
     setInstanceCard(instanceJSON);
-    setCollectionCard(instanceJSON);
+    //setCollectionCard(instanceJSON);
 }
 
 function setInstanceCard(instanceJSON){
-    let details = instanceJSON.details;
-    let appHubName = details.repos[0].name;
-    let appsodyURL = details.repos[0].appsodyURL;
-    let codewindURL = details.repos[0].codewindURL;
-    let cliURL = details.cliURL;
+    console.log(instanceJSON);
+    let details = instanceJSON[0];
+    let appHubName = details.metadata.name;
+    let appsodyURL = details.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
+    let codewindURL = details.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
+    let cliURL = details.status.cli.hostnames[0];
 
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
@@ -163,6 +168,7 @@ function setInstanceCard(instanceJSON){
 }
 
 function setCollectionCard(instanceJSON){
+    console.log(instanceJSON);
     let details = instanceJSON.details;
     let collections = details.collections;
     let numberOfCollections = details.collections.length;

@@ -19,9 +19,7 @@
 function fetchAllInstances(){    
     return fetch("/api/kabanero")
         .then(function(response) {
-            console.log("Getting all instances");
-            console.log(response);
-            return response;
+            return response.json();
         })
         .catch(error => console.error("Error getting instance names:", error));
 }
@@ -33,7 +31,6 @@ function fetchAnInstance(instanceName){
 
     return fetch(`/api/kabanero/${instanceName}`)
         .then(function(response) {
-            console.log(`Fetching instance ${instanceName}`);
             return response.json();
         })
         .catch(error => console.error(`Error getting instance info for: ${instanceName}`, error));
@@ -61,6 +58,51 @@ function fetchATool(tool){
             return response.json();
         })
         .catch(error => console.error(`Error getting ${tool} tool`, error));
+}
+
+function fetchCollectionData(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+    console.log(instanceName);
+
+    return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
+        .then(function(response) {
+            return response;
+        })
+        .catch(error => console.error("Error getting collections", error));
+}
+
+function handleInitialCLIAuth(instanceName){
+    console.log(`cli auth with instance name: ${instanceName}`);
+    return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
+        .then(function(response) {
+
+            // Login via cli and retry if 401 is returned on initial call
+            if(response.status === 401){
+                return loginViaCLI(instanceName)
+                    .then(() => {
+                        return handleInitialCLIAuth(instanceName); 
+                    });
+            }
+            else if(response.status !== 200){
+                console.warn(`Initial auth into instance ${instanceName} returned status code: ${response.status}`);
+            }
+
+            // pass on instance name var to the next function in the promise chain
+            return instanceName;
+        })
+        .catch(error => console.error(`Error handling initial auth into instance ${instanceName} via CLI server`, error));
+}
+
+function loginViaCLI(instanceName){
+    if(typeof instanceName === "undefined"){
+        console.warn("CLI login cannot login without an instanceName");
+        return;
+    }
+
+    return fetch(`/api/auth/kabanero/${instanceName}/collections/login`)
+        .catch(error => console.error(`Error logging into instance ${instanceName} via CLI server`, error));
 }
 
 let ToolPane = class {

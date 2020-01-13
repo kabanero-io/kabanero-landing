@@ -87,6 +87,7 @@ public class CollectionsEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
             throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+        System.out.println("Entering list collections endpoint");
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -94,7 +95,7 @@ public class CollectionsEndpoints extends Application {
         HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
         CloseableHttpResponse response = client.execute(httpGet);
-
+        System.out.println("Trying to get collections list");
         try {
 
             // Check if CLI server returns a bad code (like 401) which will tell our
@@ -109,11 +110,13 @@ public class CollectionsEndpoints extends Application {
             String body = EntityUtils.toString(entity2);
 
             JSONObject collectionsJSON = new JSONObject(body);
-
+            System.out.println("Got collections!");
+            System.out.println(collectionsJSON.toString());
             EntityUtils.consume(entity2);
             return Response.ok().entity(String.valueOf(collectionsJSON)).build();
         } catch (JSONException e) {
             LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
+            System.err.println("Failed parsing Collections JSON: " + e.toString());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } finally {
             response.close();
