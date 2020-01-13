@@ -50,8 +50,6 @@ function updateCollectionView(collectionJSON){
     
     let collections = collectionJSON["kabanero collections"];
     let cliVersion = collectionJSON["image"].split(":")[1];
-    console.log(collections)
-    console.log(cliVersion)
   
     collections.forEach(coll => {
         $("#collection-table-body").append(createCollRow(coll));
