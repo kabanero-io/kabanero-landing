@@ -1,2 +1,11 @@
-@import 
-"../../../../../node_modules/carbon-components/scss/components/data-table-v2/data-table-v2"; 
+@import "../../../../../node_modules/carbon-components/scss/components/data-table-v2/data-table-v2";
+
+#table-header-cli-version {
+    color: #655959;
+    float: right;
+    p {
+        font-size: 0.875rem !important;
+        letter-spacing: 0.16px !important;
+        display: inline-flex;
+    }
+}

@@ -37,6 +37,15 @@
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Run Landing Image with OAuth",
+            "type": "shell",
+            "command": "docker run --rm -p 9443:9443 -v ~/.kube/config:/root/.kube/config -v \"$(pwd)/oauth\":/etc/oauth --env-file \"$(pwd)/oauth/.env\" -u 0 landing:latest",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
