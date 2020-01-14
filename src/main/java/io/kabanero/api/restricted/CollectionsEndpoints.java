@@ -95,7 +95,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/version")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response cliVersion(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
+    public Response cliVersion(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
