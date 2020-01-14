@@ -32,8 +32,10 @@ function updateCollectionView(collectionJSON){
     if(typeof collectionJSON === "undefined"){
         return;
     }
+    console.log("COLLECTIONS");
+    console.log(collectionJSON);
     
-    let collections = collectionJSON["kabanero collections"];
+    let collections = collectionJSON.items;
     collections.forEach(coll => {
         $("#collection-table-body").append(createCollRow(coll));
     });
@@ -44,9 +46,9 @@ function updateCollectionView(collectionJSON){
 
     function createCollRow(coll){
         let row = $("<tr>");
-        let name = $("<td>").text(coll.name);
-        let version = $("<td>").text(coll.version);
-        let status = $("<td>").text(coll.status);
+        let name = $("<td>").text(coll.spec.name);
+        let version = $("<td>").text(coll.spec.version);
+        let status = $("<td>").text(coll.status.status);
         return row.append([name, version, status]);
     }
 }
