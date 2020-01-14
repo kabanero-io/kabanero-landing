@@ -2,8 +2,7 @@ $(document).ready(function() {
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(handleInitialCLIAuth)
-        .then(getCollectionData)
-        .then(updateCollectionView);
+        .then(handleCollectionsRequests)
     //TODO then select/fetch current instance from url param for the dropdown
 
     $("#instance-accordion li").on("click", e => {
@@ -16,24 +15,42 @@ $(document).ready(function() {
     });
 });
 
+function handleCollectionsRequests(instanceName){
+    getCollectionData(instanceName);
+    getCliVersion(instanceName);
+}
+
 function getCollectionData(instanceName){
     if(typeof instanceName === "undefined"){
         return;
     }
-
     return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
         .then(function(response) {
             return response.json();
         })
+        .then(updateCollectionView)
         .catch(error => console.error("Error getting collections", error));
+}
+
+function getCliVersion(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+    return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
+        .then(function(response){
+            return response.json()
+        })
+        .then(setCLIVersion) 
+        .catch(error => console.error("Error getting CLI Version", error));
 }
 
 function updateCollectionView(collectionJSON){
     if(typeof collectionJSON === "undefined"){
         return;
     }
-    
+  
     let collections = collectionJSON["kabanero collections"];
+
     collections.forEach(coll => {
         $("#collection-table-body").append(createCollRow(coll));
     });
@@ -49,6 +66,17 @@ function updateCollectionView(collectionJSON){
         let status = $("<td>").text(coll.status);
         return row.append([name, version, status]);
     }
+}
+
+function setCLIVersion(cliVersion){
+    if(typeof cliVersion === "undefined"){
+        return;
+    }
+
+    let version = cliVersion["image"].split(":")[1];
+
+    $("#cli-version").append(version);
+    $("#table-header-cli-version").show();
 }
 
 function getURLParam(key){

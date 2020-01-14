@@ -114,6 +114,42 @@ public class CollectionsEndpoints extends Application {
     }
 
     @GET
+    @Path("/version")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response cliVersion(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
+        CloseableHttpClient client = createHttpClient();
+
+        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+
+        HttpGet httpGet = new HttpGet(cliServerURL + "/v1/image");
+        httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
+        CloseableHttpResponse response = client.execute(httpGet);
+
+        try {
+
+            // Check if CLI server returns a bad code (like 401) which will tell our
+            // frontend to trigger a login
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode != 200) {
+                LOGGER.log(Level.WARNING, "Error getting Kabanero CLI version: " + statusCode);
+                return Response.status(statusCode).build();
+            }
+
+            HttpEntity entity2 = response.getEntity();
+            String body = EntityUtils.toString(entity2);
+
+            JSONObject cliVersion = new JSONObject(body);
+
+            EntityUtils.consume(entity2);
+            return Response.ok().entity(String.valueOf(cliVersion)).build();
+        } finally {
+            response.close();
+        }
+    }
+
+
+    @GET
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Context HttpServletRequest httpServletRequest) throws ClientProtocolException, IOException {
