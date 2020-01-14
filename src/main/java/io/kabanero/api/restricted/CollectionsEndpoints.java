@@ -88,9 +88,7 @@ public class CollectionsEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public CollectionList listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
             throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
-        System.out.println("!!!Listing collections from kube api!!!!");
         CollectionList collections = KabaneroClient.getCollections();
-        System.out.println(collections.toString());
         return collections;
     }
 

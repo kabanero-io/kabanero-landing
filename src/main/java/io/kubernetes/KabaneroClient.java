@@ -111,8 +111,6 @@ public class KabaneroClient {
             List<Kabanero> kabaneroList = kabaneros.getItems();
 
 			if (kabaneroList.size() > 0) {
-                System.out.println("!!!Got instances data from api!!!");
-                System.out.println(kabaneros.toString());
                 return kabaneros;
             }
         }catch (Exception e) {
@@ -134,7 +132,6 @@ public class KabaneroClient {
     }
 
     public static CollectionList getCollections() throws IOException, GeneralSecurityException {
-        System.out.println("!!!!Called getCollections!!!!!!");
         ApiClient client = KabaneroClient.getApiClient();
 
         String namespace = "kabanero";
@@ -143,8 +140,6 @@ public class KabaneroClient {
             CollectionList collections = api.listCollections(namespace, null, null, null);
             List<Collection> collectionList = collections.getItems();
             if(collectionList.size() > 0){
-                System.out.println("!!!Got collections data from api!!!");
-                System.out.println(collections.toString());
                 return collections;
             }
         }catch(Exception e){

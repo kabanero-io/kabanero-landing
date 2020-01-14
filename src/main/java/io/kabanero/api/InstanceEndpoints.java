@@ -50,11 +50,6 @@ public class InstanceEndpoints extends Application {
     public KabaneroList getAllInstances() throws IOException, ApiException, GeneralSecurityException {
         KabaneroList kabaneros = KabaneroClient.getInstances();
         List<Kabanero> kabaneroList = kabaneros.getItems();
-        System.out.println("!!!!!here is kabanerolist!!!!!");
-        System.out.println("!!!!kabanerolist size: " + Integer.toString(kabaneroList.size()));
-        System.out.println(kabaneroList.toString());
-        System.out.println("Is kabaneros empty?");
-        System.out.println(kabaneroList.size() == 0);
         if (kabaneroList.size() == 0){
             return null;
         }
@@ -66,14 +61,10 @@ public class InstanceEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAInstance(@PathParam("instanceName") String instanceName)
             throws IOException, ApiException, GeneralSecurityException {
-        System.out.println("!!!Getting a spcific instance: " + instanceName + " !!!!!!!!!!!!");
         Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
         if (wantedInstance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
-        System.out.println("!!!!Got one!!!!!!");
-        System.out.println("!!!!Testing collections data!!!!!");
-        System.out.println(wantedInstance.getSpec().getCollections().toString());
         
         return Response.ok().entity(wantedInstance).build();
     }

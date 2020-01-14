@@ -32,8 +32,6 @@ function updateCollectionView(collectionJSON){
     if(typeof collectionJSON === "undefined"){
         return;
     }
-    console.log("COLLECTIONS");
-    console.log(collectionJSON);
     
     let collections = collectionJSON.items;
     collections.forEach(coll => {

@@ -28,7 +28,6 @@ function fetchAnInstance(instanceName){
     if(typeof instanceName === "undefined"){
         return;
     }
-    console.log(`FETCH AN INSTANCE ${instanceName}`)
     return fetch(`/api/kabanero/${instanceName}`)
         .then(function(response) {
             return response.json();
@@ -64,7 +63,6 @@ function fetchCollectionData(instanceName){
     if(typeof instanceName === "undefined"){
         return;
     }
-    console.log("fetching collections for instance: " + instanceName);
 
     return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
         .then(function(response) {
@@ -74,7 +72,6 @@ function fetchCollectionData(instanceName){
 }
 
 function handleInitialCLIAuth(instanceName){
-    console.log(`cli auth with instance name: ${instanceName}`);
     return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
         .then(function(response) {
 
@@ -261,8 +258,6 @@ let InstancePane = class {
 
 // Set each instance name in the accordion selection and returns the instance name to be loaded
 function setInstanceSelections(instancesJSON){
-    console.log("INSTANCES");
-    console.log(instancesJSON);
     let instances = instancesJSON.items;
     if(typeof instances === "undefined"|| instances.length === 0){
         $("#instance-accordion #error-li").show();
@@ -291,8 +286,11 @@ function setInstanceSelections(instancesJSON){
 }
 
 function parseDateFromTimestamp(creationTimestamp){
-    console.log(creationTimestamp);
-    return "01/01/2020";
+    let creationDate = new Date();
+    creationDate.setFullYear(creationTimestamp.year);
+    creationDate.setMonth(creationTimestamp.monthOfYear - 1);
+    creationDate.setDate(creationTimestamp.dayOfMonth);
+    return creationDate.toLocaleDateString();
 }
 
 // Change the accordion when a new instance is clicked and return the new selected instance name

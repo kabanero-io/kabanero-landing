@@ -139,18 +139,14 @@ function updateInstanceView(instanceJSON){
     }
     //update the various cards
     setInstanceCard(instanceJSON);
-    console.log("About to return updateInstanceView");
-    console.log(instanceJSON);
     //setCollectionCard(instanceJSON);
     return instanceJSON.metadata.name;
 }
 
 function setInstanceCard(instanceJSON){
-    console.log("SETTING INSTANCE CARD");
-    console.log(instanceJSON);
     let appHubName = instanceJSON.spec.collections.repositories[0].name;
     let appsodyURL = instanceJSON.spec.collections.repositories[0].url;
-    let codewindURL = instanceJSON.spec.collections.repositories[0].url;
+    let codewindURL = appsodyURL.replace(".yaml", ".json");
     let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
@@ -170,8 +166,6 @@ function setInstanceCard(instanceJSON){
 }
 
 function setCollectionCard(instanceJSON){
-    console.log("COLLECTIONS!!!");
-    console.log(instanceJSON);
     //let details = instanceJSON.details;
     let collections = instanceJSON.items;
     let numberOfCollections = instanceJSON.items.length;
