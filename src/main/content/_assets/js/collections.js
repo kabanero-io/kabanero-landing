@@ -28,9 +28,7 @@ function getCollectionData(instanceName){
         .then(function(response) {
             return response.json();
         })
-        .then(function(data){
-            return updateCollectionView(data);
-        })
+        .then(updateCollectionView)
         .catch(error => console.error("Error getting collections", error));
 }
 
@@ -42,9 +40,7 @@ function getCliVersion(instanceName){
         .then(function(response){
             return response.json()
         })
-        .then(function(data){
-            return setCLIVersion(data);
-        })
+        .then(setCLIVersion) 
         .catch(error => console.error("Error getting CLI Version", error));
 }
 
