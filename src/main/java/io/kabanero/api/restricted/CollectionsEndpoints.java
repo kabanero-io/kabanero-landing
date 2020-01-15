@@ -89,8 +89,12 @@ public class CollectionsEndpoints extends Application {
     public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+        System.out.println("!!!!!cliServerURL  " + cliServerURL + "   !!!!!!!!!!");
+        System.out.println("!!!!!jwt  " + jwt + "   !!!!!!!");
         HttpGet httpGet = new HttpGet("https://" + cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
+        System.out.println("!!!!!httpget  " + httpGet.toString() + "  !!!!!!!!");
+        System.out.println("!!!!abouttoexecuterequest!!!!!!");
         CloseableHttpResponse response = client.execute(httpGet);
         try {
             // Check if CLI server returns a bad code (like 401) which will tell our frontend to trigger a login
