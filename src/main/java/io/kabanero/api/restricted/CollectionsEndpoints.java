@@ -91,7 +91,7 @@ public class CollectionsEndpoints extends Application {
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
         System.out.println("!!!!!cliServerURL  " + cliServerURL + "   !!!!!!!!!!");
         System.out.println("!!!!!jwt  " + jwt + "   !!!!!!!");
-        HttpGet httpGet = new HttpGet("https://" + cliServerURL + "/v1/collections");
+        HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
         System.out.println("!!!!!httpget  " + httpGet.toString() + "  !!!!!!!!");
         System.out.println("!!!!abouttoexecuterequest!!!!!!");
@@ -159,6 +159,7 @@ public class CollectionsEndpoints extends Application {
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Context HttpServletRequest httpServletRequest) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+        System.out.println("!!!!!!  CALLING LOGIN ENDPOINT !!!!");
         String user = httpServletRequest.getUserPrincipal().getName();
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
@@ -166,6 +167,8 @@ public class CollectionsEndpoints extends Application {
         String jwt = getJWTFromLogin(user, token, INSTANCE_NAME);
         if (jwt != null) {
             NewCookie cookie = new NewCookie(JWT_COOKIE_KEY, jwt);
+            System.out.println("!!!!!! LOGIN ENDPONIT GOT JWT FROM LOGIN !!!!");
+            System.out.println(cookie.toString());
             return Response.ok().cookie(cookie).build();
         }
         return Response.status(500)
@@ -185,7 +188,7 @@ public class CollectionsEndpoints extends Application {
             throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
         // TODO protect against null client
-
+        System.out.println("!!!!!!GETTINGJWTFROMLOGIN!!!!!");
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
         HttpPost httpPost = new HttpPost(cliServerURL + "/login");
 
@@ -205,6 +208,8 @@ public class CollectionsEndpoints extends Application {
             JSONObject jwtJSON = new JSONObject(body);
 
             String jwt = jwtJSON.getString("jwt");
+            System.out.println("!!!GOTJWT!!!");
+            System.out.println(jwt);
             String responseMessage = jwtJSON.getString("message");
 
             if (jwt == null || responseMessage == null || !"ok".equals(responseMessage)) {
@@ -225,7 +230,7 @@ public class CollectionsEndpoints extends Application {
     private String setCLIURL(String instanceName) throws IOException, ApiException, GeneralSecurityException {
         Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
         CLI_URL = wantedInstance.getStatus().getCli().getHostnames().get(0);
-        return CLI_URL;
+        return "https://" + CLI_URL;
     }
 
     private static CloseableHttpClient createHttpClient(){
