@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -33,7 +34,10 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.http.client.ClientProtocolException;
+
 import io.website.ResponseMessage;
+import io.kabanero.v1alpha1.models.CollectionList;
 import io.kabanero.v1alpha1.models.Kabanero;
 import io.kabanero.v1alpha1.models.KabaneroList;
 import io.kubernetes.client.ApiException;
@@ -67,6 +71,14 @@ public class InstanceEndpoints extends Application {
         }
         
         return Response.ok().entity(wantedInstance).build();
+    }
+
+    @GET
+    @Path("/{instanceName}/collections")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CollectionList listCollectionsKube(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+        CollectionList collections = KabaneroClient.getCollections(instanceName);
+        return collections;
     }
 
 

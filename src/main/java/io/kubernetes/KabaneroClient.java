@@ -131,13 +131,11 @@ public class KabaneroClient {
         return null;
     }
 
-    public static CollectionList getCollections() throws IOException, GeneralSecurityException {
+    public static CollectionList getCollections(String instanceName) throws IOException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
-
-        String namespace = "kabanero";
         try{
             CollectionApi api = new CollectionApi(client);
-            CollectionList collections = api.listCollections(namespace, null, null, null);
+            CollectionList collections = api.listCollections(instanceName, null, null, null);
             List<Collection> collectionList = collections.getItems();
             if(collectionList.size() > 0){
                 return collections;

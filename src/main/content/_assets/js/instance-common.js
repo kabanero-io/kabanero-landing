@@ -64,7 +64,7 @@ function fetchCollectionData(instanceName){
         return;
     }
 
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
+    return fetch(`/api/kabanero/${instanceName}/collections`)
         .then(function(response) {
             return response.json();
         })
