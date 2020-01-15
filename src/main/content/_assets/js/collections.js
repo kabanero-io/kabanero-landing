@@ -48,7 +48,7 @@ function updateCollectionView(collectionJSON){
     if(typeof collectionJSON === "undefined"){
         return;
     }
-    
+
     let collections = collectionJSON["kabanero collections"];
 
     collections.forEach(coll => {

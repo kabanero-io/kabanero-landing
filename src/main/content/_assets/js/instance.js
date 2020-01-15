@@ -140,7 +140,6 @@ function updateInstanceView(instanceJSON){
     }
     //update the various cards
     setInstanceCard(instanceJSON);
-    //setCollectionCard(instanceJSON);
     return instanceJSON.metadata.name;
 }
 
