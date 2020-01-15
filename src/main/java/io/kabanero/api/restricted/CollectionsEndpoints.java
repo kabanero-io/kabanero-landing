@@ -88,46 +88,30 @@ public class CollectionsEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
-
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
-        System.out.println("!!!!!cliServerURL  " + cliServerURL + "   !!!!!!!!!!");
-        System.out.println("!!!!!jwt  " + jwt + "   !!!!!!!");
         HttpGet httpGet = new HttpGet("https://" + cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
-        System.out.println("!!!!!httpget  " + httpGet.toString() + "  !!!!!!!!");
-        System.out.println("!!!!abouttoexecuterequest!!!!!!");
-        try{
-
-        
         CloseableHttpResponse response = client.execute(httpGet);
-
-            try {
-                // Check if CLI server returns a bad code (like 401) which will tell our frontend to trigger a login
-                int statusCode = response.getStatusLine().getStatusCode();
-                if(statusCode != 200){
-                    LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
-                    return Response.status(statusCode).build();
-                }
-
-                HttpEntity entity2 = response.getEntity();
-                String body = EntityUtils.toString(entity2);
-
-                JSONObject collectionsJSON = new JSONObject(body);
-
-                EntityUtils.consume(entity2);
-                return Response.ok().entity(String.valueOf(collectionsJSON)).build();
-            } catch (JSONException e) {
-                LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
-                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-            } finally {
-                response.close();
+        try {
+            // Check if CLI server returns a bad code (like 401) which will tell our frontend to trigger a login
+            int statusCode = response.getStatusLine().getStatusCode();
+            if(statusCode != 200){
+                LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
+                return Response.status(statusCode).build();
             }
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println("!!!!!!!!!--------------------!!!!!!!!!!!!!!!");
-            System.out.println(e.getCause().toString());
-            System.out.println("!!!!!!!!!--------------------!!!!!!!!!!!!!!!");
+
+            HttpEntity entity2 = response.getEntity();
+            String body = EntityUtils.toString(entity2);
+
+            JSONObject collectionsJSON = new JSONObject(body);
+
+            EntityUtils.consume(entity2);
+            return Response.ok().entity(String.valueOf(collectionsJSON)).build();
+        } catch (JSONException e) {
+            LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } finally {
+            response.close();
         }
     }
 
