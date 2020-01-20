@@ -2,7 +2,7 @@
 # This script exists to configure the liberty server before starting it up
 
 DEFAULT_CONFIG_DROPIN_PATH='/opt/ol/wlp/usr/servers/defaultServer/configDropins/defaults/'
-SL_CONFIG_FILE='/opt/ol/wlp/etc/social_login.xml'
+SL_CONFIG_FILE='/etc/social_login/social_login.xml'
 
 # Handle the social login feature if the GitHub OAuth secret was mounted
 if [ -f /etc/oauth/clientID ] && [ -f /etc/oauth/clientSecret ]; then

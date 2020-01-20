@@ -71,7 +71,7 @@ USER 1001
 COPY --from=builder /app/target/liberty/wlp/usr/servers /servers
 COPY LICENSE /licenses
 COPY scripts/entry_liberty_config.sh /scripts/
-COPY src/main/wlp/etc/social_login.xml /opt/ol/wlp/etc/
+COPY --chown=1001:0 src/main/wlp/etc/social_login.xml /etc/social_login/
 
 # Run the server script and start the defaultServer by default.
 ENTRYPOINT ["/scripts/entry_liberty_config.sh"]
