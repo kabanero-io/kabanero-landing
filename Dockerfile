@@ -64,14 +64,20 @@ LABEL "product.version"="$PRODUCT_VERSION"
 ENV PRODUCT_VERSION="$PRODUCT_VERSION"
 
 USER root
+
+COPY src/main/wlp/etc/social_login.xml /etc/social_login/
+
 # Symlink servers directory for easier mounts.
-RUN ln -s /opt/ol/wlp/usr/servers /servers
+# Change /etc/social_login permissions so that group 0 can access it
+RUN ln -s /opt/ol/wlp/usr/servers /servers && \
+    chgrp -R 0 /etc/social_login && \
+    chmod -R g=u /etc/social_login
+
 USER 1001
 
 COPY --from=builder /app/target/liberty/wlp/usr/servers /servers
 COPY LICENSE /licenses
 COPY scripts/entry_liberty_config.sh /scripts/
-COPY --chown=1001:0 src/main/wlp/etc/social_login.xml /etc/social_login/
 
 # Run the server script and start the defaultServer by default.
 ENTRYPOINT ["/scripts/entry_liberty_config.sh"]

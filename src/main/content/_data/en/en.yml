@@ -124,4 +124,4 @@ instance:
   app-hub: Application Hub
   oauth:
     configure: Configure OAuth
-  cli-version: "CLI Version: "
+  cli-version: "Collection API version: "
