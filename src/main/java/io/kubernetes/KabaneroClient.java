@@ -108,15 +108,11 @@ public class KabaneroClient {
         try{
             KabaneroApi api = new KabaneroApi(client);
             KabaneroList kabaneros = api.listKabaneros(namespace, null, null, null);
-            List<Kabanero> kabaneroList = kabaneros.getItems();
-
-			if (kabaneroList.size() > 0) {
-                return kabaneros;
-            }
+            return kabaneros;
         }catch (Exception e) {
-			e.printStackTrace();
+            LOGGER.log(Level.WARNING, "Error with fetching kabanero instances - " + e.getStackTrace().toString());
+            return null;
 		}
-        return null;
     }
 
     public static Kabanero getAnInstance(String instanceName) throws IOException, ApiException, GeneralSecurityException {
@@ -126,9 +122,9 @@ public class KabaneroClient {
             KabaneroApi api = new KabaneroApi(client);
             return api.getKabanero(namespace, instanceName);
         }catch (Exception e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "Error with fetching kabanero instance " + instanceName + " - " + e.getStackTrace().toString());
+            return null;
         }
-        return null;
     }
 
     public static CollectionList getCollections(String instanceName) throws IOException, GeneralSecurityException {
@@ -136,28 +132,11 @@ public class KabaneroClient {
         try{
             CollectionApi api = new CollectionApi(client);
             CollectionList collections = api.listCollections(instanceName, null, null, null);
-            List<Collection> collectionList = collections.getItems();
-            if(collectionList.size() > 0){
-                return collections;
-            }
+            return collections;
         }catch(Exception e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "Error with fetching collections in kabanero instance " + instanceName + " - " + e.getStackTrace().toString());
+            return null;
         }
-        return null;
-    }
-
-    public static Kabanero createNewKabanero(Kabanero newInstance) throws IOException, ApiException, GeneralSecurityException{
-        ApiClient client = KabaneroClient.getApiClient();
-
-        String namespace = "kabanero";
-        try{
-            KabaneroApi api = new KabaneroApi(client);
-            return api.createKabanero(namespace, newInstance);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-
     }
 
     public static String getCLI(ApiClient client, String namespace) throws ApiException {

@@ -51,13 +51,12 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public KabaneroList getAllInstances() throws IOException, ApiException, GeneralSecurityException {
+    public Response getAllInstances() throws IOException, ApiException, GeneralSecurityException {
         KabaneroList kabaneros = KabaneroClient.getInstances();
-        List<Kabanero> kabaneroList = kabaneros.getItems();
-        if (kabaneroList.size() == 0){
-            return null;
+        if (kabaneros == null || kabaneros.getItems().size() == 0 ){
+            return Response.status(404).entity(new ResponseMessage("No instances found")).build();
         }
-        return kabaneros;
+        return Response.ok().entity(kabaneros).build();
     }
 
     @GET
@@ -76,10 +75,11 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/{instanceName}/collections")
     @Produces(MediaType.APPLICATION_JSON)
-    public CollectionList listCollectionsKube(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response listCollectionsKube(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CollectionList collections = KabaneroClient.getCollections(instanceName);
-        return collections;
+        if(collections == null || collections.getItems().size() == 0){
+            return Response.status(404).entity(new ResponseMessage("Collections from instance with name " + instanceName + " not found")).build();
+        }
+        return Response.ok().entity(collections).build();
     }
-
-
 }

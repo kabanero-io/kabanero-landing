@@ -286,11 +286,7 @@ function setInstanceSelections(instancesJSON){
 }
 
 function parseDateFromTimestamp(creationTimestamp){
-    let creationDate = new Date();
-    creationDate.setFullYear(creationTimestamp.year);
-    creationDate.setMonth(creationTimestamp.monthOfYear - 1);
-    creationDate.setDate(creationTimestamp.dayOfMonth);
-    return creationDate.toLocaleDateString();
+    return new Date(creationTimestamp.year, (creationTimestamp.monthOfYear - 1), creationTimestamp.dayOfMonth).toLocaleDateString();
 }
 
 // Change the accordion when a new instance is clicked and return the new selected instance name
