@@ -68,6 +68,7 @@ function fetchCollectionData(instanceName){
         .then(function(response) {
             return response.json();
         })
+        .then(setCollectionCard)
         .catch(error => console.error("Error getting collections", error));
 }
 

@@ -72,16 +72,13 @@ function loadAllInfo(){
         .then(setInstanceSelections)
         .then(fetchAnInstance)
         .then(updateInstanceView)
-        .then(fetchCollectionData)
-        .then(setCollectionCard);
+        .then(fetchCollectionData);
 
     fetchAllTools()
         .then(setToolData);
 
     fetchOAuthDetails()
         .then(setOAuth);
-
-    
 }
 
 // Set details on UI for any given instance
