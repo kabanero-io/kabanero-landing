@@ -96,7 +96,7 @@
 			<groupId>io.kabanero</groupId>
 			<artifactId>operator-java-bindings</artifactId>
 			<version>0.0.1</version>
-    	</dependency>
+		</dependency>
 		<!-- END: Needed to compile and run unit tests -->
 	</dependencies>
 
