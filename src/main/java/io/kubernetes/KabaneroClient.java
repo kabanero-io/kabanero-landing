@@ -56,13 +56,9 @@ import org.apache.commons.io.IOUtils;
 
 import io.kabanero.v1alpha1.client.apis.KabaneroApi;
 import io.kabanero.v1alpha1.client.apis.CollectionApi;
-import io.kabanero.v1alpha1.models.Collection;
 import io.kabanero.v1alpha1.models.CollectionList;
-import io.kabanero.v1alpha1.models.CollectionStatus;
 import io.kabanero.v1alpha1.models.Kabanero;
 import io.kabanero.v1alpha1.models.KabaneroList;
-import io.kabanero.v1alpha1.models.KabaneroSpecCollections;
-import io.kabanero.v1alpha1.models.KabaneroSpecCollectionsRepositories;
 
 public class KabaneroClient {
     private final static Logger LOGGER = Logger.getLogger(KabaneroClient.class.getName());
@@ -110,7 +106,7 @@ public class KabaneroClient {
             KabaneroList kabaneros = api.listKabaneros(namespace, null, null, null);
             return kabaneros;
         }catch (Exception e) {
-            LOGGER.log(Level.WARNING, "Error with fetching kabanero instances - " + e.getStackTrace().toString());
+            LOGGER.log(Level.WARNING, "Error with fetching kabanero instances", e);
             return null;
 		}
     }
@@ -122,7 +118,7 @@ public class KabaneroClient {
             KabaneroApi api = new KabaneroApi(client);
             return api.getKabanero(namespace, instanceName);
         }catch (Exception e){
-            LOGGER.log(Level.WARNING, "Error with fetching kabanero instance " + instanceName + " - " + e.getStackTrace().toString());
+            LOGGER.log(Level.WARNING, "Error with fetching kabanero instance " + instanceName, e);
             return null;
         }
     }
@@ -134,7 +130,7 @@ public class KabaneroClient {
             CollectionList collections = api.listCollections(instanceName, null, null, null);
             return collections;
         }catch(Exception e){
-            LOGGER.log(Level.WARNING, "Error with fetching collections in kabanero instance " + instanceName + " - " + e.getStackTrace().toString());
+            LOGGER.log(Level.WARNING, "Error with fetching collections in kabanero instance " + instanceName, e);
             return null;
         }
     }
