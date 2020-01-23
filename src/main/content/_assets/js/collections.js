@@ -114,14 +114,13 @@ function updateCollectionView(collectionJSON) {
         let iconStatus = coll.status === "active" ? "icon-active" : "icon-disabled";
         let deactivateCollection = $("<td>").addClass("deactivate-collection-td");
         let div = $("<div>").addClass(`deactivate-collection-icon ${iconStatus}`).attr("collection-name", coll.name).attr("data-modal-target", "#deactivate-collection-modal-" + iconStatus);
-        let svg = `<svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M16,2C8.2,2,2,8.2,2,16s6.2,14,14,14s14-6.2,14-14S23.8,2,16,2z M16,28C9.4,28,4,22.6,4,16S9.4,4,16,4s12,5.4,12,12	S22.6,28,16,28z"></path><path d="M21.4 23L16 17.6 10.6 23 9 21.4 14.4 16 9 10.6 10.6 9 16 14.4 21.4 9 23 10.6 17.6 16 23 21.4z"></path><title>Deactivate ${coll.name} collection</title></svg>`
+        let svg =`<svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M16,4A12,12,0,1,1,4,16,12,12,0,0,1,16,4m0-2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Z"></path><path d="M10 15H22V17H10z"></path><title>Deactivate ${coll.name} collection</title></svg>`
 
-        div.append(svg)
+        div.append(svg);
         deactivateCollection.append(div);
 
         return deactivateCollection;
     }
-
     showTable();
 }
 
