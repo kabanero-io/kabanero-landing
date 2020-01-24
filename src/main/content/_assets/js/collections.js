@@ -140,8 +140,6 @@ function hideAndEmptyTable(){
     $("#collection-table-body").empty();
     $("#cli-version").empty();
     $("#instance-accordion").empty();
-    $("#sync-collections-icon").removeClass("icon-active");
-    $("#sync-collections-icon").addClass("icon-disabled");
 }
 
 function showTable(){
@@ -152,8 +150,6 @@ function showTable(){
     $("#table-footer-cli-version").show();
     $("#cli-version").show();
     $("#collections-sync-button").show();
-    $("#sync-collections-icon").addClass("icon-active");
-    $("#sync-collections-icon").removeClass("icon-disabled");
 }
 
 function getURLParam(key){
