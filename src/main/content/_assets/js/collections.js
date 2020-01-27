@@ -1,10 +1,5 @@
 $(document).ready(function () {
-    fetchAllInstances()
-        .then(setInstanceSelections)
-        .then(handleInitialCLIAuth)
-        .then(handleCollectionsRequests);
-    //TODO then select/fetch current instance from url param for the dropdown
-
+    handleInstancesRequests();
     $("#instance-accordion li").on("click", e => {
         // prevent carbon from doing its normal thing with the accordion
         e.stopPropagation();
@@ -17,10 +12,7 @@ $(document).ready(function () {
     $("#sync-collections-icon").on("click", (e) => {
         if (e.target.getAttribute("class") == "icon-active") {
             let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
-            $(".table-loader").show();
-            $("#collection-table").hide();
-            $("#collection-table-body").empty();
-            $("#cli-version").empty();
+            emptyTable();
             syncColletions(instanceName);
         }
     });
@@ -32,14 +24,20 @@ $(document).ready(function () {
 
     $("#modal-confirm-deactivation").on("click", () => {
         let collectionName = $("#modal-collection-name").text();
-        $(".table-loader").show();
-        $("#collection-table").hide();
-        $("#collection-table-body").empty();
-        $("#cli-version").empty();
+        emptyTable();
         deactivateCollection(collectionName);
     });
 
 });
+
+function handleInstancesRequests(){
+    $("#instance-accordion").empty();
+    fetchAllInstances()
+        .then(setInstanceSelections)
+        .then(handleInitialCLIAuth)
+        .then(handleCollectionsRequests);
+        //TODO then select/fetch current instance from url param for the dropdown
+}
 
 function handleCollectionsRequests(instanceName) {
     getCollectionData(instanceName);
@@ -77,7 +75,7 @@ function deactivateCollection(collectionName) {
         .then(function (response) {
             return response.json()
         })
-        .then(handleCollectionsRequests(instanceName))
+        .then(handleInstancesRequests)
         .catch(error => console.error(`Error deactivating ${collectionName} collection`, error));
 }
 
@@ -86,7 +84,7 @@ function syncColletions(instanceName) {
         return;
     }
     return fetch(`/api/auth/kabanero/${instanceName}/collections/sync`)
-        .then(handleCollectionsRequests(instanceName))
+        .then(handleInstancesRequests)
         .catch(error => console.error("Error syncing collections", error))
 }
 
@@ -96,8 +94,6 @@ function updateCollectionView(collectionJSON) {
     }
 
     let collections = collectionJSON["kabanero collections"];
-    let versionChangeCollections = collectionJSON["version change collections"];
-
 
     collections.forEach(coll => {
         $("#collection-table-body").append(createCollRow(coll));
@@ -107,24 +103,13 @@ function updateCollectionView(collectionJSON) {
         let row = $("<tr>");
         let name = $("<td>").text(coll.name);
         let version = $("<td>").text(coll.version);
-        let collectionStatus = null;
-
-        if(versionChangeCollections.length > 0){
-            versionChangeCollections.forEach(collection => {
-                collectionStatus = collection.name === coll.name ? collection.desiredState : coll.status
-            });
-        }
-        else{
-            collectionStatus = coll.status;
-        }
-
-        let status = $("<td>").text(collectionStatus);
-        let deactivateCollection = createDeactivateCollectionButton(coll, collectionStatus);
+        let status = $("<td>").text(coll.status);
+        let deactivateCollection = createDeactivateCollectionButton(coll);
         return row.append([name, version, status, deactivateCollection]);
     }
 
-    function createDeactivateCollectionButton(coll, collectionStatus) {
-        let iconStatus = collectionStatus === "active" ? "icon-active" : "icon-disabled";
+    function createDeactivateCollectionButton(coll) {
+        let iconStatus = coll.status === "active" ? "icon-active" : "icon-disabled";
         let deactivateCollection = $("<td>").addClass("deactivate-collection-td");
         let div = $("<div>").addClass(`deactivate-collection-icon ${iconStatus}`).attr("collection-name", coll.name).attr("data-modal-target", "#deactivate-collection-modal-" + iconStatus);
         let svg =`<svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M16,4A12,12,0,1,1,4,16,12,12,0,0,1,16,4m0-2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Z"></path><path d="M10 15H22V17H10z"></path><title>Deactivate ${coll.name} collection</title></svg>`
@@ -145,6 +130,13 @@ function setCLIVersion(cliVersion) {
     }
     let version = cliVersion["image"].split(":")[1];
     $("#cli-version").append(version);
+}
+
+function emptyTable(){
+    $(".table-loader").show();
+    $("#collection-table").hide();
+    $("#collection-table-body").empty();
+    $("#cli-version").empty();
 }
 
 function getURLParam(key){
