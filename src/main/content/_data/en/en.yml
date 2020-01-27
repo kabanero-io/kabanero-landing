@@ -133,7 +133,6 @@ instance:
   no-instances: No instance found
   date-created: Date created
   modal-confirmation-header: Confirmation
-  modal-content-one: Are you sure you want to deactivate the
-  modal-content-two: "collection?"
+  modal-content: "Are you sure you want to deactivate the collection:"
   modal-cancel-button: Cancel
   modal-deactivate-button: Deactivate

@@ -28,14 +28,15 @@ permalink: /instance/collections/
         <!-- Collections table -->
         <div class="bx--col-xlg white-background">
             {% include table-loader.html %}
-            <div id="collections-sync-button" class="hide">
+            <div id="collection-table" class="hide">
+            <div id="collections-sync-button">
                     <button class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--left bx--tooltip--align-start">
                         <span class="bx--assistive-text">{{t.instance.sync-tooltip}}</span>
                         <svg id="sync-collections-icon" class="icon-active" focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zM20 22h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2V20H20z"></path></svg>
                     </button>
                 </div>
 
-            <table id="collection-table" class="bx--data-table hide">
+            <table class="bx--data-table ">
                 <thead>
                     <tr>
                         <th>
@@ -52,13 +53,14 @@ permalink: /instance/collections/
                 </thead>
                 <tbody id="collection-table-body"></tbody>
             </table>
-            </div>  
-        </div>
-
-        <div id="table-footer-cli-version" class="hide">
+            <div id="table-footer-cli-version">
                 <p>{{t.instance.cli-version}}</p>
                 <p id="cli-version"></p>
+             </div>
+            </div>  
         </div>
+    </div>
+
         <div >
         </div>
     </div>
@@ -101,9 +103,7 @@ permalink: /instance/collections/
                   </button>
               </div>
               <div class="bx--modal-content">
-                  <p>{{t.instance.modal-content-one}}</p>
-                  <p id="modal-collection-name"></p>
-                  <p>{{t.instance.modal-content-two}}</p>
+                <p>{{t.instance.modal-content}}</p><p id="modal-collection-name"></p><p>?</p>
               </div>
               <div class="bx--modal-content--overflow-indicator"></div>
 

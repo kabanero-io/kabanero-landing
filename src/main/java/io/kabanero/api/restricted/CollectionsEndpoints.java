@@ -155,7 +155,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/deactivate/{collectionName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deActivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("collectionName") final String collectionName) throws ClientProtocolException, IOException {
+    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("collectionName") final String collectionName) throws ClientProtocolException, IOException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
