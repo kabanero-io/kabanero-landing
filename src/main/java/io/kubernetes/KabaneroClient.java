@@ -17,7 +17,7 @@
  ******************************************************************************/
 package io.kubernetes;
 
-import io.kabanero.instance.KabaneroCollection;
+import io.kabanero.instance.KabaneroStack;
 import io.kabanero.instance.KabaneroInstance;
 import io.kabanero.instance.KabaneroRepository;
 import io.kabanero.instance.KabaneroTool;
@@ -114,12 +114,12 @@ public class KabaneroClient {
             String cliURL = KabaneroClient.getCLI(client, namespace);
 
             List<KabaneroRepository> kabaneroRepositories = instance.getRepositories();
-            List<KabaneroCollection> kabaneroCollections = KabaneroClient.listKabaneroCollections(client, namespace);
+            List<KabaneroStack> KabaneroStacks = KabaneroClient.listKabaneroStacks(client, namespace);
 
             String clusterName = null;
 
             KabaneroInstance kabInst = new KabaneroInstance(username, instanceName, date, kabaneroRepositories,
-                    clusterName, kabaneroCollections, cliURL);
+                    clusterName, KabaneroStacks, cliURL);
             LOGGER.log(Level.FINE, "Kabanero Instance: {0}: {1}", new Object[] { kabInst.getInstanceName(), kabInst });
 
             kabaneroInstances.add(kabInst);
@@ -165,13 +165,13 @@ public class KabaneroClient {
         }
     }
 
-    private static List<KabaneroCollection> listKabaneroCollections(ApiClient apiClient, String namespace) throws ApiException {
+    private static List<KabaneroStack> listKabaneroStacks(ApiClient apiClient, String namespace) throws ApiException {
         CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
         String group = "kabanero.io";
         String version = "v1alpha1";
         String plural = "collections";
 
-        List<KabaneroCollection> collections = new ArrayList<KabaneroCollection>();
+        List<KabaneroStack> stacks = new ArrayList<KabaneroStack>();
 
         Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
         Map<String, ?> map = (Map<String, ?>) obj;
@@ -179,13 +179,13 @@ public class KabaneroClient {
 
         for (Map<String, ?> item : items) {
             Map<String, ?> spec = (Map<String, ?>) item.get("spec");
-            String collectionName = (String) spec.get("name");
-            String collectionVersion = (String) spec.get("version");
+            String stackName = (String) spec.get("name");
+            String stackVersion = (String) spec.get("version");
 
-            KabaneroCollection kabaneroCollection = new KabaneroCollection(collectionName, collectionVersion);
-            collections.add(kabaneroCollection);
+            KabaneroStack kabaneroStack = new KabaneroStack(stackName, stackVersion);
+            stacks.add(kabaneroStack);
         }
-        return collections;
+        return stacks;
     }
 
     private static List<KubeKabanero> listKabaneroInstances(ApiClient apiClient, String namespace) throws ApiException {
@@ -208,9 +208,9 @@ public class KabaneroClient {
 
             Map<String, ?> spec = (Map<String, ?>) item.get("spec");
             if (spec != null) {
-                Map<String, ?> collections = (Map<String, ?>) spec.get("collections");
-                if (collections != null) {
-                    List<Map<String, ?>> repositories = (List<Map<String, ?>>) collections.get("repositories");
+                Map<String, ?> stacks = (Map<String, ?>) spec.get("collections");
+                if (stacks != null) {
+                    List<Map<String, ?>> repositories = (List<Map<String, ?>>) stacks.get("repositories");
                     instance.setRepositories(repositories);
                 }
             }

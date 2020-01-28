@@ -29,14 +29,14 @@ $(document).ready(function() {
 });
 
 function setListeners(){
-    // event delegation for dynamic collection hub input copy
-    $(document).on("mouseover", ".collection-hub-input", function(){
+    // event delegation for dynamic stack hub input copy
+    $(document).on("mouseover", ".stack-hub-input", function(){
         $(this).attr("data-original-title", $(this).attr("data-original-title"));
         $(this).tooltip("show");
         //copy($(this));
     });
 
-    $(document).on("mouseout", ".collection-hub-input", function(){
+    $(document).on("mouseout", ".stack-hub-input", function(){
         $(this).tooltip("hide");
     });
 
@@ -51,7 +51,7 @@ function setListeners(){
     });
 
     $(document).on("click", ".copy-to-clipboard", function(){
-        copy($(this).parent().siblings(".collection-hub-input"));
+        copy($(this).parent().siblings(".stack-hub-input"));
         $(this).attr("data-original-title", "Copied!");
         $(this).tooltip("show");
     });
@@ -137,7 +137,7 @@ function updateInstanceView(instanceJSON){
 
     //update the various cards
     setInstanceCard(instanceJSON);
-    setCollectionCard(instanceJSON);
+    setStackCard(instanceJSON);
 }
 
 function setInstanceCard(instanceJSON){
@@ -163,29 +163,29 @@ function setInstanceCard(instanceJSON){
     $("#instance-details-card .bx--inline-loading").hide();
 }
 
-function setCollectionCard(instanceJSON){
+function setStackCard(instanceJSON){
     let details = instanceJSON.details;
-    let collections = details.collections;
-    let numberOfCollections = details.collections.length;
+    let stacks = details.stacks;
+    let numberOfStacks = details.stacks.length;
     
-    // Collections Card
-    $("#collection-details-card #num-collections").text(numberOfCollections);
+    // Stacks Card
+    $("#stack-details-card #num-stacks").text(numberOfStacks);
 
     let liColls = "";
-    $(collections).each(function(){
+    $(stacks).each(function(){
         liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
     });
 
-    $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
+    $("#stack-details-card #stack-list").html(`<ul>${liColls}</ul>`);
 
-    $("#collection-details-card  .bx--inline-loading").hide();
+    $("#stack-details-card  .bx--inline-loading").hide();
 }
 
 // Sets up the UI in regards to OAuth data
 function setOAuth(oauthJSON){
     if(oauthJSON && oauthJSON.isConfigured){
         let selectedInstance = $("#selected-instance-name").text().trim();
-        $("#collections-oauth-msg").text("Manage Collections");
-        $("#collections-link").attr("href", `/instance/collections?name=${selectedInstance}`);
+        $("#stacks-oauth-msg").text("Manage Stacks");
+        $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);
     }
 }

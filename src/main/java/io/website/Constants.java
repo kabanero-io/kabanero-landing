@@ -22,7 +22,7 @@ package io.website;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.kabanero.instance.KabaneroCollection;
+import io.kabanero.instance.KabaneroStack;
 import io.kabanero.instance.KabaneroRepository;
 
 public final class Constants {
@@ -34,7 +34,7 @@ public final class Constants {
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");
     public static final String DEFAULT_INSTANCE_NAME = getEnv("INSTANCE_NAME", "kabanero");
     public static final String DEFAULT_DATE_CREATED = getEnv("DATE_CREATED", "");
-    public static final List<KabaneroRepository> DEFAULT_COLLECTION_HUB_URL = getDefaultRepos();
+    public static final List<KabaneroRepository> DEFAULT_STACK_HUB_URL = getDefaultRepos();
     public static final String DEFAULT_CLUSTER_NAME = getEnv("CLUSTER_NAME", "");
     public static final String CLI_URL = getEnv("CLI_URL", "");
 
@@ -44,8 +44,8 @@ public final class Constants {
     public static final String TOKEN_ENDPOINT =  getEnv("TOKEN_ENDPOINT", null);
     public static final String WEBSITE = getEnv("WEBSITE", null);
 
-    // Collections env value should be a comma separated list of "collection_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
-    public static final List<KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
+    // Stacks env value should be a comma separated list of "stack_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
+    public static final List<KabaneroStack> DEFAULT_STACKS = stackStringToStacks(getEnv("STACKS", ""));
 
     // Kabanero Tools
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
@@ -144,30 +144,30 @@ public final class Constants {
         return envValue == null ? fallback : envValue;
     }
 
-    private static List<KabaneroCollection> collectionStringToCollections(String collections){
-        List<KabaneroCollection> activeCollections = new ArrayList<KabaneroCollection>();
-        if (collections.trim().isEmpty()) {
-            return activeCollections;
+    private static List<KabaneroStack> stackStringToStacks(String stacks){
+        List<KabaneroStack> activeStacks = new ArrayList<KabaneroStack>();
+        if (stacks.trim().isEmpty()) {
+            return activeStacks;
         }
-        String[] collectionsArray = collections.split(",");
+        String[] stacksArray = stacks.split(",");
 
-        for(String collectionGroup:collectionsArray){
-            String[] collectionNameVersion = collectionGroup.split("=");
+        for(String stackGroup:stacksArray){
+            String[] stackNameVersion = stackGroup.split("=");
 
-            if(collectionNameVersion.length != 2){
-                throw new IllegalArgumentException("Invalid Collections String");
+            if(stackNameVersion.length != 2){
+                throw new IllegalArgumentException("Invalid Stacks String");
             }
 
-            KabaneroCollection KabaneroCollection = new KabaneroCollection(collectionNameVersion[0], collectionNameVersion[1]);
-            activeCollections.add(KabaneroCollection);
+            KabaneroStack KabaneroStack = new KabaneroStack(stackNameVersion[0], stackNameVersion[1]);
+            activeStacks.add(KabaneroStack);
         }
 
-        return activeCollections;
+        return activeStacks;
     }
 
     private static List<KabaneroRepository> getDefaultRepos() {
         List<KabaneroRepository> kabRepos = new ArrayList<>();
-        KabaneroRepository repo = new KabaneroRepository("incubator", getEnv("COLLECTION_HUB_URL", ""), true);
+        KabaneroRepository repo = new KabaneroRepository("incubator", getEnv("STACK_HUB_URL", ""), true);
         kabRepos.add(repo);
         return kabRepos;
     }

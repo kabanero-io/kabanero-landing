@@ -16,7 +16,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import io.kabanero.instance.KabaneroCollection;
+import io.kabanero.instance.KabaneroStack;
 import io.kabanero.instance.KabaneroInstance;
 import io.kabanero.instance.KabaneroManager;
 import io.kabanero.instance.KabaneroRepository;
@@ -85,8 +85,8 @@ public class KabaneroManagerTest {
 
     private static KabaneroInstance createKabInstance(String id){
         KabaneroRepository kabaneroRepository = new KabaneroRepository("mock user repository name", " https://mock.com/appsody/stacks/releases/latest/download/incubator-index.yaml", true);
-        KabaneroCollection kabaneroCollection = new KabaneroCollection("mock nodejs", "2.0");
-        return new KabaneroInstance("mock kabanero username", id , "10/03/2019", Arrays.asList(kabaneroRepository), "mock cluster", Arrays.asList(kabaneroCollection), "https://mock-kabanero-cli-kabanero.mock.mock.ibm.com");
+        KabaneroStack KabaneroStack = new KabaneroStack("mock nodejs", "2.0");
+        return new KabaneroInstance("mock kabanero username", id , "10/03/2019", Arrays.asList(kabaneroRepository), "mock cluster", Arrays.asList(KabaneroStack), "https://mock-kabanero-cli-kabanero.mock.mock.ibm.com");
     }
 
 }

@@ -1,11 +1,11 @@
 package io.kabanero.instance;
 
-public class KabaneroCollection {
+public class KabaneroStack {
 
     private String name;
     private String version;
 
-    public KabaneroCollection(String name, String version) {
+    public KabaneroStack(String name, String version) {
        this.name = name;
        this.version = version;
     }
@@ -20,7 +20,7 @@ public class KabaneroCollection {
 
     @Override
     public String toString() {
-        return "Collection [name=" + name + ", version=" + version + "]";
+        return "Stack [name=" + name + ", version=" + version + "]";
     }
 
 }

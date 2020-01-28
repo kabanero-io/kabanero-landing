@@ -28,15 +28,15 @@ public class KabaneroInstanceDetails {
     public List<KabaneroRepository> repos;
     public String tektonDashboardURL;
     public String clusterName;
-    public List<KabaneroCollection> collections;
+    public List<KabaneroStack> stacks;
     public String cliURL;
 
-    public KabaneroInstanceDetails(String username, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroCollection> collections, String cliURL){
+    public KabaneroInstanceDetails(String username, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroStack> stacks, String cliURL){
         this.username = username;
         this.dateCreated = date;
         this.repos = repos;
         this.clusterName = clusterName;
-        this.collections = collections;
+        this.stacks = stacks;
         this.cliURL = cliURL;
     }
 
@@ -72,12 +72,12 @@ public class KabaneroInstanceDetails {
         this.clusterName = cluster;
     }
 
-    public List<KabaneroCollection> getCollections() {
-        return collections;
+    public List<KabaneroStack> getStacks() {
+        return stacks;
     }
 
-    public void setCollections(List<KabaneroCollection> collections) {
-        this.collections = collections;
+    public void setStacks(List<KabaneroStack> stacks) {
+        this.stacks = stacks;
     }
 
     public String getClusterName() {
@@ -106,8 +106,8 @@ public class KabaneroInstanceDetails {
 
     @Override
     public String toString() {
-        return "KabaneroInstanceDetails [cliURL=" + cliURL + ", clusterName=" + clusterName + ", collections="
-                + collections + ", dateCreated=" + dateCreated + ", repos=" + repos + ", tektonDashboardURL="
+        return "KabaneroInstanceDetails [cliURL=" + cliURL + ", clusterName=" + clusterName + ", stacks="
+                + stacks + ", dateCreated=" + dateCreated + ", repos=" + repos + ", tektonDashboardURL="
                 + tektonDashboardURL + ", username=" + username + "]";
     }
 }

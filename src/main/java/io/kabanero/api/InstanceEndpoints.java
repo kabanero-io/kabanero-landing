@@ -19,7 +19,6 @@
 package io.kabanero.api;
 
 import java.util.Collection;
-
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;

@@ -29,7 +29,7 @@ permalink: /instance/
                         </svg>
                         <div class="bx--accordion__title">No instance found</div>
                     </button>
-                    <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
+                    <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
                     </div>
                 </li>
             </ul>
@@ -63,7 +63,7 @@ permalink: /instance/
                             <div class="bx--col">
                             <div class="input-group">
                             <p class="gray-text" id="appsody-url-text">Appsody URL: </p>
-                            <input id="appsody-url" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
+                            <input id="appsody-url" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
                             <div class="input-group-append">
                                 <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
                             </div>
@@ -73,8 +73,8 @@ permalink: /instance/
                         <div class="bx--row">
                             <div class="bx--col">
                                 <div class="input-group">
-                                <p class="gray-text collections-url" id="codewind-url-text">Codewind URL: </p>
-                                    <input id="codewind-url" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
+                                <p class="gray-text stacks-url" id="codewind-url-text">Codewind URL: </p>
+                                    <input id="codewind-url" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
                                     <div class="input-group-append">
                                         <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
                                     </div>
@@ -83,9 +83,9 @@ permalink: /instance/
                         </div>
                         <div class="bx--row">
                             <div class="bx--col">
-                                <p>Management CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. For more information about using the CLI see the <a href="/docs/ref/general/reference/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
+                                <p>Management CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your stacks. For more information about using the CLI see the <a href="/docs/ref/general/reference/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
                                 <div class="input-group">
-                                    <input id="management-cli" type="text" class="form-control collection-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
+                                    <input id="management-cli" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
                                     <div class="input-group-append">
                                         <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
                                     </div>
@@ -97,36 +97,36 @@ permalink: /instance/
             </div>
         </div>
 
-        <!-- Collections Card -->
+        <!-- Stacks Card -->
         <div class="bx--col-xlg-4 white-background">
-            <div id="collection-details-card" class="bx--tile">
+            <div id="stack-details-card" class="bx--tile">
         
                 <!-- loader -->
                 {% include loader.html %}
 
-                <!-- collection details -->
+                <!-- stack details -->
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
-                        <h2 id="num-collections"></h2>
+                        <h2 id="num-stacks"></h2>
                     </div>
                 </div>
 
                 <div class="bx--row">
                     <div class="bx--col">
-                        <h4>Collections</h4>
+                        <h4>Stacks</h4>
                     </div>
                 </div>
 
                 <div class="bx--row">
-                    <div id="collection-list" class="bx--col"></div>
+                    <div id="stack-list" class="bx--col"></div>
                 </div>
 
-                <!-- Collections bottom button -->
+                <!-- Stacks bottom button -->
                 <div class="bx--row">
                     <div class="bx--col-sm-2 bx--col-lg-8">
-                        <a id="collections-link" href="{{page.url | remove: '/instance'}}docs/ref/general/configuration/console-oauth.html">
-                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="collections-btn" type="button">
-                                <span id="collections-oauth-msg">{{t.instance.oauth.configure}}</span>
+                        <a id="stacks-link" href="{{page.url | remove: '/instance'}}docs/ref/general/configuration/console-oauth.html">
+                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="stacks-btn" type="button">
+                                <span id="stacks-oauth-msg">{{t.instance.oauth.configure}}</span>
                                 <div class="arrow-container">
                                     <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
                                 </div>

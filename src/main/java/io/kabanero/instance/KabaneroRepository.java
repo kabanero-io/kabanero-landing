@@ -22,15 +22,15 @@ public class KabaneroRepository {
     String name;
     String appsodyURL;
     String codewindURL;
-    Boolean activateDefaultCollections;
+    Boolean activateDefaultStacks;
 
-    public KabaneroRepository(String name, String appsodyURL, Boolean activateDefaultCollections){
+    public KabaneroRepository(String name, String appsodyURL, Boolean activateDefaultStacks){
         this.name = name;
         this.appsodyURL = appsodyURL;
-        this.activateDefaultCollections = activateDefaultCollections;
+        this.activateDefaultStacks = activateDefaultStacks;
 
         /**
-         * We need to add the JSON version of the collection hub index file for Codewind (Codewind only supports the JSON version).
+         * We need to add the JSON version of the stack hub index file for Codewind (Codewind only supports the JSON version).
          * instead of having the installer include the URL in the CRD, we will just replace the file extention with .json, 
          * since the files live next to each other. We validate this URL before showing it on the client side.
         */
@@ -63,17 +63,17 @@ public class KabaneroRepository {
         this.codewindURL = codewindURL;
     }
 
-    public Boolean getActivateDefaultCollections() {
-        return activateDefaultCollections;
+    public Boolean getActivateDefaultStacks() {
+        return activateDefaultStacks;
     }
 
-    public void setActivateDefaultCollections(Boolean activateDefaultCollections) {
-        this.activateDefaultCollections = activateDefaultCollections;
+    public void setActivateDefaultStacks(Boolean activateDefaultStacks) {
+        this.activateDefaultStacks = activateDefaultStacks;
     }
 
     @Override
     public String toString() {
-        return "KabaneroRepository [activateDefaultCollections=" + activateDefaultCollections + ", appsodyURL="
+        return "KabaneroRepository [activateDefaultStacks=" + activateDefaultStacks + ", appsodyURL="
                 + appsodyURL + ", codewindURL=" + codewindURL + ", name=" + name + "]";
     }
     

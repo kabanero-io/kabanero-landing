@@ -25,9 +25,9 @@ public class KabaneroInstance {
     public String instanceName;
     public KabaneroInstanceDetails details;
     
-    public KabaneroInstance(String username, String instanceName, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroCollection> collections, String cliURL){
+    public KabaneroInstance(String username, String instanceName, String date, List<KabaneroRepository> repos, String clusterName, List<KabaneroStack> stacks, String cliURL){
         this.instanceName = instanceName;
-        this.details = new KabaneroInstanceDetails(username, date, repos, clusterName, collections, cliURL);
+        this.details = new KabaneroInstanceDetails(username, date, repos, clusterName, stacks, cliURL);
     }
 
     public KabaneroInstanceDetails getDetails() {

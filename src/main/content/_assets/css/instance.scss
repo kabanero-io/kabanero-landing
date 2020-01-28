@@ -53,7 +53,7 @@ main {
     padding-top: 50px;
 }
 
-.collection-hub-input {
+.stack-hub-input {
     width: 50%;
     cursor: pointer;
     padding: 5px;
@@ -110,7 +110,7 @@ caption {
     height: 2rem;
 }
 
-#collections-button{
+#stacks-button{
     position: relative;
     top:2rem;
 }
@@ -150,6 +150,6 @@ button:disabled > .arrow-container > svg{
     right:1px;
 }
 
-#collection-list li {
+#stack-list li {
     margin-top: 1em;
 }

@@ -70,7 +70,7 @@ public class KabaneroManager {
         
     public static KabaneroInstance createDefaultInstance() {
         KabaneroInstance instance = new KabaneroInstance(Constants.DEFAULT_USER_NAME, Constants.DEFAULT_INSTANCE_NAME, Constants.DEFAULT_DATE_CREATED, 
-        Constants.DEFAULT_COLLECTION_HUB_URL, Constants.DEFAULT_CLUSTER_NAME, Constants.DEFAULT_COLLECTIONS, Constants.CLI_URL);
+        Constants.DEFAULT_STACK_HUB_URL, Constants.DEFAULT_CLUSTER_NAME, Constants.DEFAULT_STACKS, Constants.CLI_URL);
         return instance;
     }
     

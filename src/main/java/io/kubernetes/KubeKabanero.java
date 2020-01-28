@@ -28,9 +28,9 @@ public class KubeKabanero {
         for(Map<String, ?> repo : repositories){
             String name = (String) repo.get("name");
             String appsodyURL = (String) repo.get("url");
-            Boolean activateDefaultCollections = (Boolean) repo.get("activateDefaultCollections");
+            Boolean activateDefaultStacks = (Boolean) repo.get("activateDefaultCollections");
             
-            KabaneroRepository KabRepo = new KabaneroRepository(name, appsodyURL, activateDefaultCollections);
+            KabaneroRepository KabRepo = new KabaneroRepository(name, appsodyURL, activateDefaultStacks);
             this.repositories.add(KabRepo);
         }
     }

@@ -67,11 +67,11 @@ import io.kabanero.instance.KabaneroManager;
 import io.website.ResponseMessage;
 
 @ApplicationPath("api")
-@Path("/auth/kabanero/{instanceName}/collections")
+@Path("/auth/kabanero/{instanceName}/stacks")
 @RequestScoped
-public class CollectionsEndpoints extends Application {
+public class StacksEndpoints extends Application {
     private final static String JWT_COOKIE_KEY = "kabjwt";
-    private final static Logger LOGGER = Logger.getLogger(CollectionsEndpoints.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(StacksEndpoints.class.getName());
     private String CLI_URL;
 
     @PathParam("instanceName")
@@ -80,7 +80,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
+    public Response listStacks(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -101,12 +101,12 @@ public class CollectionsEndpoints extends Application {
             HttpEntity entity2 = response.getEntity();
             String body = EntityUtils.toString(entity2);
 
-            JSONObject collectionsJSON = new JSONObject(body);
+            JSONObject stacksJSON = new JSONObject(body);
 
             EntityUtils.consume(entity2);
-            return Response.ok().entity(String.valueOf(collectionsJSON)).build();
+            return Response.ok().entity(String.valueOf(stacksJSON)).build();
         } catch (JSONException e) {
-            LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
+            LOGGER.log(Level.SEVERE, "Failed parsing Stacks JSON returned from cli server", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } finally {
             response.close();
