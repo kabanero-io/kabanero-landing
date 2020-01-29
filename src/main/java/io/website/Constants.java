@@ -22,8 +22,6 @@ package io.website;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.kabanero.instance.KabaneroCollection;
-import io.kabanero.instance.KabaneroRepository;
 
 public final class Constants {
 
@@ -34,7 +32,6 @@ public final class Constants {
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");
     public static final String DEFAULT_INSTANCE_NAME = getEnv("INSTANCE_NAME", "kabanero");
     public static final String DEFAULT_DATE_CREATED = getEnv("DATE_CREATED", "");
-    public static final List<KabaneroRepository> DEFAULT_COLLECTION_HUB_URL = getDefaultRepos();
     public static final String DEFAULT_CLUSTER_NAME = getEnv("CLUSTER_NAME", "");
     public static final String CLI_URL = getEnv("CLI_URL", "");
 
@@ -43,9 +40,6 @@ public final class Constants {
     public static final String AUTHORIZATION_ENDPOINT =  getEnv("AUTHORIZATION_ENDPOINT", null);
     public static final String TOKEN_ENDPOINT =  getEnv("TOKEN_ENDPOINT", null);
     public static final String WEBSITE = getEnv("WEBSITE", null);
-
-    // Collections env value should be a comma separated list of "collection_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
-    public static final List<KabaneroCollection> DEFAULT_COLLECTIONS = collectionStringToCollections(getEnv("COLLECTIONS", ""));
 
     // Kabanero Tools
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
@@ -142,33 +136,5 @@ public final class Constants {
     private static String getEnv(String envKey, String fallback){
         String envValue = System.getenv(envKey);
         return envValue == null ? fallback : envValue;
-    }
-
-    private static List<KabaneroCollection> collectionStringToCollections(String collections){
-        List<KabaneroCollection> activeCollections = new ArrayList<KabaneroCollection>();
-        if (collections.trim().isEmpty()) {
-            return activeCollections;
-        }
-        String[] collectionsArray = collections.split(",");
-
-        for(String collectionGroup:collectionsArray){
-            String[] collectionNameVersion = collectionGroup.split("=");
-
-            if(collectionNameVersion.length != 2){
-                throw new IllegalArgumentException("Invalid Collections String");
-            }
-
-            KabaneroCollection KabaneroCollection = new KabaneroCollection(collectionNameVersion[0], collectionNameVersion[1]);
-            activeCollections.add(KabaneroCollection);
-        }
-
-        return activeCollections;
-    }
-
-    private static List<KabaneroRepository> getDefaultRepos() {
-        List<KabaneroRepository> kabRepos = new ArrayList<>();
-        KabaneroRepository repo = new KabaneroRepository("incubator", getEnv("COLLECTION_HUB_URL", ""), true);
-        kabRepos.add(repo);
-        return kabRepos;
     }
 }

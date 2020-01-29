@@ -85,13 +85,18 @@
 			<artifactId>powermock-module-junit4</artifactId>
 			<version>2.0.2</version>
 			<scope>test</scope>
-		 </dependency>
-		 <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito2</artifactId>
 			<version>2.0.2</version>
 			<scope>test</scope>
-		 </dependency>
+		</dependency>
+		<dependency>
+			<groupId>io.kabanero</groupId>
+			<artifactId>operator-java-bindings</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 		<!-- END: Needed to compile and run unit tests -->
 	</dependencies>
 

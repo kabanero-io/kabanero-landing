@@ -14,7 +14,7 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import io.kabanero.instance.KabaneroInstance;
+
 import io.kabanero.instance.KabaneroTool;
 import io.kabanero.instance.KabaneroToolManager;
 import io.kubernetes.KabaneroClient;
@@ -23,7 +23,6 @@ import io.kubernetes.KabaneroClient;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(KabaneroClient.class)
 public class KabaneroToolManagerTest {
-    KabaneroInstance kabaneroInstance;
     KabaneroToolManager kToolMan;
 
     @Before

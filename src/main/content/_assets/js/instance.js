@@ -71,7 +71,8 @@ function loadAllInfo(){
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(fetchAnInstance)
-        .then(updateInstanceView);
+        .then(updateInstanceView)
+        .then(fetchCollectionData);
 
     fetchAllTools()
         .then(setToolData);
@@ -134,18 +135,16 @@ function updateInstanceView(instanceJSON){
     if(typeof instanceJSON === "undefined"){
         return;
     }
-
     //update the various cards
     setInstanceCard(instanceJSON);
-    setCollectionCard(instanceJSON);
+    return instanceJSON.metadata.name;
 }
 
 function setInstanceCard(instanceJSON){
-    let details = instanceJSON.details;
-    let appHubName = details.repos[0].name;
-    let appsodyURL = details.repos[0].appsodyURL;
-    let codewindURL = details.repos[0].codewindURL;
-    let cliURL = details.cliURL;
+    let appHubName = instanceJSON.spec.collections.repositories[0].name;
+    let appsodyURL = instanceJSON.spec.collections.repositories[0].url;
+    let codewindURL = appsodyURL.replace(".yaml", ".json");
+    let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
@@ -164,16 +163,16 @@ function setInstanceCard(instanceJSON){
 }
 
 function setCollectionCard(instanceJSON){
-    let details = instanceJSON.details;
-    let collections = details.collections;
-    let numberOfCollections = details.collections.length;
+    //let details = instanceJSON.details;
+    let collections = instanceJSON.items;
+    let numberOfCollections = instanceJSON.items.length;
     
     // Collections Card
     $("#collection-details-card #num-collections").text(numberOfCollections);
 
     let liColls = "";
     $(collections).each(function(){
-        liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
+        liColls = liColls.concat(`<li>${this.spec.name} : ${this.spec.version}</li>`);
     });
 
     $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
