@@ -28,7 +28,6 @@ function fetchAnInstance(instanceName){
     if(typeof instanceName === "undefined"){
         return;
     }
-
     return fetch(`/api/kabanero/${instanceName}`)
         .then(function(response) {
             return response.json();
@@ -58,6 +57,19 @@ function fetchATool(tool){
             return response.json();
         })
         .catch(error => console.error(`Error getting ${tool} tool`, error));
+}
+
+function fetchCollectionData(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+
+    return fetch(`/api/kabanero/${instanceName}/collections`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(setCollectionCard)
+        .catch(error => console.error("Error getting collections", error));
 }
 
 let ToolPane = class {
@@ -215,7 +227,8 @@ let InstancePane = class {
 };
 
 // Set each instance name in the accordion selection and returns the instance name to be loaded
-function setInstanceSelections(instances){
+function setInstanceSelections(instancesJSON){
+    let instances = instancesJSON.items;
     if(typeof instances === "undefined"|| instances.length === 0){
         $("#instance-accordion #error-li").show();
 
@@ -225,11 +238,10 @@ function setInstanceSelections(instances){
     }
 
     for(let instance of instances){
-        let details = instance.details || {};
-        let dateCreated = details.dateCreated;
+        let dateCreated = parseDateFromTimestamp(instance.metadata.creationTimestamp);
        
         let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hide");
-        $(row).find(".bx--accordion__title").text(instance.instanceName);
+        $(row).find(".bx--accordion__title").text(instance.metadata.name);
         $(row).find(".creation-date").text(dateCreated);
         $("#instance-accordion").append(row);
     }
@@ -241,6 +253,10 @@ function setInstanceSelections(instances){
     let $firstInstance = $("#instance-accordion li").first();
     $firstInstance.addClass("bx--accordion__item--active").attr("selected-instance", "");
     return $firstInstance.find(".bx--accordion__title").text().trim();
+}
+
+function parseDateFromTimestamp(creationTimestamp){
+    return new Date(creationTimestamp.year, (creationTimestamp.monthOfYear - 1), creationTimestamp.dayOfMonth).toLocaleDateString();
 }
 
 // Change the accordion when a new instance is clicked and return the new selected instance name
