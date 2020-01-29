@@ -133,8 +133,8 @@ function setCLIVersion(cliVersion) {
 }
 
 function emptyTable(){
-    $(".table-loader").show();
     $("#collection-table").hide();
+    $(".table-loader").show();
     $("#collection-table-body").empty();
     $("#cli-version").empty();
 }
