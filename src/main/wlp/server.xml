@@ -33,7 +33,7 @@
 
     <cdi12 enableImplicitBeanArchives="false"/>
     
-    <webApplication location="kabanero.war" contextRoot="/"/>
+    <webApplication location="kabanero-console.war" contextRoot="/"/>
 
     <!-- Enable the following to enable trace 
     <logging traceSpecification="io.kabanero.website.*=all"></logging>
