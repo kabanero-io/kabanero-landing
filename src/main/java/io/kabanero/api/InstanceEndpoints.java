@@ -20,12 +20,9 @@ package io.kabanero.api;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Collection;
-import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.CookieParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -54,9 +51,9 @@ public class InstanceEndpoints extends Application {
     public Response getAllInstances() throws IOException, ApiException, GeneralSecurityException {
         KabaneroList kabaneros = KabaneroClient.getInstances();
         if (kabaneros == null){
-            return Response.status(500).entity(new ResponseMessage("No instances found")).build();
+            return Response.status(404).entity(new ResponseMessage("No instances found")).build();
         }
-        return Response.ok().entity(kabaneros).build();
+        return Response.ok(kabaneros).build();
     }
 
     @GET

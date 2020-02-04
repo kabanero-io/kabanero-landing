@@ -17,7 +17,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero.instance;
+package io.kabanero.tools;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class KabaneroToolManager {
     }
 
     public void addTool(KabaneroTool tool) {
-        KABANERO_TOOLS.put(tool.getLabel(), tool);
+        KABANERO_TOOLS.put(tool.getName(), tool);
     }
         
     private static void addDefaultTools(KabaneroToolManager tools) {

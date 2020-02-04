@@ -17,24 +17,17 @@
  *
  ******************************************************************************/
 
-package io.kabanero.instance;
+package io.kabanero.tools;
 
 public class KabaneroTool {
-
-    public String label;
+    public String name;
+    public String namespace;
+    public String route;
     public String location;
     
-    public KabaneroTool(String label, String location){
-        this.label = label;
+    public KabaneroTool(String name, String location){
+        this.name = name;
         this.location = location;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
     }
 
     public String getLocation() {
@@ -43,5 +36,35 @@ public class KabaneroTool {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    @Override
+    public String toString() {
+        return "KabaneroTool [location=" + location + ", name=" + name + ", namespace=" + namespace
+                + ", route=" + route + "]";
     }
 }
