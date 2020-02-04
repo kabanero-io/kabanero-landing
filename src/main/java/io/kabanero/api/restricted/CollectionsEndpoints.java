@@ -25,6 +25,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,6 +44,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.ibm.websphere.security.social.UserProfile;
 import com.ibm.websphere.security.social.UserProfileManager;
 
@@ -60,17 +64,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import io.website.ResponseMessage;
-
-import io.kabanero.v1alpha1.client.apis.CollectionApi;
-import io.kabanero.v1alpha1.models.CollectionList;
 import io.kabanero.v1alpha1.models.Kabanero;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
-
 
 @ApplicationPath("api")
 @Path("/auth/kabanero/{instanceName}/collections")
@@ -86,16 +84,18 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
+            throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
-        String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
         HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
         CloseableHttpResponse response = client.execute(httpGet);
         try {
-            // Check if CLI server returns a bad code (like 401) which will tell our frontend to trigger a login
+            // Check if CLI server returns a bad code (like 401) which will tell our
+            // frontend to trigger a login
             int statusCode = response.getStatusLine().getStatusCode();
-            if(statusCode != 200){
+            if (statusCode != 200) {
                 LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
                 return Response.status(statusCode).build();
             }
@@ -103,11 +103,9 @@ public class CollectionsEndpoints extends Application {
             HttpEntity entity2 = response.getEntity();
             String body = EntityUtils.toString(entity2);
 
-            JSONObject collectionsJSON = new JSONObject(body);
-
             EntityUtils.consume(entity2);
-            return Response.ok().entity(String.valueOf(collectionsJSON)).build();
-        } catch (JSONException e) {
+            return Response.ok().entity(body).build();
+        } catch (JsonParseException e) {
             LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } finally {
@@ -141,10 +139,8 @@ public class CollectionsEndpoints extends Application {
             HttpEntity entity2 = response.getEntity();
             String body = EntityUtils.toString(entity2);
 
-            JSONObject cliVersion = new JSONObject(body);
-
             EntityUtils.consume(entity2);
-            return Response.ok().entity(String.valueOf(cliVersion)).build();
+            return Response.ok().entity(body).build();
         } finally {
             response.close();
         }
@@ -184,9 +180,9 @@ public class CollectionsEndpoints extends Application {
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
         HttpPost httpPost = new HttpPost(cliServerURL + "/login");
 
-        JSONObject gitCreds = new JSONObject();
-        gitCreds.put("gituser", user);
-        gitCreds.put("gitpat", token);
+        JsonObject gitCreds = new JsonObject();
+        gitCreds.addProperty("gituser", user);
+        gitCreds.addProperty("gitpat", token);
 
         HttpEntity stringEntity = new StringEntity(gitCreds.toString(), ContentType.APPLICATION_JSON);
         httpPost.setEntity(stringEntity);
@@ -197,10 +193,10 @@ public class CollectionsEndpoints extends Application {
             HttpEntity entity2 = response2.getEntity();
             String body = EntityUtils.toString(entity2);
 
-            JSONObject jwtJSON = new JSONObject(body);
+            Map<?, ?> jwtProperties = new Gson().fromJson(body, Map.class);
 
-            String jwt = jwtJSON.getString("jwt");
-            String responseMessage = jwtJSON.getString("message");
+            String jwt = (String) jwtProperties.get("jwt");
+            String responseMessage = (String) jwtProperties.get("message");
 
             if (jwt == null || responseMessage == null || !"ok".equals(responseMessage)) {
                 LOGGER.log(Level.SEVERE, "Failed to login with the CLI server: " + responseMessage);
@@ -209,7 +205,7 @@ public class CollectionsEndpoints extends Application {
 
             EntityUtils.consume(entity2);
             return jwt;
-        } catch (JSONException e) {
+        } catch (JsonParseException e) {
             LOGGER.log(Level.SEVERE, "Failed parsing JSON returned from cli server", e);
             return null;
         } finally {

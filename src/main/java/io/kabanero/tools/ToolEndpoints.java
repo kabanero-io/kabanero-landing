@@ -16,7 +16,7 @@
  *
  ******************************************************************************/
 
-package io.kabanero.instance;
+package io.kabanero.tools;
 
 import java.util.Collection;
 
