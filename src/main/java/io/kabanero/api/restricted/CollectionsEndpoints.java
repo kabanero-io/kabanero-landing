@@ -54,8 +54,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -87,7 +89,8 @@ public class CollectionsEndpoints extends Application {
     public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
             throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
-        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+
+        String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
         HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
         CloseableHttpResponse response = client.execute(httpGet);
@@ -146,6 +149,83 @@ public class CollectionsEndpoints extends Application {
         }
     }
 
+  
+
+    @GET
+    @Path("/deactivate/{collectionName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("collectionName") final String collectionName) throws ClientProtocolException, IOException {
+        CloseableHttpClient client = createHttpClient();
+
+        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+
+        HttpDelete httpDelete = new HttpDelete(cliServerURL + "/v1/collections/" + collectionName);
+        httpDelete.setHeader(HttpHeaders.AUTHORIZATION, jwt);
+
+        CloseableHttpResponse response = client.execute(httpDelete);
+
+        try {
+            // Check if CLI server returns a bad code (like 401) which will tell our
+            // frontend to trigger a login
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode != 200) {
+                LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
+                return Response.status(statusCode).build();
+            }
+
+            HttpEntity entity2 = response.getEntity();
+            String body = EntityUtils.toString(entity2);
+
+            JSONObject syncedCollectionsJSON = new JSONObject(body);
+
+            EntityUtils.consume(entity2);
+            return Response.ok().entity(String.valueOf(syncedCollectionsJSON)).build();
+        } catch (JSONException e) {
+            LOGGER.log(Level.SEVERE, "Failed parsing message returned from cli server", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } finally {
+            response.close();
+        }
+    }
+
+    @GET
+    @Path("/sync")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response syncCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
+        CloseableHttpClient client = createHttpClient();
+
+        String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
+
+        HttpPut httpPut = new HttpPut(cliServerURL + "/v1/collections");
+        httpPut.setHeader(HttpHeaders.AUTHORIZATION, jwt);
+
+        CloseableHttpResponse response = client.execute(httpPut);
+
+        try {
+            // Check if CLI server returns a bad code (like 401) which will tell our
+            // frontend to trigger a login
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if (statusCode != 200) {
+                LOGGER.log(Level.WARNING, "non 200 status code returned from cli server: " + statusCode);
+                return Response.status(statusCode).build();
+            }
+
+            HttpEntity entity2 = response.getEntity();
+            String body = EntityUtils.toString(entity2);
+
+            JSONObject syncedCollectionsJSON = new JSONObject(body);
+
+            EntityUtils.consume(entity2);
+            return Response.ok().entity(String.valueOf(syncedCollectionsJSON)).build();
+        } catch (JSONException e) {
+            LOGGER.log(Level.SEVERE, "Failed parsing message returned from cli server", e);
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        } finally {
+            response.close();
+        }
+    }
 
     @GET
     @Path("/login")

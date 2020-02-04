@@ -28,28 +28,40 @@ permalink: /instance/collections/
         <!-- Collections table -->
         <div class="bx--col-xlg white-background">
             {% include table-loader.html %}
+            <div id="collection-table" class="hide">
+            <div id="collections-sync-button">
+                    <button class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--left bx--tooltip--align-start">
+                        <span class="bx--assistive-text">{{t.instance.sync-tooltip}}</span>
+                        <svg id="sync-collections-icon" class="icon-active" focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zM20 22h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2V20H20z"></path></svg>
+                    </button>
+                </div>
 
-            <table id="collection-table" class="bx--data-table hide">
+            <table class="bx--data-table ">
                 <thead>
                     <tr>
                         <th>
-                            <span class="bx--table-header-label">Collection</span>
+                            <span class="bx--table-header-label">{{t.instance.data-table-headers.collection}}</span>
                         </th>
                         <th>
-                            <span class="bx--table-header-label">Version</span>
+                            <span class="bx--table-header-label">{{t.instance.data-table-headers.version}}</span>
                         </th>
                         <th>
-                            <span class="bx--table-header-label">Status</span>
+                            <span class="bx--table-header-label">{{t.instance.data-table-headers.status}}</span>
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody id="collection-table-body"></tbody>
             </table>
-            </div>  
-        </div>
-        <div id="table-header-cli-version" class="hide">
+            <div id="table-footer-cli-version">
                 <p>{{t.instance.cli-version}}</p>
                 <p id="cli-version"></p>
+             </div>
+            </div>  
+        </div>
+    </div>
+
+        <div >
         </div>
     </div>
 </div>
@@ -60,7 +72,7 @@ permalink: /instance/collections/
         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
         </svg>
-        <div class="bx--accordion__title">No instance found</div>
+        <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
     </button>
     <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
     </div>
@@ -72,7 +84,34 @@ permalink: /instance/collections/
       <div class="bx--accordion__title"></div>
     </button>
     <div class="bx--accordion__content">
-      <p class="gray-text">Date created</p>
+      <p class="gray-text">{{t.instance.date-created}}</p>
       <p class="creation-date"></p>
     </div>
 </li>
+            
+      <div data-modal id="deactivate-collection-modal-icon-active" class="bx--modal " role="dialog" aria-modal="true" tabindex="-1">
+          <div class="bx--modal-container">
+              <div class="bx--modal-header">
+                  <p class="bx--modal-header__heading bx--type-beta">{{t.instance.modal-confirmation-header}}</p>
+                  <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal">
+                      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
+                          xmlns="http://www.w3.org/2000/svg" class="bx--modal-close__icon" width="16" height="16"
+                          viewBox="0 0 16 16" aria-hidden="true">
+                          <path d="M12 4.7L11.3 4 8 7.3 4.7 4 4 4.7 7.3 8 4 11.3 4.7 12 8 8.7 11.3 12 12 11.3 8.7 8z">
+                          </path>
+                      </svg>
+                  </button>
+              </div>
+              <div class="bx--modal-content">
+                <p>{{t.instance.modal-content}}</p><p id="modal-collection-name"></p><p>?</p>
+              </div>
+              <div class="bx--modal-content--overflow-indicator"></div>
+
+              <div class="bx--modal-footer">
+                  <button class="bx--btn bx--btn--secondary" type="button" data-modal-close>{{t.instance.modal-cancel-button}}</button>
+                  <button class="bx--btn bx--btn--primary" type="button" id="modal-confirm-deactivation" data-modal-close>{{t.instance.modal-deactivate-button}}</button>
+              </div>
+          </div>
+          <!-- Note: focusable span allows for focus wrap feature within Modals -->
+          <span tabindex="0"></span>
+      </div>
