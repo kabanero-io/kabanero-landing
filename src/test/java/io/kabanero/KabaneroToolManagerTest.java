@@ -15,8 +15,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 
-import io.kabanero.instance.KabaneroTool;
-import io.kabanero.instance.KabaneroToolManager;
+import io.kabanero.tools.KabaneroTool;
+import io.kabanero.tools.KabaneroToolManager;
 import io.kubernetes.KabaneroClient;
 
 
@@ -62,7 +62,7 @@ public class KabaneroToolManagerTest {
         KabaneroTool kabTool = kToolMan.getTool(id2);
  
         assertNotNull("get tool does not return null", kabTool);
-        assertEquals("kabTool " + id2 + " is retrieved ", id2, kabTool.getLabel());
+        assertEquals("kabTool " + id2 + " is retrieved ", id2, kabTool.getName());
         assertEquals("kabTool " + id2 + " is retrieved ", id2, kabTool.getLocation());
     }
 

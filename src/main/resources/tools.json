@@ -1,11 +1,11 @@
 [
     {
-        "toolName": "Tekton",
+        "name": "Tekton",
         "namespace": "tekton-pipelines",
         "route": "tekton-dashboard"
     },
     {
-        "toolName": "Application Navigator",
+        "name": "Application Navigator",
         "namespace": "kappnav",
         "route": "kappnav-ui-service"
     }

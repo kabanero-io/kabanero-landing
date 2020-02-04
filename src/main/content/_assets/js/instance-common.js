@@ -238,11 +238,11 @@ function setInstanceSelections(instancesJSON){
     }
 
     for(let instance of instances){
-        let dateCreated = parseDateFromTimestamp(instance.metadata.creationTimestamp);
+        let dateCreated = instance.metadata.creationTimestamp;
        
         let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hide");
         $(row).find(".bx--accordion__title").text(instance.metadata.name);
-        $(row).find(".creation-date").text(dateCreated);
+        $(row).find(".creation-date").text(new Date(dateCreated).toLocaleDateString());
         $("#instance-accordion").append(row);
     }
 
@@ -253,10 +253,6 @@ function setInstanceSelections(instancesJSON){
     let $firstInstance = $("#instance-accordion li").first();
     $firstInstance.addClass("bx--accordion__item--active").attr("selected-instance", "");
     return $firstInstance.find(".bx--accordion__title").text().trim();
-}
-
-function parseDateFromTimestamp(creationTimestamp){
-    return new Date(creationTimestamp.year, (creationTimestamp.monthOfYear - 1), creationTimestamp.dayOfMonth).toLocaleDateString();
 }
 
 // Change the accordion when a new instance is clicked and return the new selected instance name

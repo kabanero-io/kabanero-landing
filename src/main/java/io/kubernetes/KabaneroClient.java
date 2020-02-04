@@ -17,8 +17,8 @@
  ******************************************************************************/
 package io.kubernetes;
 
-import io.kabanero.instance.KabaneroTool;
-import io.kabanero.instance.KabaneroToolManager;
+import io.kabanero.tools.KabaneroTool;
+import io.kabanero.tools.KabaneroToolManager;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
@@ -47,9 +47,10 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.squareup.okhttp.ConnectionSpec;
 
 import org.apache.commons.io.IOUtils;
@@ -149,23 +150,20 @@ public class KabaneroClient {
         InputStream inputStream = KabaneroClient.class.getClassLoader().getResourceAsStream("tools.json");
 
         try {
-            JSONArray toolsList = new JSONArray(IOUtils.toString(inputStream, StandardCharsets.UTF_8));
+            JsonArray toolsJSONArray = new Gson().fromJson(IOUtils.toString(inputStream, StandardCharsets.UTF_8), JsonArray.class);
 
             Map<String, Route> routes = null;
 
-            Iterator<Object> iterator = toolsList.iterator();
-            while (iterator.hasNext()) {
-                JSONObject tool = (JSONObject) iterator.next();
-                
-                String toolName = tool.get("toolName").toString();
-                String namespace = tool.get("namespace").toString();
-                String route = tool.get("route").toString();
+            for(JsonElement toolElement : toolsJSONArray){
+                JsonObject tool = toolElement.getAsJsonObject();
+                KabaneroTool kabTool = new Gson().fromJson(tool, KabaneroTool.class);
 
-                routes = KabaneroClient.listRoutes(client, namespace);
+                routes = KabaneroClient.listRoutes(client, kabTool.getNamespace());
 
                 if (routes != null) {
-                    String url = KabaneroClient.getLabeledRoute(route, routes); 
-                    tools.addTool(new KabaneroTool(toolName, url));
+                    String url = KabaneroClient.getLabeledRoute(kabTool.getRoute(), routes);
+                    kabTool.setLocation(url);
+                    tools.addTool(kabTool);
                 }
             }
         } finally {
