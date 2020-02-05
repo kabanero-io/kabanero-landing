@@ -154,7 +154,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/deactivate/{collectionName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("collectionName") final String collectionName) throws ClientProtocolException, IOException {
+    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("collectionName") final String collectionName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -177,13 +177,8 @@ public class CollectionsEndpoints extends Application {
             HttpEntity entity2 = response.getEntity();
             String body = EntityUtils.toString(entity2);
 
-            JSONObject syncedCollectionsJSON = new JSONObject(body);
-
             EntityUtils.consume(entity2);
-            return Response.ok().entity(String.valueOf(syncedCollectionsJSON)).build();
-        } catch (JSONException e) {
-            LOGGER.log(Level.SEVERE, "Failed parsing message returned from cli server", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.ok(body).build();
         } finally {
             response.close();
         }
@@ -192,7 +187,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/sync")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response syncCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException {
+    public Response syncCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -215,13 +210,8 @@ public class CollectionsEndpoints extends Application {
             HttpEntity entity2 = response.getEntity();
             String body = EntityUtils.toString(entity2);
 
-            JSONObject syncedCollectionsJSON = new JSONObject(body);
-
             EntityUtils.consume(entity2);
-            return Response.ok().entity(String.valueOf(syncedCollectionsJSON)).build();
-        } catch (JSONException e) {
-            LOGGER.log(Level.SEVERE, "Failed parsing message returned from cli server", e);
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.ok(body).build();
         } finally {
             response.close();
         }
