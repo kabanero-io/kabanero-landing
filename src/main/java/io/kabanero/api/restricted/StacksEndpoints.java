@@ -73,11 +73,11 @@ import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
 
 @ApplicationPath("api")
-@Path("/auth/kabanero/{instanceName}/collections")
+@Path("/auth/kabanero/{instanceName}/stacks")
 @RequestScoped
-public class CollectionsEndpoints extends Application {
+public class StacksEndpoints extends Application {
     private final static String JWT_COOKIE_KEY = "kabjwt";
-    private final static Logger LOGGER = Logger.getLogger(CollectionsEndpoints.class.getName());
+    private final static Logger LOGGER = Logger.getLogger(StacksEndpoints.class.getName());
     private String CLI_URL;
 
     @PathParam("instanceName")
@@ -86,8 +86,7 @@ public class CollectionsEndpoints extends Application {
     @GET
     @Path("/list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCollections(@CookieParam(JWT_COOKIE_KEY) String jwt)
-            throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response listStacks(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;

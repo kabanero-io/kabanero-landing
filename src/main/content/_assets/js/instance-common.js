@@ -68,8 +68,8 @@ function fetchCollectionData(instanceName){
         .then(function(response) {
             return response.json();
         })
-        .then(setCollectionCard)
-        .catch(error => console.error("Error getting collections", error));
+        .then(setStackCard)
+        .catch(error => console.error("Error getting stacks", error));
 }
 
 let ToolPane = class {
@@ -88,18 +88,18 @@ let ToolPane = class {
 };
 
 let InstancePane = class {
-    constructor(instanceName, date, collectionHub, cluster, collections, cliURL) {
+    constructor(instanceName, date, stackHub, cluster, stacks, cliURL) {
         this.instanceName = instanceName;
         // If Date cannot be parsed, then return it to original non-parsable value, otherwise, use UTC date
         this.date = String(new Date(date)) === "Invalid Date" ? date : new Date(date).toUTCString();
-        this.collectionHub = collectionHub;
+        this.stackHub = stackHub;
         this.cluster = cluster;
-        this.collections = collections;
+        this.stacks = stacks;
         this.cliURL = cliURL;
-        // Take the collections array of objects and turn it into a nice human readable string
-        this.stringCollections = this.collections.reduce((acc, coll, index) => {
+        // Take the stacks array of objects and turn it into a nice human readable string
+        this.stringStacks = this.stacks.reduce((acc, coll, index) => {
             let pair = `${coll.name} - ${coll.version}`;
-            if(index !== this.collections.length -1){
+            if(index !== this.stacks.length -1){
                 pair += ",";
             }
             return acc + pair;
@@ -129,8 +129,8 @@ let InstancePane = class {
         return row.append(col);
     }
 
-    static createCollectionHubTable(label, collectionHubMaturities){
-        if(typeof collectionHubMaturities === "undefined" || collectionHubMaturities.length === 0){
+    static createStackHubTable(label, stackHubMaturities){
+        if(typeof stackHubMaturities === "undefined" || stackHubMaturities.length === 0){
             return;
         }
 
@@ -138,10 +138,10 @@ let InstancePane = class {
         let col = $("<div/>", {class: "col-md-11"});
         col.append($("<strong/>", {text: `${label}: `}));
 
-        // Each Collection Hub has categories (Maturities). These categories categorize the collections based on their maturity.
-        // For example, collections that meet technical requirements that Kabanero considers ready for production would be in the "stable" maturity.
-        // We will show the Collection Hub URL's for each maturity in the collection hub.
-        for(let [index, maturity] of collectionHubMaturities.entries()){
+        // Each Stack Hub has categories (Maturities). These categories categorize the stacks based on their maturity.
+        // For example, stacks that meet technical requirements that Kabanero considers ready for production would be in the "stable" maturity.
+        // We will show the Stack Hub URL's for each maturity in the stack hub.
+        for(let [index, maturity] of stackHubMaturities.entries()){
             let maturityTable = $("<table/>", {class: "table indent coll-table"}).append($("<caption/>", {text: maturity.name}));
 
             let appsodyLabel = $("<td/>", {class: "align-middle"}).append("Appsody URL");
@@ -171,12 +171,12 @@ let InstancePane = class {
         let copyImgWrapper = $("<div/>", {class: "input-group-append"});
         copyImgWrapper.append(img);
 
-        let input = $("<input/>", {id, type: "text", class: "form-control collection-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url}) 
+        let input = $("<input/>", {id, type: "text", class: "form-control stack-hub-input tooltip-copy", readonly: "readonly", onClick: "this.select();", value: url}) 
             .tooltip({title: url, container: "body", placement: "top", trigger: "hover"});
         return wrapper.append(input, copyImgWrapper);
     }
 
-    static createDetailRowHTMLForCollections(label, collArr){
+    static createDetailRowHTMLForStacks(label, collArr){
         // do not show any values that aren't set
         if(typeof collArr === "undefined" || collArr.length === 0){
             return;
@@ -189,8 +189,8 @@ let InstancePane = class {
         let sortedColls = InstancePane.sortColls(collArr);
 
         let ul = $("<ul/>");
-        for(let collection of sortedColls){
-            ul.append($("<li/>", {text: `${collection.name} - ${collection.version}`}));
+        for(let stack of sortedColls){
+            ul.append($("<li/>", {text: `${stack.name} - ${stack.version}`}));
         }
 
         col.append(ul);
@@ -202,7 +202,7 @@ let InstancePane = class {
         let row = $("<div/>", {class: "row"});
         let col = $("<div/>", {class: "col-md-11"});
         let copyInput = InstancePane.createCopyInput(id, cliURL).addClass("indent");
-        let cliHTML = "Use this endpoint with the Kabanero Management CLI login command to login and manage your collections. " + 
+        let cliHTML = "Use this endpoint with the Kabanero Management CLI login command to login and manage your stacks. " + 
             "For more information about using the CLI see the <a href='/docs/ref/general/reference/kabanero-cli.html'>Kabanero Management CLI documentation</a>.";
         col.append($("<strong/>", {text: "Management CLI"}), $("<p/>", {html: cliHTML, class: "indent"}), copyInput);
         return row.append(col);
@@ -218,7 +218,7 @@ let InstancePane = class {
           <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
           <div class="bx--accordion__title">${this.instanceName}</div>
         </button>
-        <div id="pane${this.instanceName}" class="bx--accordion__content" data-hubName="${this.collectionHub[0].name}" data-appsodyURL="${this.collectionHub[0].appsodyURL}" data-codewindURL="${this.collectionHub[0].codewindURL}" data-collections="${this.stringCollections}" data-cliURL="${this.cliURL}">
+        <div id="pane${this.instanceName}" class="bx--accordion__content" data-hubName="${this.stackHub[0].name}" data-appsodyURL="${this.stackHub[0].appsodyURL}" data-codewindURL="${this.stackHub[0].codewindURL}" data-stacks="${this.stringStacks}" data-cliURL="${this.cliURL}">
           <p class="gray-text">Date created</p>
           <p>${this.date}</p>
         </div>

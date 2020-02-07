@@ -100,10 +100,10 @@ index:
       cli: Optionally, install the command line tool
       appsody: Appsody CLI
       appsodyRepoAdd: appsody repo add command
-      collectionHub: Configure Appsody / Codewind to point at your Kabanero Collection Hub. Get your Collection Hub URL from your
+      stackHub: Configure Appsody / Codewind to point at your Kabanero Stack Hub. Get your Stack Hub URL from your
       teamInstance: team instance page.
       configTemplateSources: Configuring template sources for
-      setCollectionHub: To set your collection hub url, follow the instructions associated with the tool you are using
+      setStackHub: To set your stack hub url, follow the instructions associated with the tool you are using
     check: You can check out our guide and video on creating your first application.
     guide: guide
     video: video
@@ -124,10 +124,10 @@ instance:
   app-hub: Application Hub
   oauth:
     configure: Configure OAuth
-  cli-version: "Collection API version: "
-  sync-tooltip: Sync collections
+  cli-version: "Stack API version: "
+  sync-tooltip: Sync Stack
   data-table-headers:
-    collection: Collection
+    stack: Stack
     version: Version
     status: Status
   no-instances: No instance found

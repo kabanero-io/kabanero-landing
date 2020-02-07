@@ -3,13 +3,13 @@ layout: default
 home: true
 js:
 - instance-common
-- collections
+- stacks
 css:
 - home
 - instance
-- collections
-seo-title: Kabanero Collections
-permalink: /instance/collections/
+- stacks
+seo-title: Stacks
+permalink: /instance/stacks/
 ---
 {% assign t = site.data[site.active_lang] %}
 <!-- Welcome header -->
@@ -25,7 +25,7 @@ permalink: /instance/collections/
             <ul data-accordion class="bx--accordion" id="instance-accordion"></ul>
         </div>
 
-        <!-- Collections table -->
+        <!-- Stacks table -->
         <div class="bx--col-xlg white-background">
             {% include table-loader.html %}
             <div id="collection-table" class="hide">
@@ -36,11 +36,11 @@ permalink: /instance/collections/
                     </button>
                 </div>
 
-            <table class="bx--data-table ">
+            <table id="stack-table" class="bx--data-table hide">
                 <thead>
                     <tr>
                         <th>
-                            <span class="bx--table-header-label">{{t.instance.data-table-headers.collection}}</span>
+                            <span class="bx--table-header-label">{{t.instance.data-table-headers.Stack}}</span>
                         </th>
                         <th>
                             <span class="bx--table-header-label">{{t.instance.data-table-headers.version}}</span>
@@ -51,7 +51,7 @@ permalink: /instance/collections/
                         <th></th>
                     </tr>
                 </thead>
-                <tbody id="collection-table-body"></tbody>
+                <tbody id="stack-table-body"></tbody>
             </table>
             <div id="table-footer-cli-version">
                 <p>{{t.instance.cli-version}}</p>
@@ -74,7 +74,7 @@ permalink: /instance/collections/
         </svg>
         <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
     </button>
-    <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-collections="" data-cliURL="n/a">
+    <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
     </div>
 </li>
 

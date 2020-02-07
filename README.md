@@ -48,12 +48,12 @@ For production you do not need to mount the kube config, or add the `-u 0` param
 
 ## Configure GitHub OAuth
 
-To manage your collections via this console you must configure OAuth to your GitHub. When OAuth is configured properly, you will see "Manage Collections" button on the instance page inside the collections tile UI.
+To manage your stacks via this console you must configure OAuth to your GitHub. When OAuth is configured properly, you will see "Manage Stacks" button on the instance page inside the stacks tile UI.
 
 ### Configure GitHub OAuth for production
 
-To start, an OAuth GitHub app will need to be created in the same GitHub organization that your collection hub is in (your forked collection repo)
-   * If the OAuth GitHub app and the Collections repository **need** to be in different GitHub orgs, then the OAuth GitHub app can request access to data in the org with the collections. For more infomrmation see the GitHub doc - [OAuth App Access and Restrictions](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-oauth-app-access-restrictions)
+To start, an OAuth GitHub app will need to be created in the same GitHub organization that your stack hub is in.
+   * If the OAuth GitHub app and the Stacks repository **need** to be in different GitHub orgs, then the OAuth GitHub app can request access to data in the org with the stacks. For more infomrmation see the GitHub doc - [OAuth App Access and Restrictions](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-oauth-app-access-restrictions)
 
 1. In your GitHub organization, create an OAuth Application in **Settings -> Developer settings -> OAuth Apps**
    * The application name can be anything, a suggestion is: `kabanero console`.
@@ -75,7 +75,7 @@ To start, an OAuth GitHub app will need to be created in the same GitHub organiz
 
 If you would like to setup GitHub OAuth for local development follow these steps:
 
-1. Create a GitHub OAuth App in your GitHub Organization that has your collection hub. See step 1 in [Create a GitHub OAuth application](#create-a-github-oauth-application) for more info.
+1. Create a GitHub OAuth App in your GitHub Organization that has your stack hub. See step 1 in [Create a GitHub OAuth application](#create-a-github-oauth-application) for more info.
    * This will give you your **GitHub OAuth ID** and **GitHub OAuth secret** for the configuration below.
 1. Fork and clone this repository.
 1. Create an `oauth` directory in the root of this repository.

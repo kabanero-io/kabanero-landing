@@ -35,33 +35,33 @@ function handleInstancesRequests(){
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(handleInitialCLIAuth)
-        .then(handleCollectionsRequests);
+        .then(handleStacksRequests);
         //TODO then select/fetch current instance from url param for the dropdown
 }
 
-function handleCollectionsRequests(instanceName) {
-    getCollectionData(instanceName);
+function handleStacksRequests(instanceName) {
+    getStacksData(instanceName);
     getCliVersion(instanceName);
 }
 
-function getCollectionData(instanceName) {
+function getStacksData(instanceName) {
     if (typeof instanceName === "undefined") {
         return;
     }
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/list`)
         .then(function (response) {
             return response.json();
         })
-        .then(updateCollectionView)
-        .catch(error => console.error("Error getting collections", error));
+        .then(updateStackView)
+        .catch(error => console.error("Error getting stacks", error));
 }
 
 function getCliVersion(instanceName) {
     if (typeof instanceName === "undefined") {
         return;
     }
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/version`)
-        .then(function (response) {
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/version`)
+        .then(function(response){
             return response.json()
         })
         .then(setCLIVersion)
@@ -95,8 +95,8 @@ function updateCollectionView(collectionJSON) {
 
     let collections = collectionJSON["kabanero collections"];
 
-    collections.forEach(coll => {
-        $("#collection-table-body").append(createCollRow(coll));
+    stacks.forEach(coll => {
+        $("#stack-table-body").append(createCollRow(coll));
     });
 
     function createCollRow(coll) {
@@ -144,7 +144,7 @@ function getURLParam(key){
 }
 
 function handleInitialCLIAuth(instanceName){
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/list`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/list`)
         .then(function(response) {
 
             // Login via cli and retry if 401 is returned on initial call
@@ -170,6 +170,6 @@ function loginViaCLI(instanceName){
         return;
     }
 
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/login`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/login`)
         .catch(error => console.error(`Error logging into instance ${instanceName} via CLI server`, error));
 }

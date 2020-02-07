@@ -29,14 +29,14 @@ $(document).ready(function() {
 });
 
 function setListeners(){
-    // event delegation for dynamic collection hub input copy
-    $(document).on("mouseover", ".collection-hub-input", function(){
+    // event delegation for dynamic stack hub input copy
+    $(document).on("mouseover", ".stack-hub-input", function(){
         $(this).attr("data-original-title", $(this).attr("data-original-title"));
         $(this).tooltip("show");
         //copy($(this));
     });
 
-    $(document).on("mouseout", ".collection-hub-input", function(){
+    $(document).on("mouseout", ".stack-hub-input", function(){
         $(this).tooltip("hide");
     });
 
@@ -51,7 +51,7 @@ function setListeners(){
     });
 
     $(document).on("click", ".copy-to-clipboard", function(){
-        copy($(this).parent().siblings(".collection-hub-input"));
+        copy($(this).parent().siblings(".stack-hub-input"));
         $(this).attr("data-original-title", "Copied!");
         $(this).tooltip("show");
     });
@@ -94,23 +94,23 @@ function setToolData(tools){
 
     for(let tool of tools){
 
-        if(typeof tool.label === "undefined" || tool.label.length === 0 || 
-        typeof tool.location === "undefined" || tool.location.length === 0){
+        if (typeof tool.name === "undefined" || tool.name.length === 0 || 
+            typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
         }
-        if(tool.label === "Application Navigator"){
+        if (tool.name === "Application Navigator"){
             $("#appnav-link").attr("href", tool.location);
             $("#manage-apps-button").attr("disabled", false);
             $("#manage-apps-button-text").html("Manage Applications");
         }
 
-        if(tool.label === "Tekton"){
+        if (tool.name === "Tekton"){
             $("#pipeline-link").attr("href", tool.location);
             $("#pipeline-button").attr("disabled", false);
             $("#pipeline-button-text").text("Manage Pipelines");
         }
 
-        if(tool.label === "Eclipse Che"){
+        if (tool.name === "Eclipse Che"){
             $("#che-link").attr("href", tool.location);
             $("#che-button").attr("disabled", false);
             $("#che-button-text").text("Go to Eclipse Che");
@@ -118,7 +118,7 @@ function setToolData(tools){
         }
 
         //set kappnav url to manage applications link
-        let toolPane = new ToolPane(tool.label, tool.location);
+        let toolPane = new ToolPane(tool.name, tool.location);
         $("#tool-data-container").append(toolPane.toolHTML);
         noTools = false;
     }
@@ -162,29 +162,29 @@ function setInstanceCard(instanceJSON){
     $("#instance-details-card .bx--inline-loading").hide();
 }
 
-function setCollectionCard(instanceJSON){
+function setStackCard(instanceJSON){
     //let details = instanceJSON.details;
-    let collections = instanceJSON.items;
-    let numberOfCollections = instanceJSON.items.length;
+    let stacks = instanceJSON.items;
+    let numberOfStacks = instanceJSON.items.length;
     
-    // Collections Card
-    $("#collection-details-card #num-collections").text(numberOfCollections);
+    // Stacks Card
+    $("#stack-details-card #num-stacks").text(numberOfStacks);
 
     let liColls = "";
-    $(collections).each(function(){
+    $(stacks).each(function(){
         liColls = liColls.concat(`<li>${this.spec.name} : ${this.spec.version}</li>`);
     });
 
-    $("#collection-details-card #collection-list").html(`<ul>${liColls}</ul>`);
+    $("#stack-details-card #stack-list").html(`<ul>${liColls}</ul>`);
 
-    $("#collection-details-card  .bx--inline-loading").hide();
+    $("#stack-details-card  .bx--inline-loading").hide();
 }
 
 // Sets up the UI in regards to OAuth data
 function setOAuth(oauthJSON){
     if(oauthJSON && oauthJSON.isConfigured){
         let selectedInstance = $("#selected-instance-name").text().trim();
-        $("#collections-oauth-msg").text("Manage Collections");
-        $("#collections-link").attr("href", `/instance/collections?name=${selectedInstance}`);
+        $("#stacks-oauth-msg").text("Manage Stacks");
+        $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);
     }
 }

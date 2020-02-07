@@ -55,7 +55,7 @@
         <web-resource-collection id="GitHubWebResourceCollection1">
             <web-resource-name>Protected with ** role</web-resource-name>
             <url-pattern>/api/auth/*</url-pattern>
-            <url-pattern>/instance/collections</url-pattern>
+            <url-pattern>/instance/stacks</url-pattern>
         </web-resource-collection>
         <auth-constraint id="GitHubAuthConstraint">
             <role-name>**</role-name>
