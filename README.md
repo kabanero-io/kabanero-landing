@@ -52,7 +52,7 @@ To manage your stacks via this console you must configure OAuth to your GitHub. 
 
 ### Configure GitHub OAuth for production
 
-To start, an OAuth GitHub app will need to be created in the same GitHub organization that your stack hub is in (your forked stack repo)
+To start, an OAuth GitHub app will need to be created in the same GitHub organization that your stack hub is in.
    * If the OAuth GitHub app and the Stacks repository **need** to be in different GitHub orgs, then the OAuth GitHub app can request access to data in the org with the stacks. For more infomrmation see the GitHub doc - [OAuth App Access and Restrictions](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-oauth-app-access-restrictions)
 
 1. In your GitHub organization, create an OAuth Application in **Settings -> Developer settings -> OAuth Apps**
