@@ -76,7 +76,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.5</version>
+            <version>4.13</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -91,30 +91,41 @@
             <version>2.0.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.14.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
         <!-- END: Needed to compile and run unit tests -->
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                        <warName>kabanero-console</warName>
-                        <warSourceDirectory>target/jekyll-webapp</warSourceDirectory>
-                        <webResources>
-                            <resource>
-                                <!-- this is relative to the pom.xml directory -->
-                                <directory>target/jekyll-webapp</directory>
-                            </resource>
-                        </webResources>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>kabanero-console</warName>
+                    <warSourceDirectory>target/jekyll-webapp</warSourceDirectory>
+                    <webResources>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>target/jekyll-webapp</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+
             <!-- Enable liberty-maven plugin -->
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
@@ -163,17 +174,36 @@
                         <id>test-start</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>test-start-server</goal>
+                            <goal>test-start</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>test-stop</id>
                         <phase>post-integration-test</phase>
                         <goals>
-                            <goal>test-stop-server</goal>
+                            <goal>test-stop</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            
+            <!-- Used for Integration testing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <trimStackTrace>false</trimStackTrace>
+                </configuration>
             </plugin>
         </plugins>
     </build>
