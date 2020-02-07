@@ -68,12 +68,8 @@ function fetchCollectionData(instanceName){
         .then(function(response) {
             return response.json();
         })
-<<<<<<< HEAD
         .then(setStackCard)
-=======
-        .then(setCollectionCard)
->>>>>>> upstream/master
-        .catch(error => console.error("Error getting collections", error));
+        .catch(error => console.error("Error getting stacks", error));
 }
 
 let ToolPane = class {
