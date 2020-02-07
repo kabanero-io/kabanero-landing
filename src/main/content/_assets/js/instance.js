@@ -71,7 +71,8 @@ function loadAllInfo(){
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(fetchAnInstance)
-        .then(updateInstanceView);
+        .then(updateInstanceView)
+        .then(fetchCollectionData);
 
     fetchAllTools()
         .then(setToolData);
@@ -93,23 +94,23 @@ function setToolData(tools){
 
     for(let tool of tools){
 
-        if(typeof tool.label === "undefined" || tool.label.length === 0 || 
-        typeof tool.location === "undefined" || tool.location.length === 0){
+        if (typeof tool.name === "undefined" || tool.name.length === 0 || 
+            typeof tool.location === "undefined" || tool.location.length === 0){
             continue;
         }
-        if(tool.label === "Application Navigator"){
+        if (tool.name === "Application Navigator"){
             $("#appnav-link").attr("href", tool.location);
             $("#manage-apps-button").attr("disabled", false);
             $("#manage-apps-button-text").html("Manage Applications");
         }
 
-        if(tool.label === "Tekton"){
+        if (tool.name === "Tekton"){
             $("#pipeline-link").attr("href", tool.location);
             $("#pipeline-button").attr("disabled", false);
             $("#pipeline-button-text").text("Manage Pipelines");
         }
 
-        if(tool.label === "Eclipse Che"){
+        if (tool.name === "Eclipse Che"){
             $("#che-link").attr("href", tool.location);
             $("#che-button").attr("disabled", false);
             $("#che-button-text").text("Go to Eclipse Che");
@@ -117,7 +118,7 @@ function setToolData(tools){
         }
 
         //set kappnav url to manage applications link
-        let toolPane = new ToolPane(tool.label, tool.location);
+        let toolPane = new ToolPane(tool.name, tool.location);
         $("#tool-data-container").append(toolPane.toolHTML);
         noTools = false;
     }
@@ -134,18 +135,16 @@ function updateInstanceView(instanceJSON){
     if(typeof instanceJSON === "undefined"){
         return;
     }
-
     //update the various cards
     setInstanceCard(instanceJSON);
-    setStackCard(instanceJSON);
+    return instanceJSON.metadata.name;
 }
 
 function setInstanceCard(instanceJSON){
-    let details = instanceJSON.details;
-    let appHubName = details.repos[0].name;
-    let appsodyURL = details.repos[0].appsodyURL;
-    let codewindURL = details.repos[0].codewindURL;
-    let cliURL = details.cliURL;
+    let appHubName = instanceJSON.spec.collections.repositories[0].name;
+    let appsodyURL = instanceJSON.spec.collections.repositories[0].url;
+    let codewindURL = appsodyURL.replace(".yaml", ".json");
+    let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
     $("#instance-details-card #apphub-name").text(appHubName);
@@ -164,16 +163,16 @@ function setInstanceCard(instanceJSON){
 }
 
 function setStackCard(instanceJSON){
-    let details = instanceJSON.details;
-    let stacks = details.stacks;
-    let numberOfStacks = details.stacks.length;
+    //let details = instanceJSON.details;
+    let stacks = instanceJSON.items;
+    let numberOfStacks = instanceJSON.items.length;
     
     // Stacks Card
     $("#stack-details-card #num-stacks").text(numberOfStacks);
 
     let liColls = "";
     $(stacks).each(function(){
-        liColls = liColls.concat(`<li>${this.name} : ${this.version}</li>`);
+        liColls = liColls.concat(`<li>${this.spec.name} : ${this.spec.version}</li>`);
     });
 
     $("#stack-details-card #stack-list").html(`<ul>${liColls}</ul>`);

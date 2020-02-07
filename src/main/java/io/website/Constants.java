@@ -19,12 +19,6 @@
 
 package io.website;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import io.kabanero.instance.KabaneroStack;
-import io.kabanero.instance.KabaneroRepository;
-
 public final class Constants {
 
     // Kabanero
@@ -34,7 +28,6 @@ public final class Constants {
     public static final String DEFAULT_USER_NAME = getEnv("USER_NAME", "");
     public static final String DEFAULT_INSTANCE_NAME = getEnv("INSTANCE_NAME", "kabanero");
     public static final String DEFAULT_DATE_CREATED = getEnv("DATE_CREATED", "");
-    public static final List<KabaneroRepository> DEFAULT_STACK_HUB_URL = getDefaultRepos();
     public static final String DEFAULT_CLUSTER_NAME = getEnv("CLUSTER_NAME", "");
     public static final String CLI_URL = getEnv("CLI_URL", "");
 
@@ -43,9 +36,6 @@ public final class Constants {
     public static final String AUTHORIZATION_ENDPOINT =  getEnv("AUTHORIZATION_ENDPOINT", null);
     public static final String TOKEN_ENDPOINT =  getEnv("TOKEN_ENDPOINT", null);
     public static final String WEBSITE = getEnv("WEBSITE", null);
-
-    // Stacks env value should be a comma separated list of "stack_name=version" enabled for this instance. For example "nodejs=v1.0.0,java-microprofile=v1.0.1"
-    public static final List<KabaneroStack> DEFAULT_STACKS = stackStringToStacks(getEnv("STACKS", ""));
 
     // Kabanero Tools
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
@@ -142,33 +132,5 @@ public final class Constants {
     private static String getEnv(String envKey, String fallback){
         String envValue = System.getenv(envKey);
         return envValue == null ? fallback : envValue;
-    }
-
-    private static List<KabaneroStack> stackStringToStacks(String stacks){
-        List<KabaneroStack> activeStacks = new ArrayList<KabaneroStack>();
-        if (stacks.trim().isEmpty()) {
-            return activeStacks;
-        }
-        String[] stacksArray = stacks.split(",");
-
-        for(String stackGroup:stacksArray){
-            String[] stackNameVersion = stackGroup.split("=");
-
-            if(stackNameVersion.length != 2){
-                throw new IllegalArgumentException("Invalid Stacks String");
-            }
-
-            KabaneroStack KabaneroStack = new KabaneroStack(stackNameVersion[0], stackNameVersion[1]);
-            activeStacks.add(KabaneroStack);
-        }
-
-        return activeStacks;
-    }
-
-    private static List<KabaneroRepository> getDefaultRepos() {
-        List<KabaneroRepository> kabRepos = new ArrayList<>();
-        KabaneroRepository repo = new KabaneroRepository("incubator", getEnv("STACK_HUB_URL", ""), true);
-        kabRepos.add(repo);
-        return kabRepos;
     }
 }

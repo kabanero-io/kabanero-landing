@@ -125,3 +125,14 @@ instance:
   oauth:
     configure: Configure OAuth
   cli-version: "Stack API version: "
+  sync-tooltip: Sync collections
+  data-table-headers:
+    stack: Stack
+    version: Version
+    status: Status
+  no-instances: No instance found
+  date-created: Date created
+  modal-confirmation-header: Confirmation
+  modal-content: "Are you sure you want to deactivate the collection:"
+  modal-cancel-button: Cancel
+  modal-deactivate-button: Deactivate

@@ -48,7 +48,7 @@ RUN bash ./scripts/build_jekyll_maven.sh
 
 # ------------------------------------------------------------------------------------------------
 
-FROM openliberty/open-liberty:kernel-java8-openj9-ubi
+FROM openliberty/open-liberty:19.0.0.12-kernel-java8-openj9-ubi
 
 LABEL name="kabanero-console" \
       summary="Kabanero Console" \

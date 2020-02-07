@@ -15,21 +15,36 @@ Please [view our contribution guidelines](https://github.com/kabanero-io/kabaner
 - [Kabanero on Slack](https://ibm-cloud-tech.slack.com/messages/kabanero)
    - [Slack channel request](https://slack-invite-ibm-cloud-tech.mybluemix.net)
 
-## Build
+## Run in dev mode
+1. Package the jekyll frontend. From the repository's root directory:
+   * ```
+      export PAT=<YOUR_GITHUB_PERSONAL_ACCESS_TOKEN>
+      ./scripts/build_jekyll_maven.sh
+      ```
+      * You can get a github PAT from your GitHub account. [More information about Personal Access Tokens](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
+1. Run: `mvn liberty:dev`
+   * The app will be available at `https://localhost:9443`
+   * This will run the server in [dev mode](https://github.com/OpenLiberty/ci.maven/blob/master/docs/dev.md#dev) which provides hot reloading for server side changes. Updates to the frontend files (html, css, js) won't be reloaded in this current setup. Instead, you want to develop the frontend with hot reloading you can run `./scripts/jekyll_serve_dev.sh` which will hot reload for frontend updates only.
+
+## Docker
+
+### Build
 
 ```
 ./ci/build.sh
 ```
 
-## Run Locally
-1. Ensure Kabanero is installed on your OKD cluster
-   * See [Installing Kabanero Foundation](https://kabanero.io/docs/ref/general/installing-kabanero-foundation.html) for help installing Kabanero
-1. Login to your OKD cluster
-1. Run the docker image produced from the build step above
+### Run for development purposes
+For production you do not need to mount the kube config, or add the `-u 0` parameter.
 
-```
-docker run --rm -p 9443:9443 -v ~/.kube/config:/root/.kube/config -u 0 landing:latest
-```
+1. Ensure Kabanero is installed on your cluster
+   * See [Installing Kabanero Foundation](https://kabanero.io/docs/ref/general/installing-kabanero-foundation.html) for help installing Kabanero
+1. Login to your cluster using the `oc` CLI.
+1. Run the docker image produced from the build step above:
+
+   ```
+   docker run --rm -p 9443:9443 -v ~/.kube/config:/root/.kube/config -u 0 landing:latest
+   ```
 
 ## Configure GitHub OAuth
 

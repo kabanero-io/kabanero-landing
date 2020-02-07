@@ -28,7 +28,6 @@ function fetchAnInstance(instanceName){
     if(typeof instanceName === "undefined"){
         return;
     }
-
     return fetch(`/api/kabanero/${instanceName}`)
         .then(function(response) {
             return response.json();
@@ -58,6 +57,19 @@ function fetchATool(tool){
             return response.json();
         })
         .catch(error => console.error(`Error getting ${tool} tool`, error));
+}
+
+function fetchCollectionData(instanceName){
+    if(typeof instanceName === "undefined"){
+        return;
+    }
+
+    return fetch(`/api/kabanero/${instanceName}/collections`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(setStackCard)
+        .catch(error => console.error("Error getting collections", error));
 }
 
 let ToolPane = class {
@@ -215,7 +227,8 @@ let InstancePane = class {
 };
 
 // Set each instance name in the accordion selection and returns the instance name to be loaded
-function setInstanceSelections(instances){
+function setInstanceSelections(instancesJSON){
+    let instances = instancesJSON.items;
     if(typeof instances === "undefined"|| instances.length === 0){
         $("#instance-accordion #error-li").show();
 
@@ -225,12 +238,11 @@ function setInstanceSelections(instances){
     }
 
     for(let instance of instances){
-        let details = instance.details || {};
-        let dateCreated = details.dateCreated;
+        let dateCreated = instance.metadata.creationTimestamp;
        
         let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hide");
-        $(row).find(".bx--accordion__title").text(instance.instanceName);
-        $(row).find(".creation-date").text(dateCreated);
+        $(row).find(".bx--accordion__title").text(instance.metadata.name);
+        $(row).find(".creation-date").text(new Date(dateCreated).toLocaleDateString());
         $("#instance-accordion").append(row);
     }
 

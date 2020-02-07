@@ -18,7 +18,9 @@
 
 package io.kabanero.api;
 
-import java.util.Collection;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.GET;
@@ -29,9 +31,14 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import io.kabanero.instance.KabaneroInstance;
-import io.kabanero.instance.KabaneroManager;
+import org.apache.http.client.ClientProtocolException;
+
 import io.website.ResponseMessage;
+import io.kabanero.v1alpha1.models.CollectionList;
+import io.kabanero.v1alpha1.models.Kabanero;
+import io.kabanero.v1alpha1.models.KabaneroList;
+import io.kubernetes.client.ApiException;
+import io.kubernetes.KabaneroClient;
 
 @ApplicationPath("api")
 @Path("/kabanero")
@@ -41,21 +48,35 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Collection<KabaneroInstance> getAllInstances() {
-        return KabaneroManager.getKabaneroManagerInstance().getAllKabaneroInstances();
+    public Response getAllInstances() throws IOException, ApiException, GeneralSecurityException {
+        KabaneroList kabaneros = KabaneroClient.getInstances();
+        if (kabaneros == null){
+            return Response.status(404).entity(new ResponseMessage("No instances found")).build();
+        }
+        return Response.ok(kabaneros).build();
     }
 
     @GET
     @Path("/{instanceName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAInstance(@PathParam("instanceName") String instanceName) {
-        KabaneroInstance wantedInstance = KabaneroManager.getKabaneroManagerInstance()
-                .getKabaneroInstance(instanceName);
+    public Response getAInstance(@PathParam("instanceName") String instanceName)
+            throws IOException, ApiException, GeneralSecurityException {
+        Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
         if (wantedInstance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
+        
         return Response.ok().entity(wantedInstance).build();
     }
 
-
+    @GET
+    @Path("/{instanceName}/collections")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listCollectionsKube(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+        CollectionList collections = KabaneroClient.getCollections(instanceName);
+        if(collections == null){
+            return Response.status(500).entity(new ResponseMessage("Error from instance with name " + instanceName)).build();
+        }
+        return Response.ok().entity(collections).build();
+    }
 }

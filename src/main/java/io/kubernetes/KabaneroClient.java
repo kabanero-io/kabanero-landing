@@ -17,12 +17,8 @@
  ******************************************************************************/
 package io.kubernetes;
 
-import io.kabanero.instance.KabaneroStack;
-import io.kabanero.instance.KabaneroInstance;
-import io.kabanero.instance.KabaneroRepository;
-import io.kabanero.instance.KabaneroTool;
-import io.kabanero.instance.KabaneroToolManager;
-import io.kubernetes.KubeKabanero;
+import io.kabanero.tools.KabaneroTool;
+import io.kabanero.tools.KabaneroToolManager;
 import io.kubernetes.client.ApiClient;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.client.Configuration;
@@ -51,12 +47,19 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.squareup.okhttp.ConnectionSpec;
 
 import org.apache.commons.io.IOUtils;
+
+import io.kabanero.v1alpha1.client.apis.KabaneroApi;
+import io.kabanero.v1alpha1.client.apis.CollectionApi;
+import io.kabanero.v1alpha1.models.CollectionList;
+import io.kabanero.v1alpha1.models.Kabanero;
+import io.kabanero.v1alpha1.models.KabaneroList;
 
 public class KabaneroClient {
     private final static Logger LOGGER = Logger.getLogger(KabaneroClient.class.getName());
@@ -96,35 +99,41 @@ public class KabaneroClient {
         return client;
     }
 
-    public static List<KabaneroInstance> getInstances() throws IOException, ApiException, GeneralSecurityException {
+    public static KabaneroList getInstances() throws IOException, ApiException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
-
         String namespace = "kabanero";
+        try{
+            KabaneroApi api = new KabaneroApi(client);
+            KabaneroList kabaneros = api.listKabaneros(namespace, null, null, null);
+            return kabaneros;
+        }catch (Exception e) {
+            LOGGER.log(Level.WARNING, "Error with fetching kabanero instances", e);
+            return null;
+		}
+    }
 
-        List<KubeKabanero> instances = KabaneroClient.listKabaneroInstances(client, namespace);
-        LOGGER.log(Level.FINE, "Found {0} Kabanero Instances", instances.size());
-
-        List<KabaneroInstance> kabaneroInstances = new ArrayList<>();
-
-        for (KubeKabanero instance : instances) {
-
-            String username = null;
-            String instanceName = instance.getName();
-            String date = instance.getCreationTimestamp();
-            String cliURL = KabaneroClient.getCLI(client, namespace);
-
-            List<KabaneroRepository> kabaneroRepositories = instance.getRepositories();
-            List<KabaneroStack> KabaneroStacks = KabaneroClient.listKabaneroStacks(client, namespace);
-
-            String clusterName = null;
-
-            KabaneroInstance kabInst = new KabaneroInstance(username, instanceName, date, kabaneroRepositories,
-                    clusterName, KabaneroStacks, cliURL);
-            LOGGER.log(Level.FINE, "Kabanero Instance: {0}: {1}", new Object[] { kabInst.getInstanceName(), kabInst });
-
-            kabaneroInstances.add(kabInst);
+    public static Kabanero getAnInstance(String instanceName) throws IOException, ApiException, GeneralSecurityException {
+        ApiClient client = KabaneroClient.getApiClient();
+        String namespace = "kabanero";
+        try{
+            KabaneroApi api = new KabaneroApi(client);
+            return api.getKabanero(namespace, instanceName);
+        }catch (Exception e){
+            LOGGER.log(Level.WARNING, "Error with fetching kabanero instance " + instanceName, e);
+            return null;
         }
-        return kabaneroInstances;
+    }
+
+    public static CollectionList getCollections(String instanceName) throws IOException, GeneralSecurityException {
+        ApiClient client = KabaneroClient.getApiClient();
+        try{
+            CollectionApi api = new CollectionApi(client);
+            CollectionList collections = api.listCollections(instanceName, null, null, null);
+            return collections;
+        }catch(Exception e){
+            LOGGER.log(Level.WARNING, "Error with fetching collections in kabanero instance " + instanceName, e);
+            return null;
+        }
     }
 
     public static String getCLI(ApiClient client, String namespace) throws ApiException {
@@ -141,82 +150,25 @@ public class KabaneroClient {
         InputStream inputStream = KabaneroClient.class.getClassLoader().getResourceAsStream("tools.json");
 
         try {
-            JSONArray toolsList = new JSONArray(IOUtils.toString(inputStream, StandardCharsets.UTF_8));
+            JsonArray toolsJSONArray = new Gson().fromJson(IOUtils.toString(inputStream, StandardCharsets.UTF_8), JsonArray.class);
 
             Map<String, Route> routes = null;
 
-            Iterator<Object> iterator = toolsList.iterator();
-            while (iterator.hasNext()) {
-                JSONObject tool = (JSONObject) iterator.next();
-                
-                String toolName = tool.get("toolName").toString();
-                String namespace = tool.get("namespace").toString();
-                String route = tool.get("route").toString();
+            for(JsonElement toolElement : toolsJSONArray){
+                JsonObject tool = toolElement.getAsJsonObject();
+                KabaneroTool kabTool = new Gson().fromJson(tool, KabaneroTool.class);
 
-                routes = KabaneroClient.listRoutes(client, namespace);
+                routes = KabaneroClient.listRoutes(client, kabTool.getNamespace());
 
                 if (routes != null) {
-                    String url = KabaneroClient.getLabeledRoute(route, routes); 
-                    tools.addTool(new KabaneroTool(toolName, url));
+                    String url = KabaneroClient.getLabeledRoute(kabTool.getRoute(), routes);
+                    kabTool.setLocation(url);
+                    tools.addTool(kabTool);
                 }
             }
         } finally {
             inputStream.close();
         }
-    }
-
-    private static List<KabaneroStack> listKabaneroStacks(ApiClient apiClient, String namespace) throws ApiException {
-        CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
-        String group = "kabanero.io";
-        String version = "v1alpha1";
-        String plural = "collections";
-
-        List<KabaneroStack> stacks = new ArrayList<KabaneroStack>();
-
-        Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-        Map<String, ?> map = (Map<String, ?>) obj;
-        List<Map<String, ?>> items = (List<Map<String, ?>>) map.get("items");
-
-        for (Map<String, ?> item : items) {
-            Map<String, ?> spec = (Map<String, ?>) item.get("spec");
-            String stackName = (String) spec.get("name");
-            String stackVersion = (String) spec.get("version");
-
-            KabaneroStack kabaneroStack = new KabaneroStack(stackName, stackVersion);
-            stacks.add(kabaneroStack);
-        }
-        return stacks;
-    }
-
-    private static List<KubeKabanero> listKabaneroInstances(ApiClient apiClient, String namespace) throws ApiException {
-        CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
-        String group = "kabanero.io";
-        String version = "v1alpha1";
-        String plural = "kabaneros";
-
-        List<KubeKabanero> instances = new ArrayList<KubeKabanero>();
-
-        Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-        Map<String, ?> map = (Map<String, ?>) obj;
-        List<Map<String, ?>> items = (List<Map<String, ?>>) map.get("items");
-        for (Map<String, ?> item : items) {
-            Map<String, ?> metadata = (Map<String, ?>) item.get("metadata");
-            String name = (String) metadata.get("name");
-            String creationTime = (String) metadata.get("creationTimestamp");
-
-            KubeKabanero instance = new KubeKabanero(name, creationTime);
-
-            Map<String, ?> spec = (Map<String, ?>) item.get("spec");
-            if (spec != null) {
-                Map<String, ?> stacks = (Map<String, ?>) spec.get("collections");
-                if (stacks != null) {
-                    List<Map<String, ?>> repositories = (List<Map<String, ?>>) stacks.get("repositories");
-                    instance.setRepositories(repositories);
-                }
-            }
-            instances.add(instance);
-        }
-        return instances;
     }
 
     private static Map<String, Route> listRoutes(ApiClient apiClient, String namespace) throws ApiException {

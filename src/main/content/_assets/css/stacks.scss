@@ -1,6 +1,7 @@
 @import "../../../../../node_modules/carbon-components/scss/components/data-table-v2/data-table-v2";
+$kabanero-color: #C43804;
 
-#table-header-cli-version {
+#table-footer-cli-version {
     color: #655959;
     float: right;
     p {
@@ -8,4 +9,37 @@
         letter-spacing: 0.16px !important;
         display: inline-flex;
     }
+}
+
+#sync-collections-icon{
+    cursor: pointer;
+    outline: none !important;
+    fill: #080808;
+}
+
+#collections-sync-button{
+    float: right;
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.deactivate-collection-icon{
+    float: right;
+    cursor: pointer;
+}
+
+.deactivate-collection-td{
+    width: 1px !important;
+}
+
+.bx--modal-content{
+    display: inline-flex;
+    p{
+        padding-right: 5px;
+    }
+}
+
+.icon-disabled{
+    fill: grey !important;
+    cursor: not-allowed !important;
 }
