@@ -125,7 +125,7 @@ instance:
   oauth:
     configure: Configure OAuth
   cli-version: "Stack API version: "
-  sync-tooltip: Sync collections
+  sync-tooltip: Sync Stack
   data-table-headers:
     stack: Stack
     version: Version
