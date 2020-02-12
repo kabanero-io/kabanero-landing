@@ -29,6 +29,10 @@ body{
     background-color:$ui-background;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 .instance-container {
     margin-top: 50px
 }
@@ -152,4 +156,12 @@ button:disabled > .arrow-container > svg{
 
 #stack-list li {
     margin-top: 1em;
+}
+
+.copied-text {
+    float: right;
+}
+
+.instance-header {
+    padding-bottom: 5px;
 }

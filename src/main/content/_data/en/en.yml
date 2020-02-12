@@ -109,12 +109,19 @@ index:
     video: video
  
 instance:
+  stack-hub: Stack Hub
+  url: URL
   instances: Instances
+  copied: copied!
+  stacks: Stacks
+  images: Images
+  curated-stacks: Curated Stacks
   instance-details: Instance details
   kab-instances: Kabanero Instances
   tools: Tools
   no-tools: No Tools Available
   pipelines: Pipelines
+  pipelines-blurb: Manage your pipelines
   no-pipelines: No pipelines configured.
   not-configured: Not Configured
   git-orgs: Git Organizations
@@ -122,6 +129,7 @@ instance:
   apps: Applications
   no-apps: Deploy your application to begin managing them.
   app-hub: Application Hub
+  app-hub-blurb: Manage your applications using Application Navigator
   oauth:
     configure: Configure OAuth
   cli-version: "Stack API version: "
@@ -130,9 +138,16 @@ instance:
     stack: Stack
     version: Version
     status: Status
+    image: Images
   no-instances: No instance found
   date-created: Date created
   modal-confirmation-header: Confirmation
-  modal-content: "Are you sure you want to deactivate the collection:"
+  modal-content: "Are you sure you want to deactivate the stack:"
   modal-cancel-button: Cancel
   modal-deactivate-button: Deactivate
+  management-cli: Stack Hub Management CLI
+  management-cli-pre: Use this endpoint with the Kabanero Management CLI login command to login and manage your stacks. For more information about using the CLI see the
+  management-cli-post: Kabanero Management CLI documentation
+  eclipse-che: Eclipse Che
+  eclipse-che-blurb: Eclipse Che makes Kubernetes development accessible for developer teams, providing one-click developer workspaces and eliminating local environment configuration for your entire team.
+

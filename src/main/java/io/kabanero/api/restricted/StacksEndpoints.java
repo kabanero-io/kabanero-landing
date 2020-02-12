@@ -34,7 +34,10 @@ import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.CookieParam;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -68,7 +71,7 @@ import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
 
 import io.website.ResponseMessage;
-import io.kabanero.v1alpha1.models.Kabanero;
+import io.kabanero.v1alpha2.models.Kabanero;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
 
@@ -84,13 +87,13 @@ public class StacksEndpoints extends Application {
     String INSTANCE_NAME;
 
     @GET
-    @Path("/list")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listStacks(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL =  CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
-        HttpGet httpGet = new HttpGet(cliServerURL + "/v1/collections");
+        HttpGet httpGet = new HttpGet(cliServerURL + "/v1/stacks");
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, jwt);
         CloseableHttpResponse response = client.execute(httpGet);
         try {
@@ -148,17 +151,15 @@ public class StacksEndpoints extends Application {
         }
     }
 
-  
-
-    @GET
-    @Path("/deactivate/{collectionName}")
+    @DELETE
+    @Path("/{stack}/versions/{version}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("collectionName") final String collectionName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("stack") final String stackName, @PathParam("version") final String stackVersion) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
 
-        HttpDelete httpDelete = new HttpDelete(cliServerURL + "/v1/collections/" + collectionName);
+        HttpDelete httpDelete = new HttpDelete(cliServerURL + "/v1/stacks/" + stackName + "/versions/" + stackVersion);
         httpDelete.setHeader(HttpHeaders.AUTHORIZATION, jwt);
 
         CloseableHttpResponse response = client.execute(httpDelete);
@@ -183,7 +184,7 @@ public class StacksEndpoints extends Application {
         }
     }
 
-    @GET
+    @PUT
     @Path("/sync")
     @Produces(MediaType.APPLICATION_JSON)
     public Response syncCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
@@ -191,7 +192,7 @@ public class StacksEndpoints extends Application {
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
 
-        HttpPut httpPut = new HttpPut(cliServerURL + "/v1/collections");
+        HttpPut httpPut = new HttpPut(cliServerURL + "/v1/stacks");
         httpPut.setHeader(HttpHeaders.AUTHORIZATION, jwt);
 
         CloseableHttpResponse response = client.execute(httpPut);
@@ -216,7 +217,7 @@ public class StacksEndpoints extends Application {
         }
     }
 
-    @GET
+    @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Context HttpServletRequest httpServletRequest) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {

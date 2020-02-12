@@ -70,7 +70,7 @@
         <dependency>
             <groupId>io.kabanero</groupId>
             <artifactId>operator-java-bindings</artifactId>
-            <version>0.0.1</version>
+            <version>0.6.0</version>
         </dependency>
         <!-- BEGIN: Needed to compile and run unit tests -->
         <dependency>
@@ -114,6 +114,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
                 <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>kabanero-console</warName>
                     <warSourceDirectory>target/jekyll-webapp</warSourceDirectory>

@@ -16,63 +16,48 @@
  *
  ******************************************************************************/
 
-$(document).ready(function() {
-    loadAllInfo();
+$(document).ready(function () {
+    fetchAllInstances()
+        .then(setInstanceSelections)
+        .then(fetchAnInstance)
+        .then(loadAllInfo);
+
     setListeners();
 
     $("#instance-accordion li").on("click", e => {
         e.stopPropagation();
         let newName = handleInstanceSelection(e.target);
         fetchAnInstance(newName)
-            .then(updateInstanceView);
+            .then(loadAllInfo);
     });
 });
 
-function setListeners(){
+function setListeners() {
     // event delegation for dynamic stack hub input copy
-    $(document).on("mouseover", ".stack-hub-input", function(){
-        $(this).attr("data-original-title", $(this).attr("data-original-title"));
-        $(this).tooltip("show");
-        //copy($(this));
-    });
-
-    $(document).on("mouseout", ".stack-hub-input", function(){
-        $(this).tooltip("hide");
-    });
-
-    $(document).on("mouseover", ".copy-to-clipboard", function(){
-        $(this).attr("data-original-title", $(this).attr("data-copy-text"));
-        $(this).tooltip("show");
-        //copy($(this));
-    });
-
-    $(document).on("mouseout", ".copy-to-clipboard", function(){
-        $(this).tooltip("hide");
-    });
-
-    $(document).on("click", ".copy-to-clipboard", function(){
+    $(document).on("click", ".copy-to-clipboard", function () {
         copy($(this).parent().siblings(".stack-hub-input"));
-        $(this).attr("data-original-title", "Copied!");
-        $(this).tooltip("show");
     });
 
-    function copy(input){
+    $(document).on("click", ".stack-hub-input", function () {
+        copy($(this));
+    });
+
+    function copy(input) {
         $(input).select();
         document.execCommand("copy");
-
-        setTimeout(function(){
-            $(".tooltip-copy").tooltip("hide");
-        }, 1000);
+        $(input).closest(".bx--col").find(".copied-text").show().delay(2000).fadeOut();
     }
 }
 
 // Request to get all instances names
-function loadAllInfo(){
-    fetchAllInstances()
-        .then(setInstanceSelections)
-        .then(fetchAnInstance)
-        .then(updateInstanceView)
-        .then(fetchCollectionData);
+function loadAllInfo(instanceJSON) {
+    if (typeof instanceJSON === "undefined") {
+        console.log("instance data is undefined, cannot load instance");
+        return;
+    }
+
+    setInstanceCard(instanceJSON);
+    fetchStacks(instanceJSON.metadata.name);
 
     fetchAllTools()
         .then(setToolData);
@@ -82,35 +67,35 @@ function loadAllInfo(){
 }
 
 // Set details on UI for any given instance
-function setToolData(tools){
+function setToolData(tools) {
     let noTools = true;
 
-    if(typeof tools === "undefined"){
+    if (typeof tools === "undefined") {
         $("#application-details-card .bx--inline-loading").hide();
         $("#pipelines-details-card .bx--inline-loading").hide();
         $("#no-tools").show();
         return;
     }
 
-    for(let tool of tools){
+    for (let tool of tools) {
 
-        if (typeof tool.name === "undefined" || tool.name.length === 0 || 
-            typeof tool.location === "undefined" || tool.location.length === 0){
+        if (typeof tool.name === "undefined" || tool.name.length === 0 ||
+            typeof tool.location === "undefined" || tool.location.length === 0) {
             continue;
         }
-        if (tool.name === "Application Navigator"){
+        if (tool.name === "Application Navigator") {
             $("#appnav-link").attr("href", tool.location);
             $("#manage-apps-button").attr("disabled", false);
             $("#manage-apps-button-text").html("Manage Applications");
         }
 
-        if (tool.name === "Tekton"){
+        if (tool.name === "Tekton") {
             $("#pipeline-link").attr("href", tool.location);
             $("#pipeline-button").attr("disabled", false);
             $("#pipeline-button-text").text("Manage Pipelines");
         }
 
-        if (tool.name === "Eclipse Che"){
+        if (tool.name === "Eclipse Che") {
             $("#che-link").attr("href", tool.location);
             $("#che-button").attr("disabled", false);
             $("#che-button-text").text("Go to Eclipse Che");
@@ -123,7 +108,7 @@ function setToolData(tools){
         noTools = false;
     }
 
-    if(noTools){
+    if (noTools) {
         $("#no-tools").show();
     }
 
@@ -131,48 +116,57 @@ function setToolData(tools){
     $("#pipelines-details-card .bx--inline-loading").hide();
 }
 
-function updateInstanceView(instanceJSON){
-    if(typeof instanceJSON === "undefined"){
-        return;
-    }
-    //update the various cards
-    setInstanceCard(instanceJSON);
-    return instanceJSON.metadata.name;
-}
-
-function setInstanceCard(instanceJSON){
-    let appHubName = instanceJSON.spec.collections.repositories[0].name;
-    let appsodyURL = instanceJSON.spec.collections.repositories[0].url;
-    let codewindURL = appsodyURL.replace(".yaml", ".json");
+function setInstanceCard(instanceJSON) {
+    let config = instanceJSON.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
+    spec = typeof config === "string" ? JSON.parse(config).spec : config.spec;
+    let repos = spec.stacks.repositories;
     let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
-    $("#instance-details-card #apphub-name").text(appHubName);
+    let $instanceDetails = $("#repo-section");
+    repos.forEach(repo => {
+        $instanceDetails.append(createRepositorySection(repo.name, repo.https.url));
+    });
 
-    $("#instance-details-card #appsody-url").val(appsodyURL).attr("data-original-title", appsodyURL)
-    $("#instance-details-card #appsody-url").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Appsody URL");
-
-    $("#instance-details-card #codewind-url").val(codewindURL).attr("data-original-title", codewindURL)
-    $("#instance-details-card #codewind-url").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Codewind URL");
-
-    $("#instance-details-card #management-cli").val(cliURL).attr("data-original-title", cliURL)
-    $("#instance-details-card #management-cli").next(".input-group-append").children(".tooltip-copy").attr("data-copy-text", "Click to copy Management CLI URL");
+    $("#instance-details-card #management-cli").val(cliURL).attr("title", cliURL);
+    $("#instance-details-card #management-cli").next(".input-group-append > .copy-to-clipboard").attr("title", "Click to copy Management CLI URL");
 
     // hide card loader
     $("#instance-details-card .bx--inline-loading").hide();
+
+    function createRepositorySection(name, appsodyURL) {
+        let codewindURL = appsodyURL.replace(".yaml", ".json");
+
+        let $nameTemplate = $("#stack-hub-name-row-template").clone().removeAttr("id").removeClass("hide");;
+        $($nameTemplate).find(".stack-hub-name").text(name);
+
+        let $appsodyTemplate = $("#stack-hub-appsody-row-template").clone().removeAttr("id").removeClass("hide");
+        $($appsodyTemplate).find(".appsody-url").val(appsodyURL).attr("title", appsodyURL);
+        $($appsodyTemplate).find(".input-group-append > .tooltip-copy").attr("title", "Click to copy the Appsody URL");
+
+        let $codewindTemplate = $("#stack-hub-codewind-row-template").clone().removeAttr("id").removeClass("hide");;
+
+        $($codewindTemplate).find(".codewind-url").val(codewindURL).attr("title", codewindURL);
+        $($codewindTemplate).find(".codewind-url > .tooltip-copy").attr("title", "Click to copy the Codewind URL");
+        return [$nameTemplate, $appsodyTemplate, $codewindTemplate, $("<hr/>")];
+    }
 }
 
-function setStackCard(instanceJSON){
+function setStackCard(instanceJSON) {
     //let details = instanceJSON.details;
     let stacks = instanceJSON.items;
     let numberOfStacks = instanceJSON.items.length;
-    
+
     // Stacks Card
     $("#stack-details-card #num-stacks").text(numberOfStacks);
 
     let liColls = "";
-    $(stacks).each(function(){
-        liColls = liColls.concat(`<li>${this.spec.name} : ${this.spec.version}</li>`);
+    stacks.forEach(stack => {
+        let versionLength = stack.spec.versions.length;
+        versions = stack.spec.versions.reduce((acc, versionObj, idx) => {
+            return acc += idx !== versionLength - 1 ? `${versionObj.version}, ` : ` ${versionObj.version}`;
+        }, "");
+        liColls = liColls.concat(`<li><span class="bold">${stack.spec.name}</span>: ${versions}</li>`);
     });
 
     $("#stack-details-card #stack-list").html(`<ul>${liColls}</ul>`);
@@ -181,8 +175,8 @@ function setStackCard(instanceJSON){
 }
 
 // Sets up the UI in regards to OAuth data
-function setOAuth(oauthJSON){
-    if(oauthJSON && oauthJSON.isConfigured){
+function setOAuth(oauthJSON) {
+    if (oauthJSON && oauthJSON.isConfigured) {
         let selectedInstance = $("#selected-instance-name").text().trim();
         $("#stacks-oauth-msg").text("Manage Stacks");
         $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);

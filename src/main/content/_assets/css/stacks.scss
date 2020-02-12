@@ -11,24 +11,24 @@ $kabanero-color: #C43804;
     }
 }
 
-#sync-collections-icon{
+#sync-stacks-icon{
     cursor: pointer;
     outline: none !important;
     fill: #080808;
 }
 
-#collections-sync-button{
+.sync-stacks-button{
     float: right;
     margin-right: 15px;
     margin-bottom: 10px;
 }
 
-.deactivate-collection-icon{
+.deactivate-stack-icon{
     float: right;
     cursor: pointer;
 }
 
-.deactivate-collection-td{
+.deactivate-stack-td{
     width: 1px !important;
 }
 

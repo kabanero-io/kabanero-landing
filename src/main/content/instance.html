@@ -27,7 +27,7 @@ permalink: /instance/
                         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
                             <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
                         </svg>
-                        <div class="bx--accordion__title">No instance found</div>
+                        <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
                     </button>
                     <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
                     </div>
@@ -44,52 +44,31 @@ permalink: /instance/
 
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
-                        <h2>Instance</h2>
+                        <h2>{{t._includes.header.instance-button}}</h2>
                     </div>
                 </div>
                 
                 <!-- instance details -->
                 <div class="bx--row">
-                    <div class="bx--col">
+                    <div id="instance-details" class="bx--col">
+                        <div id="repo-section">
+
+                        </div>
                         <div class="bx--row">
                             <div class="bx--col">
+                                <div class="instance-header">
+                                    <span class="bold">{{t.instance.management-cli}}</span>
+                                    <span class="copied-text gray-text hide">{{t.instance.copied}}</span>
+                                </div>
+                                <div class="input-group">
+                                    <input id="management-cli" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly">
+                                    <div class="input-group-append">
+                                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" >
+                                    </div>
+                                </div>
                                 <p>
-                                    <span class="gray-text">Application Hub:</span>
-                                    <span id="apphub-name"></span>
+                                    {{t.instance.management-cli-pre}} <a href="/docs/ref/general/reference/kabanero-cli.html">{{t.instance.management-cli-post}}</a>
                                 </p>
-                            </div>
-                        </div>
-                        <div class="bx--row">
-                            <div class="bx--col">
-                            <div class="input-group">
-                            <p class="gray-text" id="appsody-url-text">Appsody URL: </p>
-                            <input id="appsody-url" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
-                            <div class="input-group-append">
-                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
-                            </div>
-                        </div>
-                            </div>
-                        </div>
-                        <div class="bx--row">
-                            <div class="bx--col">
-                                <div class="input-group">
-                                <p class="gray-text stacks-url" id="codewind-url-text">Codewind URL: </p>
-                                    <input id="codewind-url" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
-                                    <div class="input-group-append">
-                                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bx--row">
-                            <div class="bx--col">
-                                <p>Management CLI: Use this endpoint with the Kabanero Management CLI login command to login and manage your stacks. For more information about using the CLI see the <a href="/docs/ref/general/reference/kabanero-cli.html">Kabanero Management CLI documentation</a></p>
-                                <div class="input-group">
-                                    <input id="management-cli" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly" onclick="this.select();" data-original-title="" title="">
-                                    <div class="input-group-append">
-                                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" data-original-title="" title="">
-                                    </div>
-                                </div>
                             </div>
                         </div>      
                     </div>
@@ -113,7 +92,7 @@ permalink: /instance/
 
                 <div class="bx--row">
                     <div class="bx--col">
-                        <h4>Stacks</h4>
+                        <h4>{{t.instance.stacks}}</h4>
                     </div>
                 </div>
 
@@ -147,13 +126,13 @@ permalink: /instance/
                 <!-- pipeline details -->
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
-                        <h2>Pipelines</h2>
+                        <h2>{{t.instance.pipelines}}</h2>
                     </div>
                 </div>
 
                 <div class="bx--row">
                     <div class="bx--col">
-                        <p>Manage your pipelines</p>
+                        <p>{{t.instance.pipelines-blurb}}</p>
                     </div>
                 </div>
 
@@ -188,7 +167,7 @@ permalink: /instance/
 
                 <div class="bx--row">
                     <div class="bx--col">
-                        <p>Manage your applications using Application Navigator</p>
+                        <p>{{t.instance.app-hub-blurb}}</p>
                     </div>
                 </div>
 
@@ -216,15 +195,13 @@ permalink: /instance/
                 <!-- pipeline details -->
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
-                        <h2>Eclipse Che</h2>
+                        <h2>{{t.instance.eclipse-che}}</h2>
                     </div>
                 </div>
 
                 <div class="bx--row">
                     <div class="bx--col">
-                        <p>
-                            Eclipse Che makes Kubernetes development accessible for developer teams, providing one-click developer workspaces and eliminating local environment configuration for your entire team.
-                        </p>
+                        <p>{{t.instance.eclipse-che-blurb}}</p>
                     </div>
                 </div>
 
@@ -253,7 +230,45 @@ permalink: /instance/
       <div class="bx--accordion__title"></div>
     </button>
     <div class="bx--accordion__content">
-      <p class="gray-text">Date created</p>
+      <p class="gray-text">{{t.instance.date-created}}</p>
       <p class="creation-date"></p>
     </div>
 </li>
+
+<!-- Stack Hub section template -->
+<div id="stack-hub-name-row-template" class="bx--row hide">
+    <div class="bx--col">
+        <div class="instance-header">
+            <span class="bold">{{t.instance.stack-hub}}</span>
+            <span class="stack-hub-name"></span>
+        </div>
+    </div>
+</div>
+<div id="stack-hub-appsody-row-template" class="bx--row hide">
+    <div class="bx--col">
+        <div class="instance-header">
+            <span class="bold">{{t.common.appsody}} {{t.instance.url}}</span>
+            <span class="copied-text gray-text hide">{{t.instance.copied}}</span>
+        </div>
+        <div class="input-group">
+            <input type="text" class="appsody-url form-control stack-hub-input" readonly="readonly">
+            <div class="input-group-append">
+                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard" >
+            </div>
+        </div>
+    </div>
+</div>
+<div id="stack-hub-codewind-row-template" class="bx--row hide">
+    <div class="bx--col">
+        <div class="instance-header">
+            <span class="bold">{{t.common.codewind}} {{t.instance.url}}</span>
+            <span class="copied-text gray-text hide">{{t.instance.copied}}</span>
+        </div>
+        <div class="input-group">
+            <input type="text" class="codewind-url form-control stack-hub-input" readonly="readonly">
+            <div class="input-group-append">
+                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard" >
+            </div>
+        </div>
+    </div>
+</div>

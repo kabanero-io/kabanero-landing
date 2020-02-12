@@ -169,12 +169,11 @@ h3 {
 }
 
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .hidden {
     display: none !important;
-    visibility: hidden !important;
 }
 
 #dev-tools-modal p {

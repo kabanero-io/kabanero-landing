@@ -17,15 +17,6 @@
  ******************************************************************************/
 package io.kubernetes;
 
-import io.kabanero.tools.KabaneroTool;
-import io.kabanero.tools.KabaneroToolManager;
-import io.kubernetes.client.ApiClient;
-import io.kubernetes.client.ApiException;
-import io.kubernetes.client.Configuration;
-import io.kubernetes.client.apis.CustomObjectsApi;
-import io.kubernetes.client.util.ClientBuilder;
-import io.kubernetes.client.util.KubeConfig;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,10 +25,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -55,14 +44,24 @@ import com.squareup.okhttp.ConnectionSpec;
 
 import org.apache.commons.io.IOUtils;
 
-import io.kabanero.v1alpha1.client.apis.KabaneroApi;
-import io.kabanero.v1alpha1.client.apis.CollectionApi;
-import io.kabanero.v1alpha1.models.CollectionList;
-import io.kabanero.v1alpha1.models.Kabanero;
-import io.kabanero.v1alpha1.models.KabaneroList;
+import io.kabanero.tools.KabaneroTool;
+import io.kabanero.tools.KabaneroToolManager;
+import io.kabanero.v1alpha2.client.apis.KabaneroApi;
+import io.kabanero.v1alpha2.client.apis.StackApi;
+import io.kabanero.v1alpha2.models.Kabanero;
+import io.kabanero.v1alpha2.models.KabaneroList;
+import io.kabanero.v1alpha2.models.StackList;
+import io.kubernetes.client.ApiClient;
+import io.kubernetes.client.ApiException;
+import io.kubernetes.client.Configuration;
+import io.kubernetes.client.apis.CustomObjectsApi;
+import io.kubernetes.client.util.ClientBuilder;
+import io.kubernetes.client.util.KubeConfig;
 
 public class KabaneroClient {
     private final static Logger LOGGER = Logger.getLogger(KabaneroClient.class.getName());
+    private final static int TIMEOUT = 60;
+    private final static String DEFAULT_NAMESPACE = "kabanero";
 
     // routes from kabanero namespace
     private static String getLabeledRoute(String Label, Map<String, Route> routes) {
@@ -101,10 +100,9 @@ public class KabaneroClient {
 
     public static KabaneroList getInstances() throws IOException, ApiException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
-        String namespace = "kabanero";
         try{
             KabaneroApi api = new KabaneroApi(client);
-            KabaneroList kabaneros = api.listKabaneros(namespace, null, null, null);
+            KabaneroList kabaneros = api.listKabaneros(DEFAULT_NAMESPACE, null, null, TIMEOUT);
             return kabaneros;
         }catch (Exception e) {
             LOGGER.log(Level.WARNING, "Error with fetching kabanero instances", e);
@@ -114,22 +112,20 @@ public class KabaneroClient {
 
     public static Kabanero getAnInstance(String instanceName) throws IOException, ApiException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
-        String namespace = "kabanero";
         try{
             KabaneroApi api = new KabaneroApi(client);
-            return api.getKabanero(namespace, instanceName);
+            return api.getKabanero(DEFAULT_NAMESPACE, instanceName);
         }catch (Exception e){
             LOGGER.log(Level.WARNING, "Error with fetching kabanero instance " + instanceName, e);
             return null;
         }
     }
 
-    public static CollectionList getCollections(String instanceName) throws IOException, GeneralSecurityException {
+    public static StackList getStacks(String instanceName) throws IOException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
         try{
-            CollectionApi api = new CollectionApi(client);
-            CollectionList collections = api.listCollections(instanceName, null, null, null);
-            return collections;
+            StackApi api = new StackApi(client);
+            return api.listStacks(DEFAULT_NAMESPACE, null, null, TIMEOUT);
         }catch(Exception e){
             LOGGER.log(Level.WARNING, "Error with fetching collections in kabanero instance " + instanceName, e);
             return null;

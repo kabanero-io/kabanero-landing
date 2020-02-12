@@ -34,9 +34,9 @@ import javax.ws.rs.core.Response;
 import org.apache.http.client.ClientProtocolException;
 
 import io.website.ResponseMessage;
-import io.kabanero.v1alpha1.models.CollectionList;
-import io.kabanero.v1alpha1.models.Kabanero;
-import io.kabanero.v1alpha1.models.KabaneroList;
+import io.kabanero.v1alpha2.models.Kabanero;
+import io.kabanero.v1alpha2.models.KabaneroList;
+import io.kabanero.v1alpha2.models.StackList;
 import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
 
@@ -50,7 +50,7 @@ public class InstanceEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllInstances() throws IOException, ApiException, GeneralSecurityException {
         KabaneroList kabaneros = KabaneroClient.getInstances();
-        if (kabaneros == null){
+        if (kabaneros == null) {
             return Response.status(404).entity(new ResponseMessage("No instances found")).build();
         }
         return Response.ok(kabaneros).build();
@@ -65,18 +65,18 @@ public class InstanceEndpoints extends Application {
         if (wantedInstance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
-        
-        return Response.ok().entity(wantedInstance).build();
+
+        return Response.ok(wantedInstance).build();
     }
 
     @GET
-    @Path("/{instanceName}/collections")
+    @Path("/{instanceName}/stacks")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCollectionsKube(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
-        CollectionList collections = KabaneroClient.getCollections(instanceName);
-        if(collections == null){
-            return Response.status(500).entity(new ResponseMessage("Error from instance with name " + instanceName)).build();
+    public Response listStacks(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+        StackList stacks = KabaneroClient.getStacks(instanceName);
+        if(stacks == null){
+            return Response.status(404).entity(new ResponseMessage("Stacks do not exist for instance: " + instanceName)).build();
         }
-        return Response.ok().entity(collections).build();
+        return Response.ok(stacks).build();
     }
 }

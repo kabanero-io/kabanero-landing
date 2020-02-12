@@ -9,34 +9,38 @@ $(document).ready(function () {
             .then(updateInstanceView);
     });
 
-    $("#sync-collections-icon").on("click", (e) => {
+    $("#sync-stacks-icon").on("click", (e) => {
         if (e.target.getAttribute("class") == "icon-active") {
             let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
             emptyTable();
-            syncColletions(instanceName);
+            syncStacks(instanceName);
         }
     });
 
-    $("#collection-table-body").on("click", ".deactivate-collection-icon", (e) => {
-        let collectionName = e.currentTarget.getAttribute("collection-name");
-        $("#modal-collection-name").text(collectionName);
+    $("#stack-table-body").on("click", ".deactivate-stack-icon", e => {
+        let $event = $(e.currentTarget);
+        let name = $event.data("stackname");
+        let version = $event.data("stackversion");
+        $("#modal-stack-name").text(name);
+        $("#modal-stack-version").text(version);
     });
 
     $("#modal-confirm-deactivation").on("click", () => {
-        let collectionName = $("#modal-collection-name").text();
+        let name = $("#modal-stack-name").text();
+        let version = $("#modal-stack-version").text();
         emptyTable();
-        deactivateCollection(collectionName);
+        deactivateStack(name, version);
     });
 
 });
 
-function handleInstancesRequests(){
+function handleInstancesRequests() {
     $("#instance-accordion").empty();
     fetchAllInstances()
         .then(setInstanceSelections)
         .then(handleInitialCLIAuth)
         .then(handleStacksRequests);
-        //TODO then select/fetch current instance from url param for the dropdown
+    //TODO select/fetch current instance from url param for the dropdown
 }
 
 function handleStacksRequests(instanceName) {
@@ -48,7 +52,7 @@ function getStacksData(instanceName) {
     if (typeof instanceName === "undefined") {
         return;
     }
-    return fetch(`/api/auth/kabanero/${instanceName}/stacks/list`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks`)
         .then(function (response) {
             return response.json();
         })
@@ -61,100 +65,144 @@ function getCliVersion(instanceName) {
         return;
     }
     return fetch(`/api/auth/kabanero/${instanceName}/stacks/version`)
-        .then(function(response){
-            return response.json()
+        .then(function (response) {
+            return response.json();
         })
         .then(setCLIVersion)
         .catch(error => console.error("Error getting CLI Version", error));
 }
 
-function deactivateCollection(collectionName) {
+function deactivateStack(name, version) {
     let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
 
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/deactivate/${collectionName}`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/${name}/versions/${version}`, { method: "DELETE" })
         .then(function (response) {
-            return response.json()
+            return response.json();
         })
         .then(handleInstancesRequests)
-        .catch(error => console.error(`Error deactivating ${collectionName} collection`, error));
+        .catch(error => console.error(`Error deactivating ${name} ${version} stack`, error));
 }
 
-function syncColletions(instanceName) {
+function syncStacks(instanceName) {
     if (typeof instanceName === "undefined") {
         return;
     }
-    return fetch(`/api/auth/kabanero/${instanceName}/collections/sync`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/sync`, { method: "PUT" })
         .then(handleInstancesRequests)
-        .catch(error => console.error("Error syncing collections", error))
+        .catch(error => console.error("Error syncing stacks", error));
 }
 
-function updateCollectionView(collectionJSON) {
-    if (typeof collectionJSON === "undefined") {
+function updateStackView(stackJSON) {
+    if (typeof stackJSON === "undefined") {
         return;
     }
 
-    let collections = collectionJSON["kabanero collections"];
+    // yaml metadata in kube, cannot be deactivated and has no status.
+    let curatedStacks = stackJSON["curated stacks"];
 
-    stacks.forEach(coll => {
-        $("#stack-table-body").append(createCollRow(coll));
+    // difference between kabanero stacks and curated stacks. 
+    // If there are stacks in this array then a "sync" needs to happen to pull them into kabanero
+    let newCuratedStacks = stackJSON["new curated stacks"];
+
+    let kabaneroStacks = stackJSON["kabanero stacks"];
+
+    // when a stack yaml is deleted from the cluter, but it’s still out on Kabanero. A sync will clean these up.
+    let obsoleteStacks = stackJSON["obsolete stacks"];
+
+    kabaneroStacks.forEach(stack => {
+        $("#stack-table-body").append(createKabaneroStackRow(stack));
     });
 
-    function createCollRow(coll) {
-        let row = $("<tr>");
-        let name = $("<td>").text(coll.name);
-        let version = $("<td>").text(coll.version);
-        let status = $("<td>").text(coll.status);
-        let deactivateCollection = createDeactivateCollectionButton(coll);
-        return row.append([name, version, status, deactivateCollection]);
+    curatedStacks.forEach(stack => {
+        $("#curated-stack-table-body").append(createCuratedStackRow(stack));
+    });
+
+    function createKabaneroStackRow(stack) {
+        let rows = [];
+        let versions = stack.status;
+
+        versions.forEach(version => {
+            let name = $("<td>").text(stack.name);
+            let versionTD = $("<td>").text(version.version);
+            let statusTD = $("<td>").text(version.status);
+            let deactivateStack = createDeactivateStackButton(stack.name, version);
+            let row = $("<tr>").append([name, versionTD, statusTD, deactivateStack]);
+            rows.push(row);
+        });
+        return rows;
     }
 
-    function createDeactivateCollectionButton(coll) {
-        let iconStatus = coll.status === "active" ? "icon-active" : "icon-disabled";
-        let deactivateCollection = $("<td>").addClass("deactivate-collection-td");
-        let div = $("<div>").addClass(`deactivate-collection-icon ${iconStatus}`).attr("collection-name", coll.name).attr("data-modal-target", "#deactivate-collection-modal-" + iconStatus);
-        let svg =`<svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M16,4A12,12,0,1,1,4,16,12,12,0,0,1,16,4m0-2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Z"></path><path d="M10 15H22V17H10z"></path><title>Deactivate ${coll.name} collection</title></svg>`
+    function createCuratedStackRow(stack) {
+        let rows = [];
+        let versions = stack.versions;
+
+        versions.forEach(version => {
+            let name = $("<td>").text(stack.name);
+            let versionTD = $("<td>").text(version.version);
+            let images = version.images.reduce((acc, imageObj) => {
+                return acc += `${imageObj.image}<br/>`;
+            }, "");
+
+            let imagesTD = $("<td>").html(images);
+            let row = $("<tr>").append([name, versionTD, imagesTD]);
+            rows.push(row);
+        });
+        return rows;
+    }
+
+    function createDeactivateStackButton(stackName, versionObj) {
+        let iconStatus = versionObj.status === "active" ? "icon-active" : "icon-disabled";
+        let deactivateStack = $("<td>").addClass("deactivate-stack-td");
+
+        let div = $("<div>").addClass(`deactivate-stack-icon ${iconStatus}`)
+            .data("stackname", stackName)
+            .data("stackversion", versionObj.version)
+            .attr("data-modal-target", `#deactivate-stack-modal-${iconStatus}`);
+
+        let svg = `<svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M16,4A12,12,0,1,1,4,16,12,12,0,0,1,16,4m0-2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Z"></path><path d="M10 15H22V17H10z"></path><title>Deactivate ${stackName} - ${versionObj.version} stack</title></svg>`;
 
         div.append(svg);
-        deactivateCollection.append(div);
-
-        return deactivateCollection;
+        return deactivateStack.append(div);
     }
 
     $(".table-loader").hide();
-    $("#collection-table").show();
+    $("#stack-table").show();
+    $("#curated-stack-table").show();
 }
 
 function setCLIVersion(cliVersion) {
-    if(typeof cliVersion === "undefined"){
+    if (typeof cliVersion === "undefined") {
         return;
     }
     let version = cliVersion["image"].split(":")[1];
     $("#cli-version").append(version);
 }
 
-function emptyTable(){
-    $("#collection-table").hide();
+function emptyTable() {
+    $("#stack-table").hide();
+    $("#curated-stack-table").hide();
     $(".table-loader").show();
-    $("#collection-table-body").empty();
+    $("#stack-table-body").empty();
+    $("#curated-stack-table-body").empty();
     $("#cli-version").empty();
 }
 
-function getURLParam(key){
+function getURLParam(key) {
     return new URLSearchParams(window.location.search).get(key);
 }
 
-function handleInitialCLIAuth(instanceName){
-    return fetch(`/api/auth/kabanero/${instanceName}/stacks/list`)
-        .then(function(response) {
+function handleInitialCLIAuth(instanceName) {
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks`)
+        .then(function (response) {
 
             // Login via cli and retry if 401 is returned on initial call
-            if(response.status === 401){
+            if (response.status === 401) {
                 return loginViaCLI(instanceName)
                     .then(() => {
                         return handleInitialCLIAuth(instanceName);
                     });
             }
-            else if(response.status !== 200){
+            else if (response.status !== 200) {
                 console.warn(`Initial auth into instance ${instanceName} returned status code: ${response.status}`);
             }
 
@@ -164,12 +212,12 @@ function handleInitialCLIAuth(instanceName){
         .catch(error => console.error(`Error handling initial auth into instance ${instanceName} via CLI server`, error));
 }
 
-function loginViaCLI(instanceName){
-    if(typeof instanceName === "undefined"){
+function loginViaCLI(instanceName) {
+    if (typeof instanceName === "undefined") {
         console.warn("CLI login cannot login without an instanceName");
         return;
     }
 
-    return fetch(`/api/auth/kabanero/${instanceName}/stacks/login`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/login`, { method: "POST" })
         .catch(error => console.error(`Error logging into instance ${instanceName} via CLI server`, error));
 }
