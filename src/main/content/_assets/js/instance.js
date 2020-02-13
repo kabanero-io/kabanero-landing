@@ -137,14 +137,14 @@ function setInstanceCard(instanceJSON) {
     function createRepositorySection(name, appsodyURL) {
         let codewindURL = appsodyURL.replace(".yaml", ".json");
 
-        let $nameTemplate = $("#stack-hub-name-row-template").clone().removeAttr("id").removeClass("hide");;
+        let $nameTemplate = $("#stack-hub-name-row-template").clone().removeAttr("id").removeClass("hidden");;
         $($nameTemplate).find(".stack-hub-name").text(name);
 
-        let $appsodyTemplate = $("#stack-hub-appsody-row-template").clone().removeAttr("id").removeClass("hide");
+        let $appsodyTemplate = $("#stack-hub-appsody-row-template").clone().removeAttr("id").removeClass("hidden");
         $($appsodyTemplate).find(".appsody-url").val(appsodyURL).attr("title", appsodyURL);
         $($appsodyTemplate).find(".input-group-append > .tooltip-copy").attr("title", "Click to copy the Appsody URL");
 
-        let $codewindTemplate = $("#stack-hub-codewind-row-template").clone().removeAttr("id").removeClass("hide");;
+        let $codewindTemplate = $("#stack-hub-codewind-row-template").clone().removeAttr("id").removeClass("hidden");;
 
         $($codewindTemplate).find(".codewind-url").val(codewindURL).attr("title", codewindURL);
         $($codewindTemplate).find(".codewind-url > .tooltip-copy").attr("title", "Click to copy the Codewind URL");
