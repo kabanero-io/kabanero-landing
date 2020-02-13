@@ -114,7 +114,6 @@ instance:
   instances: Instances
   copied: copied!
   stacks: Stacks
-  images: Images
   curated-stacks: Curated Stacks
   instance-details: Instance details
   kab-instances: Kabanero Instances
@@ -133,12 +132,12 @@ instance:
   oauth:
     configure: Configure OAuth
   cli-version: "Stack API version: "
-  sync-tooltip: Sync Stack
+  sync-tooltip: Sync all Stacks
   data-table-headers:
     stack: Stack
     version: Version
     status: Status
-    image: Images
+    images: Images
   no-instances: No instance found
   date-created: Date created
   modal-confirmation-header: Confirmation

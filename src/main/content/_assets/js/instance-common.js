@@ -240,7 +240,7 @@ function setInstanceSelections(instancesJSON) {
     for (let instance of instances) {
         let dateCreated = instance.metadata.creationTimestamp;
 
-        let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hide");
+        let row = $("#instance-li-template").clone().removeAttr("id").removeClass("hidden");
         $(row).find(".bx--accordion__title").text(instance.metadata.name);
         $(row).find(".creation-date").text(new Date(dateCreated).toLocaleDateString());
         $("#instance-accordion").append(row);
