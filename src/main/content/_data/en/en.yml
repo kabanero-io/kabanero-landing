@@ -64,10 +64,10 @@ guides:
   page-description: The quickest way to learn all things Kabanero, and more!
   suggested-tags: Suggested tags
   appsody: appsody
-  nodejs: nodejs
+  nodejs: nodejs  
   basic-guides:
-    title: Basics
-    title-two: '- Let’s get started'
+    title: Kabanero Basics
+    title-two: '- Let’s get started'   
   collections-guides:
     title: Stacks
   pipelines-guides:
