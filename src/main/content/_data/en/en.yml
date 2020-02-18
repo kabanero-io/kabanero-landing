@@ -59,15 +59,21 @@ doc:
   no-doc-found: No doc found
 
 guides:
-  page-title: Guides
-  page-description: The quickest way to learn all things about Kabanero!
+  guides: Guides
+  guide: Guide
+  page-description: The quickest way to learn all things Kabanero, and more!
   suggested-tags: Suggested tags
   appsody: appsody
   nodejs: nodejs
   basic-guides:
-    title: Kabanero Basics
+    title: Basics
     title-two: '- Let’s get started'
-    catigory-title: guides
+  collections-guides:
+    title: Stacks
+  pipelines-guides:
+    title: Pipelines
+  uncatagorized-guides:
+    title: More Guides
 
 index:
   welcome: Welcome

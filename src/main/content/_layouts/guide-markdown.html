@@ -6,13 +6,11 @@ css:
 - end-of-guide
 - guide-card
 - guide
-- side-bar
 js:
 - guide-utils
 - toc
 - guide
 - guide-markdown
-- side-bar
 ---
 
 <!-----------------------------------------------------------------------------
@@ -37,30 +35,33 @@ js:
 
 <div id="background-container" class="container-fluid">
     <div class="row">
-        <!-- Guide's table of contents section -->            
-        <div id="toc-column" class="col-md-2 collapse block open">
+        <!-- Guide's table of contents section -->
+        <div id="toc-column" class="col-md collapse block open">
             <div id="toc-inner">
                 <div id="close-container">
-                    <img id="toc-close-white" src="{{ " /img/toc-close-white.svg " | relative }}" alt="Close the table of contents" tabindex="0"/>
+                    <img id="toc-close-white" src="{{ " /img/toc-close-white.svg " | relative }}"
+                        alt="Close the table of contents" tabindex="0" />
                 </div>
-                <div id="mobile-close-container" data-toggle="collapse" data-target="#toc-column" aria-expanded="false" aria-controls="toc-column">
-                     <img src="{{ " /img/toc-close-kabanero.svg " | relative }}" alt="Table of contents close button" tabindex="0"/>                         
+                <div id="mobile-close-container" data-toggle="collapse" data-target="#toc-column" aria-expanded="false"
+                    aria-controls="toc-column">
+                    <img src="{{ " /img/toc-close-kabanero.svg " | relative }}" alt="Table of contents close button"
+                        tabindex="0" />
                 </div>
                 <h3 id="toc-title">Contents</h3>
                 <div id="toc-container">
                 </div>
                 <div id="toc-separator"></div>
                 {% if page.tags %}
-                    <h3 id="tag-title">Tags</h3>
-                    <div id="tags-container">
-                        {% for tag in page.tags %}
-                                <a href="/guides?search={{ tag }}&key=tag">{{ tag }}</a>   
-                        {% endfor %}
-                    </div>
-                {% endif %}                    
-            </div>                                
+                <h3 id="tag-title">Tags</h3>
+                <div id="tags-container">
+                    {% for tag in page.tags %}
+                    <a href="/guides?search={{ tag }}&key=tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
         </div>
-        <div class="col-md">
+        <div class="col-md-10">
             <div id="toc-indicator" tabindex="0" aria-label="Open the table of contents" class="hidden">
                 <img src="/img/arrow-white.svg" alt="arrow">
             </div>
@@ -74,44 +75,35 @@ js:
                             <img src="/img/guide-duration-clock-icon-large.svg" alt="duration">
                             <span id="guide-duration">{{ page.duration }}</span>
                         </div>
-                        <div id="mobile-github-section">
-                                <div id="mobile-github-clone-popup-title"><span class="dark_green_link_light_background">Git clone</span><span> to get going right away:</span></div>
-                            <div id="mobile-github-clone-popup-repo">
-                                <span>git clone https://github.com/Kabanero-io/guide-{{page.url | replace: '/guides/', ''}}.git</span>
-                                <div id="mobile-github-clone-popup-copy" tabindex="0" aria-label="Copy the Github repository clone command">
-                                    <img src="/img/guides-copy-button-white.svg" alt="Copy Github clone command" title="Copy Github clone command">
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="scroller-anchor"></div>
-                    <div id="mobile-toc-accordion-container" data-toggle="collapse" data-target="#toc-column" aria-expanded="false" aria-controls="toc-column">
+                    <div id="mobile-toc-accordion-container" data-toggle="collapse" data-target="#toc-column"
+                        aria-expanded="false" aria-controls="toc-column">
                         <div id="mobile-toc-accordion">
                             <button class="breadcrumb_hamburger toc-toggle collapsed" type="button" tabindex="0">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <img src="{{ " /img/toc-close-white.svg " | relative }}" class="hidden img-responsive" alt="Table of contents close button"/>
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <img src="{{ " /img/toc-close-white.svg " | relative }}" class="hidden img-responsive"
+                                    alt="Table of contents close button" />
                             </button>
                             <span>Table of contents</span>
                         </div>
                     </div>
 
                     <!-- Guide content section -->
-                        <div id="guide-content-section">
-                            {{ content }}
-                        </div>
+                    <div id="guide-content-section">
+                        {{ content }}
+                    </div>
                 </div>
-                <div id="guide-section-copied-confirmation">Copied to clipboard</div>
-                <img id="copy-to-clipboard" src='/img/guides-copy-button.svg' alt='Copy code block' title='Copy code block'>
             </div>
             <div class="row">
                 <div class="col-md text-center">
-                    {% include end-of-guide.html %} 
+                    {% include end-of-guide.html %}
                 </div>
-            </div>     
-        </div> 
+            </div>
+        </div>
     </div>
 </div>
