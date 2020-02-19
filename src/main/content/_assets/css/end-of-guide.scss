@@ -16,11 +16,7 @@
  -
  *******************************************************************************/
 
-body {
-    font-family: Helvetica, Trebuchet MS, Arial;
-}
-
- #end_of_guide {
+#end_of_guide {
     width: 100%;
     padding-bottom: 100px;
 }
@@ -36,6 +32,7 @@ body {
     height: 115px;
     padding-top: 31px;
     padding-left: 37px;
+    font-family: BunueloLight, Arial Narrow, Helvetica, Arial;
     font-size: 35px;
 }
 
@@ -45,6 +42,7 @@ body {
 }
 
 #end_of_guide h3 {
+    font-family: BunueloBold, Arial Narrow, Helvetica, Arial;
     font-size:20px;
     color:#1b1c34;
     letter-spacing:0;
@@ -71,6 +69,7 @@ body {
 }
 
 #where_to_next {
+    font-family: BunueloBold, Arial Narrow, Helvetica, Arial;
     font-size: 20px;
     color: #1b1c34;
     letter-spacing: 0;
@@ -109,6 +108,7 @@ body {
 }
 
 .popup_title {
+    font-family: BunueloLight;
     font-size: 35px;
     text-align: center;
 }
@@ -210,7 +210,7 @@ body {
         float: none;
         padding: 0 37px;
     }
-
+    
     /* Override margin-top */
     #end_of_guide #where_to_next {
         margin-top: 41px;
