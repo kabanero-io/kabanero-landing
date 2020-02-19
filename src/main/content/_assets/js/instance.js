@@ -116,10 +116,8 @@ function setToolData(tools) {
     $("#pipelines-details-card .bx--inline-loading").hide();
 }
 
-function setInstanceCard(instanceJSON) {
-    let config = instanceJSON.metadata.annotations["kubectl.kubernetes.io/last-applied-configuration"];
-    spec = typeof config === "string" ? JSON.parse(config).spec : config.spec;
-    let repos = spec.stacks.repositories;
+function setInstanceCard(instanceJSON) {    
+    let repos = instanceJSON.spec.stacks.repositories;
     let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
