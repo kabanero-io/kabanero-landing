@@ -24,6 +24,7 @@ _includes:
     reference: Reference
     table-of-content: Table of Content
   end_of_guide:
+    back-to-guides: Back to guides
     end-of-guide: Way to go! What's next?
     improve-guide-feedback: What could make this guide better?
     need-help: Need help?
