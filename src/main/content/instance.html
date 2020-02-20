@@ -36,7 +36,7 @@ permalink: /instance/
         </div>
 
         <!-- Instance Card -->
-        <div class="bx--col-xlg-4 white-background">
+        <div class="bx--col-xlg-4">
             <div id="instance-details-card" class="bx--tile">
 
                 <!-- loader -->
@@ -77,7 +77,7 @@ permalink: /instance/
         </div>
 
         <!-- Stacks Card -->
-        <div class="bx--col-xlg-4 white-background">
+        <div class="bx--col-xlg-4">
             <div id="stack-details-card" class="bx--tile">
         
                 <!-- loader -->
@@ -117,7 +117,7 @@ permalink: /instance/
         </div>
 
         <!-- Pipelines Card -->
-        <div class="bx--col-xlg-4 white-background">
+        <div class="bx--col-xlg-4">
             <div id="pipelines-details-card" class="bx--tile">
         
                 <!-- loader -->
@@ -152,7 +152,7 @@ permalink: /instance/
         </div>
 
         <!-- Applications Card -->
-        <div class="bx--offset-xlg-4 bx--col-xlg-4 white-background">
+        <div class="bx--offset-xlg-4 bx--col-xlg-4">
             <div id="application-details-card" class="bx--tile">
 
                 <!-- loader -->
@@ -185,9 +185,10 @@ permalink: /instance/
                 </div>
             </div>
         </div>
-
-        <div id="che-tile" class="bx--col-xlg-4 white-background hide">
-            <div id="pipelines-details-card" class="bx--tile">
+        
+        <!-- CodeReady Workspace -->
+        <div id="codeready-container" class="bx--col-xlg-4 hide">
+            <div class="bx--tile">
         
                 <!-- loader -->
                 {% include loader.html %}
@@ -195,21 +196,21 @@ permalink: /instance/
                 <!-- pipeline details -->
                 <div class="bx--row instance-number-row">
                     <div class="bx--col">
-                        <h2>{{t.instance.eclipse-che}}</h2>
+                        <h2>{{t.instance.codeready}}</h2>
                     </div>
                 </div>
 
                 <div class="bx--row">
                     <div class="bx--col">
-                        <p>{{t.instance.eclipse-che-blurb}}</p>
+                        <p>{{t.instance.codeready-blurb}}</p>
                     </div>
                 </div>
 
                 <div class="bx--row">
                     <div class="bx--col-sm-2 bx--col-lg-8">
-                        <a id="che-link" target="_blank">
-                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="che-button" type="button" disabled>
-                                <span id="che-button-text">{{t.instance.not-configured}}</span>
+                        <a id="codeready-link" target="_blank">
+                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="codeready-button" type="button" disabled>
+                                <span id="codeready-button-text">{{t.instance.not-configured}}</span>
                                 <div class="arrow-container">
                                 <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
                                 </div>

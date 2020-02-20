@@ -44,8 +44,8 @@ public final class Constants {
     public static final String KAPPNAV_LABEL = "Application Navigator";
     public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
 
-    public static final String CHE_LABEL = "Eclipse Che";
-    public static final String CHE_URL = getEnv("CHE_URL", "");
+    public static final String CODEREADY_LABEL = "Red Hat CodeReady Workspaces";
+    public static final String CODEREADY_URL = getEnv("CODEREADY_URL", "");
 
 
     // OKD

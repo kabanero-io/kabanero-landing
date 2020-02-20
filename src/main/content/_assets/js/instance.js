@@ -71,8 +71,7 @@ function setToolData(tools) {
     let noTools = true;
 
     if (typeof tools === "undefined") {
-        $("#application-details-card .bx--inline-loading").hide();
-        $("#pipelines-details-card .bx--inline-loading").hide();
+        $(".bx--inline-loading").hide();
         $("#no-tools").show();
         return;
     }
@@ -84,27 +83,28 @@ function setToolData(tools) {
             continue;
         }
         if (tool.name === "Application Navigator") {
-            $("#appnav-link").attr("href", tool.location);
+            $("#appnav-link").attr("href", `https://${tool.location}`);
             $("#manage-apps-button").attr("disabled", false);
             $("#manage-apps-button-text").html("Manage Applications");
         }
 
         if (tool.name === "Tekton") {
-            $("#pipeline-link").attr("href", tool.location);
+            $("#pipeline-link").attr("href", `https://${tool.location}`);
             $("#pipeline-button").attr("disabled", false);
             $("#pipeline-button-text").text("Manage Pipelines");
         }
 
-        if (tool.name === "Eclipse Che") {
-            $("#che-link").attr("href", tool.location);
-            $("#che-button").attr("disabled", false);
-            $("#che-button-text").text("Go to Eclipse Che");
-            $("#che-tile").show();
+        if (tool.name === "Red Hat CodeReady Workspaces") {
+            $("#codeready-link").attr("href", `http://${tool.location}`);
+            $("#codeready-button").attr("disabled", false);
+            $("#codeready-button-text").text("Go to CodeReady");
+            $("#codeready-container").show();
         }
 
-        //set kappnav url to manage applications link
-        let toolPane = new ToolPane(tool.name, tool.location);
-        $("#tool-data-container").append(toolPane.toolHTML);
+        // TODO: remove redundency above
+        // set kappnav url to manage applications link
+        // let toolPane = new ToolPane(tool.name, tool.location);
+        // $("#tool-data-container").append(toolPane.toolHTML);
         noTools = false;
     }
 
@@ -112,8 +112,8 @@ function setToolData(tools) {
         $("#no-tools").show();
     }
 
-    $("#application-details-card .bx--inline-loading").hide();
-    $("#pipelines-details-card .bx--inline-loading").hide();
+    // TODO: remove loading for each individual tool as it loads instead of all at once
+    $(".bx--inline-loading").hide();
 }
 
 function setInstanceCard(instanceJSON) {    

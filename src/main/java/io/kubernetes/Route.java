@@ -19,7 +19,7 @@ public class Route {
         this.spec = spec;
     }
 
-    public String getURL() {
+    public String getHost() {
         String host = (String) spec.get("host");
         String path = (String) spec.get("path");
         if(path != null){
