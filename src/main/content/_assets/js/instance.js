@@ -117,8 +117,8 @@ function setToolData(tools) {
     $(".bx--inline-loading").hide();
 }
 
-function setInstanceCard(instanceJSON) {    
-    let repos = instanceJSON.spec.stacks.repositories;
+function setInstanceCard(instanceJSON) {
+    let repos = instanceJSON.spec.stacks ? instanceJSON.spec.stacks.repositories : [];
     let cliURL = instanceJSON.status.cli.hostnames[0];
 
     // Instance Details
