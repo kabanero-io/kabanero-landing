@@ -78,14 +78,15 @@ function setToolData(tools) {
 
     for (let tool of tools) {
 
-        if (typeof tool.name === "undefined" || tool.name.length === 0 ||
-            typeof tool.location === "undefined" || tool.location.length === 0) {
+        if (!tool.name || tool.name.length === 0 || !tool.location || tool.location.length === 0) {
             continue;
         }
+
         if (tool.name === "Application Navigator") {
             $("#appnav-link").attr("href", `https://${tool.location}`);
             $("#manage-apps-button").attr("disabled", false);
             $("#manage-apps-button-text").html("Manage Applications");
+            $("#kappnav-container").show();
         }
 
         if (tool.name === "Tekton") {
