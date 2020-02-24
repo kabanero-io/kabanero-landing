@@ -113,6 +113,10 @@ function setToolData(tools) {
         $("#no-tools").show();
     }
 
+    // offset tiles to align with the grid nicely. Now that we know which are shown/hidden (off-setting below the instance accordion)
+    let offsetTiles = $(".tile-container:visible").filter(index => index !== 0 && index % 3 === 0);
+    offsetTiles.addClass("bx--offset-xlg-4");
+
     // TODO: remove loading for each individual tool as it loads instead of all at once
     $(".bx--inline-loading").hide();
 }
