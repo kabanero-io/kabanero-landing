@@ -22,4 +22,4 @@ gem "jekyll-assets", "~> 3.0"
 
 gem "ol-asciidoc", :path => "./gems/ol-asciidoc"
 
-gem "jekyll-polyglot", "~> 1.3.1" 
+gem "jekyll-polyglot", "~> 1.3.1"

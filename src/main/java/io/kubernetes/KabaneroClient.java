@@ -63,13 +63,13 @@ public class KabaneroClient {
     private final static int TIMEOUT = 60;
     private final static String DEFAULT_NAMESPACE = "kabanero";
 
-    // routes from kabanero namespace
-    private static String getLabeledRoute(String Label, Map<String, Route> routes) {
-        Route route = routes.get(Label);
-        if (route == null) {
-            return null;
+    private static String getRouteByRegex(String regex, Map<String, Route> routes) {
+        for (Route route : routes.values()) {
+            if (route.getName().matches(regex)) {
+                return route.getHost();
+            }
         }
-        return "https://" + route.getURL();
+        return null;
     }
 
     private static ApiClient getApiClient() throws IOException, GeneralSecurityException {
@@ -135,7 +135,7 @@ public class KabaneroClient {
     public static String getCLI(ApiClient client, String namespace) throws ApiException {
         Map<String, Route> routes = KabaneroClient.listRoutes(client, namespace);
         if (routes != null) {
-            return KabaneroClient.getLabeledRoute("kabanero-cli", routes);
+            return KabaneroClient.getRouteByRegex("kabanero-cli", routes);
         }
         return null;
     }
@@ -154,10 +154,11 @@ public class KabaneroClient {
                 JsonObject tool = toolElement.getAsJsonObject();
                 KabaneroTool kabTool = new Gson().fromJson(tool, KabaneroTool.class);
 
+                // TODO: This can be enhanced by doing only 1 listRoutes per namespace (some tools can have the same namespace)
                 routes = KabaneroClient.listRoutes(client, kabTool.getNamespace());
 
                 if (routes != null) {
-                    String url = KabaneroClient.getLabeledRoute(kabTool.getRoute(), routes);
+                    String url = KabaneroClient.getRouteByRegex(kabTool.getRoute(), routes);
                     kabTool.setLocation(url);
                     tools.addTool(kabTool);
                 }
@@ -178,6 +179,7 @@ public class KabaneroClient {
         Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
         Map<String, ?> map = (Map<String, ?>) obj;
         List<Map<String, ?>> items = (List<Map<String, ?>>) map.get("items");
+        
         for (Map<String, ?> item : items) {
             Map<String, ?> metadata = (Map<String, ?>) item.get("metadata");
             String name = (String) metadata.get("name");

@@ -242,10 +242,6 @@ body {
 /* After the sectlevel2 have been shifted to from under the sectlevel1 li to directly underneath the sectlevel1 step */
 #toc-container .sectlevel1 > .sectlevel2 {
     padding-left: 0;
-
-    > li {
-        padding-left: 49px;
-    }
 }
 
 #toc-container > .sectlevel1 > li:not(.liSelected):hover, #toc-container .sectlevel2 > li:not(.liSelected):hover {

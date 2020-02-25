@@ -8,5 +8,10 @@
         "name": "Application Navigator",
         "namespace": "kappnav",
         "route": "kappnav-ui-service"
+    },
+    {
+        "name": "Red Hat CodeReady Workspaces",
+        "namespace": "kabanero",
+        "route": "codeready"
     }
 ]

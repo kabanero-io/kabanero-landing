@@ -24,6 +24,7 @@ _includes:
     reference: Reference
     table-of-content: Table of Content
   end_of_guide:
+    back-to-guides: Back to guides
     end-of-guide: Way to go! What's next?
     improve-guide-feedback: What could make this guide better?
     need-help: Need help?
@@ -153,6 +154,6 @@ instance:
   management-cli: Stack Hub Management CLI
   management-cli-pre: Use this endpoint with the Kabanero Management CLI login command to login and manage your stacks. For more information about using the CLI see the
   management-cli-post: Kabanero Management CLI documentation
-  eclipse-che: Eclipse Che
-  eclipse-che-blurb: Eclipse Che makes Kubernetes development accessible for developer teams, providing one-click developer workspaces and eliminating local environment configuration for your entire team.
+  codeready: Red Hat CodeReady Workspaces
+  codeready-blurb: Red Hat CodeReady Workspaces provides a consistent, secure, and zero-configuration development environment.
 
