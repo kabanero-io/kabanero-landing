@@ -136,7 +136,7 @@ public class InstanceIT {
     @Test
     public void hasCorrectManageApplicationsButtonText() {
         String expectedApplicationsButtonText = "Manage Applications";
-        String actualApplicationsButtonText = driver.findElement(By.id("manage-apps-button-text")).getText();
+        String actualApplicationsButtonText = driver.findElement(By.cssSelector("#application-navigator .button-text")).getText();
 
         assertEquals("has correct Manage Application button text", expectedApplicationsButtonText,
                 actualApplicationsButtonText);

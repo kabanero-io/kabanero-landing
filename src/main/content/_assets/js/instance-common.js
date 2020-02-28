@@ -85,6 +85,7 @@ let ToolPane = class {
         let tile = $($("#tool-tile-template").clone()[0].innerHTML);
         let protocol = https ? "https://" : "http://";
 
+        $(tile).find(".bx--tile").addAttribute("id", this.label.toLowerCase().split(" ").join("-"));
         $(tile).find(".tile-title").text(`${this.label}`);
         $(tile).find(".tile-text").text(`${this.paneText}`);
         $(tile).find("a").attr("href", protocol + this.location);
