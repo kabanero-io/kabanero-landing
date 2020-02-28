@@ -99,6 +99,10 @@ public class InstanceEndpoints extends Application {
         client.setOAuth2Token(token);
 
         Kabanero instance = KabaneroClient.getAnInstance(instanceName);
+        if (instance == null) {
+            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
+        }
+
         String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
         List<String> instanceGithubTeams = instance.getSpec().getGithub().getTeams();
         Boolean isAdmin = false;
@@ -106,10 +110,10 @@ public class InstanceEndpoints extends Application {
         TeamService teamService = new TeamService(client);
         List<Team> teams = teamService.getTeams(instanceGithubOrg);
 
-        for (Team team : teams) {
-            for (String teamName : instanceGithubTeams) {
-                if (teamName.equals(team.getName())) {
-                    isAdmin = teamService.isMember(team.getId(), new UserService(client).getUser().getLogin());
+        for (Team orgTeam : teams) {
+            for (String kabaneroAdminTeam : instanceGithubTeams) {
+                if (kabaneroAdminTeam.equals(orgTeam.getName())) {
+                    isAdmin = teamService.isMember(orgTeam.getId(), new UserService(client).getUser().getLogin());
                 }
             }
         }
