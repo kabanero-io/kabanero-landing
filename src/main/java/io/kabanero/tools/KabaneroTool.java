@@ -24,10 +24,16 @@ public class KabaneroTool {
     public String namespace;
     public String route;
     public String location;
+    public String description;
+    public String actionText;
+    public boolean https;
     
-    public KabaneroTool(String name, String location){
+    public KabaneroTool(String name, String location, String description, String actionText, boolean https){
         this.name = name;
         this.location = location;
+        this.description = description;
+        this.actionText = actionText;
+        this.https = https;
     }
 
     public String getLocation() {
@@ -62,9 +68,33 @@ public class KabaneroTool {
         this.route = route;
     }
 
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getActionText(){
+        return actionText;
+    }
+
+    public void setActionText(String actionText) {
+        this.actionText = actionText;
+    }
+
+    public boolean isHttps() {
+        return https;
+    }
+
+    public void setHttps(boolean https) {
+        this.https = https;
+    }
+
     @Override
     public String toString() {
-        return "KabaneroTool [location=" + location + ", name=" + name + ", namespace=" + namespace
-                + ", route=" + route + "]";
+        return "KabaneroTool [actionText=" + actionText + ", description=" + description + ", https=" + https
+                + ", location=" + location + ", name=" + name + ", namespace=" + namespace + ", route=" + route + "]";
     }
 }
