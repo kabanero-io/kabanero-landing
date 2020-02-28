@@ -16,4 +16,4 @@ jobs:
       name: "Running lint testing and building website with Jekyll"
       script:
         - ./travis/docker_run.sh "./node_modules/.bin/eslint src/main/content/_assets/js/*.js"
-        - ./travis/docker_run.sh ./scripts/build_jekyll_maven.sh
+        - ./travis/docker_run.sh "Xvfb :99 & ./scripts/build_jekyll_maven.sh && mvn liberty:install-feature && mvn verify"
