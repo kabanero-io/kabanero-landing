@@ -112,7 +112,7 @@ public class InstanceEndpoints extends Application {
 
         for (Team orgTeam : teams) {
             for (String kabaneroAdminTeam : instanceGithubTeams) {
-                if (kabaneroAdminTeam.equals(orgTeam.getName())) {
+                if (kabaneroAdminTeam.equals(orgTeam.getName()) && !isAdmin) {
                     isAdmin = teamService.isMember(orgTeam.getId(), new UserService(client).getUser().getLogin());
                 }
             }
