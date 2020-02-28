@@ -38,9 +38,7 @@ import com.ibm.websphere.security.social.UserProfileManager;
 
 import org.apache.http.client.ClientProtocolException;
 import org.eclipse.egit.github.core.Team;
-import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
-import org.eclipse.egit.github.core.service.OrganizationService;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 
