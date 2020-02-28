@@ -1,0 +1,396 @@
+{
+    "apiVersion": "kabanero.io/v1alpha2",
+    "items": [
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Kabanero",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kabanero.io/v1alpha2\",\"kind\":\"Kabanero\",\"metadata\":{\"annotations\":{},\"name\":\"kabanero\",\"namespace\":\"kabanero\"},\"spec\":{\"codeReadyWorkspaces\":{\"enable\":true},\"github\":{\"apiUrl\":\"https://api.github.com\",\"organization\":\"alohr51-kabanero\",\"teams\":[\"admin\"]},\"stacks\":{\"pipelines\":[{\"https\":{\"skipCertVerification\":false,\"url\":\"https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz\"},\"id\":\"default\",\"sha256\":\"6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5\"}],\"repositories\":[{\"https\":{\"url\":\"https://github.com/kabanero-io/collections/releases/download/0.5.0/kabanero-index.yaml\"},\"name\":\"central\"}]},\"version\":\"0.6.0\"}}\n"
+                },
+                "clusterName": null,
+                "creationTimestamp": "2020-02-19T19:58:45.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io.kabanero-operator"
+                ],
+                "generateName": null,
+                "generation": 8,
+                "initializers": null,
+                "labels": null,
+                "name": "kabanero",
+                "namespace": "kabanero",
+                "ownerReferences": null,
+                "resourceVersion": "69375354",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/kabaneros/kabanero",
+                "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+            },
+            "spec": {
+                "admissionControllerWebhook": {
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "cliServices": {
+                    "image": null,
+                    "repository": null,
+                    "sessionExpirationSeconds": null,
+                    "tag": null,
+                    "version": null
+                },
+                "codeReadyWorkspaces": {
+                    "enable": true,
+                    "operator": {
+                        "customResourceInstance": {
+                            "cheWorkspaceClusterRole": null,
+                            "devFileRegistryImage": {
+                                "image": null,
+                                "repository": null,
+                                "tag": null,
+                                "version": null
+                            },
+                            "openShiftOAuth": null,
+                            "selfSignedCert": null,
+                            "tlsSupport": null
+                        }
+                    }
+                },
+                "collectionController": {
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "events": {
+                    "enable": null,
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "github": {
+                    "apiUrl": "https://api.github.com",
+                    "organization": "alohr51-kabanero",
+                    "teams": [
+                        "admin"
+                    ]
+                },
+                "landing": {
+                    "enable": null,
+                    "version": null
+                },
+                "sso": {
+                    "adminSecretName": null,
+                    "enable": null,
+                    "provider": null
+                },
+                "stackController": {
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "stacks": {
+                    "pipelines": [
+                        {
+                            "https": {
+                                "skipCertVerification": null,
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                            },
+                            "id": "default",
+                            "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                        }
+                    ],
+                    "repositories": [
+                        {
+                            "https": {
+                                "skipCertVerification": null,
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0/kabanero-index.yaml"
+                            },
+                            "name": "central",
+                            "pipelines": null
+                        }
+                    ]
+                },
+                "targetNamespaces": null,
+                "triggers": null,
+                "version": "0.6.0"
+            },
+            "status": {
+                "admissionControllerWebhook": {
+                    "message": null,
+                    "ready": "True"
+                },
+                "appsody": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.3.0"
+                },
+                "cli": {
+                    "hostnames": [
+                        "kabanero-cli-kabanero.apps.com"
+                    ],
+                    "message": null,
+                    "ready": "True"
+                },
+                "codereadyWorkspaces": {
+                    "message": null,
+                    "operator": {
+                        "instance": {
+                            "cheWorkspaceClusterRole": "eclipse-codewind",
+                            "devfileRegistryImage": "kabanero/che-devfile-registry:0.8.0",
+                            "openShiftOAuth": false,
+                            "selfSignedCert": false,
+                            "tlsSupport": false
+                        },
+                        "version": "2.0.0"
+                    },
+                    "ready": "True"
+                },
+                "collectionController": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0-rc.2"
+                },
+                "events": null,
+                "kabaneroInstance": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0"
+                },
+                "kappnav": null,
+                "landing": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0"
+                },
+                "serverless": {
+                    "knativeServing": {
+                        "message": null,
+                        "ready": "True",
+                        "version": "0.10.0"
+                    },
+                    "message": null,
+                    "ready": "True",
+                    "version": "1.3.0"
+                },
+                "sso": {
+                    "configured": "False",
+                    "message": null,
+                    "ready": "False"
+                },
+                "stackController": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0-rc.2"
+                },
+                "tekton": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "v0.10.1"
+                }
+            }
+        },
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Kabanero",
+            "metadata": {
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kabanero.io/v1alpha2\",\"kind\":\"Kabanero\",\"metadata\":{\"annotations\":{},\"name\":\"kabanero\",\"namespace\":\"kabanero\"},\"spec\":{\"codeReadyWorkspaces\":{\"enable\":true},\"github\":{\"apiUrl\":\"https://api.github.com\",\"organization\":\"alohr51-kabanero\",\"teams\":[\"admin\"]},\"stacks\":{\"pipelines\":[{\"https\":{\"skipCertVerification\":false,\"url\":\"https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz\"},\"id\":\"default\",\"sha256\":\"6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5\"}],\"repositories\":[{\"https\":{\"url\":\"https://github.com/kabanero-io/collections/releases/download/0.5.0/kabanero-index.yaml\"},\"name\":\"central\"}]},\"version\":\"0.6.0\"}}\n"
+                },
+                "clusterName": null,
+                "creationTimestamp": "2020-03-18T14:34:40.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io.kabanero-operator"
+                ],
+                "generateName": null,
+                "generation": 8,
+                "initializers": null,
+                "labels": null,
+                "name": "second kabanero",
+                "namespace": "second-kabanero",
+                "ownerReferences": null,
+                "resourceVersion": "69375354",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/kabaneros/kabanero",
+                "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+            },
+            "spec": {
+                "admissionControllerWebhook": {
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "cliServices": {
+                    "image": null,
+                    "repository": null,
+                    "sessionExpirationSeconds": null,
+                    "tag": null,
+                    "version": null
+                },
+                "codeReadyWorkspaces": {
+                    "enable": true,
+                    "operator": {
+                        "customResourceInstance": {
+                            "cheWorkspaceClusterRole": null,
+                            "devFileRegistryImage": {
+                                "image": null,
+                                "repository": null,
+                                "tag": null,
+                                "version": null
+                            },
+                            "openShiftOAuth": null,
+                            "selfSignedCert": null,
+                            "tlsSupport": null
+                        }
+                    }
+                },
+                "collectionController": {
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "events": {
+                    "enable": null,
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "github": {
+                    "apiUrl": "https://api.github.com",
+                    "organization": "alohr51-kabanero",
+                    "teams": [
+                        "admin"
+                    ]
+                },
+                "landing": {
+                    "enable": null,
+                    "version": null
+                },
+                "sso": {
+                    "adminSecretName": null,
+                    "enable": null,
+                    "provider": null
+                },
+                "stackController": {
+                    "image": null,
+                    "repository": null,
+                    "tag": null,
+                    "version": null
+                },
+                "stacks": {
+                    "pipelines": [
+                        {
+                            "https": {
+                                "skipCertVerification": null,
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.7.0/incubator.common.pipeline.default.tar.gz"
+                            },
+                            "id": "default",
+                            "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                        }
+                    ],
+                    "repositories": [
+                        {
+                            "https": {
+                                "skipCertVerification": null,
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.7.0/kabanero-index.yaml"
+                            },
+                            "name": "central",
+                            "pipelines": null
+                        }
+                    ]
+                },
+                "targetNamespaces": null,
+                "triggers": null,
+                "version": "0.7.0"
+            },
+            "status": {
+                "admissionControllerWebhook": {
+                    "message": null,
+                    "ready": "True"
+                },
+                "appsody": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.3.0"
+                },
+                "cli": {
+                    "hostnames": [
+                        "kabanero-cli-kabanero-second-mock.apps.com"
+                    ],
+                    "message": null,
+                    "ready": "True"
+                },
+                "codereadyWorkspaces": {
+                    "message": null,
+                    "operator": {
+                        "instance": {
+                            "cheWorkspaceClusterRole": "eclipse-codewind",
+                            "devfileRegistryImage": "kabanero/che-devfile-registry:0.8.0",
+                            "openShiftOAuth": false,
+                            "selfSignedCert": false,
+                            "tlsSupport": false
+                        },
+                        "version": "2.0.0"
+                    },
+                    "ready": "True"
+                },
+                "collectionController": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0-rc.2"
+                },
+                "events": null,
+                "kabaneroInstance": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0"
+                },
+                "kappnav": null,
+                "landing": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0"
+                },
+                "serverless": {
+                    "knativeServing": {
+                        "message": null,
+                        "ready": "True",
+                        "version": "0.10.0"
+                    },
+                    "message": null,
+                    "ready": "True",
+                    "version": "1.3.0"
+                },
+                "sso": {
+                    "configured": "False",
+                    "message": null,
+                    "ready": "False"
+                },
+                "stackController": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "0.6.0-rc.2"
+                },
+                "tekton": {
+                    "message": null,
+                    "ready": "True",
+                    "version": "v0.10.1"
+                }
+            }
+        }
+    ],
+    "kind": "KabaneroList",
+    "metadata": {
+        "continue": "",
+        "remainingItemCount": null,
+        "resourceVersion": "71181260",
+        "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/kabaneros"
+    }
+}

@@ -1,0 +1,1387 @@
+{
+    "apiVersion": "kabanero.io/v1alpha2",
+    "items": [
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Stack",
+            "metadata": {
+                "annotations": null,
+                "clusterName": null,
+                "creationTimestamp": "2020-02-19T19:59:15.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io/stack-controller"
+                ],
+                "generateName": null,
+                "generation": 1,
+                "initializers": null,
+                "labels": null,
+                "name": "java-microprofile",
+                "namespace": "kabanero",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "kabanero.io/v1alpha2",
+                        "blockOwnerDeletion": null,
+                        "controller": true,
+                        "kind": "Kabanero",
+                        "name": "kabanero",
+                        "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+                    }
+                ],
+                "resourceVersion": "63481140",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/stacks/java-microprofile",
+                "uid": "4e241163-5352-11ea-a830-00000a101623"
+            },
+            "spec": {
+                "name": "java-microprofile",
+                "versions": [
+                    {
+                        "desiredState": null,
+                        "images": [
+                            {
+                                "id": "java-microprofile",
+                                "image": "docker.io/kabanero/java-microprofile"
+                            }
+                        ],
+                        "pipelines": [
+                            {
+                                "https": {
+                                    "skipCertVerification": null,
+                                    "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                                },
+                                "id": "default",
+                                "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                            }
+                        ],
+                        "skipCertVerification": null,
+                        "version": "0.2.21"
+                    }
+                ]
+            },
+            "status": {
+                "statusMessage": null,
+                "versions": [
+                    {
+                        "images": [
+                            {
+                                "id": "java-microprofile",
+                                "image": "docker.io/kabanero/java-microprofile"
+                            }
+                        ],
+                        "location": null,
+                        "pipelines": [
+                            {
+                                "activeAssets": [
+                                    {
+                                        "assetDigest": "64f203ae8c8f0a8bf575fece4a603bc19870f48c76738259779c7e2e9ecc610f",
+                                        "assetName": "java-microprofile-build-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "java-microprofile-build-deploy-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "java-microprofile-build-deploy-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "java-microprofile-build-deploy-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "4c3dfb8f38f17e93aec6afcd17c6c4b6b7cbb2ca6a7acd181aea81d204cd0ac4",
+                                        "assetName": "java-microprofile-build-push-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "59360dc2ae562937dd7ed3bf70c50a1fa98c56ded5e922e08cb1882c4034c3d3",
+                                        "assetName": "java-microprofile-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "371fe97f8b3e8236e0aa10d0fb9e1dd9aaf584c8bbd5fe57403453c8bc610484",
+                                        "assetName": "java-microprofile-build-deploy-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "db6d8584e2c85cd1cd28cf9c033981b4a36b45c0feb4a11fd6d1037fe047348f",
+                                        "assetName": "java-microprofile-build-push-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "e408dc597f7059615e4ca0ef197bf39414e047fe2dadf838d2e6e85b635af957",
+                                        "assetName": "java-microprofile-image-scan-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "95c2032a9aa91ea98be18eeb3bc0136d360c683d7616665689ada7c1fdcfb420",
+                                        "assetName": "java-microprofile-build-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "eaf2db0dac068a9274e6c4f38327a042efcf04678dddd279c3e1235a4a68418f",
+                                        "assetName": "java-microprofile-build-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "java-microprofile-build-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "java-microprofile-build-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "java-microprofile-build-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ecf23dd4f38d2377bd14088dda1b19590daa28ddbaf2139369cfa15dbdad8afd",
+                                        "assetName": "java-microprofile-image-retag-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "java-microprofile-build-push-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "java-microprofile-build-push-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "java-microprofile-build-push-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8214de19d77f4192fab31cd48c895e68e3dffe65584c0c918c3ca8b5c1a31bfc",
+                                        "assetName": "java-microprofile-image-retag-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    }
+                                ],
+                                "digest": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5",
+                                "name": "default",
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                            }
+                        ],
+                        "status": "active",
+                        "statusMessage": null,
+                        "version": "0.2.21"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Stack",
+            "metadata": {
+                "annotations": null,
+                "clusterName": null,
+                "creationTimestamp": "2020-02-19T19:59:15.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io/stack-controller"
+                ],
+                "generateName": null,
+                "generation": 1,
+                "initializers": null,
+                "labels": null,
+                "name": "java-spring-boot2",
+                "namespace": "kabanero",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "kabanero.io/v1alpha2",
+                        "blockOwnerDeletion": null,
+                        "controller": true,
+                        "kind": "Kabanero",
+                        "name": "kabanero",
+                        "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+                    }
+                ],
+                "resourceVersion": "63481274",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/stacks/java-spring-boot2",
+                "uid": "4e28f0c4-5352-11ea-a830-00000a101623"
+            },
+            "spec": {
+                "name": "java-spring-boot2",
+                "versions": [
+                    {
+                        "desiredState": null,
+                        "images": [
+                            {
+                                "id": "java-spring-boot2",
+                                "image": "docker.io/kabanero/java-spring-boot2"
+                            }
+                        ],
+                        "pipelines": [
+                            {
+                                "https": {
+                                    "skipCertVerification": null,
+                                    "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                                },
+                                "id": "default",
+                                "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                            }
+                        ],
+                        "skipCertVerification": null,
+                        "version": "0.3.21"
+                    }
+                ]
+            },
+            "status": {
+                "statusMessage": null,
+                "versions": [
+                    {
+                        "images": [
+                            {
+                                "id": "java-spring-boot2",
+                                "image": "docker.io/kabanero/java-spring-boot2"
+                            }
+                        ],
+                        "location": null,
+                        "pipelines": [
+                            {
+                                "activeAssets": [
+                                    {
+                                        "assetDigest": "64f203ae8c8f0a8bf575fece4a603bc19870f48c76738259779c7e2e9ecc610f",
+                                        "assetName": "java-spring-boot2-build-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "java-spring-boot2-build-deploy-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "java-spring-boot2-build-deploy-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "java-spring-boot2-build-deploy-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "4c3dfb8f38f17e93aec6afcd17c6c4b6b7cbb2ca6a7acd181aea81d204cd0ac4",
+                                        "assetName": "java-spring-boot2-build-push-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "59360dc2ae562937dd7ed3bf70c50a1fa98c56ded5e922e08cb1882c4034c3d3",
+                                        "assetName": "java-spring-boot2-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "371fe97f8b3e8236e0aa10d0fb9e1dd9aaf584c8bbd5fe57403453c8bc610484",
+                                        "assetName": "java-spring-boot2-build-deploy-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "db6d8584e2c85cd1cd28cf9c033981b4a36b45c0feb4a11fd6d1037fe047348f",
+                                        "assetName": "java-spring-boot2-build-push-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "e408dc597f7059615e4ca0ef197bf39414e047fe2dadf838d2e6e85b635af957",
+                                        "assetName": "java-spring-boot2-image-scan-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "95c2032a9aa91ea98be18eeb3bc0136d360c683d7616665689ada7c1fdcfb420",
+                                        "assetName": "java-spring-boot2-build-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "eaf2db0dac068a9274e6c4f38327a042efcf04678dddd279c3e1235a4a68418f",
+                                        "assetName": "java-spring-boot2-build-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "java-spring-boot2-build-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "java-spring-boot2-build-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "java-spring-boot2-build-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ecf23dd4f38d2377bd14088dda1b19590daa28ddbaf2139369cfa15dbdad8afd",
+                                        "assetName": "java-spring-boot2-image-retag-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "java-spring-boot2-build-push-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "java-spring-boot2-build-push-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "java-spring-boot2-build-push-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8214de19d77f4192fab31cd48c895e68e3dffe65584c0c918c3ca8b5c1a31bfc",
+                                        "assetName": "java-spring-boot2-image-retag-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    }
+                                ],
+                                "digest": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5",
+                                "name": "default",
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                            }
+                        ],
+                        "status": "active",
+                        "statusMessage": null,
+                        "version": "0.3.21"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Stack",
+            "metadata": {
+                "annotations": null,
+                "clusterName": null,
+                "creationTimestamp": "2020-02-19T19:59:15.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io/stack-controller"
+                ],
+                "generateName": null,
+                "generation": 1,
+                "initializers": null,
+                "labels": null,
+                "name": "nodejs",
+                "namespace": "kabanero",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "kabanero.io/v1alpha2",
+                        "blockOwnerDeletion": null,
+                        "controller": true,
+                        "kind": "Kabanero",
+                        "name": "kabanero",
+                        "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+                    }
+                ],
+                "resourceVersion": "69981705",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/stacks/nodejs",
+                "uid": "4e3bec8a-5352-11ea-a830-00000a101623"
+            },
+            "spec": {
+                "name": "nodejs",
+                "versions": [
+                    {
+                        "desiredState": null,
+                        "images": [
+                            {
+                                "id": "nodejs",
+                                "image": "docker.io/kabanero/nodejs"
+                            }
+                        ],
+                        "pipelines": [
+                            {
+                                "https": {
+                                    "skipCertVerification": null,
+                                    "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                                },
+                                "id": "default",
+                                "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                            }
+                        ],
+                        "skipCertVerification": null,
+                        "version": "0.3.1"
+                    }
+                ]
+            },
+            "status": {
+                "statusMessage": null,
+                "versions": [
+                    {
+                        "images": [
+                            {
+                                "id": "nodejs",
+                                "image": "docker.io/kabanero/nodejs"
+                            }
+                        ],
+                        "location": null,
+                        "pipelines": [
+                            {
+                                "activeAssets": [
+                                    {
+                                        "assetDigest": "64f203ae8c8f0a8bf575fece4a603bc19870f48c76738259779c7e2e9ecc610f",
+                                        "assetName": "nodejs-build-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-build-deploy-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-build-deploy-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-build-deploy-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "4c3dfb8f38f17e93aec6afcd17c6c4b6b7cbb2ca6a7acd181aea81d204cd0ac4",
+                                        "assetName": "nodejs-build-push-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "59360dc2ae562937dd7ed3bf70c50a1fa98c56ded5e922e08cb1882c4034c3d3",
+                                        "assetName": "nodejs-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "371fe97f8b3e8236e0aa10d0fb9e1dd9aaf584c8bbd5fe57403453c8bc610484",
+                                        "assetName": "nodejs-build-deploy-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "db6d8584e2c85cd1cd28cf9c033981b4a36b45c0feb4a11fd6d1037fe047348f",
+                                        "assetName": "nodejs-build-push-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "e408dc597f7059615e4ca0ef197bf39414e047fe2dadf838d2e6e85b635af957",
+                                        "assetName": "nodejs-image-scan-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "95c2032a9aa91ea98be18eeb3bc0136d360c683d7616665689ada7c1fdcfb420",
+                                        "assetName": "nodejs-build-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "eaf2db0dac068a9274e6c4f38327a042efcf04678dddd279c3e1235a4a68418f",
+                                        "assetName": "nodejs-build-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-build-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-build-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-build-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ecf23dd4f38d2377bd14088dda1b19590daa28ddbaf2139369cfa15dbdad8afd",
+                                        "assetName": "nodejs-image-retag-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-build-push-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-build-push-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-build-push-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8214de19d77f4192fab31cd48c895e68e3dffe65584c0c918c3ca8b5c1a31bfc",
+                                        "assetName": "nodejs-image-retag-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    }
+                                ],
+                                "digest": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5",
+                                "name": "default",
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                            }
+                        ],
+                        "status": "active",
+                        "statusMessage": null,
+                        "version": "0.3.1"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Stack",
+            "metadata": {
+                "annotations": null,
+                "clusterName": null,
+                "creationTimestamp": "2020-02-19T19:59:15.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io/stack-controller"
+                ],
+                "generateName": null,
+                "generation": 1,
+                "initializers": null,
+                "labels": null,
+                "name": "nodejs-express",
+                "namespace": "kabanero",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "kabanero.io/v1alpha2",
+                        "blockOwnerDeletion": null,
+                        "controller": true,
+                        "kind": "Kabanero",
+                        "name": "kabanero",
+                        "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+                    }
+                ],
+                "resourceVersion": "67444833",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/stacks/nodejs-express",
+                "uid": "4e2ea25b-5352-11ea-a830-00000a101623"
+            },
+            "spec": {
+                "name": "nodejs-express",
+                "versions": [
+                    {
+                        "desiredState": null,
+                        "images": [
+                            {
+                                "id": "nodejs-express",
+                                "image": "docker.io/kabanero/nodejs-express"
+                            }
+                        ],
+                        "pipelines": [
+                            {
+                                "https": {
+                                    "skipCertVerification": null,
+                                    "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                                },
+                                "id": "default",
+                                "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                            }
+                        ],
+                        "skipCertVerification": null,
+                        "version": "0.2.8"
+                    }
+                ]
+            },
+            "status": {
+                "statusMessage": null,
+                "versions": [
+                    {
+                        "images": [
+                            {
+                                "id": "nodejs-express",
+                                "image": "docker.io/kabanero/nodejs-express"
+                            }
+                        ],
+                        "location": null,
+                        "pipelines": [
+                            {
+                                "activeAssets": [
+                                    {
+                                        "assetDigest": "64f203ae8c8f0a8bf575fece4a603bc19870f48c76738259779c7e2e9ecc610f",
+                                        "assetName": "nodejs-express-build-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-express-build-deploy-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-express-build-deploy-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-express-build-deploy-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "4c3dfb8f38f17e93aec6afcd17c6c4b6b7cbb2ca6a7acd181aea81d204cd0ac4",
+                                        "assetName": "nodejs-express-build-push-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "59360dc2ae562937dd7ed3bf70c50a1fa98c56ded5e922e08cb1882c4034c3d3",
+                                        "assetName": "nodejs-express-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "371fe97f8b3e8236e0aa10d0fb9e1dd9aaf584c8bbd5fe57403453c8bc610484",
+                                        "assetName": "nodejs-express-build-deploy-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "db6d8584e2c85cd1cd28cf9c033981b4a36b45c0feb4a11fd6d1037fe047348f",
+                                        "assetName": "nodejs-express-build-push-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "e408dc597f7059615e4ca0ef197bf39414e047fe2dadf838d2e6e85b635af957",
+                                        "assetName": "nodejs-express-image-scan-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "95c2032a9aa91ea98be18eeb3bc0136d360c683d7616665689ada7c1fdcfb420",
+                                        "assetName": "nodejs-express-build-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "eaf2db0dac068a9274e6c4f38327a042efcf04678dddd279c3e1235a4a68418f",
+                                        "assetName": "nodejs-express-build-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-express-build-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-express-build-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-express-build-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ecf23dd4f38d2377bd14088dda1b19590daa28ddbaf2139369cfa15dbdad8afd",
+                                        "assetName": "nodejs-express-image-retag-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-express-build-push-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-express-build-push-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-express-build-push-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8214de19d77f4192fab31cd48c895e68e3dffe65584c0c918c3ca8b5c1a31bfc",
+                                        "assetName": "nodejs-express-image-retag-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    }
+                                ],
+                                "digest": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5",
+                                "name": "default",
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                            }
+                        ],
+                        "status": "active",
+                        "statusMessage": null,
+                        "version": "0.2.8"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "kabanero.io/v1alpha2",
+            "kind": "Stack",
+            "metadata": {
+                "annotations": null,
+                "clusterName": null,
+                "creationTimestamp": "2020-02-19T19:59:15.000Z",
+                "deletionGracePeriodSeconds": null,
+                "deletionTimestamp": null,
+                "finalizers": [
+                    "kabanero.io/stack-controller"
+                ],
+                "generateName": null,
+                "generation": 1,
+                "initializers": null,
+                "labels": null,
+                "name": "nodejs-loopback",
+                "namespace": "kabanero",
+                "ownerReferences": [
+                    {
+                        "apiVersion": "kabanero.io/v1alpha2",
+                        "blockOwnerDeletion": null,
+                        "controller": true,
+                        "kind": "Kabanero",
+                        "name": "kabanero",
+                        "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
+                    }
+                ],
+                "resourceVersion": "64423580",
+                "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/stacks/nodejs-loopback",
+                "uid": "4e36b0cf-5352-11ea-a830-00000a101623"
+            },
+            "spec": {
+                "name": "nodejs-loopback",
+                "versions": [
+                    {
+                        "desiredState": null,
+                        "images": [
+                            {
+                                "id": "nodejs-loopback",
+                                "image": "docker.io/kabanero/nodejs-loopback"
+                            }
+                        ],
+                        "pipelines": [
+                            {
+                                "https": {
+                                    "skipCertVerification": null,
+                                    "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                                },
+                                "id": "default",
+                                "sha256": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5"
+                            }
+                        ],
+                        "skipCertVerification": null,
+                        "version": "0.1.8"
+                    }
+                ]
+            },
+            "status": {
+                "statusMessage": null,
+                "versions": [
+                    {
+                        "images": [
+                            {
+                                "id": "nodejs-loopback",
+                                "image": "docker.io/kabanero/nodejs-loopback"
+                            }
+                        ],
+                        "location": null,
+                        "pipelines": [
+                            {
+                                "activeAssets": [
+                                    {
+                                        "assetDigest": "64f203ae8c8f0a8bf575fece4a603bc19870f48c76738259779c7e2e9ecc610f",
+                                        "assetName": "nodejs-loopback-build-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-loopback-build-deploy-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-loopback-build-deploy-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8a523c99fb5d92554d8788008b903ebc55bfa4f94d093b40fadd1365f6dd6b5b",
+                                        "assetName": "nodejs-loopback-build-deploy-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "4c3dfb8f38f17e93aec6afcd17c6c4b6b7cbb2ca6a7acd181aea81d204cd0ac4",
+                                        "assetName": "nodejs-loopback-build-push-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "59360dc2ae562937dd7ed3bf70c50a1fa98c56ded5e922e08cb1882c4034c3d3",
+                                        "assetName": "nodejs-loopback-deploy-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "371fe97f8b3e8236e0aa10d0fb9e1dd9aaf584c8bbd5fe57403453c8bc610484",
+                                        "assetName": "nodejs-loopback-build-deploy-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "db6d8584e2c85cd1cd28cf9c033981b4a36b45c0feb4a11fd6d1037fe047348f",
+                                        "assetName": "nodejs-loopback-build-push-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "e408dc597f7059615e4ca0ef197bf39414e047fe2dadf838d2e6e85b635af957",
+                                        "assetName": "nodejs-loopback-image-scan-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "95c2032a9aa91ea98be18eeb3bc0136d360c683d7616665689ada7c1fdcfb420",
+                                        "assetName": "nodejs-loopback-build-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "eaf2db0dac068a9274e6c4f38327a042efcf04678dddd279c3e1235a4a68418f",
+                                        "assetName": "nodejs-loopback-build-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-loopback-build-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-loopback-build-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "57c5f248c9a154c224726167ea969abfcd4745762fb323e30b713ec3c0325755",
+                                        "assetName": "nodejs-loopback-build-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ecf23dd4f38d2377bd14088dda1b19590daa28ddbaf2139369cfa15dbdad8afd",
+                                        "assetName": "nodejs-loopback-image-retag-pl",
+                                        "group": "tekton.dev",
+                                        "kind": "Pipeline",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-loopback-build-push-pl-pullrequest-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-loopback-build-push-pl-push-binding",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerBinding",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "ac9fbccbe39b97bc47ccd928d160cddcaf163429b01ba4249f6bc2d2127ba859",
+                                        "assetName": "nodejs-loopback-build-push-pl-template",
+                                        "group": "tekton.dev",
+                                        "kind": "TriggerTemplate",
+                                        "namespace": "tekton-pipelines",
+                                        "status": "failed",
+                                        "statusMessage": "Internal error occurred: admission webhook \"triggers-webhook.tekton.dev\" denied the request: mutation failed: invalid value: undeclared param \u0027$(params.webhooks-tekton-target-namespace)\u0027: spec.resourcetemplates[0]\n\u0027$(params.webhooks-tekton-target-namespace)\u0027 must be declared in spec.params",
+                                        "version": "v1alpha1"
+                                    },
+                                    {
+                                        "assetDigest": "8214de19d77f4192fab31cd48c895e68e3dffe65584c0c918c3ca8b5c1a31bfc",
+                                        "assetName": "nodejs-loopback-image-retag-task",
+                                        "group": "tekton.dev",
+                                        "kind": "Task",
+                                        "namespace": "kabanero",
+                                        "status": "active",
+                                        "statusMessage": null,
+                                        "version": "v1alpha1"
+                                    }
+                                ],
+                                "digest": "6537a5a25f845266d6b81c47d97a97c711a98306a78339d039d5af8ed700bff5",
+                                "name": "default",
+                                "url": "https://github.com/kabanero-io/collections/releases/download/0.5.0-rc.4/incubator.common.pipeline.default.tar.gz"
+                            }
+                        ],
+                        "status": "active",
+                        "statusMessage": null,
+                        "version": "0.1.8"
+                    }
+                ]
+            }
+        }
+    ],
+    "kind": "StackList",
+    "metadata": {
+        "continue": "",
+        "remainingItemCount": null,
+        "resourceVersion": "71181275",
+        "selfLink": "/apis/kabanero.io/v1alpha2/namespaces/kabanero/stacks"
+    }
+}
