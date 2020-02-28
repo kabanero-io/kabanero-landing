@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Tekton",
+        "namespace": "tekton-pipelines",
+        "route": "tekton-dashboard",
+        "location": "tekton-dashboard-tekton-pipelines.apps.com"
+    },
+    {
+        "name": "Application Navigator",
+        "namespace": "kappnav",
+        "route": "kappnav-ui-service",
+        "location": "kappnav-ui-service-kappnav.apps.com"
+    },
+    {
+        "name": "Red Hat CodeReady Workspaces",
+        "namespace": "kabanero",
+        "route": "codeready",
+        "location": "codeready-kabanero.apps.com"
+    }
+]
