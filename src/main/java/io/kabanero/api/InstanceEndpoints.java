@@ -100,12 +100,12 @@ public class InstanceEndpoints extends Application {
         GitHubClient client = new GitHubClient();
         client.setOAuth2Token(token);
 
-        Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
-        if (wantedInstance == null) {
+        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
+        if (instance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
 
-        List<String> instanceGithubTeams = wantedInstance.getSpec().getGithub().getTeams();
+        List<String> instanceGithubTeams = instance.getSpec().getGithub().getTeams();
         TeamService teamService = new TeamService(client);
         Boolean isAdmin = false;
 
