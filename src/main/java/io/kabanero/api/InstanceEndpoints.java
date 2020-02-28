@@ -20,6 +20,7 @@ package io.kabanero.api;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -31,14 +32,24 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.http.client.ClientProtocolException;
+import com.google.gson.JsonObject;
+import com.ibm.websphere.security.social.UserProfile;
+import com.ibm.websphere.security.social.UserProfileManager;
 
-import io.website.ResponseMessage;
+import org.apache.http.client.ClientProtocolException;
+import org.eclipse.egit.github.core.Team;
+import org.eclipse.egit.github.core.User;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.OrganizationService;
+import org.eclipse.egit.github.core.service.TeamService;
+import org.eclipse.egit.github.core.service.UserService;
+
 import io.kabanero.v1alpha2.models.Kabanero;
 import io.kabanero.v1alpha2.models.KabaneroList;
 import io.kabanero.v1alpha2.models.StackList;
-import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
+import io.kubernetes.client.ApiException;
+import io.website.ResponseMessage;
 
 @ApplicationPath("api")
 @Path("/kabanero")
@@ -79,4 +90,40 @@ public class InstanceEndpoints extends Application {
         }
         return Response.ok(stacks).build();
     }
+
+    @GET
+    @Path("{instanceName}/admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response isAdmin(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
+        UserProfile userProfile = UserProfileManager.getUserProfile();
+        String token = userProfile.getAccessToken();
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token(token);
+
+        Kabanero wantedInstance = KabaneroClient.getAnInstance(instanceName);
+        if (wantedInstance == null) {
+            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
+        }
+
+        List<String> instanceGithubTeams = wantedInstance.getSpec().getGithub().getTeams();
+        TeamService teamService = new TeamService(client);
+        Boolean isAdmin = false;
+
+        for (User org : new OrganizationService(client).getOrganizations()) {
+            List<Team> teams = teamService.getTeams(org.getLogin());
+            for (Team team : teams) {
+                for (String teamName : instanceGithubTeams) {
+                    if (teamName.equals(team.getName())) {
+                        isAdmin = teamService.isMember(team.getId(), new UserService(client).getUser().getLogin());
+                    }
+                }
+            }
+        }
+
+        JsonObject body = new JsonObject();
+        body.addProperty("isAdmin", isAdmin);
+
+        return Response.ok(body).build();
+    }
+
 }
