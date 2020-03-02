@@ -93,40 +93,4 @@ public class InstanceEndpoints extends Application {
         return Response.ok(stacks).build();
     }
 
-    @GET
-    @Path("{instanceName}/team/{teamName}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("teamName") String teamName) throws IOException, ApiException, GeneralSecurityException {
-        UserProfile userProfile = UserProfileManager.getUserProfile();
-        String token = userProfile.getAccessToken();
-        GitHubClient client = new GitHubClient();
-        client.setOAuth2Token(token);
-
-        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
-        if (instance == null) {
-            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
-        }
-
-        JsonObject body = new JsonObject();
-        String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
-        TeamService teamService = new TeamService(client);
-
-        for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
-            if (teamName.equals(orgTeam.getName())) {
-
-                List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());
-                JsonArray jsonArray = new Gson().toJsonTree(kabaneroTeamMembers).getAsJsonArray();
-                body.add("members", jsonArray);
-
-                if (kabaneroTeamMembers.size() == 0) {
-                    return Response.status(404)
-                            .entity(new ResponseMessage(teamName + " currently does not have any members")).build();
-                }
-                
-            } else {
-                return Response.status(404).entity(new ResponseMessage(teamName + " team not found")).build();
-            }
-        }
-        return Response.ok(body).build();
-    }
 }
