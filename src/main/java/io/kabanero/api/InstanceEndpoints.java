@@ -84,12 +84,10 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/{instanceName}/stacks")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listStacks(@PathParam("instanceName") String instanceName)
-            throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response listStacks(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         StackList stacks = KabaneroClient.getStacks(instanceName);
-        if (stacks == null) {
-            return Response.status(404).entity(new ResponseMessage("Stacks do not exist for instance: " + instanceName))
-                    .build();
+        if(stacks == null){
+            return Response.status(404).entity(new ResponseMessage("Stacks do not exist for instance: " + instanceName)).build();
         }
         return Response.ok(stacks).build();
     }
@@ -130,9 +128,9 @@ public class InstanceEndpoints extends Application {
     }
 
     @GET
-    @Path("{instanceName}/team/{teamName}")
+    @Path("{instanceName}/team/{wantedTeamName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("teamName") String teamName) throws IOException, ApiException, GeneralSecurityException {
+    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("teamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
         GitHubClient client = new GitHubClient();
@@ -148,19 +146,16 @@ public class InstanceEndpoints extends Application {
         TeamService teamService = new TeamService(client);
 
         for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
-            if (teamName.equals(orgTeam.getName())) {
-
+            if (wantedTeamName.equals(orgTeam.getName())) {
                 List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());
                 JsonArray jsonArray = new Gson().toJsonTree(kabaneroTeamMembers).getAsJsonArray();
                 body.add("members", jsonArray);
-
                 if (kabaneroTeamMembers.size() == 0) {
                     return Response.status(404)
-                            .entity(new ResponseMessage(teamName + " currently does not have any members")).build();
+                            .entity(new ResponseMessage(wantedTeamName + " currently does not have any members")).build();
                 }
-                
             } else {
-                return Response.status(404).entity(new ResponseMessage(teamName + " team not found")).build();
+                return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
             }
         }
         return Response.ok(body).build();
