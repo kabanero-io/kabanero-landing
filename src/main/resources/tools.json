@@ -2,16 +2,25 @@
     {
         "name": "Tekton",
         "namespace": "tekton-pipelines",
-        "route": "tekton-dashboard"
+        "route": "tekton-dashboard",
+        "description": "Manage your pipelines",
+        "actionText": "Manage Pipelines",
+        "https": true
     },
     {
         "name": "Application Navigator",
         "namespace": "kappnav",
-        "route": "kappnav-ui-service"
+        "route": "kappnav-ui-service",
+        "description": "Manage your applications using Application Navigator",
+        "actionText": "Manage Applications",
+        "https": true
     },
     {
         "name": "Red Hat CodeReady Workspaces",
         "namespace": "kabanero",
-        "route": "codeready"
+        "route": "codeready",
+        "description": "Red Hat CodeReady Workspaces provides a consistent, secure, and zero-configuration development environment.",
+        "actionText": "Go to CodeReady",
+        "https": true
     }
 ]

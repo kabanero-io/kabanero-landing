@@ -77,35 +77,11 @@ function setToolData(tools) {
     }
 
     for (let tool of tools) {
-
         if (!tool.name || tool.name.length === 0 || !tool.location || tool.location.length === 0) {
             continue;
         }
-
-        if (tool.name === "Application Navigator") {
-            $("#appnav-link").attr("href", `https://${tool.location}`);
-            $("#manage-apps-button").attr("disabled", false);
-            $("#manage-apps-button-text").html("Manage Applications");
-            $("#kappnav-container").show();
-        }
-
-        if (tool.name === "Tekton") {
-            $("#pipeline-link").attr("href", `https://${tool.location}`);
-            $("#pipeline-button").attr("disabled", false);
-            $("#pipeline-button-text").text("Manage Pipelines");
-        }
-
-        if (tool.name === "Red Hat CodeReady Workspaces") {
-            $("#codeready-link").attr("href", `http://${tool.location}`);
-            $("#codeready-button").attr("disabled", false);
-            $("#codeready-button-text").text("Go to CodeReady");
-            $("#codeready-container").show();
-        }
-
-        // TODO: remove redundency above
-        // set kappnav url to manage applications link
-        // let toolPane = new ToolPane(tool.name, tool.location);
-        // $("#tool-data-container").append(toolPane.toolHTML);
+        let toolPane = new ToolPane(tool.name, tool.location, tool.description, tool.actionText, tool.https);
+        $("#tool-data-container").append(toolPane.toolHTML);
         noTools = false;
     }
 

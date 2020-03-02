@@ -40,12 +40,18 @@ public final class Constants {
     // Kabanero Tools
     public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
     public static final String TEKTON_DASHBOARD_URL = getEnv("TEKTON_DASHBOARD_URL", "");
+    public static final String TEKTON_DESCRIPTION = "Manage your pipelines";
+    public static final String TEKTON_ACTION_TEXT = "Manage Pipelines";
 
     public static final String KAPPNAV_LABEL = "Application Navigator";
     public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
+    public static final String KAPPNAV_DESCRIPTION = "Manage your applications using Application Navigator";
+    public static final String KAPPNAV_ACTION_TEXT = "Manage Applications";
 
     public static final String CODEREADY_LABEL = "Red Hat CodeReady Workspaces";
     public static final String CODEREADY_URL = getEnv("CODEREADY_URL", "");
+    public static final String CODEREADY_DESCRIPTION = "Red Hat CodeReady Workspaces provides a consistent, secure, and zero-configuration development environment.";
+    public static final String CODEREADY_ACTION_TEXT = "Go to CodeReady";
 
 
     // OKD

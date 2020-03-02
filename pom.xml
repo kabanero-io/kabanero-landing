@@ -155,6 +155,7 @@
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>create</goal>
+                            <goal>install-feature</goal>
                         </goals>
                     </execution>
                     <!-- Install the app into the apps/ directory of defaultServer -->

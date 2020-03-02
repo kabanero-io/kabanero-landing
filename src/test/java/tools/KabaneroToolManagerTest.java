@@ -42,7 +42,7 @@ public class KabaneroToolManagerTest {
     @Test
     public void addTool() {
         String id = UUID.randomUUID().toString();
-        kToolMan.addTool(createKabeKabaneroTool(id));
+        kToolMan.addTool(createKabaneroTool(id));
 
         assertEquals("1 kabanero tool was added", 1, kToolMan.getAllTools().size());
     }
@@ -50,13 +50,13 @@ public class KabaneroToolManagerTest {
     @Test
     public void getCorrectTools() {
         String id = UUID.randomUUID().toString();
-        kToolMan.addTool(createKabeKabaneroTool(id));
+        kToolMan.addTool(createKabaneroTool(id));
 
         String id2 = UUID.randomUUID().toString();
-        kToolMan.addTool(createKabeKabaneroTool(id2));
+        kToolMan.addTool(createKabaneroTool(id2));
 
         String id3 = UUID.randomUUID().toString();
-        kToolMan.addTool(createKabeKabaneroTool(id3));
+        kToolMan.addTool(createKabaneroTool(id3));
 
         KabaneroTool kabTool = kToolMan.getTool(id2);
  
@@ -68,10 +68,10 @@ public class KabaneroToolManagerTest {
     @Test
     public void getAllToolsHasCorrectSize() {
         String id = UUID.randomUUID().toString();
-        kToolMan.addTool(createKabeKabaneroTool(id));
+        kToolMan.addTool(createKabaneroTool(id));
 
         String id2 = UUID.randomUUID().toString();
-        kToolMan.addTool(createKabeKabaneroTool(id2));
+        kToolMan.addTool(createKabaneroTool(id2));
 
         Collection<KabaneroTool> allTools = kToolMan.getAllTools();
 
@@ -79,8 +79,8 @@ public class KabaneroToolManagerTest {
         assertEquals("get all tools has correct size ", 2, allTools.size());
     }
 
-    private static KabaneroTool createKabeKabaneroTool(String id) {
-        return new KabaneroTool(id, id);
+    private static KabaneroTool createKabaneroTool(String id) {
+        return new KabaneroTool(id, id, id, id, true);
     }
 
 }

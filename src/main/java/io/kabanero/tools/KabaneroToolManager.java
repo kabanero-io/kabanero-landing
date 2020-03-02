@@ -22,8 +22,8 @@ package io.kabanero.tools;
 import java.util.Collection;
 import java.util.HashMap;
 
-import io.website.Constants;
 import io.kubernetes.KabaneroClient;
+import io.website.Constants;
 
 // Singleton class to manage the various tools associated with Kabanero
 public class KabaneroToolManager {
@@ -60,10 +60,10 @@ public class KabaneroToolManager {
     }
         
     private static void addDefaultTools(KabaneroToolManager tools) {
-        KabaneroTool tekton = new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, Constants.TEKTON_DASHBOARD_URL);
+        KabaneroTool tekton = new KabaneroTool(Constants.TEKTON_DASHBOARD_LABEL, Constants.TEKTON_DASHBOARD_URL, Constants.TEKTON_DESCRIPTION, Constants.TEKTON_ACTION_TEXT, true);
         tools.addTool(tekton);
 
-        KabaneroTool applicationNavigator = new KabaneroTool(Constants.KAPPNAV_LABEL, Constants.KAPPNAV_URL);
+        KabaneroTool applicationNavigator = new KabaneroTool(Constants.KAPPNAV_LABEL, Constants.KAPPNAV_URL, Constants.KAPPNAV_DESCRIPTION, Constants.KAPPNAV_ACTION_TEXT, true);
         tools.addTool(applicationNavigator);
     }
     
