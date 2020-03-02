@@ -77,12 +77,10 @@ function setToolData(tools) {
     }
 
     for (let tool of tools) {
-
         if (!tool.name || tool.name.length === 0 || !tool.location || tool.location.length === 0) {
             continue;
         }
-
-        let toolPane = new ToolPane(tool.name, tool.location, tool.description, tool.actionText);
+        let toolPane = new ToolPane(tool.name, tool.location, tool.description, tool.actionText, tool.https);
         $("#tool-data-container").append(toolPane.toolHTML);
         noTools = false;
     }
