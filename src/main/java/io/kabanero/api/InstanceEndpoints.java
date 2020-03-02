@@ -38,6 +38,7 @@ import com.ibm.websphere.security.social.UserProfileManager;
 
 import org.apache.http.client.ClientProtocolException;
 import org.eclipse.egit.github.core.Team;
+import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
@@ -124,4 +125,30 @@ public class InstanceEndpoints extends Application {
         return Response.ok(body).build();
     }
 
+    @GET
+    @Path("{instanceName}/team/{wantedTeamName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("wantedTeamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
+        UserProfile userProfile = UserProfileManager.getUserProfile();
+        String token = userProfile.getAccessToken();
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token(token);
+
+        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
+        if (instance == null) {
+            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
+        }
+
+        String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
+        TeamService teamService = new TeamService(client);
+
+        for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
+            if (wantedTeamName.equals(orgTeam.getName())) {
+                List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());                
+                return Response.ok(kabaneroTeamMembers).build();
+            }
+        }
+        
+        return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
+    }
 }
