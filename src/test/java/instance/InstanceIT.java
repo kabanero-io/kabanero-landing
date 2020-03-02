@@ -120,7 +120,7 @@ public class InstanceIT {
     @Test
     public void hasCorrectPipelinesButtonText() {
         String expectedPipeLineButtonText = "Manage Pipelines";
-        String actualPipeLineButtonText = driver.findElement(By.id("pipeline-button-text")).getText();
+        String actualPipeLineButtonText = driver.findElement(By.cssSelector("#tekton .button-text")).getText();
 
         assertEquals("has correct Manage Pipelines button text", expectedPipeLineButtonText, actualPipeLineButtonText);
     }
@@ -128,7 +128,7 @@ public class InstanceIT {
     @Test
     public void hasCorrectPipelinesLink() {
         String expectedPipeLineButtonHref = "https://tekton-dashboard-tekton-pipelines.apps.com/";
-        String actualPipeLineButtonHref = driver.findElement(By.id("pipeline-link")).getAttribute("href");
+        String actualPipeLineButtonHref = driver.findElement(By.cssSelector("#tekton a")).getAttribute("href");
 
         assertEquals("has correct Manage Pipelines button text", expectedPipeLineButtonHref, actualPipeLineButtonHref);
     }
@@ -136,7 +136,7 @@ public class InstanceIT {
     @Test
     public void hasCorrectManageApplicationsButtonText() {
         String expectedApplicationsButtonText = "Manage Applications";
-        String actualApplicationsButtonText = driver.findElement(By.id("manage-apps-button-text")).getText();
+        String actualApplicationsButtonText = driver.findElement(By.cssSelector("#application-navigator .button-text")).getText();
 
         assertEquals("has correct Manage Application button text", expectedApplicationsButtonText,
                 actualApplicationsButtonText);
@@ -145,7 +145,7 @@ public class InstanceIT {
     @Test
     public void hasCorrectManageApplicationsLink() {
         String expectedApplicationsButtonHref = "https://kappnav-ui-service-kappnav.apps.com/";
-        String actualApplicationsButtonHref = driver.findElement(By.id("appnav-link")).getAttribute("href");
+        String actualApplicationsButtonHref = driver.findElement(By.cssSelector("#application-navigator a")).getAttribute("href");
 
         assertEquals("has correct Manage Applications link", expectedApplicationsButtonHref,
                 actualApplicationsButtonHref);

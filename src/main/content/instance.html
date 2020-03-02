@@ -21,201 +21,104 @@ permalink: /instance/
 
     <div class="bx--row">
         <div class="bx--col-xlg-4">
-            <ul data-accordion class="bx--accordion" id="instance-accordion">
-                <li id="error-li" data-accordion-item class="bx--accordion__item hide">
-                    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError">
-                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-                            <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
-                        </svg>
-                        <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
-                    </button>
-                    <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
-                    </div>
-                </li>
-            </ul>
+            <div class="bx--row">
+                <div class="bx--col">
+                    <ul data-accordion class="bx--accordion" id="instance-accordion">
+                        <li id="error-li" data-accordion-item class="bx--accordion__item hide">
+                            <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                    <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+                                </svg>
+                                <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
+                            </button>
+                            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
-        <!-- Instance Card -->
-        <div class="tile-container bx--col-xlg-4">
-            <div id="instance-details-card" class="bx--tile">
-
-                <!-- loader -->
-                {% include loader.html %}
-
-                <div class="bx--row instance-number-row">
-                    <div class="bx--col">
-                        <h2>{{t._includes.header.instance-button}}</h2>
+        <div class="bx--col-xlg-12">
+            <div class="bx--row" id="tool-data-container">
+                <!-- Instance Card -->
+                <div class="bx--col-xlg-5">
+                    <div id="instance-details-card" class="bx--tile">
+        
+                        <!-- loader -->
+                        {% include loader.html %}
+        
+                        <div class="bx--row instance-number-row">
+                            <div class="bx--col">
+                                <h2>{{t._includes.header.instance-button}}</h2>
+                            </div>
+                        </div>
+                        
+                        <!-- instance details -->
+                        <div class="bx--row">
+                            <div id="instance-details" class="bx--col">
+                                <div id="repo-section">
+        
+                                </div>
+                                <div class="bx--row">
+                                    <div class="bx--col">
+                                        <div class="instance-header">
+                                            <span class="bold">{{t.instance.management-cli}}</span>
+                                            <span class="copied-text gray-text hide">{{t.instance.copied}}</span>
+                                        </div>
+                                        <div class="input-group">
+                                            <input id="management-cli" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly">
+                                            <div class="input-group-append">
+                                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" >
+                                            </div>
+                                        </div>
+                                        <p>
+                                            {{t.instance.management-cli-pre}} <a href="/docs/ref/general/reference/kabanero-cli.html">{{t.instance.management-cli-post}}</a>
+                                        </p>
+                                    </div>
+                                </div>      
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- instance details -->
-                <div class="bx--row">
-                    <div id="instance-details" class="bx--col">
-                        <div id="repo-section">
 
+                <!-- Stacks Card -->
+                <div class="bx--col-xlg-5">
+                    <div id="stack-details-card" class="bx--tile">
+                
+                        <!-- loader -->
+                        {% include loader.html %}
+
+                        <!-- stack details -->
+                        <div class="bx--row instance-number-row">
+                            <div class="bx--col">
+                                <h2 id="num-stacks"></h2>
+                            </div>
                         </div>
+
                         <div class="bx--row">
                             <div class="bx--col">
-                                <div class="instance-header">
-                                    <span class="bold">{{t.instance.management-cli}}</span>
-                                    <span class="copied-text gray-text hide">{{t.instance.copied}}</span>
-                                </div>
-                                <div class="input-group">
-                                    <input id="management-cli" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly">
-                                    <div class="input-group-append">
-                                        <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" >
-                                    </div>
-                                </div>
-                                <p>
-                                    {{t.instance.management-cli-pre}} <a href="/docs/ref/general/reference/kabanero-cli.html">{{t.instance.management-cli-post}}</a>
-                                </p>
+                                <h4>{{t.instance.stacks}}</h4>
                             </div>
-                        </div>      
-                    </div>
-                </div>
-            </div>
-        </div>
+                        </div>
 
-        <!-- Stacks Card -->
-        <div class="tile-container bx--col-xlg-4">
-            <div id="stack-details-card" class="bx--tile">
-        
-                <!-- loader -->
-                {% include loader.html %}
+                        <div class="bx--row">
+                            <div id="stack-list" class="bx--col"></div>
+                        </div>
 
-                <!-- stack details -->
-                <div class="bx--row instance-number-row">
-                    <div class="bx--col">
-                        <h2 id="num-stacks"></h2>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col">
-                        <h4>{{t.instance.stacks}}</h4>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div id="stack-list" class="bx--col"></div>
-                </div>
-
-                <!-- Stacks bottom button -->
-                <div class="bx--row">
-                    <div class="bx--col-sm-2 bx--col-lg-8">
-                        <a id="stacks-link" href="{{page.url | remove: '/instance'}}docs/ref/general/configuration/console-oauth.html">
-                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="stacks-btn" type="button">
-                                <span id="stacks-oauth-msg">{{t.instance.oauth.configure}}</span>
-                                <div class="arrow-container">
-                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
-                                </div>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pipelines Card -->
-        <div class="tile-container bx--col-xlg-4">
-            <div id="pipelines-details-card" class="bx--tile">
-        
-                <!-- loader -->
-                {% include loader.html %}
-
-                <!-- pipeline details -->
-                <div class="bx--row instance-number-row">
-                    <div class="bx--col">
-                        <h2>{{t.instance.pipelines}}</h2>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col">
-                        <p>{{t.instance.pipelines-blurb}}</p>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col-sm-2 bx--col-lg-8">
-                        <a id="pipeline-link" target="_blank">
-                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="pipeline-button" type="button" disabled>
-                                <span id="pipeline-button-text">{{t.instance.not-configured}}</span>
-                                <div class="arrow-container">
-                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
-                                </div>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Applications Card -->
-        <div id="kappnav-container" class="tile-container bx--col-xlg-4 hide">
-            <div class="bx--tile">
-
-                <!-- loader -->
-                {% include loader.html %}
-
-                <!-- Application Navigator card details -->
-                <div class="bx--row instance-number-row">
-                    <div class="bx--col">
-                        <h2>{{t.instance.apps}}</h2>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col">
-                        <p>{{t.instance.app-hub-blurb}}</p>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col-sm-2 bx--col-lg-8">
-                        <a id="appnav-link" target="_blank">
-                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="manage-apps-button" type="button" disabled>
-                                <span id="manage-apps-button-text">{{t.instance.not-configured}}</span>
-                                <div class="arrow-container">
-                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
-                                </div>
-                            </button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- CodeReady Workspace -->
-        <div id="codeready-container" class="tile-container bx--col-xlg-4 hide">
-            <div class="bx--tile">
-        
-                <!-- loader -->
-                {% include loader.html %}
-
-                <!-- codeready details -->
-                <div class="bx--row instance-number-row">
-                    <div class="bx--col">
-                        <h2>{{t.instance.codeready}}</h2>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col">
-                        <p>{{t.instance.codeready-blurb}}</p>
-                    </div>
-                </div>
-
-                <div class="bx--row">
-                    <div class="bx--col-sm-2 bx--col-lg-8">
-                        <a id="codeready-link" target="_blank">
-                            <button class="bx--btn bx--btn--secondary tile-instance-button" id="codeready-button" type="button" disabled>
-                                <span id="codeready-button-text">{{t.instance.not-configured}}</span>
-                                <div class="arrow-container">
-                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
-                                </div>
-                            </button>
-                        </a>
+                        <!-- Stacks bottom button -->
+                        <div class="bx--row">
+                            <div class="bx--col-sm-2 bx--col-lg-8">
+                                <a id="stacks-link" href="{{page.url | remove: '/instance'}}docs/ref/general/configuration/console-oauth.html">
+                                    <button class="bx--btn bx--btn--secondary tile-instance-button" id="stacks-btn" type="button">
+                                        <span id="stacks-oauth-msg">{{t.instance.oauth.configure}}</span>
+                                        <div class="arrow-container">
+                                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                        </div>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -273,3 +176,32 @@ permalink: /instance/
         </div>
     </div>
 </div>
+
+<template id="tool-tile-template">
+    <div class="bx--col-xlg-5">
+        <div class="bx--tile">
+            <div class="bx--row instance-number-row">
+                <div class="bx--col">
+                    <h2 class="tile-title"></h2>
+                </div>
+            </div>
+            <div class="bx--row">
+                <div class="bx--col">
+                    <p class="tile-text"></p>
+                </div>
+            </div>
+            <div class="bx--row">
+                <div class="bx--col-sm-2 bx--col-lg-8">
+                    <a href="" target="_blank">
+                        <button type="button" class="bx--btn bx--btn--secondary tile-instance-button">
+                            <span class="button-text"></span>
+                            <div class="arrow-container">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                            </div>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -32,8 +32,6 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ibm.websphere.security.social.UserProfile;
 import com.ibm.websphere.security.social.UserProfileManager;
@@ -130,7 +128,7 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("{instanceName}/team/{wantedTeamName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("teamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
+    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("wantedTeamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
         GitHubClient client = new GitHubClient();
@@ -141,23 +139,16 @@ public class InstanceEndpoints extends Application {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
 
-        JsonObject body = new JsonObject();
         String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
         TeamService teamService = new TeamService(client);
 
         for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
             if (wantedTeamName.equals(orgTeam.getName())) {
-                List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());
-                JsonArray jsonArray = new Gson().toJsonTree(kabaneroTeamMembers).getAsJsonArray();
-                body.add("members", jsonArray);
-                if (kabaneroTeamMembers.size() == 0) {
-                    return Response.status(404)
-                            .entity(new ResponseMessage(wantedTeamName + " currently does not have any members")).build();
-                }
-            } else {
-                return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
+                List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());                
+                return Response.ok(kabaneroTeamMembers).build();
             }
         }
-        return Response.ok(body).build();
+        
+        return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
     }
 }
