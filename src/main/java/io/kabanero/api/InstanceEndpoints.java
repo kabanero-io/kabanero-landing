@@ -20,6 +20,7 @@ package io.kabanero.api;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -31,14 +32,22 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.http.client.ClientProtocolException;
+import com.google.gson.JsonObject;
+import com.ibm.websphere.security.social.UserProfile;
+import com.ibm.websphere.security.social.UserProfileManager;
 
-import io.website.ResponseMessage;
+import org.apache.http.client.ClientProtocolException;
+import org.eclipse.egit.github.core.Team;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.TeamService;
+import org.eclipse.egit.github.core.service.UserService;
+
 import io.kabanero.v1alpha2.models.Kabanero;
 import io.kabanero.v1alpha2.models.KabaneroList;
 import io.kabanero.v1alpha2.models.StackList;
-import io.kubernetes.client.ApiException;
 import io.kubernetes.KabaneroClient;
+import io.kubernetes.client.ApiException;
+import io.website.ResponseMessage;
 
 @ApplicationPath("api")
 @Path("/kabanero")
@@ -79,4 +88,40 @@ public class InstanceEndpoints extends Application {
         }
         return Response.ok(stacks).build();
     }
+
+    @GET
+    @Path("{instanceName}/admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response isAdmin(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
+        UserProfile userProfile = UserProfileManager.getUserProfile();
+        String token = userProfile.getAccessToken();
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token(token);
+
+        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
+        if (instance == null) {
+            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
+        }
+
+        String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
+        List<String> instanceGithubTeams = instance.getSpec().getGithub().getTeams();
+        Boolean isAdmin = false;
+
+        TeamService teamService = new TeamService(client);
+        List<Team> teams = teamService.getTeams(instanceGithubOrg);
+
+        for (Team orgTeam : teams) {
+            for (String kabaneroAdminTeam : instanceGithubTeams) {
+                if (kabaneroAdminTeam.equals(orgTeam.getName()) && !isAdmin) {
+                    isAdmin = teamService.isMember(orgTeam.getId(), new UserService(client).getUser().getLogin());
+                }
+            }
+        }
+
+        JsonObject body = new JsonObject();
+        body.addProperty("isAdmin", isAdmin);
+
+        return Response.ok(body).build();
+    }
+
 }
