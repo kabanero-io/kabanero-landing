@@ -59,6 +59,43 @@ public class GitHubEndpoints extends Application {
         return new UserService(client).getUser();
     }
 
+    @POST
+    @Path("/team/{wantedTeamId}/member/{github_username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addTeamMember(@PathParam("wantedTeamId") int wantedTeamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
+        try{
+            UserProfile userProfile = UserProfileManager.getUserProfile();
+            String token = userProfile.getAccessToken();
+            GitHubClient client = new GitHubClient();
+            client.setOAuth2Token(token);
+            TeamService teamService = new TeamService(client);      
+            teamService.addMember(wantedTeamId, githubUsername);
+            //teamService.addMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
+            return Response.status(202).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return Response.status(500).build();
+        }
+    }
+
+    @DELETE
+    @Path("/team/{wantedTeamId}/member/{github_username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeTeamMember(@PathParam("wantedTeamId") int wantedTeamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
+        try{
+            UserProfile userProfile = UserProfileManager.getUserProfile();
+            String token = userProfile.getAccessToken();
+            GitHubClient client = new GitHubClient();
+            client.setOAuth2Token(token);
+            TeamService teamService = new TeamService(client);      
+            teamService.removeMember(wantedTeamId, githubUsername);
+            //teamService.addMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
+            return Response.status(202).build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return Response.status(500).build();
+        }
+    }
 
 
 }

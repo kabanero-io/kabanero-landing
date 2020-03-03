@@ -30,15 +30,6 @@ $(document).ready(function () {
         fetchAnInstance(newName)
             .then(loadAllInfo);
     });
-
-    console.log("TESTING");
-    fetch("/api/kabanero/team/3689362/member/kidus60", { method: "POST" })
-        .then(function (response) {
-            console.log(response.json());
-            return response.json();
-        })
-    .catch(error => console.error("Error getting instance names:", error));
-
 });
 
 function setListeners() {

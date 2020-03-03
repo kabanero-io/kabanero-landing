@@ -154,47 +154,4 @@ public class InstanceEndpoints extends Application {
 
         return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
     }
-
-    @POST
-    @Path("/team/{wantedTeamId}/member/{github_username}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addTeamMember(@PathParam("wantedTeamId") int wantedTeamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
-        UserProfile userProfile = UserProfileManager.getUserProfile();
-        String token = userProfile.getAccessToken();
-        GitHubClient client = new GitHubClient();
-        client.setOAuth2Token(token);
-        TeamService teamService = new TeamService(client);
-        teamService.addMember(wantedTeamId, githubUsername);
-        //teamService.addMember is a void method so we don't know if the user was added to the team so return 202 instead of 200
-        return Response.status(202).build();
-    }
-
-    @DELETE
-    @Path("/team/{wantedTeamId}/member/{github_username}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response removeTeamMember(@PathParam("wantedTeamId") int wantedTeamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
-        try{
-            System.out.println("ENTERING DELETE CODE!");
-            UserProfile userProfile = UserProfileManager.getUserProfile();
-            System.out.println("USER PROFILE!!!!!!!");
-            System.out.println(userProfile.toString());
-            String token = userProfile.getAccessToken();
-            System.out.println("TOKEN!!!!!!!");
-            System.out.println(token.toString());
-            GitHubClient client = new GitHubClient();
-            System.out.println("Client!!!!!!!");
-            System.out.println(client.toString());
-            client.setOAuth2Token(token);
-            TeamService teamService = new TeamService(client);      
-            System.out.println("TEAM SERVICE!!!!!!!");
-            System.out.println(teamService.toString()); 
-            teamService.removeMember(wantedTeamId, githubUsername);
-            System.out.println("REMOVE DONE!!!!!!!!!!!!!");
-            //teamService.addMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
-            return Response.status(202).build();
-        }catch(Exception e){
-            e.printStackTrace();
-            return Response.status(500).build();
-        }
-    }
 }
