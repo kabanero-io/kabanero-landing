@@ -19,21 +19,29 @@
 package io.kabanero.api.restricted;
 
 import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.ibm.websphere.security.social.UserProfile;
 import com.ibm.websphere.security.social.UserProfileManager;
 
 import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
+
+import io.kubernetes.client.ApiException;
 
 @ApplicationPath("api")
 @Path("/auth/git")
@@ -50,5 +58,7 @@ public class GitHubEndpoints extends Application {
         client.setOAuth2Token(token);
         return new UserService(client).getUser();
     }
+
+
 
 }
