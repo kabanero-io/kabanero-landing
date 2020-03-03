@@ -31,6 +31,7 @@ $(document).ready(function () {
         emptyTable();
         deactivateStack(name, version);
     });
+    
 });
 
 function handleInstancesRequests() {
