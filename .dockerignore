@@ -9,3 +9,9 @@ IBM-Trademark-Policy.md
 NOTICE.md
 README.md
 node_modules
+
+# Ignore all in src/main/webapp (generated jekyll site files) 
+# except WEB-INF/ and META-INF/ which are still necessary to check in
+src/main/webapp/*
+!src/main/webapp/WEB-INF/
+!src/main/webapp/META-INF/

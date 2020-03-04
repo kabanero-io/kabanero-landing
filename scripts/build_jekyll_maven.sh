@@ -3,7 +3,7 @@
 set -e
 JEKYLL_BUILD_FLAGS=""
 CONTENT_DIR="src/main/content"
-TARGET_DIR="target"
+WEBAPP_DIR="src/main/webapp"
 
 echo "Ruby version:"
 ruby -v
@@ -68,12 +68,18 @@ fi
 echo "Building with jekyll..."
 echo `jekyll -version`
 
-if [[ -d "$TARGET_DIR" ]]; then
-    rm -rf "$TARGET_DIR"
-fi
+# clean up older generated files to keep this script idempotent
+find "$WEBAPP_DIR" -maxdepth 1 ! -name "webapp" ! -name 'WEB-INF' ! -name "META-INF" -exec rm -r {} +
 
-mkdir -p "$TARGET_DIR"/jekyll-webapp
-bundle exec jekyll build $JEKYLL_BUILD_FLAGS --source "$CONTENT_DIR" --destination "$TARGET_DIR"/jekyll-webapp
+# we put the generated files into src/main/webapp because the app server will host them properly on the root context.
+# Previously we had them included as a webresource in the pom.xml, but the maven liberty plugin dev mode didn't include that
+# which made development harder. 
+#
+# Jekyll will delete contents of the destination, so move them into webapp folder after.
+bundle exec jekyll build $JEKYLL_BUILD_FLAGS --source "$CONTENT_DIR" --destination "$WEBAPP_DIR/jekyll-webapp"
+
+mv "$WEBAPP_DIR"/jekyll-webapp/* "$WEBAPP_DIR"
+rm -r "$WEBAPP_DIR"/jekyll-webapp
 
 # Maven packaging
 echo "Running maven (mvn)..."
