@@ -114,16 +114,8 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
                 <configuration>
-                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
                     <warName>kabanero-console</warName>
-                    <warSourceDirectory>target/jekyll-webapp</warSourceDirectory>
-                    <webResources>
-                        <resource>
-                            <!-- this is relative to the pom.xml directory -->
-                            <directory>target/jekyll-webapp</directory>
-                        </resource>
-                    </webResources>
                 </configuration>
             </plugin>
 
@@ -140,6 +132,7 @@
                         <type>zip</type>
                     </runtimeArtifact>
                     <serverXmlFile>src/main/wlp/server.xml</serverXmlFile>
+                    <serverEnvFile>src/main/wlp/server.env</serverEnvFile>
                     <packageFile>${package.file}</packageFile>
                     <include>${packaging.type}</include>
                     <bootstrapProperties>
