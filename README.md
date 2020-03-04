@@ -52,24 +52,7 @@ To manage your stacks via this console you must configure OAuth to your GitHub. 
 
 ### Configure GitHub OAuth for production
 
-To start, an OAuth GitHub app will need to be created in the same GitHub organization that your stack hub is in.
-   * If the OAuth GitHub app and the Stacks repository **need** to be in different GitHub orgs, then the OAuth GitHub app can request access to data in the org with the stacks. For more infomrmation see the GitHub doc - [OAuth App Access and Restrictions](https://help.github.com/en/github/setting-up-and-managing-organizations-and-teams/about-oauth-app-access-restrictions)
-
-1. In your GitHub organization, create an OAuth Application in **Settings -> Developer settings -> OAuth Apps**
-   * The application name can be anything, a suggestion is: `kabanero console`.
-   * Homepage URL can be anything for now since the application doesn't exist yet, you can come back and fill this in
-   * Authorization callback URL is `https://<YOUR_HOST_IP_PORT>/ibm/api/social-login/redirect/githubLogin`
-      * If you do not know the full application host and port yet, you can come back and fill this in later.
-   * Note the `Client ID` and `Client Secret` as you will need this when installing your Kabanero CRD
-
-1. In the Kabanero namespace create a secret named: `kabanero-github-oauth-secret`
-   * Note: The secret name must be exact.
-
-1. Add two key value pairs to the secret. Note: the key names must be exact.
-   * key: `clientID` and the value is your client ID from GitHub.
-   * key: `clientSecret` and the value is your client secret from GitHub.
-
-1. Restart (delete) the kabanero landing pod.
+See [Configuring the Kabanero Console with OAuth](https://kabanero.io/docs/ref/general/configuration/console-oauth.html)
 
 ### Configure GitHub OAuth for local development
 
