@@ -20,6 +20,8 @@ package io.kabanero.api.restricted;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -42,11 +44,13 @@ import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 
 import io.kubernetes.client.ApiException;
+import io.website.ResponseMessage;
 
 @ApplicationPath("api")
 @Path("/auth/git")
 @RequestScoped
 public class GitHubEndpoints extends Application {
+    private final static Logger LOGGER = Logger.getLogger(StacksEndpoints.class.getName());
 
     @GET
     @Path("/user")
@@ -60,40 +64,40 @@ public class GitHubEndpoints extends Application {
     }
 
     @POST
-    @Path("/team/{wantedTeamId}/member/{github_username}")
+    @Path("/team/{teamId}/member/{github_username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTeamMember(@PathParam("wantedTeamId") int wantedTeamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
+    public Response addTeamMember(@PathParam("teamId") int teamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
         try{
             UserProfile userProfile = UserProfileManager.getUserProfile();
             String token = userProfile.getAccessToken();
             GitHubClient client = new GitHubClient();
             client.setOAuth2Token(token);
             TeamService teamService = new TeamService(client);      
-            teamService.addMember(wantedTeamId, githubUsername);
-            //teamService.addMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
+            teamService.addMember(teamId, githubUsername);
+            //teamService.addMember is a void method so we don't know if the user was added to the team so return 202 instead of 200
             return Response.status(202).build();
         }catch(Exception e){
-            e.printStackTrace();
-            return Response.status(500).build();
+            LOGGER.log(Level.SEVERE, e.getStackTrace().toString());
+            return Response.status(500).entity(new ResponseMessage("A problem occured attempting to POST /team/{teamId}/member/{github_username}")).build();
         }
     }
 
     @DELETE
-    @Path("/team/{wantedTeamId}/member/{github_username}")
+    @Path("/team/{teamId}/member/{github_username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeTeamMember(@PathParam("wantedTeamId") int wantedTeamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
+    public Response removeTeamMember(@PathParam("teamId") int teamId, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
         try{
             UserProfile userProfile = UserProfileManager.getUserProfile();
             String token = userProfile.getAccessToken();
             GitHubClient client = new GitHubClient();
             client.setOAuth2Token(token);
             TeamService teamService = new TeamService(client);      
-            teamService.removeMember(wantedTeamId, githubUsername);
-            //teamService.addMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
+            teamService.removeMember(teamId, githubUsername);
+            //teamService.removeMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
             return Response.status(202).build();
         }catch(Exception e){
-            e.printStackTrace();
-            return Response.status(500).build();
+            LOGGER.log(Level.SEVERE, e.getStackTrace().toString());
+            return Response.status(500).entity(new ResponseMessage("A problem occured attempting to DELETE /team/{teamId}/member/{github_username}")).build();
         }
     }
 
