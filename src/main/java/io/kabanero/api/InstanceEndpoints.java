@@ -148,7 +148,7 @@ public class InstanceEndpoints extends Application {
                 return Response.ok(kabaneroTeamMembers).build();
             }
         }
-        
+
         return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
     }
 }
