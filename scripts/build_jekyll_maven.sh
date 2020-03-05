@@ -19,7 +19,7 @@ cp ./node_modules/carbon-icons/dist/svg/* "$CONTENT_DIR/img/carbon-icons/"
 
 # Guides that are ready to be published to the console
 if [ "$TRAVIS_EVENT_TYPE" != "pull_request" ]; then 
-    echo "Cloning guides"
+    echo "Cloning guides..."
     ./scripts/build_clone_guides.sh;
 fi
 
