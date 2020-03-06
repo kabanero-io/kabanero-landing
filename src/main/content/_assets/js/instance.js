@@ -103,8 +103,11 @@ function setInstanceCard(instanceJSON) {
 
     // Instance Details
     let $instanceDetails = $("#repo-section");
+    
     repos.forEach(repo => {
-        $instanceDetails.append(createRepositorySection(repo.name, repo.https.url));
+        //url will be in either the https key or the gitRelease key
+        let repoURL = repo.https ? repo.https.url : `https://${repo.gitRelease.hostname}/${repo.gitRelease.organization}/${repo.gitRelease.project}/releases/download/${repo.gitRelease.release}/${repo.gitRelease.assetName}`;
+        $instanceDetails.append(createRepositorySection(repo.name, repoURL));
     });
 
     $("#instance-details-card #management-cli").val(cliURL).attr("title", cliURL);
