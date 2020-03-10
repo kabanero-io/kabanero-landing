@@ -20,7 +20,10 @@ package io.kabanero.api;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -32,7 +35,9 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.websphere.security.social.UserProfile;
 import com.ibm.websphere.security.social.UserProfileManager;
 
@@ -91,7 +96,7 @@ public class InstanceEndpoints extends Application {
     }
 
     @GET
-    @Path("{instanceName}/admin")
+    @Path("{instanceName}/isAdmin")
     @Produces(MediaType.APPLICATION_JSON)
     public Response isAdmin(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
@@ -126,9 +131,46 @@ public class InstanceEndpoints extends Application {
     }
 
     @GET
+    @Path("{instanceName}/admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAdminList(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
+        UserProfile userProfile = UserProfileManager.getUserProfile();
+        String token = userProfile.getAccessToken();
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token(token);
+
+        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
+        if (instance == null) {
+            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
+        }
+
+        String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
+        List<String> instanceGithubTeams = instance.getSpec().getGithub().getTeams();
+
+        List<Object> adminMembers = new ArrayList<>();
+
+        TeamService teamService = new TeamService(client);
+
+        // Loop though all teams in the Kabanero CRD orginization and check to if the team exists in the list of Kabanero crd teams
+        for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
+                if (instanceGithubTeams.contains(orgTeam.getName())) {
+                    // If the team exits in the CRD create an object with the team name, id and a
+                    // list of memebrs that belong to the team
+                    JsonObject teamObject = new JsonObject();
+                    teamObject.addProperty("name", orgTeam.getName());
+                    teamObject.addProperty("id", orgTeam.getId());
+                    teamObject.add("members", new Gson().toJsonTree(teamService.getMembers(orgTeam.getId()), new TypeToken<List<User>>() {}.getType()));
+                    adminMembers.add(teamObject);
+                }
+        }
+
+        return Response.ok(adminMembers).build();
+    }
+
+    @GET
     @Path("{instanceName}/team/{wantedTeamName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isAdmin(@PathParam("instanceName") String instanceName, @PathParam("wantedTeamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
+    public Response getTeamMembers(@PathParam("instanceName") String instanceName, @PathParam("wantedTeamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
         GitHubClient client = new GitHubClient();

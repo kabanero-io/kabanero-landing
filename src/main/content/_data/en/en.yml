@@ -146,11 +146,20 @@ instance:
     status: Status
     images: Images
   no-instances: No instance found
-  date-created: Date created
+  date-created: "Date created: "
+  members: "Members: "
+  admins: Admins
+  user: User
+  full-name: Full Name
+  email: Email
+  manage-admins: Manage Admins
+  teams: Teams
+  details: Details
   modal-confirmation-header: Confirmation
   modal-content: "Are you sure you want to deactivate the stack:"
   modal-cancel-button: Cancel
   modal-deactivate-button: Deactivate
+  modal-done-button: Done
   management-cli: Stack Hub Management CLI
   management-cli-pre: Use this endpoint with the Kabanero Management CLI login command to login and manage your stacks. For more information about using the CLI see the
   management-cli-post: Kabanero Management CLI documentation
