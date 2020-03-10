@@ -126,18 +126,142 @@ permalink: /instance/
     </div>
 </div>
 
-<!-- Templates -->
 
+<!-- Modal admin members list template -->
+<div id="instance-admin-list-notification-template" data-notification class="bx--inline-notification hidden">
+    <div class="bx--inline-notification__details instance-inline-admin-list-notification">
+        <div class="bx--inline-notification__text-wrapper admin-list-modal-template">
+            <div class="remove-user-button">
+                <button data-notification-btn
+                    class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--inline-notification__close-button ">
+                    <span class="bx--assistive-text remove-admin-tooltip"></span>
+                    <svg focusable="false" class="modal-content-inline-close-button" preserveAspectRatio="xMidYMid meet"
+                        style="will-change: transform;" xmlns="http://www.w3.org/2000/svg"
+                        class="bx--inline-notification__close-icon" width="20" height="20" viewBox="0 0 32 32"
+                        aria-hidden="true">
+                        <path
+                            d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div class="github-admin-modal-username modal-content-user-info"></div>
+            <div class="github-admin-modal-full-name modal-content-user-info"></div>
+            <div class="github-admin-modal-email modal-content-user-info"></div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Templates -->
 <li id="instance-li-template" data-accordion-item class="bx--accordion__item hidden">
-    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane${this.instanceName}">
-      <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path></svg>
-      <div class="bx--accordion__title"></div>
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false"
+        aria-controls="pane${this.instanceName}">
+        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
+            xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16"
+            aria-hidden="true">
+            <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+        </svg>
+        <div class="bx--accordion__title"></div>
     </button>
     <div class="bx--accordion__content">
-      <p class="gray-text">{{t.instance.date-created}}</p>
-      <p class="creation-date"></p>
+        <p>{{t.instance.details}}</p>
+        <div class="instancre-details">
+            <p class="gray-text">{{t.instance.date-created}}</p>
+            <p class="creation-date"></p>
+        </div>
+
+        <div id="instance-accordion-admin-view" class="hidden">
+            <p class="instance-admins-subheader">{{t.instance.admins}}</p>
+            <div>
+                <div id="instance-accordion-admins-list"></div>
+                <a id="manage-admins-link" data-modal-target="#manage-admins-modal">{{t.instance.manage-admins}}</a>
+
+            </div>
+        </div>
+    </div>
     </div>
 </li>
+
+<!-- Modal team list accordion Templates-->
+<li id="modal-teams-li-template" data-accordion-item class="bx--accordion__item modal-teams-li hidden">
+    <button class="bx--accordion__heading accordion-title modal-accordion-li" aria-expanded="false">
+        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
+            xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16"
+            aria-hidden="true">
+            <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+        </svg>
+        <div class="bx--accordion__title admin-modal-accordion-title"></div>
+    </button>
+    <div class="bx--accordion__content admin-modal-accordion-content">
+        <div class="remove-user-error-notification hidden">
+            <div data-notification class="bx--inline-notification bx--inline-notification--error" role="alert">
+                <div class="bx--inline-notification__details">
+                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+                        class="bx--inline-notification__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M10,1c-5,0-9,4-9,9s4,9,9,9s9-4,9-9S15,1,10,1z M13.5,14.5l-8-8l1-1l8,8L13.5,14.5z"></path>
+                        <path d="M13.5,14.5l-8-8l1-1l8,8L13.5,14.5z" data-icon-path="inner-path" opacity="0"></path>
+                    </svg>
+                    <div class="bx--inline-notification__text-wrapper">
+                        <p class="bx--inline-notification__title remove-user-error-notification-content"></p>
+                    </div>
+                </div>
+                <button data-notification-btn class="bx--inline-notification__close-button close-error-notifcation"
+                    type="button" aria-label="close">
+                    <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+                        class="bx--inline-notification__close-icon" width="20" height="20" viewBox="0 0 32 32"
+                        aria-hidden="true">
+                        <path
+                            d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div data-notification class="bx--inline-notification">
+            <div id="modal-column-headings"
+                class="bx--inline-notification__details instance-inline-admin-list-notification">
+                <div class="bx--inline-notification__text-wrapper">
+                    <div class="modal-content-user-info">{{t.instance.user}}</div>
+                    <div class="modal-content-user-info">{{t.instance.full-name}}</div>
+                    <div class="modal-content-user-info">{{t.instance.email}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</li>
+
+
+<!-- Manage admins modal -->
+<div data-modal id="manage-admins-modal" class="bx--modal " role="dialog" aria-modal="true" tabindex="-1">
+    <div class="bx--modal-container">
+        <div class="bx--modal-header">
+            <p class="bx--modal-header__heading bx--type-beta">{{t.instance.manage-admins}}</p>
+            <p class="bx--modal-header__label bx--type-delta" id="modal-oxnb2prg3rp-label">{{t.instance.teams}}</p>
+            <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal">
+                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
+                    xmlns="http://www.w3.org/2000/svg" class="bx--modal-close__icon" width="16" height="16"
+                    viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M12 4.7L11.3 4 8 7.3 4.7 4 4 4.7 7.3 8 4 11.3 4.7 12 8 8.7 11.3 12 12 11.3 8.7 8z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div id="admin-modal-content" class="bx--modal-content">
+            <ul data-accordion class="bx--accordion" id="admin-modal-list"></ul>
+        </div>
+        <div class="bx--modal-content--overflow-indicator"></div>
+        <div class="bx--modal-footer">
+            <button class="bx--btn bx--btn--secondary" type="button"
+                data-modal-close>{{t.instance.modal-cancel-button}}</button>
+            <button class="bx--btn bx--btn--primary" type="button" id="modal-confirm-deactivation"
+                data-modal-close>{{t.instance.modal-done-button}}</button>
+        </div>
+    </div>
+    <!-- Note: focusable span allows for focus wrap feature within Modals -->
+    <span tabindex="0"></span>
+</div>
 
 <!-- Stack Hub section template -->
 <div id="stack-hub-name-row-template" class="bx--row hidden">

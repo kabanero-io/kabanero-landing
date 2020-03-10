@@ -30,6 +30,7 @@ $(document).ready(function () {
         fetchAnInstance(newName)
             .then(loadAllInfo);
     });
+
 });
 
 function setListeners() {
@@ -63,8 +64,8 @@ function loadAllInfo(instanceJSON) {
         .then(setToolData);
 
     fetchOAuthDetails()
-        .then(setOAuth);
-}
+        .then(setOAuth);    
+    }
 
 // Set details on UI for any given instance
 function setToolData(tools) {
@@ -97,7 +98,7 @@ function setToolData(tools) {
     $(".bx--inline-loading").hide();
 }
 
-function setInstanceCard(instanceJSON) {
+function setInstanceCard(instanceJSON) {    
     let repos = instanceJSON.spec.stacks ? instanceJSON.spec.stacks.repositories : [];
     let cliURL = instanceJSON.status.cli.hostnames[0];
 
@@ -162,5 +163,6 @@ function setOAuth(oauthJSON) {
         let selectedInstance = $("#selected-instance-name").text().trim();
         $("#stacks-oauth-msg").text("Manage Stacks");
         $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);
+        fetchUserAdminStatus();   
     }
 }

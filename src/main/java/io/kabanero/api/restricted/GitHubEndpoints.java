@@ -63,6 +63,17 @@ public class GitHubEndpoints extends Application {
         return new UserService(client).getUser();
     }
 
+    @GET
+    @Path("/user/{github_username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public User getUserDetails(@PathParam("instanceName") String instanceName, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
+        UserProfile userProfile = UserProfileManager.getUserProfile();
+        String token = userProfile.getAccessToken();
+        GitHubClient client = new GitHubClient();
+        client.setOAuth2Token(token);
+        return new UserService(client).getUser(githubUsername);
+    }
+
     @POST
     @Path("/team/{teamId}/member/{github_username}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -96,8 +107,9 @@ public class GitHubEndpoints extends Application {
             //teamService.removeMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
             return Response.status(202).build();
         }catch(Exception e){
-            LOGGER.log(Level.SEVERE, "Failed to remove team member " + githubUsername , e);
-            return Response.status(500).entity(new ResponseMessage("A problem occured attempting to DELETE /team/" + teamId + "/member/" + githubUsername)).build();
+            LOGGER.log(Level.SEVERE, "A problem occured attempting to DELETE /team/" + teamId + "/member/" + githubUsername, e);
+
+            return Response.status(500).entity(new ResponseMessage(e.getMessage())).build();
         }
     }
 

@@ -21,9 +21,11 @@
 "../../../../../node_modules/carbon-components/scss/components/button/button",
 "../../../../../node_modules/carbon-components/scss/components/modal/modal",
 "../../../../../node_modules/carbon-components/scss/components/loading/loading",
-"../../../../../node_modules/carbon-components/scss/components/tile/tile"; 
+"../../../../../node_modules/carbon-components/scss/components/tile/tile",
+"../../../../../node_modules/carbon-components/scss/components/notification/inline-notification"; 
 //declare variables
 $color-ibm:#3d70b2;
+$kabanero-color: #C43804;
 
 body{
     background-color:$ui-background;
@@ -160,4 +162,104 @@ button:disabled > .arrow-container > svg{
 
 .instance-header {
     padding-bottom: 5px;
+}
+
+.instancre-details{
+    display: flex;
+}
+
+.creation-date, .team-members{
+    padding-left: 3px;
+}
+
+.bx--accordion__content p{
+    font-weight: 500 !important;
+}
+
+.instance-admins-subheader{
+    padding-top: 15px;
+}
+
+#manage-admins-link{
+    cursor: pointer;
+    text-decoration: underline !important;
+}
+
+#instance-accordion-admins-list{
+    display: grid;
+}
+
+.instance-admin-names{
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
+    letter-spacing: 0.16px;
+}
+
+.modal-content-user-info{
+    width: 10rem;
+}
+
+.instance-inline-admin-list-notification{
+    background-color: white;
+    color: black;
+    border: solid .02px black;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-content-inline-close-button{
+    fill: black !important;
+}
+
+.admin-list-modal-template{
+    padding: 0 !important;
+}
+
+#modal-column-headings{
+    padding-left: 3rem;
+    font-weight: 500;
+}
+
+
+#admin-modal-content{
+    padding: 1px 50px 0px 50px !important;
+}
+
+.remove-admin-tooltip{
+    width: 9rem !important
+}
+
+.admin-modal-accordion-content{
+        padding-right: unset !important;
+}
+
+.admin-modal-accordion-title{
+    text-align: center;
+}
+
+.modal-accordion-li{
+    height: 3.5em;
+}
+
+.add-member-icon-container{
+    text-align: center;
+    border: 1px solid black;
+    display: inherit !important;
+}
+
+.add-member-svg-icon{
+    height: 25px;
+    width: 25px;
+    cursor: pointer;
+}
+
+.remove-user-error-notification{
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.bx--modal-close:focus, .modal-content-inline-close-button:focus{
+    outline: none !important;
+    border-color: #ffffff !important; 
 }

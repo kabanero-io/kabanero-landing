@@ -15,7 +15,6 @@
  * limitations under the License.
  *
  ******************************************************************************/
-
 function fetchAllInstances() {
     return fetch("/api/kabanero")
         .then(function (response) {
@@ -70,6 +69,137 @@ function fetchStacks(instanceName) {
         })
         .then(setStackCard)
         .catch(error => console.error("Error getting stacks", error));
+}
+
+function fetchUserAdminStatus() {
+    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
+    
+    if (typeof instanceName === "undefined") {
+        return;
+    }
+    return fetch(`/api/kabanero/${instanceName}/isAdmin`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(fetchInstanceAdmins)
+        .catch(error => console.error("Error getting github user", error));
+}
+
+
+function fetchInstanceAdmins(isAdmin){
+    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
+
+    if (typeof instanceName === "undefined" || !isAdmin) {
+        return;
+    }
+    
+    return fetch(`/api/kabanero/${instanceName}/admin`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(updateInstanceAdminView)
+        .catch(error => console.error("Error getting stacks", error));
+}
+
+function fetchGithubUserDetails(githubUsername){
+    if (!githubUsername || githubUsername == null) {
+        return;
+    }
+    return fetch(`/api/auth/git/user/${githubUsername}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .catch(error => console.error(`Permission denied or user ${githubUsername} doesn’t exist`, error));
+    }
+
+function removeTeamMember(target) {
+    let teamId = $(target).closest(".bx--accordion__item").find(".admin-modal-accordion-title").attr("teamId");
+    let teamName = $(target).closest(".bx--accordion__item").find(".admin-modal-accordion-title").text();
+    let githubUsername = $(target).closest(".instance-inline-admin-list-notification").find(".github-admin-modal-username").text();
+
+    if (typeof teamId === "undefined" || typeof githubUsername === "undefined") {
+        return;
+    }
+    return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
+        method: 'DELETE'
+    })
+        .then(function (response) {
+            return response.json()
+        })
+        .then(data => {
+            if (data.msg.includes("404")) {
+                let inlineNotification = $(target).closest(".bx--accordion__content");
+                inlineNotification.find(".remove-user-error-notification").removeClass("hidden");
+                inlineNotification.find(".remove-user-error-notification-content").empty();
+                inlineNotification.find(".remove-user-error-notification-content").text(`Permission denied or user ${githubUsername} doesn’t exist in team ${teamName}`);
+                return;
+            }
+            else {
+                fetchUserAdminStatus();
+            }
+        })
+        .catch(error => console.error(`Permission denied or user ${githubUsername} doesn’t exist`, error));
+}
+
+function updateInstanceAdminView(adminMembersJson) {
+    if (!adminMembersJson || adminMembersJson == null) {
+        return;
+    }
+
+    $("#instance-accordion-admins-list").empty();
+    $("#admin-modal-list").empty();
+
+    let instanceAdmins = [];
+
+    adminMembersJson.forEach(team => {
+        if (team.members.length === 0) {
+            return;
+        }
+
+        let row = $("#modal-teams-li-template").clone().removeAttr("id").removeClass("hidden");
+        $(row).find(".admin-modal-accordion-title").text(team.name).attr("teamId", team.id);
+        $("#admin-modal-list").append(row);
+
+        team.members.forEach(member => {
+            instanceAdmins.push(member)
+            fetchGithubUserDetails(member.login)
+                .then((data) => {
+                    let userDetails = data;
+                    let userLogin = userDetails.login;
+                    let userFullName = userDetails.name == null ? "Unavailable" : userDetails.name;
+                    let userEmail = userDetails.email == null ? "Unavailable" : userDetails.email;
+
+                    let userInfoBox = $("#instance-admin-list-notification-template").clone().removeAttr("id").removeClass("hidden");
+                    $(userInfoBox).find(".github-admin-modal-username").text(userLogin);
+                    $(userInfoBox).find(".github-admin-modal-full-name").text(userFullName);
+                    $(userInfoBox).find(".github-admin-modal-email").text(userEmail);
+
+                    $(row).find(".admin-modal-accordion-content").append(userInfoBox)
+                    $(userInfoBox).find(".bx--assistive-text").text(`Remove ${userLogin} from ${team.name} team`)
+                })
+        });
+        $("#admin-modal-list").append(row);
+
+    });
+
+    let uniqueAdminList = Object.values(instanceAdmins.reduce((accumulator, curretValue) => Object.assign(accumulator, { [curretValue.login]: curretValue}), {}));
+    uniqueAdminList.forEach(user => {
+        let githubAdminUsername = user.login;
+        $("#instance-accordion-admins-list").append(`<span class="instance-admin-names">${githubAdminUsername}<span>`);
+        $("#instance-accordion-admin-view").removeClass("hidden");
+    });
+
+    $("#admin-modal-list li").on("click", e => {
+        $(e.target).toggleClass("bx--accordion__item--active");
+    });
+
+    $(document).on("click", ".remove-user-button button", e => {
+        removeTeamMember(e.target);
+    });
+
+    $(".bx--inline-notification__close-button").on("click", e => {
+        $(e.target).closest(".bx--accordion__content").find(".remove-user-error-notification").addClass("hidden");;
+    }); 
 }
 
 let ToolPane = class {
@@ -234,7 +364,7 @@ let InstancePane = class {
 };
 
 // Set each instance name in the accordion selection and returns the instance name to be loaded
-function setInstanceSelections(instancesJSON) {
+function setInstanceSelections(instancesJSON) {    
     let instances = instancesJSON.items;
     if (typeof instances === "undefined" || instances.length === 0) {
         $("#instance-accordion #error-li").show();
