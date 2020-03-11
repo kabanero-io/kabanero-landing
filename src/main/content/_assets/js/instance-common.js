@@ -71,10 +71,10 @@ function fetchStacks(instanceName) {
         .catch(error => console.error("Error getting stacks", error));
 }
 
-function fetchUserAdminStatus() {
+function fetchUserAdminStatus(oauthJSON) {
     let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
     
-    if (typeof instanceName === "undefined") {
+    if (typeof instanceName === "undefined" || !(oauthJSON && oauthJSON.isConfigured)) {
         return;
     }
     return fetch(`/api/kabanero/${instanceName}/isAdmin`)
@@ -112,6 +112,43 @@ function fetchGithubUserDetails(githubUsername){
         .catch(error => console.error(`Permission denied or user ${githubUsername} doesn’t exist`, error));
     }
 
+function addTeamMember(target) {
+    let $addUserContainer = $(target).closest(".addUser-input-container");
+    let teamId = $(target).closest(".bx--accordion__item").find(".admin-modal-accordion-title").attr("teamId");
+    let githubUsername = $addUserContainer.find(".add-user-text-input")[0].value;
+
+    $addUserContainer.find(".text-input-wrapper").removeAttr("data-invalid");
+    $addUserContainer.find(".input-error-msg-icon").addClass("hidden");
+
+    if (typeof teamId === "undefined" || typeof githubUsername === "undefined" || githubUsername === null) {
+        return;
+    }
+
+    if (githubUsername === "") {
+        $addUserContainer.find(".input-error-message").text("Username is required");
+        $addUserContainer.find(".text-input-wrapper").attr("data-invalid", true);
+        $addUserContainer.find(".input-error-msg-icon").removeClass("hidden");
+    }
+
+    return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
+        method: 'POST'
+    })
+        .then(function (response) {
+            return response.json()
+        })
+        .then(data => {
+            if (data.msg.includes("404")) {
+                $addUserContainer.find(".input-error-message").text(`Permission denied or user ${githubUsername} doesn’t exist`);
+                $addUserContainer.find(".text-input-wrapper").attr("data-invalid", true);
+                $addUserContainer.find(".input-error-msg-icon").removeClass("hidden");
+                return;
+            }
+            fetchOAuthDetails();
+        })
+        .catch(error => console.error(`Permission denied or user ${githubUsername} doesn’t exist`, error));
+
+}
+
 function removeTeamMember(target) {
     let teamId = $(target).closest(".bx--accordion__item").find(".admin-modal-accordion-title").attr("teamId");
     let teamName = $(target).closest(".bx--accordion__item").find(".admin-modal-accordion-title").text();
@@ -134,9 +171,7 @@ function removeTeamMember(target) {
                 inlineNotification.find(".remove-user-error-notification-content").text(`Permission denied or user ${githubUsername} doesn’t exist in team ${teamName}`);
                 return;
             }
-            else {
-                fetchUserAdminStatus();
-            }
+            fetchOAuthDetails();
         })
         .catch(error => console.error(`Permission denied or user ${githubUsername} doesn’t exist`, error));
 }
@@ -160,6 +195,8 @@ function updateInstanceAdminView(adminMembersJson) {
         $(row).find(".admin-modal-accordion-title").text(team.name).attr("teamId", team.id);
         $("#admin-modal-list").append(row);
 
+        let div = $("<div>").addClass("member-list-container");
+
         team.members.forEach(member => {
             instanceAdmins.push(member)
             fetchGithubUserDetails(member.login)
@@ -173,33 +210,25 @@ function updateInstanceAdminView(adminMembersJson) {
                     $(userInfoBox).find(".github-admin-modal-username").text(userLogin);
                     $(userInfoBox).find(".github-admin-modal-full-name").text(userFullName);
                     $(userInfoBox).find(".github-admin-modal-email").text(userEmail);
-
-                    $(row).find(".admin-modal-accordion-content").append(userInfoBox)
                     $(userInfoBox).find(".bx--assistive-text").text(`Remove ${userLogin} from ${team.name} team`)
-                })
+                    div.append(userInfoBox);
+                });
         });
+
+        $(row).find(".admin-modal-accordion-content").append(div)
         $("#admin-modal-list").append(row);
 
+        let addUserInputText = $("#addUser-input-template").clone().removeAttr("id").removeClass("hidden");
+        addUserInputText.find(".user-add-team-name").text(team.name);
+        $(addUserInputText).insertAfter($(".admin-modal-accordion-content").children().last())
     });
 
-    let uniqueAdminList = Object.values(instanceAdmins.reduce((accumulator, curretValue) => Object.assign(accumulator, { [curretValue.login]: curretValue}), {}));
+    let uniqueAdminList = Array.from(new Set(instanceAdmins));
     uniqueAdminList.forEach(user => {
         let githubAdminUsername = user.login;
         $("#instance-accordion-admins-list").append(`<span class="instance-admin-names">${githubAdminUsername}<span>`);
         $("#instance-accordion-admin-view").removeClass("hidden");
     });
-
-    $("#admin-modal-list li").on("click", e => {
-        $(e.target).toggleClass("bx--accordion__item--active");
-    });
-
-    $(document).on("click", ".remove-user-button button", e => {
-        removeTeamMember(e.target);
-    });
-
-    $(".bx--inline-notification__close-button").on("click", e => {
-        $(e.target).closest(".bx--accordion__content").find(".remove-user-error-notification").addClass("hidden");;
-    }); 
 }
 
 let ToolPane = class {

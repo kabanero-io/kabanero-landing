@@ -25,13 +25,18 @@ permalink: /instance/
                 <div class="bx--col">
                     <ul data-accordion class="bx--accordion" id="instance-accordion">
                         <li id="error-li" data-accordion-item class="bx--accordion__item hide">
-                            <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="paneError">
-                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;" xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                            <button class="bx--accordion__heading accordion-title" aria-expanded="false"
+                                aria-controls="paneError">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet"
+                                    style="will-change: transform;" xmlns="http://www.w3.org/2000/svg"
+                                    class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16"
+                                    aria-hidden="true">
                                     <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
                                 </svg>
                                 <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
                             </button>
-                            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a" data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
+                            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a"
+                                data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
                             </div>
                         </li>
                     </ul>
@@ -44,21 +49,21 @@ permalink: /instance/
                 <!-- Instance Card -->
                 <div class="bx--col-xlg-5">
                     <div id="instance-details-card" class="bx--tile">
-        
+
                         <!-- loader -->
                         {% include loader.html %}
-        
+
                         <div class="bx--row instance-number-row">
                             <div class="bx--col">
                                 <h2>{{t._includes.header.instance-button}}</h2>
                             </div>
                         </div>
-                        
+
                         <!-- instance details -->
                         <div class="bx--row">
                             <div id="instance-details" class="bx--col">
                                 <div id="repo-section">
-        
+
                                 </div>
                                 <div class="bx--row">
                                     <div class="bx--col">
@@ -67,16 +72,19 @@ permalink: /instance/
                                             <span class="copied-text gray-text hide">{{t.instance.copied}}</span>
                                         </div>
                                         <div class="input-group">
-                                            <input id="management-cli" type="text" class="form-control stack-hub-input tooltip-copy" readonly="readonly">
+                                            <input id="management-cli" type="text"
+                                                class="form-control stack-hub-input tooltip-copy" readonly="readonly">
                                             <div class="input-group-append">
-                                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard tooltip-copy" >
+                                                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon"
+                                                    class="img img-fluid copy-to-clipboard tooltip-copy">
                                             </div>
                                         </div>
                                         <p>
-                                            {{t.instance.management-cli-pre}} <a href="/docs/ref/general/reference/kabanero-cli.html">{{t.instance.management-cli-post}}</a>
+                                            {{t.instance.management-cli-pre}} <a
+                                                href="/docs/ref/general/reference/kabanero-cli.html">{{t.instance.management-cli-post}}</a>
                                         </p>
                                     </div>
-                                </div>      
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +93,7 @@ permalink: /instance/
                 <!-- Stacks Card -->
                 <div class="bx--col-xlg-5">
                     <div id="stack-details-card" class="bx--tile">
-                
+
                         <!-- loader -->
                         {% include loader.html %}
 
@@ -109,11 +117,17 @@ permalink: /instance/
                         <!-- Stacks bottom button -->
                         <div class="bx--row">
                             <div class="bx--col-sm-2 bx--col-lg-8">
-                                <a id="stacks-link" href="{{page.url | remove: '/instance'}}docs/ref/general/configuration/console-oauth.html">
-                                    <button class="bx--btn bx--btn--secondary tile-instance-button" id="stacks-btn" type="button">
+                                <a id="stacks-link"
+                                    href="{{page.url | remove: '/instance'}}docs/ref/general/configuration/console-oauth.html">
+                                    <button class="bx--btn bx--btn--secondary tile-instance-button" id="stacks-btn"
+                                        type="button">
                                         <span id="stacks-oauth-msg">{{t.instance.oauth.configure}}</span>
                                         <div class="arrow-container">
-                                            <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                            <svg focusable="false" preserveAspectRatio="xMidYMid meet"
+                                                xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3"
+                                                viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;">
+                                                <path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path>
+                                            </svg>
                                         </div>
                                     </button>
                                 </a>
@@ -131,6 +145,9 @@ permalink: /instance/
 <div id="instance-admin-list-notification-template" data-notification class="bx--inline-notification hidden">
     <div class="bx--inline-notification__details instance-inline-admin-list-notification">
         <div class="bx--inline-notification__text-wrapper admin-list-modal-template">
+            <div class="github-admin-modal-username modal-content-user-info"></div>
+            <div class="github-admin-modal-full-name modal-content-user-info"></div>
+            <div class="github-admin-modal-email modal-content-user-info"></div>
             <div class="remove-user-button">
                 <button data-notification-btn
                     class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--inline-notification__close-button ">
@@ -145,10 +162,6 @@ permalink: /instance/
                     </svg>
                 </button>
             </div>
-            <div class="github-admin-modal-username modal-content-user-info"></div>
-            <div class="github-admin-modal-full-name modal-content-user-info"></div>
-            <div class="github-admin-modal-email modal-content-user-info"></div>
-
         </div>
     </div>
 </div>
@@ -198,8 +211,10 @@ permalink: /instance/
             <div data-notification class="bx--inline-notification bx--inline-notification--error" role="alert">
                 <div class="bx--inline-notification__details">
                     <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
-                        class="bx--inline-notification__icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-                        <path d="M10,1c-5,0-9,4-9,9s4,9,9,9s9-4,9-9S15,1,10,1z M13.5,14.5l-8-8l1-1l8,8L13.5,14.5z"></path>
+                        class="bx--inline-notification__icon" width="20" height="20" viewBox="0 0 20 20"
+                        aria-hidden="true">
+                        <path d="M10,1c-5,0-9,4-9,9s4,9,9,9s9-4,9-9S15,1,10,1z M13.5,14.5l-8-8l1-1l8,8L13.5,14.5z">
+                        </path>
                         <path d="M13.5,14.5l-8-8l1-1l8,8L13.5,14.5z" data-icon-path="inner-path" opacity="0"></path>
                     </svg>
                     <div class="bx--inline-notification__text-wrapper">
@@ -219,19 +234,46 @@ permalink: /instance/
             </div>
         </div>
         <div data-notification class="bx--inline-notification">
-            <div id="modal-column-headings"
-                class="bx--inline-notification__details instance-inline-admin-list-notification">
+            <div class="modal-column-headings bx--inline-notification__details instance-inline-admin-list-notification">
                 <div class="bx--inline-notification__text-wrapper">
                     <div class="modal-content-user-info">{{t.instance.user}}</div>
                     <div class="modal-content-user-info">{{t.instance.full-name}}</div>
                     <div class="modal-content-user-info">{{t.instance.email}}</div>
+                    <div class="modal-column-heading-empty-div"></div>
+                </div>
+            </div>
+        </div>
+        <div id="addUser-input-template" class="hidden addUser-input-container">
+            <div class="bx--form-item bx--text-input-wrapper">
+                <label for="text-input-3" class="bx--label">{{t.instance.add-user}} <span
+                        class="user-add-team-name"></span>
+                    {{t.instance.team}}</label>
+                <div class="input-and-button-container">
+                    <div class="input-and-error-msg-container">
+                        <div class="bx--text-input__field-wrapper text-input-wrapper">
+                            <input type="text" class="bx--text-input add-user-text-input"
+                                placeholder="{{t.instance.username}}">
+                            <div class="input-error-msg-icon hidden">
+                                <img class="" src="/img/invalid_warning.svg">
+                            </div>
+                        </div>
+                        <div class="bx--form-requirement input-error-message"></div>
+                    </div>
+
+                    <button class="bx--btn bx--btn--secondary bx--btn--field add-user-button" type="button">
+                        <svg class="add-user-button-icon" width="13" height="13" fill="#ffffff">
+                            <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--add"></use>
+                        </svg>
+
+                        {{t.instance.add-member}}
+                    </button>
+
                 </div>
             </div>
         </div>
     </div>
     </div>
 </li>
-
 
 <!-- Manage admins modal -->
 <div data-modal id="manage-admins-modal" class="bx--modal " role="dialog" aria-modal="true" tabindex="-1">
@@ -240,12 +282,11 @@ permalink: /instance/
             <p class="bx--modal-header__heading bx--type-beta">{{t.instance.manage-admins}}</p>
             <p class="bx--modal-header__label bx--type-delta" id="modal-oxnb2prg3rp-label">{{t.instance.teams}}</p>
             <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal">
-                <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
-                    xmlns="http://www.w3.org/2000/svg" class="bx--modal-close__icon" width="16" height="16"
-                    viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M12 4.7L11.3 4 8 7.3 4.7 4 4 4.7 7.3 8 4 11.3 4.7 12 8 8.7 11.3 12 12 11.3 8.7 8z">
-                    </path>
+
+                <svg class="bx--modal-close__icon" width="16" height="16">
+                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--close"></use>
                 </svg>
+
             </button>
         </div>
         <div id="admin-modal-content" class="bx--modal-content">
@@ -281,7 +322,7 @@ permalink: /instance/
         <div class="input-group">
             <input type="text" class="appsody-url form-control stack-hub-input" readonly="readonly">
             <div class="input-group-append">
-                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard" >
+                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard">
             </div>
         </div>
     </div>
@@ -295,7 +336,7 @@ permalink: /instance/
         <div class="input-group">
             <input type="text" class="codewind-url form-control stack-hub-input" readonly="readonly">
             <div class="input-group-append">
-                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard" >
+                <img src="/img/copy-clipboard.png" alt="copy to clipboard icon" class="img img-fluid copy-to-clipboard">
             </div>
         </div>
     </div>
@@ -320,7 +361,11 @@ permalink: /instance/
                         <button type="button" class="bx--btn bx--btn--secondary tile-instance-button">
                             <span class="button-text"></span>
                             <div class="arrow-container">
-                                <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;"><path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path></svg>
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet"
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#f3f3f3"
+                                    viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;">
+                                    <path d="M18 6l-1.4 1.4 7.5 7.6H3v2h21.1l-7.5 7.6L18 26l10-10z"></path>
+                                </svg>
                             </div>
                         </button>
                     </a>

@@ -88,8 +88,8 @@ public class GitHubEndpoints extends Application {
             //teamService.addMember is a void method so we don't know if the user was added to the team so return 202 instead of 200
             return Response.status(202).build();
         }catch(Exception e){
-            LOGGER.log(Level.SEVERE, "Failed to add team member " + githubUsername , e);
-            return Response.status(500).entity(new ResponseMessage("A problem occured attempting to POST /team/" + teamId + "/member/" + githubUsername)).build();
+            LOGGER.log(Level.SEVERE, "A problem occured attempting to add " + githubUsername + " using " + " team ID " + teamId, e);
+            return Response.status(500).entity(new ResponseMessage(e.getMessage())).build();
         }
     }
 
@@ -107,8 +107,7 @@ public class GitHubEndpoints extends Application {
             //teamService.removeMember is a void method so we don't know if the user was removed from the team so return 202 instead of 200
             return Response.status(202).build();
         }catch(Exception e){
-            LOGGER.log(Level.SEVERE, "A problem occured attempting to DELETE /team/" + teamId + "/member/" + githubUsername, e);
-
+            LOGGER.log(Level.SEVERE, "A problem occured attempting to delete " + githubUsername + " using " + " team ID " + teamId, e);
             return Response.status(500).entity(new ResponseMessage(e.getMessage())).build();
         }
     }

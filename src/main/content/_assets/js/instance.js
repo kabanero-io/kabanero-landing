@@ -31,6 +31,21 @@ $(document).ready(function () {
             .then(loadAllInfo);
     });
 
+    $("#admin-modal-list li").on("click", e => {
+        $(e.target).toggleClass("bx--accordion__item--active");
+    });
+
+    $("#admin-modal-content").on("click", ".remove-user-button button", e => {
+        removeTeamMember(e.target);
+    });
+
+    $("#admin-modal-content").on("click", ".addUser-input-container button", e => {
+        addTeamMember(e.target);
+    });
+
+    $("#admin-modal-content").on("click", ".bx--inline-notification__close-button", e => {
+        $(e.target).closest(".bx--accordion__content").find(".remove-user-error-notification").addClass("hidden");;
+    });
 });
 
 function setListeners() {
@@ -64,7 +79,8 @@ function loadAllInfo(instanceJSON) {
         .then(setToolData);
 
     fetchOAuthDetails()
-        .then(setOAuth);    
+        .then(setOAuth)
+        .then(fetchUserAdminStatus);
     }
 
 // Set details on UI for any given instance
@@ -163,6 +179,7 @@ function setOAuth(oauthJSON) {
         let selectedInstance = $("#selected-instance-name").text().trim();
         $("#stacks-oauth-msg").text("Manage Stacks");
         $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);
-        fetchUserAdminStatus();   
+        
+        return oauthJSON;
     }
 }

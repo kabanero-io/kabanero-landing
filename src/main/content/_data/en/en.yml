@@ -149,11 +149,15 @@ instance:
   date-created: "Date created: "
   members: "Members: "
   admins: Admins
+  username: Username
   user: User
   full-name: Full Name
   email: Email
+  add-user: Add new user to
+  add-member: Add member
   manage-admins: Manage Admins
   teams: Teams
+  team: team
   details: Details
   modal-confirmation-header: Confirmation
   modal-content: "Are you sure you want to deactivate the stack:"

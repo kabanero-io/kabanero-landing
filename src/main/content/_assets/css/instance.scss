@@ -22,7 +22,8 @@
 "../../../../../node_modules/carbon-components/scss/components/modal/modal",
 "../../../../../node_modules/carbon-components/scss/components/loading/loading",
 "../../../../../node_modules/carbon-components/scss/components/tile/tile",
-"../../../../../node_modules/carbon-components/scss/components/notification/inline-notification"; 
+"../../../../../node_modules/carbon-components/scss/components/notification/inline-notification",
+"../../../../../node_modules/carbon-components/scss/components/text-input/text-input"; 
 //declare variables
 $color-ibm:#3d70b2;
 $kabanero-color: #C43804;
@@ -204,7 +205,6 @@ button:disabled > .arrow-container > svg{
     background-color: white;
     color: black;
     border: solid .02px black;
-    width: 100%;
     text-align: center;
 }
 
@@ -216,11 +216,9 @@ button:disabled > .arrow-container > svg{
     padding: 0 !important;
 }
 
-#modal-column-headings{
-    padding-left: 3rem;
-    font-weight: 500;
+.modal-column-headings{
+    font-weight: 500 !important;
 }
-
 
 #admin-modal-content{
     padding: 1px 50px 0px 50px !important;
@@ -231,7 +229,8 @@ button:disabled > .arrow-container > svg{
 }
 
 .admin-modal-accordion-content{
-        padding-right: unset !important;
+    padding-right: unset !important;
+    padding-left: 4em;
 }
 
 .admin-modal-accordion-title{
@@ -256,12 +255,56 @@ button:disabled > .arrow-container > svg{
 
 .remove-user-error-notification{
     padding-left: 1em;
-    padding-right: 1em;
+    padding-right: 4.8em;
 }
 
 .bx--modal-close:focus, .modal-content-inline-close-button:focus{
     outline: none !important;
     border-color: #ffffff !important; 
+}
+
+.addUser-input-container{
+    padding-left: 1.3em;
+    padding-right: 4rem;
+}
+
+.add-user-text-input{
+    border: none !important;
+}
+
+.add-user-button{
+    padding-right: 1em !important;
+}
+
+.modal-column-heading-empty-div{
+    width: 3.5em;
+}
+
+.input-and-button-container{
+    display: inline-flex;
+    width: 100%;
+}
+
+.input-and-error-msg-container{
+    width: 75%;
+    padding-right: 1em;
+}
+
+.input-error-msg-icon{
+    padding-right: 5px;
+    padding-top: 3px;
+}
+
+.text-input-wrapper{
+    background: #f4f4f4;
+}
+
+.add-user-button-icon{
+    margin-right: 4px;
+}
+
+.bx--text-input:focus, .bx--text-input:active{
+    outline: none;
 }
 
 #num-stacks {
