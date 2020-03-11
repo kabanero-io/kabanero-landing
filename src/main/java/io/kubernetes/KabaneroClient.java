@@ -63,12 +63,21 @@ public class KabaneroClient {
     private final static int TIMEOUT = 60;
     private final static String DEFAULT_NAMESPACE = "kabanero";
 
-    private static String getRouteByRegex(String regex, Map<String, Route> routes) {
+    private static String getRouteByRegex(String regex, Map<String, Route> routes, boolean doMatchByRoute ) {
+        // Some routes have a random generated name that makes it difficult to pick out the right one -
+        // so we allow to match by a path name as well
         for (Route route : routes.values()) {
-            if (route.getName().matches(regex)) {
-                return route.getHost();
+            String matcher = doMatchByRoute ? route.getName() : route.getPath();
+            if(matcher == null){
+                continue;
+            }
+            
+            if(matcher.matches(regex)){
+                return route.getHostPath();
             }
         }
+
+        LOGGER.log(Level.WARNING, "Could not find a matching route for regex: {0} - doMatchByRoute is: {1} - routes are: {2}", new Object[]{regex, doMatchByRoute, routes});
         return null;
     }
 
@@ -133,9 +142,9 @@ public class KabaneroClient {
     }
 
     public static String getCLI(ApiClient client, String namespace) throws ApiException {
-        Map<String, Route> routes = KabaneroClient.listRoutes(client, namespace);
+        Map<String, Route> routes = KabaneroClient.listRoutesFromNamespace(client, namespace);
         if (routes != null) {
-            return KabaneroClient.getRouteByRegex("kabanero-cli", routes);
+            return KabaneroClient.getRouteByRegex("kabanero-cli", routes, true);
         }
         return null;
     }
@@ -148,36 +157,50 @@ public class KabaneroClient {
         try {
             JsonArray toolsJSONArray = new Gson().fromJson(IOUtils.toString(inputStream, StandardCharsets.UTF_8), JsonArray.class);
 
-            Map<String, Route> routes = null;
+            Map<String, Route> routes = KabaneroClient.listAllRoutes(client);
+
+            if (routes == null) {
+                LOGGER.log(Level.SEVERE, "listAllRoutes returned null");
+                return;
+            }
 
             for(JsonElement toolElement : toolsJSONArray){
                 JsonObject tool = toolElement.getAsJsonObject();
                 KabaneroTool kabTool = new Gson().fromJson(tool, KabaneroTool.class);
 
-                // TODO: This can be enhanced by doing only 1 listRoutes per namespace (some tools can have the same namespace)
-                routes = KabaneroClient.listRoutes(client, kabTool.getNamespace());
+                boolean doMatchByRoute = kabTool.getRoute() != null;
+                String regex = doMatchByRoute ? kabTool.getRoute() : kabTool.getPath();
+                String url = getRouteByRegex(regex, routes, doMatchByRoute);
 
-                if (routes != null) {
-                    String url = KabaneroClient.getRouteByRegex(kabTool.getRoute(), routes);
-                    kabTool.setLocation(url);
-                    tools.addTool(kabTool);
-                }
+                kabTool.setLocation(url);
+                tools.addTool(kabTool);
             }
         } finally {
             inputStream.close();
         }
     }
 
-    private static Map<String, Route> listRoutes(ApiClient apiClient, String namespace) throws ApiException {
+    private static Map<String, Route> listRoutesFromNamespace(ApiClient apiClient, String namespace) throws ApiException {
         CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
         String group = "route.openshift.io";
         String version = "v1";
         String plural = "routes";
-
-        Map<String, Route> routes = new HashMap<String, Route>();
-
         Object obj = customApi.listNamespacedCustomObject(group, version, namespace, plural, "true", "", "", 60, false);
-        Map<String, ?> map = (Map<String, ?>) obj;
+        return handleRoutes(obj);
+    }
+
+    private static Map<String, Route> listAllRoutes(ApiClient apiClient) throws ApiException {
+        CustomObjectsApi customApi = new CustomObjectsApi(apiClient);
+        String group = "route.openshift.io";
+        String version = "v1";
+        String plural = "routes";
+        Object obj = customApi.listClusterCustomObject(group, version, plural, "true", "", "", 60, false);
+        return handleRoutes(obj);
+    }
+
+    private static Map<String, Route> handleRoutes(Object routesObj){
+        Map<String, Route> routes = new HashMap<String, Route>();
+        Map<String, ?> map = (Map<String, ?>) routesObj;
         List<Map<String, ?>> items = (List<Map<String, ?>>) map.get("items");
         
         for (Map<String, ?> item : items) {
@@ -190,8 +213,6 @@ public class KabaneroClient {
             Map<String, ?> spec = (Map<String, ?>) item.get("spec");
             route.setSpec(spec);
         }
-
-        LOGGER.log(Level.FINE, namespace + " namespace has {0} routes: {1}", new Object[]{routes.size(), routes});
         return routes;
     }
 

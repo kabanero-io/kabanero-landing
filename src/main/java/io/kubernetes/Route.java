@@ -19,13 +19,18 @@ public class Route {
         this.spec = spec;
     }
 
+    public String getPath() {
+        return (String) spec.get("path");
+    }
+
     public String getHost() {
-        String host = (String) spec.get("host");
-        String path = (String) spec.get("path");
-        if(path != null){
-            return host + path;
-        }
-        return host;
+        return (String) spec.get("host");
+    }
+
+    public String getHostPath() {
+        String host = getHost();
+        String path = getPath();
+        return path != null ? host + path : host;
     }
 
     @Override

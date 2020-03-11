@@ -24,9 +24,11 @@ public class KabaneroTool {
     public String namespace;
     public String route;
     public String location;
+    public String path;
     public String description;
     public String actionText;
     public boolean https;
+    
     
     public KabaneroTool(String name, String location, String description, String actionText, boolean https){
         this.name = name;
@@ -62,6 +64,16 @@ public class KabaneroTool {
 
     public String getRoute() {
         return route;
+    }
+
+    // Some routes have random generated names, we also allow setting the path here
+    // so we can find a route by its path
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public void setRoute(String route) {
