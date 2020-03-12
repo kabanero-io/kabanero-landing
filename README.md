@@ -1,5 +1,7 @@
 ![](src/main/content/img/Kabanero_Logo_Hero.png)
 
+[![Build Status](https://travis-ci.org/kabanero-io/kabanero-landing.svg?branch=master)](https://travis-ci.org/kabanero-io/kabanero-landing)
+
 # Introduction
 Console Application for Kabanero
 
