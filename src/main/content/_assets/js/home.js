@@ -18,6 +18,8 @@
 $(document).ready(function () {
     fetchATool("Application Navigator")
         .then(setKAppNav);
+    fetchATool("Red Hat CodeReady Workspaces")
+        .then(setCodeReadyDevToolModal);
     togglePageView();
     setPageView();
 });
@@ -28,6 +30,17 @@ function setKAppNav(kAppNav) {
     }
     else {
         console.log(`kAppNav is not installed: ${JSON.stringify(kAppNav)}`);
+    }
+}
+
+function setCodeReadyDevToolModal(codeReady){
+    if (codeReady && codeReady.location) {
+        $("#dev-tools-modal-codeready-link").attr("href", `https://${codeReady.location}`);
+        $("#dev-tools-codready-install-steps").hide();
+        $("#dev-tools-codready-installed").show();
+    }
+    else {
+        console.log(`codeReady is not installed: ${JSON.stringify(codeReady)}`);
     }
 }
 
