@@ -58,6 +58,14 @@ site-custom:
   index:
     docs_url: /docs
     learn-more-url: https://www.kabanero.io
+    dev-modal:
+      codewind-vs-code-url: https://marketplace.visualstudio.com/items?itemName=IBM.codewind
+      codewind-vs-code-hub-setup: https://www.eclipse.org/codewind/mdt-vsc-getting-started.html
+      codewind-eclipse-hub-setup: https://www.eclipse.org/codewind/mdt-eclipse-getting-started.html
+      codewind-working-with-templates: https://www.eclipse.org/codewind/workingwithtemplates.html#adding-your-own-template-sources-to-codewind
+      codewind-eclipse-url: https://marketplace.eclipse.org/content/codewind
+      appsody: https://appsody.dev/docs/installing/installing-appsody
+      appsody-repo-add: https://appsody.dev/docs/cli-commands/#appsody-repo-add
   header:
     title_logo: /img/Kabanero_white_title_text.svg
     header_logo: /img/Kabanero_Logo_White_Text.png

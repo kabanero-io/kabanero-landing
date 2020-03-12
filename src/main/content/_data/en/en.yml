@@ -109,7 +109,7 @@ index:
       appsodyRepoAdd: appsody repo add command
       stackHub: Configure Appsody / Codewind to point at your Kabanero Stack Hub. Get your Stack Hub URL from your
       teamInstance: team instance page.
-      configTemplateSources: Configuring template sources for
+      configTemplateSources: Adding your own template sources to Codewind
       setStackHub: To set your stack hub url, follow the instructions associated with the tool you are using
     check: You can check out our guide and video on creating your first application.
     guide: guide

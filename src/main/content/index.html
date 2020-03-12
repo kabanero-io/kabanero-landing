@@ -21,7 +21,7 @@ seo-title: Kabanero
                 <p class="limit-text-width margin-top-layout-03 white-text" id="welcome-text">{{t.index.welcome-text}}</p>
                 
                 <div class="margin-top-layout-03">
-                    <a class="white-text" target="_blank" href="https://www.kabanero.io">
+                    <a class="white-text" target="_blank" href="{{site.site-custom.index.learn-more-url}}">
                         <button class="bx--btn bx--btn--primary" type="button">{{t.index.learn-more}}</button>
                     </a>
                 </div>
@@ -93,7 +93,7 @@ seo-title: Kabanero
                 <li>
                     {{t.index.devtools.steps.install}}
                     <a target="_blank"
-                        href="https://marketplace.visualstudio.com/items?itemName=IBM.codewind">{{t.index.devtools.steps.vsCodeInstall}}</a>
+                        href="{{site.site-custom.index.dev-modal.codewind-vs-code-url}}">{{t.index.devtools.steps.vsCodeInstall}}</a>
                 </li>
             </ul>
 
@@ -102,7 +102,7 @@ seo-title: Kabanero
                 <li>
                     {{t.index.devtools.steps.install}}
                     <a target="_blank"
-                        href="https://marketplace.eclipse.org/content/codewind">{{t.index.devtools.steps.eclipseInstall}}</a>
+                        href="{{site.site-custom.index.dev-modal.codewind-eclipse-url}}">{{t.index.devtools.steps.eclipseInstall}}</a>
                 </li>
             </ul>
 
@@ -111,7 +111,7 @@ seo-title: Kabanero
                 <li>
                     {{t.index.devtools.steps.install}}
                     <a target="_blank"
-                        href="https://appsody.dev/docs/getting-started/installation">{{t.index.devtools.steps.appsody}}</a>
+                        href="{{site.site-custom.index.dev-modal.appsody}}">{{t.index.devtools.steps.appsody}}</a>
                 </li>
             </ul>
 
@@ -125,31 +125,16 @@ seo-title: Kabanero
             <p>{{t.common.codewind}}</p>
             <ul>
                 <li>
-                    {{t.common.eclipse}}
-                    <ul>
-                        <li>
-                            See <a target="_blank"
-                                href="https://www.eclipse.org/codewind/mdteclipseworkingwithtemplates.html">{{t.index.devtools.steps.configTemplateSources}}
-                                {{t.common.eclipse}}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    {{t.common.vscode}}
-                    <ul>
-                        <li>
-                            See <a target="_blank"
-                                href="https://www.eclipse.org/codewind/mdt-vsc-workingwithtemplates.html">{{t.index.devtools.steps.configTemplateSources}}
-                                {{t.common.vscode}}</a>
-                        </li>
-                    </ul>
+                    See <a target="_blank"
+                        href="{{site.site-custom.index.dev-modal.codewind-working-with-templates}}">{{t.index.devtools.steps.configTemplateSources}}
+                        </a>
                 </li>
             </ul>
             <p>{{t.common.appsody}}</p>
             <ul>
                 <li>
                     Use the <a target="_blank"
-                        href="https://appsody.dev/docs/using-appsody/cli-commands#appsody-repo-add">{{t.index.devtools.steps.appsodyRepoAdd}}</a>
+                        href="{{site.site-custom.index.dev-modal.appsody-repo-add}}">{{t.index.devtools.steps.appsodyRepoAdd}}</a>
                 </li>
             </ul>
         </div>
