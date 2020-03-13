@@ -1,0 +1,154 @@
+{
+    "curated stacks": [
+        {
+            "name": "java-microprofile",
+            "versions": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/java-microprofile:0.2.25"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.2.25"
+                }
+            ]
+        },
+        {
+            "name": "java-openliberty",
+            "versions": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/java-openliberty:0.2.2"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.2.2"
+                }
+            ]
+        },
+        {
+            "name": "java-spring-boot2",
+            "versions": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/java-spring-boot2:0.3.24"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.3.24"
+                }
+            ]
+        },
+        {
+            "name": "nodejs",
+            "versions": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/nodejs:0.3.2"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.3.2"
+                }
+            ]
+        },
+        {
+            "name": "nodejs-express",
+            "versions": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/nodejs-express:0.2.10"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.2.10"
+                }
+            ]
+        }
+    ],
+    "new curated stacks": [],
+    "kabanero stacks": [
+        {
+            "name": "java-microprofile",
+            "status": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/java-microprofile:0.2.25"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.2.25"
+                }
+            ]
+        },
+        {
+            "name": "java-openliberty",
+            "status": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/java-openliberty:0.2.2"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.2.2"
+                }
+            ]
+        },
+        {
+            "name": "java-spring-boot2",
+            "status": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/java-spring-boot2:0.3.24"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.3.24"
+                }
+            ]
+        },
+        {
+            "name": "nodejs",
+            "status": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/nodejs:0.3.2"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.3.2"
+                }
+            ]
+        },
+        {
+            "name": "nodejs-express",
+            "status": [
+                {
+                    "images": [
+                        {
+                            "image": "docker.io/kabanero/nodejs-express:0.2.10"
+                        }
+                    ],
+                    "reponame": "incubator",
+                    "version": "0.2.10"
+                }
+            ]
+        }
+    ],
+    "repositories": [
+        {
+            "name": "incubator",
+            "url": "https://github.com/kabanero-io/kabanero-stack-hub/releases/download/0.6.0/kabanero-stack-hub-index.yaml"
+        }
+    ],
+    "obsolete stacks": []
+}
