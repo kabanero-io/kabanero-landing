@@ -101,7 +101,7 @@ public class InstanceEndpoints extends Application {
     public Response isAdmin(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
-        GitHubClient client = new GitHubClient();
+        GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
         client.setOAuth2Token(token);
 
         Kabanero instance = KabaneroClient.getAnInstance(instanceName);
@@ -111,6 +111,7 @@ public class InstanceEndpoints extends Application {
 
         String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
         List<String> instanceGithubTeams = instance.getSpec().getGithub().getTeams();
+
         Boolean isAdmin = false;
 
         TeamService teamService = new TeamService(client);
@@ -136,7 +137,7 @@ public class InstanceEndpoints extends Application {
     public Response getAdminList(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
-        GitHubClient client = new GitHubClient();
+        GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
         client.setOAuth2Token(token);
 
         Kabanero instance = KabaneroClient.getAnInstance(instanceName);
@@ -173,7 +174,7 @@ public class InstanceEndpoints extends Application {
     public Response getTeamMembers(@PathParam("instanceName") String instanceName, @PathParam("wantedTeamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
-        GitHubClient client = new GitHubClient();
+        GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
         client.setOAuth2Token(token);
 
         Kabanero instance = KabaneroClient.getAnInstance(instanceName);
