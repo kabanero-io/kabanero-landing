@@ -21,13 +21,13 @@ package io.kabanero.api;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -48,8 +48,11 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 
+import io.kabanero.digest.DigestPolicy;
 import io.kabanero.v1alpha2.models.Kabanero;
 import io.kabanero.v1alpha2.models.KabaneroList;
+import io.kabanero.v1alpha2.models.KabaneroSpec;
+import io.kabanero.v1alpha2.models.KabaneroSpecGovernancePolicy;
 import io.kabanero.v1alpha2.models.StackList;
 import io.kubernetes.KabaneroClient;
 import io.kubernetes.client.ApiException;
@@ -87,10 +90,12 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("/{instanceName}/stacks")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listStacks(@PathParam("instanceName") String instanceName) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response listStacks(@PathParam("instanceName") String instanceName)
+            throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         StackList stacks = KabaneroClient.getStacks(instanceName);
-        if(stacks == null){
-            return Response.status(404).entity(new ResponseMessage("Stacks do not exist for instance: " + instanceName)).build();
+        if (stacks == null) {
+            return Response.status(404).entity(new ResponseMessage("Stacks do not exist for instance: " + instanceName))
+                    .build();
         }
         return Response.ok(stacks).build();
     }
@@ -98,8 +103,16 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("{instanceName}/isAdmin")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response isAdmin(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
+    public Response isAdmin(@PathParam("instanceName") String instanceName)
+            throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
+        
+        if(userProfile == null){
+            JsonObject body = new JsonObject();
+            body.addProperty("isAdmin", false);
+            return Response.ok(body).build();
+        }
+
         String token = userProfile.getAccessToken();
         GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
         client.setOAuth2Token(token);
@@ -134,8 +147,13 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("{instanceName}/admin")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAdminList(@PathParam("instanceName") String instanceName) throws IOException, ApiException, GeneralSecurityException {
+    public Response getAdminList(@PathParam("instanceName") String instanceName)
+            throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
+        if(userProfile == null){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+
         String token = userProfile.getAccessToken();
         GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
         client.setOAuth2Token(token);
@@ -152,17 +170,20 @@ public class InstanceEndpoints extends Application {
 
         TeamService teamService = new TeamService(client);
 
-        // Loop though all teams in the Kabanero CRD orginization and check to if the team exists in the list of Kabanero crd teams
+        // Loop though all teams in the Kabanero CRD orginization and check to if the
+        // team exists in the list of Kabanero crd teams
         for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
-                if (instanceGithubTeams.contains(orgTeam.getName())) {
-                    // If the team exits in the CRD create an object with the team name, id and a
-                    // list of memebrs that belong to the team
-                    JsonObject teamObject = new JsonObject();
-                    teamObject.addProperty("name", orgTeam.getName());
-                    teamObject.addProperty("id", orgTeam.getId());
-                    teamObject.add("members", new Gson().toJsonTree(teamService.getMembers(orgTeam.getId()), new TypeToken<List<User>>() {}.getType()));
-                    adminMembers.add(teamObject);
-                }
+            if (instanceGithubTeams.contains(orgTeam.getName())) {
+                // If the team exits in the CRD create an object with the team name, id and a
+                // list of memebrs that belong to the team
+                JsonObject teamObject = new JsonObject();
+                teamObject.addProperty("name", orgTeam.getName());
+                teamObject.addProperty("id", orgTeam.getId());
+                teamObject.add("members",
+                        new Gson().toJsonTree(teamService.getMembers(orgTeam.getId()), new TypeToken<List<User>>() {
+                        }.getType()));
+                adminMembers.add(teamObject);
+            }
         }
 
         return Response.ok(adminMembers).build();
@@ -171,8 +192,15 @@ public class InstanceEndpoints extends Application {
     @GET
     @Path("{instanceName}/team/{wantedTeamName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTeamMembers(@PathParam("instanceName") String instanceName, @PathParam("wantedTeamName") String wantedTeamName) throws IOException, ApiException, GeneralSecurityException {
+    public Response getTeamMembers(@PathParam("instanceName") String instanceName,
+            @PathParam("wantedTeamName") String wantedTeamName)
+            throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
+        
+        if(userProfile == null){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+
         String token = userProfile.getAccessToken();
         GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
         client.setOAuth2Token(token);
@@ -187,11 +215,27 @@ public class InstanceEndpoints extends Application {
 
         for (Team orgTeam : teamService.getTeams(instanceGithubOrg)) {
             if (wantedTeamName.equals(orgTeam.getName())) {
-                List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());                
+                List<User> kabaneroTeamMembers = teamService.getMembers(orgTeam.getId());
                 return Response.ok(kabaneroTeamMembers).build();
             }
         }
 
         return Response.status(404).entity(new ResponseMessage(wantedTeamName + " team not found")).build();
+    }
+
+    @PUT
+    @Path("/{instanceName}/digest")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response setDigestPolicy(@PathParam("instanceName") String instanceName, DigestPolicy newPolicy )
+            throws IOException, ApiException, GeneralSecurityException {
+        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
+        if (instance == null) {
+            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
+        }
+
+        instance.getSpec().getGovernancePolicy().setStackPolicy(String.valueOf(newPolicy.getPolicy()));
+        KabaneroClient.updateInstance(instance);
+        return Response.accepted().build();
     }
 }

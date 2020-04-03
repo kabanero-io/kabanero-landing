@@ -39,7 +39,46 @@ $kabanero-color: #C43804;
     }
 }
 
-.icon-disabled{
+.icon-disabled {
     fill: grey !important;
     cursor: not-allowed !important;
+}
+
+.digest-error-icon {
+    fill: $danger;
+}
+
+.digest-warn-icon {
+    fill: $support-03
+}
+
+.digest-error {
+    border-left: 5px solid $inverse-support-01;
+}
+
+.digest-warning {
+    border-left: 5px solid $support-03;
+}
+
+.digest-notification {
+
+    a {
+        color: $ui-02;
+        text-decoration: underline !important;
+    }
+
+    td {
+
+        &:hover{
+            color: $ui-02 !important;
+            background-color: $ui-05 !important;
+        }
+
+        color: $ui-02 !important;
+        background-color: $ui-05 !important;
+    }
+}
+
+.digest-notification-x {
+    cursor: pointer;
 }

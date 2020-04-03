@@ -19,6 +19,7 @@ permalink: /instance/
         </div>
     </div>
 
+    <!-- Instance Accordion -->
     <div class="bx--row">
         <div class="bx--col-xlg-4">
             <div class="bx--row">
@@ -168,8 +169,7 @@ permalink: /instance/
 
 <!-- Templates -->
 <li id="instance-li-template" data-accordion-item class="bx--accordion__item hidden">
-    <button class="bx--accordion__heading accordion-title" aria-expanded="false"
-        aria-controls="pane${this.instanceName}">
+    <button class="bx--accordion__heading accordion-title" aria-expanded="false" aria-controls="pane">
         <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
             xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16"
             aria-hidden="true">
@@ -179,7 +179,7 @@ permalink: /instance/
     </button>
     <div class="bx--accordion__content">
         <p>{{t.instance.details}}</p>
-        <div class="instancre-details">
+        <div class="instance-details">
             <p class="gray-text">{{t.instance.date-created}}</p>
             <p class="creation-date"></p>
         </div>
@@ -189,7 +189,6 @@ permalink: /instance/
             <div>
                 <div id="instance-accordion-admins-list"></div>
                 <a id="manage-admins-link" data-modal-target="#manage-admins-modal">{{t.instance.manage-admins}}</a>
-
             </div>
         </div>
     </div>
@@ -254,14 +253,14 @@ permalink: /instance/
                             <input type="text" class="bx--text-input add-user-text-input"
                                 placeholder="{{t.instance.username}}">
                             <div class="input-error-msg-icon hidden">
-                                <img class="" src="/img/invalid_warning.svg">
+                                <img src="/img/invalid_warning.svg">
                             </div>
                         </div>
                         <div class="bx--form-requirement input-error-message"></div>
                     </div>
 
                     <button class="bx--btn bx--btn--secondary bx--btn--field add-user-button" type="button">
-                        <svg class="add-user-button-icon" width="13" height="13" fill="#ffffff">
+                        <svg class="margin-right-icon" width="13" height="13" fill="#ffffff">
                             <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--add"></use>
                         </svg>
 
@@ -290,7 +289,19 @@ permalink: /instance/
             </button>
         </div>
         <div id="admin-modal-content" class="bx--modal-content">
-            <ul data-accordion class="bx--accordion" id="admin-modal-list"></ul>
+            <ul id="admin-modal-list" data-accordion>
+                <li id="admin-modal-no-admins" data-accordion-item class="bx--accordion__item hide">
+                    <button class="bx--accordion__heading accordion-title" aria-expanded="false"
+                        aria-controls="paneError">
+                        <svg focusable="false" preserveAspectRatio="xMidYMid meet" style="will-change: transform;"
+                            xmlns="http://www.w3.org/2000/svg" class="bx--accordion__arrow" width="16" height="16"
+                            viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+                        </svg>
+                        <div class="bx--accordion__title">{{t.instance.no-admins}}</div>
+                    </button>
+                </li>
+            </ul>
         </div>
         <div class="bx--modal-content--overflow-indicator"></div>
         <div class="bx--modal-footer">

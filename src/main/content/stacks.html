@@ -20,13 +20,30 @@ permalink: /instance/stacks/
         </div>
     </div>
 
+    <!-- Instance Accordion -->
     <div class="bx--row">
         <div class="bx--col-xlg-4">
-            <ul data-accordion class="bx--accordion" id="instance-accordion">
-                <li>
-                    <button></button>
-                </li>
-            </ul>
+            <div class="bx--row">
+                <div class="bx--col">
+                    <ul data-accordion class="bx--accordion" id="instance-accordion">
+                        <li id="error-li" data-accordion-item class="bx--accordion__item hide">
+                            <button class="bx--accordion__heading accordion-title" aria-expanded="false"
+                                aria-controls="paneError">
+                                <svg focusable="false" preserveAspectRatio="xMidYMid meet"
+                                    style="will-change: transform;" xmlns="http://www.w3.org/2000/svg"
+                                    class="bx--accordion__arrow" width="16" height="16" viewBox="0 0 16 16"
+                                    aria-hidden="true">
+                                    <path d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"></path>
+                                </svg>
+                                <div class="bx--accordion__title">{{t.instance.no-instances}}</div>
+                            </button>
+                            <div id="paneError" class="bx--accordion__content hidden" data-hubName="n/a"
+                                data-appsodyURL="n/a" data-codewindURL="n/a" data-stacks="" data-cliURL="n/a">
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <!-- Kabanero Stacks table -->
@@ -34,20 +51,77 @@ permalink: /instance/stacks/
             <div class="bx--row">
                 <div class="bx--col-xlg">
                     <div id="stack-table-container">
+                        <!-- Sync stack refresh icon -->
                         <div class="sync-stacks-button">
                             <button
                                 class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--left bx--tooltip--align-start">
                                 <span class="bx--assistive-text">{{t.instance.sync-tooltip}}</span>
-                                <svg id="sync-stacks-icon" class="icon-active" focusable="false"
-                                    preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" width="20"
-                                    height="20" viewBox="0 0 32 32" aria-hidden="true" style="will-change: transform;">
-                                    <path
-                                        d="M12 10H6.78A11 11 0 0 1 27 16h2A13 13 0 0 0 6 7.68V4H4v8h8zM20 22h5.22A11 11 0 0 1 5 16H3a13 13 0 0 0 23 8.32V28h2V20H20z">
-                                    </path>
+                                <svg class="margin-right-icon" width="30" height="30" fill="#ffffff">
+                                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--schematics"></use>
                                 </svg>
                             </button>
                         </div>
                         <h2>{{t.instance.stacks}}</h2>
+
+                        <!-- stack governance selection -->
+                        <div class="bx--row">
+                            <div class="bx--col">
+                                <div class="bx--form-item">
+                                    <div id="stack-govern-dropdown" class="bx--dropdown__wrapper">
+                                        <span id="stack-govern-label" class="bx--label">{{t.instance.stack-govern.policy}}</span>
+                                        <div id="stack-govern-value" data-dropdown data-value class="bx--dropdown">
+                                            <button class="bx--dropdown-text" aria-haspopup="true" aria-expanded="false"
+                                                aria-controls="stack-govern-menu"
+                                                aria-labelledby="stack-govern-label stack-govern-value-text"
+                                                type="button">
+                                                <span class="bx--dropdown-text__inner" id="stack-govern-value-text">
+                                                    {{t.common.loading}}
+                                                </span>
+                                                <span class="bx--dropdown__arrow-container">
+                                                    <svg focusable="false" preserveAspectRatio="xMidYMid meet"
+                                                        style="will-change: transform;"
+                                                        xmlns="http://www.w3.org/2000/svg" class="bx--dropdown__arrow"
+                                                        width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                                                        <path d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"></path>
+                                                    </svg>
+                                                </span>
+                                                <svg id="digest-checkmark" class="green-checkmark-fill hide" width="13" height="13">
+                                                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--checkmark"></use>
+                                                </svg>
+                                            </button>
+                                            <ul class="bx--dropdown-list" role="menu" tabindex="0"
+                                                id="stack-govern-menu" aria-hidden="true" wh-menu-anchor="left"
+                                                aria-labelledby="stack-govern-label">
+                                                <li data-option data-value="strictDigest" class="bx--dropdown-item"
+                                                    title="{{t.instance.stack-govern.strictDigest}}">
+                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
+                                                        role="menuitemradio" aria-checked="true"
+                                                        id="stack-govern-item0">{{t.instance.stack-govern.strictDigest}}</a>
+                                                </li>
+                                                <li data-option data-value="activeDigest" class="bx--dropdown-item"
+                                                    title="{{t.instance.stack-govern.activeDigest}}">
+                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
+                                                        role="menuitemradio" aria-checked="false"
+                                                        id="stack-govern-item1">{{t.instance.stack-govern.activeDigest}}</a>
+                                                </li>
+                                                <li data-option data-value="ignoreDigest" class="bx--dropdown-item"
+                                                    title="{{t.instance.stack-govern.ignoreDigest}}">
+                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
+                                                        role="menuitemradio" aria-checked="false"
+                                                        id="stack-govern-item2">{{t.instance.stack-govern.ignoreDigest}}</a>
+                                                </li>
+                                                <li data-option data-value="none" class="bx--dropdown-item"
+                                                    title="{{t.instance.stack-govern.none}}">
+                                                    <a class="bx--dropdown-link" href="javascript:void(0)" tabindex="-1"
+                                                        role="menuitemradio" aria-checked="false"
+                                                        id="stack-govern-item3">{{t.instance.stack-govern.noDigest}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                        </div>
                         {% include table-loader.html %}
                         <table id="stack-table" class="bx--data-table hide">
                             <thead>

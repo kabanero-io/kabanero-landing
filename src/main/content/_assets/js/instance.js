@@ -17,19 +17,12 @@
  ******************************************************************************/
 
 $(document).ready(function () {
-    fetchAllInstances()
-        .then(setInstanceSelections)
+    
+    setAllInstances()
         .then(fetchAnInstance)
         .then(loadAllInfo);
 
     setListeners();
-
-    $("#instance-accordion li").on("click", e => {
-        e.stopPropagation();
-        let newName = handleInstanceSelection(e.target);
-        fetchAnInstance(newName)
-            .then(loadAllInfo);
-    });
 
     $("#admin-modal-list li").on("click", e => {
         $(e.target).toggleClass("bx--accordion__item--active");
@@ -65,7 +58,6 @@ function setListeners() {
     }
 }
 
-// Request to get all instances names
 function loadAllInfo(instanceJSON) {
     if (typeof instanceJSON === "undefined") {
         console.log("instance data is undefined, cannot load instance");
@@ -81,7 +73,7 @@ function loadAllInfo(instanceJSON) {
     fetchOAuthDetails()
         .then(setOAuth)
         .then(fetchUserAdminStatus);
-    }
+}
 
 // Set details on UI for any given instance
 function setToolData(tools) {
@@ -120,6 +112,7 @@ function setInstanceCard(instanceJSON) {
 
     // Instance Details
     let $instanceDetails = $("#repo-section");
+    $instanceDetails.empty();
     
     repos.forEach(repo => {
         //url will be in either the https key or the gitRelease key
@@ -127,8 +120,9 @@ function setInstanceCard(instanceJSON) {
         $instanceDetails.append(createRepositorySection(repo.name, repoURL));
     });
 
-    $("#instance-details-card #management-cli").val(cliURL).attr("title", cliURL);
-    $("#instance-details-card #management-cli").next(".input-group-append > .copy-to-clipboard").attr("title", "Click to copy Management CLI URL");
+    let $managementCLIInput = $("#instance-details-card #management-cli");
+    $managementCLIInput.val(cliURL).attr("title", cliURL);
+    $managementCLIInput.next(".input-group-append > .copy-to-clipboard").attr("title", "Click to copy Management CLI URL");
 
     // hide card loader
     $("#instance-details-card .bx--inline-loading").hide();
@@ -176,7 +170,7 @@ function setStackCard(instanceJSON) {
 // Sets up the UI in regards to OAuth data
 function setOAuth(oauthJSON) {
     if (oauthJSON && oauthJSON.isConfigured) {
-        let selectedInstance = $("#selected-instance-name").text().trim();
+        let selectedInstance = getActiveInstanceName();
         $("#stacks-oauth-msg").text("Manage Stacks");
         $("#stacks-link").attr("href", `/instance/stacks?name=${selectedInstance}`);
         

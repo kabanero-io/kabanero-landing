@@ -130,13 +130,26 @@ public class KabaneroClient {
         }
     }
 
+    public static Kabanero updateInstance(Kabanero instance) throws IOException, ApiException, GeneralSecurityException {
+        ApiClient client = KabaneroClient.getApiClient();
+        String instanceName = instance.getMetadata().getName();
+        try{
+            KabaneroApi api = new KabaneroApi(client);
+            return api.updateKabanero(DEFAULT_NAMESPACE, instanceName, instance);
+        }catch (Exception e){
+            LOGGER.log(Level.WARNING, "Error with setting kabanero instance " + instanceName, e);
+            return null;
+        }
+    }
+
     public static StackList getStacks(String instanceName) throws IOException, GeneralSecurityException {
         ApiClient client = KabaneroClient.getApiClient();
         try{
             StackApi api = new StackApi(client);
             return api.listStacks(DEFAULT_NAMESPACE, null, null, TIMEOUT);
-        }catch(Exception e){
-            LOGGER.log(Level.WARNING, "Error with fetching collections in kabanero instance " + instanceName, e);
+        }
+        catch(Exception e){
+            LOGGER.log(Level.WARNING, "Error with fetching stacks in kabanero instance " + instanceName, e);
             return null;
         }
     }

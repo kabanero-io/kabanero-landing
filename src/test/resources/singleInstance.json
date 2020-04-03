@@ -24,6 +24,9 @@
         "uid": "3c9c5898-5352-11ea-b0e7-00000a101618"
     },
     "spec": {
+        "governancePolicy": {
+            "stackPolicy": "activeDigest"
+        },
         "admissionControllerWebhook": {
             "image": null,
             "repository": null,

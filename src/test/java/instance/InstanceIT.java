@@ -43,7 +43,7 @@ public class InstanceIT {
         String toolsJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "tools.json")), StandardCharsets.UTF_8);
 
         // execute javascript functions to set mock data
-        js.executeScript("setInstanceSelections(JSON.parse(arguments[0]));", multiInstanceJSON);
+        js.executeScript("setInstancesSelections(JSON.parse(arguments[0]), '');", multiInstanceJSON);
         js.executeScript("setInstanceCard(JSON.parse(arguments[0]));", singleInstanceJSON);
         js.executeScript("setStackCard(JSON.parse(arguments[0]));", stacksJSON);
         js.executeScript("setToolData(JSON.parse(arguments[0]));", toolsJSON);
@@ -66,6 +66,7 @@ public class InstanceIT {
     @Test
     public void displaysCorrectInstanceNameIT() throws InterruptedException {
         String expectedInstanceName = "kabanero";
+
         String actualInstanceName = driver.findElement(By.id("instance-accordion"))
                 .findElement(By.className("bx--accordion__title")).getText();
 

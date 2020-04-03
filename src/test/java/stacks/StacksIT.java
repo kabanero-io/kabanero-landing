@@ -36,11 +36,11 @@ public class StacksIT {
         driver.get(baseUrl);
 
         js = (JavascriptExecutor) driver;
-
+        String singleInstanceJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "singleInstance.json")), StandardCharsets.UTF_8);
         String stacksJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "stacks.json")), StandardCharsets.UTF_8);
 
         // execute javascript functions to set mock data
-        js.executeScript("updateStackView(JSON.parse(arguments[0]));", stacksJSON);
+        js.executeScript("updateStackView(JSON.parse(arguments[0]), JSON.parse(arguments[1]));", singleInstanceJSON, stacksJSON);
     }
 
     @AfterClass

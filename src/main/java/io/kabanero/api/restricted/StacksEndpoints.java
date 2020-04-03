@@ -111,7 +111,7 @@ public class StacksEndpoints extends Application {
             EntityUtils.consume(entity2);
             return Response.ok().entity(body).build();
         } catch (JsonParseException e) {
-            LOGGER.log(Level.SEVERE, "Failed parsing Collections JSON returned from cli server", e);
+            LOGGER.log(Level.SEVERE, "Failed parsing stacks JSON returned from cli server", e);
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         } finally {
             response.close();
@@ -154,7 +154,7 @@ public class StacksEndpoints extends Application {
     @DELETE
     @Path("/{stack}/versions/{version}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deactivateCollection(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("stack") final String stackName, @PathParam("version") final String stackVersion) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response deactivateStack(@CookieParam(JWT_COOKIE_KEY) String jwt, @PathParam("stack") final String stackName, @PathParam("version") final String stackVersion) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -187,7 +187,7 @@ public class StacksEndpoints extends Application {
     @PUT
     @Path("/sync")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response syncCollections(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
+    public Response syncStacks(@CookieParam(JWT_COOKIE_KEY) String jwt) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         CloseableHttpClient client = createHttpClient();
 
         String cliServerURL = CLI_URL == null ? setCLIURL(INSTANCE_NAME) : CLI_URL;
@@ -223,6 +223,11 @@ public class StacksEndpoints extends Application {
     public Response login(@Context HttpServletRequest httpServletRequest) throws ClientProtocolException, IOException, ApiException, GeneralSecurityException {
         String user = httpServletRequest.getUserPrincipal().getName();
         UserProfile userProfile = UserProfileManager.getUserProfile();
+        
+        if(userProfile == null){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+
         String token = userProfile.getAccessToken();
 
         String jwt = getJWTFromLogin(user, token, INSTANCE_NAME);

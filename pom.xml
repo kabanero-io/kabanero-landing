@@ -14,6 +14,19 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>oss.sonatype.org-snapshot</id>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -70,7 +83,7 @@
         <dependency>
             <groupId>io.kabanero</groupId>
             <artifactId>operator-java-bindings</artifactId>
-            <version>0.6.0</version>
+            <version>0.8.0-SNAPSHOT</version>
         </dependency>
         <!-- BEGIN: Needed to compile and run unit tests -->
         <dependency>

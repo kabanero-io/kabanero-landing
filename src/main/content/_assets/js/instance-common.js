@@ -15,6 +15,23 @@
  * limitations under the License.
  *
  ******************************************************************************/
+$(document).ready(function(){
+    $("#stack-govern-dropdown .bx--dropdown-list li").on("click", setDigestGovernanacePolicy);
+
+    $("#instance-accordion").on("click", "li button.accordion-title", e => {
+        let $btn = $(e.target);
+
+        // If the clicked instance is also the current selected isntance, don't load again.
+        if($btn.closest("li").hasClass("active-instance")){
+            return;     
+        }
+
+        let newName = handleInstanceSelection($btn);
+        fetchAnInstance(newName)
+            .then(loadAllInfo);
+    });
+});
+
 function fetchAllInstances() {
     return fetch("/api/kabanero")
         .then(function (response) {
@@ -72,7 +89,7 @@ function fetchStacks(instanceName) {
 }
 
 function fetchUserAdminStatus(oauthJSON) {
-    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
+    let instanceName = getActiveInstanceName();
     
     if (typeof instanceName === "undefined" || !(oauthJSON && oauthJSON.isConfigured)) {
         return;
@@ -86,10 +103,9 @@ function fetchUserAdminStatus(oauthJSON) {
 }
 
 
-function fetchInstanceAdmins(isAdmin){
-    let instanceName = $("#instance-accordion").find(".bx--accordion__title").text();
-
-    if (typeof instanceName === "undefined" || !isAdmin) {
+function fetchInstanceAdmins(adminStatus){
+    let instanceName = getActiveInstanceName();
+    if (typeof instanceName === "undefined" || !adminStatus.isAdmin) {
         return;
     }
     
@@ -110,7 +126,7 @@ function fetchGithubUserDetails(githubUsername){
             return response.json();
         })
         .catch(error => console.error(`Permission denied or user ${githubUsername} doesn’t exist`, error));
-    }
+}
 
 function addTeamMember(target) {
     let $addUserContainer = $(target).closest(".addUser-input-container");
@@ -131,10 +147,10 @@ function addTeamMember(target) {
     }
 
     return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
-        method: 'POST'
+        method: "POST"
     })
         .then(function (response) {
-            return response.json()
+            return response.json();
         })
         .then(data => {
             if (data.msg.includes("404")) {
@@ -158,10 +174,10 @@ function removeTeamMember(target) {
         return;
     }
     return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
-        method: 'DELETE'
+        method: "DELETE"
     })
         .then(function (response) {
-            return response.json()
+            return response.json();
         })
         .then(data => {
             if (data.msg.includes("404")) {
@@ -188,6 +204,7 @@ function updateInstanceAdminView(adminMembersJson) {
 
     adminMembersJson.forEach(team => {
         if (team.members.length === 0) {
+            $("#admin-modal-no-admins").show();
             return;
         }
 
@@ -198,7 +215,7 @@ function updateInstanceAdminView(adminMembersJson) {
         let div = $("<div>").addClass("member-list-container");
 
         team.members.forEach(member => {
-            instanceAdmins.push(member)
+            instanceAdmins.push(member);
             fetchGithubUserDetails(member.login)
                 .then((data) => {
                     let userDetails = data;
@@ -210,25 +227,28 @@ function updateInstanceAdminView(adminMembersJson) {
                     $(userInfoBox).find(".github-admin-modal-username").text(userLogin);
                     $(userInfoBox).find(".github-admin-modal-full-name").text(userFullName);
                     $(userInfoBox).find(".github-admin-modal-email").text(userEmail);
-                    $(userInfoBox).find(".bx--assistive-text").text(`Remove ${userLogin} from ${team.name} team`)
+                    $(userInfoBox).find(".bx--assistive-text").text(`Remove ${userLogin} from ${team.name} team`);
                     div.append(userInfoBox);
                 });
         });
 
-        $(row).find(".admin-modal-accordion-content").append(div)
+        $(row).find(".admin-modal-accordion-content").append(div);
         $("#admin-modal-list").append(row);
 
         let addUserInputText = $("#addUser-input-template").clone().removeAttr("id").removeClass("hidden");
         addUserInputText.find(".user-add-team-name").text(team.name);
-        $(addUserInputText).insertAfter($(".admin-modal-accordion-content").children().last())
+        $(addUserInputText).insertAfter($(".admin-modal-accordion-content").children().last());
     });
 
     let uniqueAdminList = Array.from(new Set(instanceAdmins));
     uniqueAdminList.forEach(user => {
         let githubAdminUsername = user.login;
         $("#instance-accordion-admins-list").append(`<span class="instance-admin-names">${githubAdminUsername}<span>`);
-        $("#instance-accordion-admin-view").removeClass("hidden");
     });
+    
+    if(uniqueAdminList.length > 0){
+        $("#instance-accordion-admin-view").removeClass("hidden");
+    }
 }
 
 let ToolPane = class {
@@ -392,8 +412,19 @@ let InstancePane = class {
     }
 };
 
-// Set each instance name in the accordion selection and returns the instance name to be loaded
-function setInstanceSelections(instancesJSON) {    
+// Gets the activly selected instance name from the accordion.
+function getActiveInstanceName(){
+    return $("#instance-accordion li.active-instance .accordion-title").text().trim();
+}
+
+// Set each instance name in the accordion selection. 
+// If a selectionName is passed in, the accordion will expand that instance (select) if it matches an instance name.
+function setAllInstances(selectionName) {   
+    return fetchAllInstances()
+        .then((allInst) => setInstancesSelections(allInst, selectionName));
+}
+
+function setInstancesSelections(instancesJSON, selectionName){
     let instances = instancesJSON.items;
     if (typeof instances === "undefined" || instances.length === 0) {
         $("#instance-accordion #error-li").show();
@@ -417,28 +448,52 @@ function setInstanceSelections(instancesJSON) {
     // Remove the error li from the carbon accordion. Carbon needs at least 1 li element there on load or it throws an error...
     $("#instance-accordion #error-li").remove();
 
-    // Expand (select) the first instance
-    let $firstInstance = $("#instance-accordion li").first();
-    $firstInstance.addClass("bx--accordion__item--active").attr("selected-instance", "");
-    return $firstInstance.find(".bx--accordion__title").text().trim();
+    // If selectionName is passed we will set the active tab to one that matches that name, otherwise we set the first one in the list.
+    // For the selectionName == true case - we need to find the tab where the child div has the same instance name, but we want to return the "li" parent
+    let $activeInstance = typeof selectionName !== "undefined" ? $("#instance-accordion li .bx--accordion__title").filter((_, elem) => $(elem).text() === selectionName).first().closest("li") :
+        $("#instance-accordion li").first();
+    
+    if(selectionName && !$activeInstance){  
+        console.log(`Accordion could not find a selection instance for name: ${selectionName}`);
+        return;
+    }
+    $($activeInstance).addClass("bx--accordion__item--active active-instance");
+    return $activeInstance.find(".bx--accordion__title").text().trim();
 }
 
 // Change the accordion when a new instance is clicked and return the new selected instance name
-function handleInstanceSelection(elem) {
-    // children of the li can be clicked, we need to make sure the li is the one with focus here
-    elem = elem.closest("li");
+function handleInstanceSelection($btn) {
+    // the button is a child to the li, we want to focus on the buttons li parent.
+    $accordionListItem = $btn.closest("li");
 
-    // If the user selects the instance that is already selected, do nothing
-    if ($(elem).attr("selected-instance")) {
-        return;
-    }
+    // close all tabs (to close previous selection).
+    // We use am active-instance class to track which instances information is shown on the page. The bx--accordion__item--active class isn't
+    // robust enough b/c it tells carbon when the accordion is open/closed. The instance can be "active" in either open/close state.
+    $("#instance-accordion li.active-instance").removeClass("bx--accordion__item--active active-instance");
 
-    // close the previous selection
-    $("#instance-accordion li[selected-instance]").removeAttr("selected-instance");
-    $("#instance-accordion li.bx--accordion__item--active").removeClass("bx--accordion__item--active");
+    // open the wanted selection and return the newly selected instance name
+    $accordionListItem.addClass("bx--accordion__item--active active-instance");
+    return $accordionListItem.find(".bx--accordion__title").text().trim();
+}
 
-    // open the next selection
-    $(elem).attr("selected-instance", "");
-    $(elem).addClass("bx--accordion__item--active");
-    return $(elem).find(".bx--accordion__title").text().trim();
+function setDigestGovernanacePolicy(){
+    let instanceName = getActiveInstanceName();
+    let policy = $(this).attr("data-value");
+    fetch(`/api/kabanero/${instanceName}/digest`, 
+        { 
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({policy})
+        })
+        .then(() => $("#digest-checkmark").fadeIn("slow").delay(5000).fadeOut("slow"))
+        .catch(error => console.error(`Error setting new digest policy to: ${policy}`, error));
+}
+
+function createSVG(id, classNames, width, height, fill){
+    return `<svg class="${classNames}" width="${width}" height="${height}" fill="${fill}">
+        <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--${id}"></use>
+    </svg>`;
 }
