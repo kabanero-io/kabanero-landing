@@ -69,13 +69,14 @@ ENV PRODUCT_VERSION="$PRODUCT_VERSION"
 
 USER root
 
-COPY src/main/wlp/etc/social_login.xml /etc/social_login/
+COPY src/main/wlp/etc/social_login.xml /etc/console_config/social_login/
+COPY src/main/wlp/etc/keystore.xml /etc/console_config/keystore/
 
 # Symlink servers directory for easier mounts.
-# Change /etc/social_login permissions so that group 0 can access it
+# Change /etc/console_config permissions so that group 0 can access it
 RUN ln -s /opt/ol/wlp/usr/servers /servers && \
-    chgrp -R 0 /etc/social_login && \
-    chmod -R g=u /etc/social_login
+    chgrp -R 0 /etc/console_config && \
+    chmod -R g=u /etc/console_config
 
 USER 1001
 
