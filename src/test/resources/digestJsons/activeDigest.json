@@ -1,0 +1,7 @@
+{
+    "spec": {
+        "governancePolicy": {
+            "stackPolicy": "activeDigest"
+        }
+    }
+}

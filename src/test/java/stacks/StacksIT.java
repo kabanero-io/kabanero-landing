@@ -34,13 +34,15 @@ public class StacksIT {
         options.setHeadless(true);
         driver = new ChromeDriver(options);
         driver.get(baseUrl);
-
+        
         js = (JavascriptExecutor) driver;
         String singleInstanceJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "singleInstance.json")), StandardCharsets.UTF_8);
         String stacksJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "stacks.json")), StandardCharsets.UTF_8);
 
         // execute javascript functions to set mock data
         js.executeScript("updateStackView(JSON.parse(arguments[0]), JSON.parse(arguments[1]));", singleInstanceJSON, stacksJSON);
+        js.executeScript("displayDigest(JSON.parse(arguments[0]));", singleInstanceJSON);
+
     }
 
     @AfterClass
@@ -90,7 +92,8 @@ public class StacksIT {
     @Test
     public void hasCorrectNumStackRowsIT() {
         int expectedNumberOfStacks = 5;
-        int actualNumberOfStacks = getNumTableRow("stack-table-body");
+        int actualNumberOfStacks = driver.findElements(By.cssSelector("#stack-table-body tr:not(.digest-notification)")).size();
+
         assertEquals("stacks table has correct number of table rows", expectedNumberOfStacks, actualNumberOfStacks);
     }
 
@@ -127,16 +130,86 @@ public class StacksIT {
     @Test
     public void hasCorrectNumCuratedStacksIT() {
         int expectedNumberOfCuratedStacks = 5;
-        int actualNumberOfCuratedStacks = getNumTableRow("curated-stack-table-body");
-        assertEquals("curated stacks table has correct table rows", expectedNumberOfCuratedStacks,
-                actualNumberOfCuratedStacks);
+        int actualNumberOfCuratedStacks = driver.findElements(By.cssSelector("#curated-stack-table-body tr")).size();
+        assertEquals("curated stacks table has correct table rows", expectedNumberOfCuratedStacks, actualNumberOfCuratedStacks);
     }
 
-    public int getNumTableRow(String tableId) {
-        WebElement tableBody = driver.findElement(By.id(tableId));
-        List<WebElement> tableRows = tableBody.findElements(By.tagName("tr"));
-
-        return tableRows.size();
+    @Test
+    public void hasCorrectInitDigestnValue(){
+        String expectedInitDropdownDigest = "Active Digest";
+        String actualInitDropdownDigest = driver.findElement(By.id("stack-govern-value-text")).getText();
+        
+        assertEquals("digest dropdown has correct initial value", expectedInitDropdownDigest, actualInitDropdownDigest);
     }
 
+    @Test
+    public void correctNumDigestWarningIt() throws IOException {
+        setDigestValue("activeDigest.json");
+        int expectedNumberOfDigestWarnings = 5;
+        int actualNumberOfDigestWarnings = driver.findElements(By.cssSelector("#stack-table-body tr.digest-notification")).size();
+
+        assertEquals("stacks table has correct number of digest warning messages", expectedNumberOfDigestWarnings, actualNumberOfDigestWarnings);
+    }
+
+    @Test
+    public void hasCorrectDigestWarningMsgIt() throws IOException {
+        setDigestValue("activeDigest.json");
+        List<WebElement> kabaneroStacks = driver.findElements(By.id("stack-table-body"));
+        for (WebElement stack : kabaneroStacks) {
+            String expectedWarningMsg = getExpectedDigestWarningMsg(stack);
+            String actualWarningMsg = stack.findElement(By.className("digest-notification")).getText();
+
+            assertEquals("stacks active digest warning message is correct ", expectedWarningMsg, actualWarningMsg);
+        }
+    }
+
+    @Test
+    public void correctNumDigestErrorIt() throws IOException {
+        setDigestValue("strictDigest.json");
+        int expectedNumberOfDigestErrors = 5;
+        int actualNumberOfDigestErrors = driver.findElements(By.cssSelector("#stack-table-body tr.digest-notification")).size();
+
+        assertEquals("stacks table has correct number digest error messages", expectedNumberOfDigestErrors, actualNumberOfDigestErrors);
+    }
+
+    @Test
+    public void hasCorrectDigestErrorgMsgIt() throws IOException {
+        setDigestValue("strictDigest.json");
+        List<WebElement> kabaneroStacks = driver.findElements(By.id("stack-table-body"));
+        for (WebElement stack : kabaneroStacks) {
+            String expectedErrorMsg = getExpectedDigestErrorMsg(stack);
+            String actualErrorMsg = stack.findElement(By.className("digest-notification")).getText();
+
+            assertEquals("stacks strict digest error message is correct ", expectedErrorMsg, actualErrorMsg);
+        }
+    }
+
+    public void setDigestValue(String jsonFile) throws IOException {
+        String singleInstanceJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "digestJsons", jsonFile)), StandardCharsets.UTF_8);
+        String stacksJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "stacks.json")), StandardCharsets.UTF_8);
+
+        js.executeScript("$('#stack-table-body').empty()");
+        js.executeScript("$('#curated-stack-table-body').empty()");
+        js.executeScript("updateStackView(JSON.parse(arguments[0]), JSON.parse(arguments[1]));", singleInstanceJSON, stacksJSON);
+    }
+
+    private String getExpectedDigestWarningMsg(WebElement stack) {
+        String stackName = stack.findElements(By.tagName("td")).get(0).getText();
+        String stackVersion = stack.findElements(By.tagName("td")).get(1).getText();
+        String msg = "Digest Warning: activeDigest policy enforces a Major.Minor semver digest match. The current "
+                + stackName + " - " + stackVersion + " digest does not match the Kabanero " + stackName + " - "
+                + stackVersion + " digest at time of activation, this may be a problem. More info X";
+
+        return msg;
+    }
+
+    private String getExpectedDigestErrorMsg(WebElement stack) {
+        String stackName = stack.findElements(By.tagName("td")).get(0).getText();
+        String stackVersion = stack.findElements(By.tagName("td")).get(1).getText();
+        String msg = "Digest Error: strictDigest policy enforces a strict digest match. The current " + stackName
+                + " - " + stackVersion + " digest does not match the Kabanero " + stackName + " - " + stackVersion
+                + " digest at time of activation. More info X";
+
+        return msg;
+    }
 }

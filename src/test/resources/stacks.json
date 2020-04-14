@@ -83,7 +83,12 @@
                         }
                     ],
                     "reponame": "incubator",
-                    "version": "0.2.25"
+                    "digest policy": "strictDigest",
+                    "digest check": "mismatched",
+                    "version": "0.2.26",
+                    "image digest": "abc123",
+                    "kabanero digest": "zyx000",
+                    "status": "active"
                 }
             ]
         },
@@ -97,7 +102,12 @@
                         }
                     ],
                     "reponame": "incubator",
-                    "version": "0.2.2"
+                    "version": "0.2.2",
+                    "digest policy": "strictDigest",
+                    "digest check": "mismatched",
+                    "image digest": "abc123",
+                    "kabanero digest": "zyx000",
+                    "status": "active"
                 }
             ]
         },
@@ -111,7 +121,12 @@
                         }
                     ],
                     "reponame": "incubator",
-                    "version": "0.3.24"
+                    "version": "0.3.24",
+                    "digest policy": "strictDigest",
+                    "digest check": "mismatched",
+                    "image digest": "abc123",
+                    "kabanero digest": "zyx000",
+                    "status": "active"
                 }
             ]
         },
@@ -125,7 +140,12 @@
                         }
                     ],
                     "reponame": "incubator",
-                    "version": "0.3.2"
+                    "version": "0.3.2",
+                    "digest policy": "strictDigest",
+                    "digest check": "mismatched",
+                    "image digest": "abc123",
+                    "kabanero digest": "zyx000",
+                    "status": "active"
                 }
             ]
         },
@@ -139,7 +159,12 @@
                         }
                     ],
                     "reponame": "incubator",
-                    "version": "0.2.10"
+                    "version": "0.2.10",
+                    "digest policy": "strictDigest",
+                    "digest check": "mismatched",
+                    "image digest": "2.2",
+                    "kabanero digest": "zyx000",
+                    "status": "active"
                 }
             ]
         }

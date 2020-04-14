@@ -65,7 +65,7 @@ public class adminViewIT {
 
     @Test
     public void doesShowAdminList() throws IOException {
-        String adminMembersJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "/adminJsons/adminMembers.json")), StandardCharsets.UTF_8);
+        String adminMembersJSON = new String(Files.readAllBytes(Paths.get("src", "test", "resources", "adminMembers.json")), StandardCharsets.UTF_8);
         js.executeScript("fetchInstanceAdmins({isAdmin:true});");
         js.executeScript("updateInstanceAdminView(JSON.parse(arguments[0]));", adminMembersJSON);
 
