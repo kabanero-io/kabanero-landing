@@ -48,6 +48,7 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 
+import io.kabanero.Admin;
 import io.kabanero.digest.DigestPolicy;
 import io.kabanero.v1alpha2.models.Kabanero;
 import io.kabanero.v1alpha2.models.KabaneroList;
@@ -105,42 +106,9 @@ public class InstanceEndpoints extends Application {
     @Produces(MediaType.APPLICATION_JSON)
     public Response isAdmin(@PathParam("instanceName") String instanceName)
             throws IOException, ApiException, GeneralSecurityException {
-        UserProfile userProfile = UserProfileManager.getUserProfile();
-        
-        if(userProfile == null){
-            JsonObject body = new JsonObject();
-            body.addProperty("isAdmin", false);
-            return Response.ok(body).build();
-        }
-
-        String token = userProfile.getAccessToken();
-        GitHubClient client = GitHubClientInitilizer.getClient(instanceName);
-        client.setOAuth2Token(token);
-
-        Kabanero instance = KabaneroClient.getAnInstance(instanceName);
-        if (instance == null) {
-            return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
-        }
-
-        String instanceGithubOrg = instance.getSpec().getGithub().getOrganization();
-        List<String> instanceGithubTeams = instance.getSpec().getGithub().getTeams();
-
-        Boolean isAdmin = false;
-
-        TeamService teamService = new TeamService(client);
-        List<Team> teams = teamService.getTeams(instanceGithubOrg);
-
-        for (Team orgTeam : teams) {
-            for (String kabaneroAdminTeam : instanceGithubTeams) {
-                if (kabaneroAdminTeam.equals(orgTeam.getName()) && !isAdmin) {
-                    isAdmin = teamService.isMember(orgTeam.getId(), new UserService(client).getUser().getLogin());
-                }
-            }
-        }
-
+        Boolean isAdmin = Admin.isAdmin(instanceName);
         JsonObject body = new JsonObject();
         body.addProperty("isAdmin", isAdmin);
-
         return Response.ok(body).build();
     }
 
@@ -233,7 +201,6 @@ public class InstanceEndpoints extends Application {
         if (instance == null) {
             return Response.status(404).entity(new ResponseMessage(instanceName + " not found")).build();
         }
-
         instance.getSpec().getGovernancePolicy().setStackPolicy(String.valueOf(newPolicy.getPolicy()));
         KabaneroClient.updateInstance(instance);
         return Response.accepted().build();

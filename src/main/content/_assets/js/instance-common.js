@@ -29,6 +29,7 @@ $(document).ready(function(){
         let newName = handleInstanceSelection($btn);
         fetchAnInstance(newName)
             .then(loadAllInfo);
+
     });
 });
 
