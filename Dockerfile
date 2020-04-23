@@ -1,7 +1,7 @@
 FROM ruby:2.6.5 as builder
 
 # Install Java
-RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u232-b09_openj9-0.17.0/OpenJDK8U-jdk_x64_linux_openj9_8u232b09_openj9-0.17.0.tar.gz \
+RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u252-b09_openj9-0.20.0/OpenJDK8U-jdk_x64_linux_openj9_8u252b09_openj9-0.20.0.tar.gz \
     && mkdir -p /opt/java/openjdk \
     && tar -xzf /tmp/jdk.tar.gz --strip-components=1 -C /opt/java/openjdk \
     && chown -R root:root /opt/java \
@@ -10,13 +10,13 @@ RUN curl -L -o /tmp/jdk.tar.gz https://github.com/AdoptOpenJDK/openjdk8-binaries
 ENV JAVA_HOME /opt/java/openjdk
 
 # Install Node
-ENV NODE_VERSION 10.15.3
+ENV NODE_VERSION 12.16.2
 RUN curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
     && tar -xf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /opt/ \
     && rm "node-v$NODE_VERSION-linux-x64.tar.xz"
 
 # Install Apache Maven
-ENV MAVEN_VERSION 3.6.2
+ENV MAVEN_VERSION 3.6.2 
 RUN curl -o /tmp/maven.tar.gz https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
     && tar -xzf /tmp/maven.tar.gz \
     && mv apache-maven-${MAVEN_VERSION} /opt/ \
