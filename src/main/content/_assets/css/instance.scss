@@ -24,7 +24,9 @@
 "../../../../../node_modules/carbon-components/scss/components/tile/tile",
 "../../../../../node_modules/carbon-components/scss/components/notification/inline-notification",
 "../../../../../node_modules/carbon-components/scss/components/text-input/text-input",
-"../../../../../node_modules/carbon-components/scss/components/dropdown/dropdown";
+"../../../../../node_modules/carbon-components/scss/components/dropdown/dropdown",
+"../../../../../node_modules/carbon-components/scss/components/text-input/text-input",
+"../../../../../node_modules/carbon-components/scss/components/toggle/toggle";
 //declare variables
 $color-ibm:#3d70b2;
 $kabanero-color: #C43804;
@@ -184,7 +186,7 @@ button:disabled > .arrow-container > svg{
 
 #manage-admins-link{
     cursor: pointer;
-    text-decoration: underline !important;
+    color:$kabanero-color;
 }
 
 #instance-accordion-admins-list{
@@ -319,4 +321,59 @@ button:disabled > .arrow-container > svg{
 
 .active-instance > button {
     background-color: $ui-03;
+}
+
+#edit-instance{
+    padding-bottom: 1em;    
+}
+
+#edit-instance-btn{
+    margin-top: 2em;
+}
+
+#edit-instance-btn button{ 
+    padding-right: 1em;
+}
+
+#edit-instance-btn svg{ 
+    margin-left: 2em;
+}
+
+#manage-admins-link-icon-container{
+    margin-top: 5px;
+}
+
+#manage-admins-link-icon-container svg{
+    cursor: pointer;
+}
+
+.instance-json-key-value-pair input{
+    background-color: #ffffff !important;
+}
+
+.instance-json-key-value-pair:not(:first-child){
+    margin-top: 20px;
+}
+
+.instance-json-key{
+    color: #6f6f6f;
+    font-size: .875rem !important;
+}
+
+#modal-codeready-version-container{
+    display: flex;
+}
+
+#codeready-modal-version{
+    margin-left: 7em;
+    color: #6f6f6f;
+    font-size: .875rem !important;
+}
+
+#codeready-version-num{
+    font-weight: 500;
+}
+
+.codeready-toggle{
+    margin-top: 3px;
 }

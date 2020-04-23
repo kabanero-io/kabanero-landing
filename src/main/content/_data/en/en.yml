@@ -159,6 +159,7 @@ instance:
   no-instances: No instance found
   date-created: "Date created: "
   members: "Members: "
+  edit: Edit Instance
   admins: Admins
   no-admins: No Admins
   username: Username
@@ -167,7 +168,7 @@ instance:
   email: Email
   add-user: Add new user to
   add-member: Add member
-  manage-admins: Manage Admins
+  manage-admins: Manage admins
   teams: Teams
   team: team
   details: Details
@@ -176,9 +177,13 @@ instance:
   modal-cancel-button: Cancel
   modal-deactivate-button: Deactivate
   modal-done-button: Done
+  modal-save-button: Save
   management-cli: Stack Hub Management CLI
   management-cli-pre: Use this endpoint with the Stack Management CLI login command to manage your stacks. For more information see the
   management-cli-post: Stack Management CLI documentation
   codeready: Red Hat CodeReady Workspaces
   codeready-blurb: Red Hat CodeReady Workspaces provides a consistent, secure, and zero-configuration development environment.
-
+  instance-name: Instance name
+  codereadyworkspace: CodeReady workspace
+  codereadyworkspace-enabled: Enabled
+  codereadyworkspace-disabled: Disabled

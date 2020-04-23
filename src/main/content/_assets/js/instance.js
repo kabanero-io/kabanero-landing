@@ -17,7 +17,6 @@
  ******************************************************************************/
 
 $(document).ready(function () {
-    
     setAllInstances()
         .then(fetchAnInstance)
         .then(loadAllInfo);
@@ -65,7 +64,9 @@ function loadAllInfo(instanceJSON) {
     }
 
     setInstanceCard(instanceJSON);
+    setInstanceModalData(instanceJSON);
     fetchStacks(instanceJSON.metadata.name);
+
 
     fetchAllTools()
         .then(setToolData);

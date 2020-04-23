@@ -17,8 +17,8 @@
  ******************************************************************************/
 package io.kabanero.api.restricted;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.ApplicationPath;
@@ -28,13 +28,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import io.kabanero.Admin;
 import io.kabanero.v1alpha2.models.Kabanero;
@@ -49,8 +44,6 @@ public class RestrictedInstanceEndpoints extends Application{
     @PathParam("instanceName")
     String INSTANCE_NAME;
 
-    private final static Logger LOGGER = Logger.getLogger(RestrictedInstanceEndpoints.class.getName());
-
     @PUT
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -63,11 +56,7 @@ public class RestrictedInstanceEndpoints extends Application{
         if(newInstance == null || newInstance.getMetadata() == null){
             return Response.status(500).entity(new ResponseMessage("Kabanero object passed to update endpoint is null")).build();
         }
-        String kabaneroObjectName = newInstance.getMetadata().getName();
-        if(!INSTANCE_NAME.equals(kabaneroObjectName)){
-            return Response.status(500).entity(new ResponseMessage("Instance name in update endpoint path is: " + INSTANCE_NAME + 
-            " and instance name in the updated Kabanero object is: " + kabaneroObjectName + " - these names must match.")).build();
-        }
+
         KabaneroClient.updateInstance(newInstance);
         return Response.accepted().build();
     }

@@ -31,6 +31,16 @@ $(document).ready(function(){
             .then(loadAllInfo);
 
     });
+
+    $(".codeready-toggle").on("click", ".bx--toggle__switch", () => {
+        $("#codeready-toggle-value").attr("checked") ? $("#codeready-toggle-value").removeAttr("checked") : $("#codeready-toggle-value").attr("checked", true);
+    });
+
+    $("#modal-edit-instance").on("click", "#modal-edit-instance-save-btn", () => {
+        let instanceName = getActiveInstanceName();
+        fetchAnInstance(instanceName)
+            .then(updateInstance);
+    });
 });
 
 function fetchAllInstances() {
@@ -105,17 +115,17 @@ function fetchUserAdminStatus(oauthJSON) {
 
 
 function fetchInstanceAdmins(adminStatus){
-    let instanceName = getActiveInstanceName();
+    let instanceName = getActiveInstanceName();    
     if (typeof instanceName === "undefined" || !adminStatus.isAdmin) {
         return;
     }
-    
+
     return fetch(`/api/kabanero/${instanceName}/admin`)
         .then(function (response) {
             return response.json();
         })
         .then(updateInstanceAdminView)
-        .catch(error => console.error("Error getting stacks", error));
+        .catch(error => console.error("Error getting admin list", error));
 }
 
 function fetchGithubUserDetails(githubUsername){
@@ -497,4 +507,45 @@ function createSVG(id, classNames, width, height, fill){
     return `<svg class="${classNames}" width="${width}" height="${height}" fill="${fill}">
         <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--${id}"></use>
     </svg>`;
+}
+
+function setInstanceModalData(instanceJSON) {
+    if (typeof instanceJSON === "undefined") {
+        console.log("instance data is undefined, cannot load instance");
+        return;
+    }
+
+    let instanceName = instanceJSON.metadata.name;
+    let codereadyVersion = instanceJSON.spec.codeReadyWorkspaces ? instanceJSON.spec.codeReadyWorkspaces.operator.customResourceInstance.devFileRegistryImage.version : null;
+
+    if (codereadyVersion){
+        $("#codeready-modal-version").append(`version: <span id='codeready-version-num'>${codereadyVersion}</span>`);
+    }
+
+    $("#codeready-toggle-value").attr("checked", instanceJSON.spec.codeReadyWorkspaces ? instanceJSON.spec.codeReadyWorkspaces.enable : false);
+    $("#modal-instance-name-input").val(instanceName);
+
+}
+
+function updateInstance(instanceJSON) {
+    let instanceName = getActiveInstanceName();
+    if (typeof instanceJSON === "undefined" || typeof instanceName === "undefined") {
+        console.log("instance data is undefined, cannot load instance");
+        return;
+    }
+    
+    instanceJSON.metadata.name = $("#modal-instance-name-input").val();
+    instanceJSON.spec.codeReadyWorkspaces.enable = $(".codeready-toggle .bx--toggle__switch")[0].innerText === "Enabled" ? true : false;
+
+    fetch(`/api/auth/kabanero/${instanceName}`,
+        {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(instanceJSON)
+        })
+        .then(loadAllInfo)
+        .catch(error => console.error(`Error upadating ${instanceName} instance`, error));
 }

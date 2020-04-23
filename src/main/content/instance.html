@@ -188,7 +188,24 @@ permalink: /instance/
             <p class="instance-admins-subheader">{{t.instance.admins}}</p>
             <div>
                 <div id="instance-accordion-admins-list"></div>
-                <a id="manage-admins-link" data-modal-target="#manage-admins-modal">{{t.instance.manage-admins}}</a>
+                <div id="manage-admins-link-icon-container">
+                    <a id="manage-admins-link" data-modal-target="#manage-admins-modal">{{t.instance.manage-admins}}</a>
+                    <svg width="16" height="16" fill="#C43804" data-modal-target="#manage-admins-modal">
+                        <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--settings"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div id="edit-instance-btn">
+                <button class="bx--btn bx--btn--secondary bx--btn--sm" type="button"
+                    data-modal-target="#modal-edit-instance">
+                    {{t.instance.edit}}
+
+                    <svg width="16" height="16" fill="#ffffff">
+                        <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--edit"></use>
+                    </svg>
+
+                </button>
             </div>
         </div>
     </div>
@@ -281,11 +298,9 @@ permalink: /instance/
             <p class="bx--modal-header__heading bx--type-beta">{{t.instance.manage-admins}}</p>
             <p class="bx--modal-header__label bx--type-delta" id="modal-oxnb2prg3rp-label">{{t.instance.teams}}</p>
             <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal">
-
                 <svg class="bx--modal-close__icon" width="16" height="16">
                     <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--close"></use>
                 </svg>
-
             </button>
         </div>
         <div id="admin-modal-content" class="bx--modal-content">
@@ -385,3 +400,74 @@ permalink: /instance/
         </div>
     </div>
 </template>
+
+
+<!-- Edit instance modal -->
+<div data-modal id="modal-edit-instance" class="bx--modal " role="dialog" aria-modal="true"
+    aria-labelledby="modal-edit-instance-label" aria-describedby="modal-edit-instance-heading" tabindex="-1">
+    <div class="bx--modal-container bx--modal-container--lg">
+        <div class="bx--modal-header">
+            <p class="bx--modal-header__heading bx--type-beta" id="modal-edit-instance-heading">{{t.instance.edit}}</p>
+            <button class="bx--modal-close" type="button" data-modal-close aria-label="close modal">
+                <svg class="bx--modal-close__icon" width="16" height="16">
+                    <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--close"></use>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Note: Modals with content that scrolls, at any viewport, requires `tabindex="0"` on the `bx--modal-content` element -->
+
+        <div class="bx--modal-content">
+
+            <!-- Edit instance name -->
+            <div class="instance-json-key-value-pair">
+                <p class="instance-json-key">{{t.instance.instance-name}}</p>
+                <div class="bx--form-item bx--text-input-wrapper" style="width: 320px">
+                    <div class="bx--text-input__field-wrapper">
+                        <input disabled type="text" class="bx--text-input bx--text__input bx--text-input--light"
+                            id="modal-instance-name-input">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- enable/disable codereadyworkspace-->
+            <div class="instance-json-key-value-pair">
+                <div id="modal-codeready-version-container">
+                    <p class="instance-json-key">{{t.instance.codereadyworkspace}}</p>
+                    <p id="codeready-modal-version"></p>
+                </div>
+
+                <div class="codeready-toggle">
+                    <div class="bx--form-item">
+                        <input id="codeready-toggle-value" class="bx--toggle-input bx--toggle-input--small"
+                            type="checkbox">
+                        <label class="bx--toggle-input__label" for="smalltoggle1"
+                            aria-label="example toggle with state indicator text">
+                            <span class="bx--toggle__switch">
+                                <svg class="bx--toggle__check" width="6px" height="5px" viewBox="0 0 6 5">
+                                    <path d="M2.2 2.7L5 0 6 1 2.2 5 0 2.7 1 1.5z" />
+                                </svg>
+                                <span class="bx--toggle__text--off"
+                                    aria-hidden="true">{{t.instance.codereadyworkspace-disabled}}</span>
+                                <span class="bx--toggle__text--on"
+                                    aria-hidden="true">{{t.instance.codereadyworkspace-enabled}}</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="bx--modal-content--overflow-indicator"></div>
+
+        <div class="bx--modal-footer">
+            <button class="bx--btn bx--btn--secondary" type="button"
+                data-modal-close>{{t.instance.modal-cancel-button}}</button>
+            <button class="bx--btn bx--btn--primary" type="button" id="modal-edit-instance-save-btn"
+                data-modal-primary-focus>{{t.instance.modal-save-button}}</button>
+        </div>
+    </div>
+    <!-- Note: focusable span allows for focus wrap feature within Modals -->
+    <span tabindex="0"></span>
+</div>
