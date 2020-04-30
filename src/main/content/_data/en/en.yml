@@ -187,3 +187,6 @@ instance:
   codereadyworkspace: CodeReady workspace
   codereadyworkspace-enabled: Enabled
   codereadyworkspace-disabled: Disabled
+  cli-auth-error: Failed to login to CLI server
+  close: Close
+  error: Error

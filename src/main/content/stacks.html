@@ -45,6 +45,31 @@ permalink: /instance/stacks/
                 </div>
             </div>
         </div>
+        
+        <!-- CLI connection error modal -->
+    <div data-modal id="cli-auth-error-modal" class="bx--modal" role="dialog" aria-modal="true"
+        aria-labelledby="modal-6ah7brvvfrk-label" aria-describedby="modal-6ah7brvvfrk-heading" tabindex="-1">
+        <div class="bx--modal-container bx--modal-container--xs">
+            <div class="bx--modal-header">
+                <p class="bx--modal-header__heading bx--type-beta" id="modal-ed454ftfa4q-heading">{{t.instance.error}}</p>
+                <button class="bx--modal-close close-err-modal" type="button" data-modal-close aria-label="close modal">
+                    <svg class="bx--modal-close__icon" width="16" height="16">
+                        <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="bx--modal-content cli-auth-error-modal-msg"></div>
+            <div class="bx--modal-content--overflow-indicator"></div>
+    
+            <div class="bx--modal-footer">
+                <button class="bx--btn bx--btn--primary close-err-modal" type="button" data-modal-close>
+                    <div class="modal-close-button">
+                        {{t.instance.close}}
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
 
         <!-- Kabanero Stacks table -->
         <div class="bx--col-xlg">
@@ -62,6 +87,7 @@ permalink: /instance/stacks/
                             </button>
                         </div>
                         <h2>{{t.instance.stacks}}</h2>
+                        <div class="cli-auth-error-modal-msg"></div>
 
                         <!-- stack governance selection -->
                         <div class="bx--row">
