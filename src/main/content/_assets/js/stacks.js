@@ -110,7 +110,11 @@ function updateStackView(instanceJSON, stackJSON) {
     }
 
     // Stack governance policy will help us know whether to display a digest error/warning/none when the digest mismatches on the stack
-    let policy = instanceJSON.spec.governancePolicy.stackPolicy;
+    let policy = "governance policy does not exist";
+
+    if(instanceJSON.spec && instanceJSON.spec.governancePolicy){
+        policy = instanceJSON.spec.governancePolicy.stackPolicy;
+    };
 
     // yaml metadata in kube, cannot be deactivated and has no status.
     let curatedStacks = stackJSON["curated stacks"];
@@ -313,8 +317,10 @@ function loginViaCLI(instanceName) {
 function displayDigest(instance){
     if(!instance.spec || !instance.spec.governancePolicy){
         console.log("Failed to get stack govern policy. instance.spec or instance.spec.governancePoliy does not exist.");
+        $("#stack-govern-value-text").text("not set");
         return;
     }
+
     // The way carbon dropdown works is different than normal select. 
     // This gets the current li that the server says is the current digest, and sets the display to that text.
     // Then it adds the selected class since it doesn't make sense to select the same li that is already the current digest.
