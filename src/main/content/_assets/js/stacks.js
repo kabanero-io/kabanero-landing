@@ -283,9 +283,9 @@ function handleInitialCLIAuth(instanceJSON, retries) {
     let instanceName = instanceJSON.metadata.name;
 
     retries = typeof retries === "undefined" ? 0 : retries;
-    // We use the stacks endpoint to check if a user is logged in on initial page load, if we get a 401 we'll login and retry this route
+    // We use the CLI version endpoint to check if a user is logged in on initial page load, if we get a 401 we'll login and retry this route
     // If we get back a 200 we consider ourselves successfully logged in
-    return fetch(`/api/auth/kabanero/${instanceName}/stacks`)
+    return fetch(`/api/auth/kabanero/${instanceName}/stacks/version`)
         .then(function (response) {
             // Login via cli and retry if 401 is returned on initial call
             if (retries <= CLI_LOGIN_RETRY_COUNT && response.status === 401) {
