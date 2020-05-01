@@ -11,13 +11,10 @@ $kabanero-color: #C43804;
     }
 }
 
-#sync-stacks-icon{
+.sync-stacks-icon{
     cursor: pointer;
     outline: none !important;
     fill: #080808;
-}
-
-.sync-stacks-button{
     float: right;
     margin-right: 15px;
     margin-bottom: 10px;
