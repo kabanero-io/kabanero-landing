@@ -12,12 +12,10 @@ $(document).ready(function () {
     fetchAnInstance(instanceName)
         .then(loadAllInfo);
 
-    $("#sync-stacks-icon").on("click", (e) => {
-        if (e.target.getAttribute("class") == "icon-active") {
-            let instanceName = getActiveInstanceName();
-            emptyTable();
-            syncStacks(instanceName);
-        }
+    $(".sync-stacks-icon").on("click", (e) => {
+        let instanceName = getActiveInstanceName();
+        emptyTable();
+        syncStacks(instanceName);
     });
 
     $("#stack-table-body").on("click", ".deactivate-stack-icon", e => {
