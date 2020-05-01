@@ -39,7 +39,11 @@ $(document).ready(function () {
     $("#stack-table-body").on("click", ".digest-notification-x", e => {
         $(e.currentTarget).closest("tr").remove();
     });
-    
+
+    $("#cli-auth-error-modal").on("click", ".close-err-modal", () => {
+        $("#cli-auth-error-modal").removeClass("is-visible");
+        $(".table-loader").hide();
+    });
 });
 
 function loadAllInfo(instanceJSON){
@@ -291,11 +295,17 @@ function handleInitialCLIAuth(instanceJSON, retries) {
                     });
             }
             else if (retries >= CLI_LOGIN_RETRY_COUNT){
+                $(".cli-auth-error-modal-msg").text("Failed to login to CLI server");
                 console.log("exceeded max retries to login to CLI");
                 return;
             }
             else if (response.status !== 200) {
+                $(".cli-auth-error-modal-msg").text(`${instanceName} CLI service is unable to connect`);
                 console.warn(`Initial auth into instance ${instanceName} returned status code: ${response.status}`);
+            }
+
+            if (retries >= CLI_LOGIN_RETRY_COUNT || response.status !== 200){
+                $("#cli-auth-error-modal").addClass("is-visible");
             }
 
             // pass on instanceJSON var to the next function in the promise chain
@@ -314,7 +324,7 @@ function loginViaCLI(instanceName) {
         .catch(error => console.error(`Error logging into instance ${instanceName} via CLI server`, error));
 }
 
-function displayDigest(instance){
+function displayDigest(instance){ 
     if(!instance.spec || !instance.spec.governancePolicy){
         console.log("Failed to get stack govern policy. instance.spec or instance.spec.governancePoliy does not exist.");
         $("#stack-govern-value-text").text("not set");
