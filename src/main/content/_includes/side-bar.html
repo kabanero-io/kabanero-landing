@@ -38,7 +38,9 @@
             <!-- Docs -->
             <li class="bx--side-nav__item {% if page.url contains '/docs' %}bx--side-nav__item--active{% endif %}">
                 <a class="bx--side-nav__link {% if page.url contains '/docs' %}bx--side-nav__link--current{% endif %}"
-                    href="/docs" aria-current="{% if page.url contains '/docs' %}page{% endif %}">
+                    href="{{site.site-custom.index.docs_url}}" 
+                    target="_blank"
+                    aria-current="{% if page.url contains '/docs' %}page{% endif %}">
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
                         <svg class="icon">
                             <use xlink:href="/img/carbon-icons/carbon-icons.svg#icon--document"></use>
@@ -49,15 +51,18 @@
             </li>
 
             <!-- Guides -->
+            {% if site.site-custom.index.guides_url %}
             <li class="bx--side-nav__item {% if page.url contains '/guides' %}bx--side-nav__item--active{% endif %}">
                 <a class="bx--side-nav__link {% if page.url contains '/guides' %}bx--side-nav__link--current{% endif %}"
-                    href="/guides" aria-current="{% if page.url contains '/guides' %}page{% endif %}">
+                    href="{{site.site-custom.index.guides_url}}" aria-current="{% if page.url contains '/guides' %}page{% endif %}"
+                    target="_blank">
                     <div class="bx--side-nav__icon bx--side-nav__icon--small">
                         <img src="/img/report-icon.svg"></img>
                     </div>
                     <span class="bx--side-nav__link-text">{{t._includes.header.guides-button}}</span>
                 </a>
             </li>
+            {% endif %}
         </ul>
     </nav>
 </aside>
