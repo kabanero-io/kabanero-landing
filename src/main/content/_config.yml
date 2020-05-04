@@ -56,7 +56,8 @@ parallel_localization: true
 site-custom:
   product_name: Kabanero
   index:
-    docs_url: /docs
+    docs_url: https://kabanero.io/docs/
+    guides_url: https://kabanero.io/guides/
     learn-more-url: https://www.kabanero.io
     dev-modal:
       codewind-vs-code-url: https://marketplace.visualstudio.com/items?itemName=IBM.codewind
