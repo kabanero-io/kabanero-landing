@@ -129,10 +129,11 @@ function fetchInstanceAdmins(adminStatus){
 }
 
 function fetchGithubUserDetails(githubUsername){
+    let instanceName = getActiveInstanceName();
     if (!githubUsername || githubUsername == null) {
         return;
     }
-    return fetch(`/api/auth/git/user/${githubUsername}`)
+    return fetch(`/api/auth/git/${instanceName}/user/${githubUsername}`)
         .then(function (response) {
             return response.json();
         })
@@ -140,6 +141,7 @@ function fetchGithubUserDetails(githubUsername){
 }
 
 function addTeamMember(target) {
+    let instanceName = getActiveInstanceName();
     let $addUserContainer = $(target).closest(".addUser-input-container");
     let teamId = $(target).closest(".bx--accordion__item").find(".admin-modal-accordion-title").attr("teamId");
     let githubUsername = $addUserContainer.find(".add-user-text-input")[0].value;
@@ -157,7 +159,7 @@ function addTeamMember(target) {
         $addUserContainer.find(".input-error-msg-icon").removeClass("hidden");
     }
 
-    return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
+    return fetch(`/api/auth/git/${instanceName}/team/${teamId}/member/${githubUsername}`, {
         method: "POST"
     })
         .then(function (response) {
@@ -184,7 +186,7 @@ function removeTeamMember(target) {
     if (typeof teamId === "undefined" || typeof githubUsername === "undefined") {
         return;
     }
-    return fetch(`/api/auth/git/team/${teamId}/member/${githubUsername}`, {
+    return fetch(`/api/auth/git/${instanceName}/team/${teamId}/member/${githubUsername}`, {
         method: "DELETE"
     })
         .then(function (response) {

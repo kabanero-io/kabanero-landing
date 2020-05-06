@@ -43,19 +43,22 @@ import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.TeamService;
 import org.eclipse.egit.github.core.service.UserService;
 
+import io.kabanero.api.GitHubClientInitilizer;
 import io.kubernetes.client.ApiException;
 import io.website.ResponseMessage;
 
 @ApplicationPath("api")
-@Path("/auth/git")
+@Path("/auth/git/{instanceName}")
 @RequestScoped
 public class GitHubEndpoints extends Application {
     private final static Logger LOGGER = Logger.getLogger(StacksEndpoints.class.getName());
+    @PathParam("instanceName")
+    String INSTANCE_NAME;
 
     @GET
     @Path("/user")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUserInfo() throws IOException {
+    public User getUserInfo(@PathParam("instanceName") String instanceName) throws IOException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
         GitHubClient client = new GitHubClient();
@@ -66,10 +69,10 @@ public class GitHubEndpoints extends Application {
     @GET
     @Path("/user/{github_username}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUserDetails(@PathParam("instanceName") String instanceName, @PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
+    public User getUserDetails(@PathParam("github_username") String githubUsername) throws IOException, ApiException, GeneralSecurityException {
         UserProfile userProfile = UserProfileManager.getUserProfile();
         String token = userProfile.getAccessToken();
-        GitHubClient client = new GitHubClient();
+        GitHubClient client = GitHubClientInitilizer.getClient(INSTANCE_NAME);
         client.setOAuth2Token(token);
         return new UserService(client).getUser(githubUsername);
     }
@@ -81,7 +84,7 @@ public class GitHubEndpoints extends Application {
         try{
             UserProfile userProfile = UserProfileManager.getUserProfile();
             String token = userProfile.getAccessToken();
-            GitHubClient client = new GitHubClient();
+            GitHubClient client = GitHubClientInitilizer.getClient(INSTANCE_NAME);
             client.setOAuth2Token(token);
             TeamService teamService = new TeamService(client);      
             teamService.addMember(teamId, githubUsername);
@@ -100,7 +103,7 @@ public class GitHubEndpoints extends Application {
         try{
             UserProfile userProfile = UserProfileManager.getUserProfile();
             String token = userProfile.getAccessToken();
-            GitHubClient client = new GitHubClient();
+            GitHubClient client = GitHubClientInitilizer.getClient(INSTANCE_NAME);
             client.setOAuth2Token(token);
             TeamService teamService = new TeamService(client);      
             teamService.removeMember(teamId, githubUsername);
