@@ -166,11 +166,15 @@ function updateStackView(instanceJSON, stackJSON) {
         versions.forEach(version => {
             let name = $("<td>").text(stack.name);
             let versionTD = $("<td>").text(version.version);
-            let images = version.images.reduce((acc, imageObj) => {
-                return acc += `${imageObj.image}<br/>`;
-            }, "");
+            let imagesTD = $("<td>").text("Not Available");
+            
+            if(version.images){
+                let images = version.images.reduce((acc, imageObj) => {
+                    return acc += `${imageObj.image}<br/>`;
+                }, "");
+                imagesTD = $("<td>").html(images);
+            }
 
-            let imagesTD = $("<td>").html(images);
             let row = $("<tr>").append([name, versionTD, imagesTD]);
             rows.push(row);
         });
