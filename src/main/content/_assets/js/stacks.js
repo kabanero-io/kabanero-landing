@@ -110,7 +110,7 @@ function updateStackView(instanceJSON, stackJSON) {
     if (typeof instanceJSON === "undefined" || typeof stackJSON === "undefined") {
         return;
     }
-
+ 
     // Stack governance policy will help us know whether to display a digest error/warning/none when the digest mismatches on the stack
     let policy = "governance policy does not exist";
 
@@ -153,7 +153,7 @@ function updateStackView(instanceJSON, stackJSON) {
 
             // The error (one long colspan td) will appear under the row it 
             // references so that is why we append this new row after the row with all the info above
-            let digestError = statusItem["digest check"] && (statusItem["digest check"] !== DIGEST_MATCHED) && (stack.status === "active") ? getDigestError(stack.name, statusItem) : "";
+            let digestError = statusItem["digest check"] && (statusItem["digest check"] !== DIGEST_MATCHED) && (statusItem.status === "active") ? getDigestError(stack.name, statusItem) : "";
             rows.push(digestError);
         });
         return rows;
