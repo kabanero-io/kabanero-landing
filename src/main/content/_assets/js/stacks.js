@@ -149,11 +149,11 @@ function updateStackView(instanceJSON, stackJSON) {
             let statusTD = $("<td>").text(statusItem.status);
             let deactivateStack = createDeactivateStackButton(stack.name, statusItem.status, statusItem.version);
             let row = $("<tr>").append([name, versionTD, statusTD, deactivateStack]);
-            rows.push(row);
+            rows.push(row); 
 
             // The error (one long colspan td) will appear under the row it 
             // references so that is why we append this new row after the row with all the info above
-            let digestError = statusItem["digest check"] && (statusItem["digest check"] !== DIGEST_MATCHED) ? getDigestError(stack.name, statusItem) : "";
+            let digestError = statusItem["digest check"] && (statusItem["digest check"] !== DIGEST_MATCHED) && (stack.status === "active") ? getDigestError(stack.name, statusItem) : "";
             rows.push(digestError);
         });
         return rows;
