@@ -137,9 +137,6 @@ instance:
   kab-instances: Kabanero Instances
   tools: Tools
   no-tools: No Tools Available
-  pipelines: Pipelines
-  pipelines-blurb: Manage your pipelines
-  no-pipelines: No pipelines configured.
   not-configured: Not Configured
   git-orgs: Git Organizations
   no-orgs: You don't have an org for your development team to use for their projects. Create one and add your team members.

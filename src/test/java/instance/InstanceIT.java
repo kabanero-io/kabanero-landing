@@ -119,22 +119,6 @@ public class InstanceIT {
     }
 
     @Test
-    public void hasCorrectPipelinesButtonText() {
-        String expectedPipeLineButtonText = "Manage Pipelines";
-        String actualPipeLineButtonText = driver.findElement(By.cssSelector("#tekton .button-text")).getText();
-
-        assertEquals("has correct Manage Pipelines button text", expectedPipeLineButtonText, actualPipeLineButtonText);
-    }
-
-    @Test
-    public void hasCorrectPipelinesLink() {
-        String expectedPipeLineButtonHref = "https://tekton-dashboard-tekton-pipelines.apps.com/";
-        String actualPipeLineButtonHref = driver.findElement(By.cssSelector("#tekton a")).getAttribute("href");
-
-        assertEquals("has correct Manage Pipelines button text", expectedPipeLineButtonHref, actualPipeLineButtonHref);
-    }
-
-    @Test
     public void hasCorrectManageApplicationsButtonText() {
         String expectedApplicationsButtonText = "Manage Applications";
         String actualApplicationsButtonText = driver.findElement(By.cssSelector("#application-navigator .button-text")).getText();

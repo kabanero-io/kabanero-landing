@@ -2,7 +2,9 @@
 
 source "https://rubygems.org"
 
-# gem "rails"
+# force lower version of sprockets because the newer 4.x one breaks jekyll-assets
+# https://github.com/envygeeks/jekyll-assets/issues/589
+gem "sprockets", "~> 3.7"
 
 gem "jekyll", "~> 3.8"
 
@@ -23,3 +25,5 @@ gem "jekyll-assets", "~> 3.0"
 gem "ol-asciidoc", :path => "./gems/ol-asciidoc"
 
 gem "jekyll-polyglot", "~> 1.3.1"
+
+gem "kramdown-parser-gfm"

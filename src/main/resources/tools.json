@@ -1,12 +1,5 @@
 [
     {
-        "name": "Tekton",
-        "route": "tekton-dashboard",
-        "description": "Manage your pipelines",
-        "actionText": "Manage Pipelines",
-        "https": true
-    },
-    {
         "name": "Application Navigator",
         "route": "kappnav-ui-service",
         "description": "Manage your applications using Application Navigator",

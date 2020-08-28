@@ -1,14 +1,5 @@
 [
     {
-        "name": "Tekton",
-        "namespace": "tekton-pipelines",
-        "route": "tekton-dashboard",
-        "location": "tekton-dashboard-tekton-pipelines.apps.com",
-        "description": "Manage your pipelines",
-        "actionText": "Manage Pipelines",
-        "https": true
-    },
-    {
         "name": "Application Navigator",
         "namespace": "kappnav",
         "route": "kappnav-ui-service",

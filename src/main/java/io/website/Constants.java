@@ -38,10 +38,6 @@ public final class Constants {
     public static final String WEBSITE = getEnv("WEBSITE", null);
 
     // Kabanero Tools
-    public static final String TEKTON_DASHBOARD_LABEL = "Tekton";
-    public static final String TEKTON_DASHBOARD_URL = getEnv("TEKTON_DASHBOARD_URL", "");
-    public static final String TEKTON_DESCRIPTION = "Manage your pipelines";
-    public static final String TEKTON_ACTION_TEXT = "Manage Pipelines";
 
     public static final String KAPPNAV_LABEL = "Application Navigator";
     public static final String KAPPNAV_URL = getEnv("KAPPNAV_URL", "");
